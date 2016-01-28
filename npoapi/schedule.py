@@ -8,7 +8,7 @@ class Schedule(NpoApi):
             'guideDay': guideDay
         }
         if channel:
-            return self.http_get("/api/schedule/" + channel, params=params)
+            return self.request("/api/schedule/" + channel, params=params)
         else:
-            return self.http_get("/api/schedule", params=params)
+            return self.request("/api/schedule", params=params)
 

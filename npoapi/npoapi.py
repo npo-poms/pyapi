@@ -157,7 +157,7 @@ class NpoApi:
 
         return None,None
 
-    def http_get(self, path, params=None, accept="application/json", data=None):
+    def request(self, path, params=None, accept="application/json", data=None):
         url, path_for_authentication = self._get_url(path, params)
         d, ct = self._get_data(data)
         req = urllib.request.Request(url, data=d)
@@ -169,23 +169,12 @@ class NpoApi:
         return urllib.request.urlopen(req).read().decode('utf-8')
 
 
-class Media(NpoApi):
-    def get(self, mid):
-        return self.http_get("/api/media/" + urllib.request.quote(mid))
-
-    def list(self):
-        return self.http_get("/api/media")
-
-    def search(self, form="{}", sort="asc", offset=0, max_=240):
-        return self.http_get("/api/media", data=form, params={"sort": sort, "offset": offset, "max": max_})
-
-
 class Pages(NpoApi):
     def get(self, url):
-        return self.http_get("/api/page/" + url)
+        return self.request("/api/page/" + url)
 
 
 class Screens(NpoApi):
     def list(self, sort="asc", offset=0, max_=240):
-        return self.http_get("/api/screens", params={"sort": sort, "offset": offset, "max": max_})
+        return self.request("/api/screens", params={"sort": sort, "offset": offset, "max": max_})
 

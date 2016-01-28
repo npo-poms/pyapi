@@ -10,9 +10,9 @@ ARGS = argparse.ArgumentParser(
     description="Get an media object from the NPO Frontend API",
     epilog=npoapi.npoapi.EPILOG
 )
-ARGS.add_argument('mid', type=str, nargs=1, help='The mid  of the object to get')
+ARGS.add_argument('profile', type=str, nargs='?', help='Profile')
 
 args = ARGS.parse_args()
 client = Media().configured_login(read_environment=True, create_config_file=True)
 
-print(client.get(args.mid[0]))
+print(client.changes(profile=args.profile))
