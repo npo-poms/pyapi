@@ -2,6 +2,10 @@
 Python scripts to talk to the NPO api
 
 #How to install
+
+You need a [python3](https://www.python.org/downloads/) installation.
+
+Then you can install the python libraries and command line scripts with the following command
 ```
 pip3 install git+git://github.com/npo-poms/pyapi.git
 ```
