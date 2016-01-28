@@ -12,6 +12,6 @@ ARGS = argparse.ArgumentParser(
 ARGS.add_argument('mid', type=str, nargs=1, help='The mid  of the object to get')
 
 args = ARGS.parse_args()
-client = Media().configured_login(read_environment=True, create_config_file=True)
+client = Media().command_line_client()
 
 print(client.get(args.mid[0]))

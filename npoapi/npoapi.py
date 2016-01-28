@@ -114,6 +114,9 @@ class NpoApi:
             self.origin = settings["origin"]
         return self
 
+    def command_line_client(self):
+        return self.configured_login(read_environment=True, create_config_file=True)
+
     def authenticate(self, uri=None, now=utils.formatdate()):
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + urllib.request.unquote(uri)
         logging.debug("message:" + message)

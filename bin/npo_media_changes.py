@@ -12,6 +12,6 @@ ARGS = argparse.ArgumentParser(
 ARGS.add_argument('profile', type=str, nargs='?', help='Profile')
 
 args = ARGS.parse_args()
-client = Media().configured_login(read_environment=True, create_config_file=True)
+client = Media().command_line_client()
 
 print(client.changes(profile=args.profile))

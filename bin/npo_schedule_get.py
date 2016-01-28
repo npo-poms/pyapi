@@ -12,7 +12,6 @@ ARGS = argparse.ArgumentParser(
 ARGS.add_argument('guideDay', type=str, nargs='?', help='The day to get')
 
 args = ARGS.parse_args()
-client = Schedule().configured_login(read_environment=True, create_config_file=True)
-
+client = Schedule().command_line_client()
 
 print(client.get(guideDay=args.guideDay))
