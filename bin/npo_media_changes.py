@@ -2,13 +2,12 @@
 """
   Simple client to get an object from the NPO Frontend API media endpoint
 """
-import npoapi.npoapi
 from npoapi import Media
 import argparse
 
 ARGS = argparse.ArgumentParser(
-    description="Get an media object from the NPO Frontend API",
-    epilog=npoapi.npoapi.EPILOG
+    description="Get changes feed from the NPO Frontend API",
+    epilog=Media.EPILOG
 )
 ARGS.add_argument('profile', type=str, nargs='?', help='Profile')
 

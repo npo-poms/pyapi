@@ -7,10 +7,7 @@ import argparse
 
 ARGS = argparse.ArgumentParser(
     description="Get schedule from the NPO Frontend API",
-    epilog="""
-DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
-Credentials are read from a config file. If such a file does not exist it will offer to create one.
-"""
+    epilog=Schedule.EPILOG
 )
 ARGS.add_argument('guideDay', type=str, nargs='?', help='The day to get')
 

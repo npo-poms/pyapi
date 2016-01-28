@@ -4,13 +4,14 @@ import urllib.request
 import logging
 import json
 
-EPILOG="""
-DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
-Credentials are read from a config file. If such a file does not exist it will offer to create one.
-"""
 
 
 class NpoApi:
+    EPILOG = """
+    DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
+    Credentials are read from a config file. If such a file does not exist it will offer to create one.
+    """
+
     def __init__(self, key=None, secret=None, url="https://api.poms.omroep.nl/v1", origin=None, email=None):
         self.key, self.secret, self.url, self.origin, self.errors \
             = key, secret, url, origin, email
