@@ -3,7 +3,11 @@ from email import utils
 import urllib.request
 import logging
 import json
-import sys
+
+EPILOG="""
+DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
+Credentials are read from a config file. If such a file does not exist it will offer to create one.
+"""
 
 
 class NpoApi:
@@ -109,7 +113,6 @@ class NpoApi:
             self.origin = settings["origin"]
         return self
 
-
     def authenticate(self, uri=None, now=utils.formatdate()):
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + urllib.request.unquote(uri)
         logging.debug("message:" + message)
@@ -125,9 +128,10 @@ class NpoApi:
         if params.items():
             sep = "?"
             for k, v in sorted(params.items()):
-                path += sep + k + "=" + urllib.request.quote(str(v))
-                path_for_authentication += "," + k + ":" + str(v)
-                sep = "&"
+                if v:
+                    path += sep + k + "=" + urllib.request.quote(str(v))
+                    path_for_authentication += "," + k + ":" + str(v)
+                    sep = "&"
 
         url = self.url + path
         return url, path_for_authentication

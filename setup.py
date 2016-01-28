@@ -5,6 +5,8 @@ setup(
     name='NPO API',
     version='0.3dev',
     packages=['npoapi', ],
-    scripts=['bin/media_get.py'],
+    scripts=['bin/npo_media_get.py',
+             'bin/npo_schedule_get.py'
+             ],
     long_description=open('README.txt').read(),
 )
