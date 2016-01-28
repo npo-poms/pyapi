@@ -173,12 +173,3 @@ class NpoApi:
         return urllib.request.urlopen(req).read().decode('utf-8')
 
 
-class Pages(NpoApi):
-    def get(self, url):
-        return self.request("/api/page/" + url)
-
-
-class Screens(NpoApi):
-    def list(self, sort="asc", offset=0, max_=240):
-        return self.request("/api/screens", params={"sort": sort, "offset": offset, "max": max_})
-
