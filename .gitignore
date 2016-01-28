@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 build/
 =======
 # Byte-compiled / optimized / DLL files
@@ -63,4 +62,4 @@ target/
 
 #Ipython Notebook
 .ipynb_checkpoints
->>>>>>> c82da14ab05d656cc216395b9263dd99030c8353
+
