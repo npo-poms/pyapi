@@ -12,7 +12,10 @@ class NpoApi:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, key=None, secret=None, env="test", origin=None, email=None, debug=False):
+    def __init__(self, key:str=None, secret:str=None, env="test", origin:str=None, email:str=None, debug=False):
+        """
+        Instantiates a client to the NPO Frontend API
+        """
         self.key, self.secret, self.origin, self.errors \
             = key, secret, origin, email
         self.env(env)
