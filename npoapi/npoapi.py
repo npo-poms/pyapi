@@ -12,9 +12,12 @@ class NpoApi:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, key=None, secret=None, url="https://api.poms.omroep.nl/v1", origin=None, email=None):
-        self.key, self.secret, self.url, self.origin, self.errors \
-            = key, secret, url, origin, email
+    def __init__(self, key=None, secret=None, env="test", origin=None, email=None, debug=False):
+        self.key, self.secret, self.origin, self.errors \
+            = key, secret, origin, email
+        self.env(env)
+        if debug:
+            self.debug()
 
     def login(self, key, secret):
         self.key = key
@@ -116,6 +119,9 @@ class NpoApi:
 
     def command_line_client(self):
         return self.configured_login(read_environment=True, create_config_file=True)
+
+    def info(self):
+        return self.key + "@" + self.url
 
     def authenticate(self, uri=None, now=utils.formatdate()):
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + urllib.request.unquote(uri)
