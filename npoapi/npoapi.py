@@ -171,6 +171,9 @@ class NpoApi:
         return None,None
 
     def request(self, path, params=None, accept="application/json", data=None):
+        return self.stream(path, params, accept, data).read().decode('utf-8')
+
+    def stream(self, path, params=None, accept="application/json", data=None):
         url, path_for_authentication = self._get_url(path, params)
         d, ct = self._get_data(data)
         req = urllib.request.Request(url, data=d)
@@ -179,6 +182,6 @@ class NpoApi:
 
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept)
-        return urllib.request.urlopen(req).read().decode('utf-8')
+        return urllib.request.urlopen(req)
 
 
