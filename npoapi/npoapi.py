@@ -12,9 +12,15 @@ class NpoApi:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, key=None, secret=None, url="https://api.poms.omroep.nl/v1", origin=None, email=None):
-        self.key, self.secret, self.url, self.origin, self.errors \
-            = key, secret, url, origin, email
+    def __init__(self, key:str=None, secret:str=None, env="test", origin:str=None, email:str=None, debug=False):
+        """
+        Instantiates a client to the NPO Frontend API
+        """
+        self.key, self.secret, self.origin, self.errors \
+            = key, secret, origin, email
+        self.env(env)
+        if debug:
+            self.debug()
 
     def login(self, key, secret):
         self.key = key
@@ -117,6 +123,9 @@ class NpoApi:
     def command_line_client(self):
         return self.configured_login(read_environment=True, create_config_file=True)
 
+    def info(self):
+        return self.key + "@" + self.url
+
     def authenticate(self, uri=None, now=utils.formatdate()):
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + urllib.request.unquote(uri)
         logging.debug("message:" + message)
@@ -162,6 +171,9 @@ class NpoApi:
         return None,None
 
     def request(self, path, params=None, accept="application/json", data=None):
+        return self.stream(path, params, accept, data).read().decode('utf-8')
+
+    def stream(self, path, params=None, accept="application/json", data=None):
         url, path_for_authentication = self._get_url(path, params)
         d, ct = self._get_data(data)
         req = urllib.request.Request(url, data=d)
@@ -170,15 +182,6 @@ class NpoApi:
 
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept)
-        return urllib.request.urlopen(req).read().decode('utf-8')
+        return urllib.request.urlopen(req)
 
-
-class Pages(NpoApi):
-    def get(self, url):
-        return self.request("/api/page/" + url)
-
-
-class Screens(NpoApi):
-    def list(self, sort="asc", offset=0, max_=240):
-        return self.request("/api/screens", params={"sort": sort, "offset": offset, "max": max_})
 

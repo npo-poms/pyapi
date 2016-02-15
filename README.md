@@ -43,3 +43,10 @@ michiel@baleno:~$ ENV=dev npo_schedule_get.py | jq
         "sortDate": 74016000000,
 ...
 ```
+
+
+# Tests
+Tests can be run like so:
+```bash
+python3 -m unittest discover -s tests  -p '*_test.py'
+```
