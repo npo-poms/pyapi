@@ -8,7 +8,8 @@ setup(
     scripts=[
         'bin/npo_media_get.py',
         'bin/npo_media_changes.py',
-        'bin/npo_schedule_get.py'
+        'bin/npo_schedule_get.py',
+        'bin/npo_check_credentials.py'
         ],
     long_description=open('README.txt').read(),
 )
