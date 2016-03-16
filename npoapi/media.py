@@ -3,8 +3,8 @@ import urllib.request
 
 
 class Media(NpoApi):
-    def get(self, mid):
-        return self.request("/api/media/" + urllib.request.quote(mid))
+    def get(self, mid, sub=""):
+        return self.request("/api/media/" + urllib.request.quote(mid) + sub)
 
     def list(self):
         return self.request("/api/media")

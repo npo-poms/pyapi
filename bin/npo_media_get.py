@@ -10,8 +10,12 @@ ARGS = argparse.ArgumentParser(
     epilog=Media.EPILOG
 )
 ARGS.add_argument('mid', type=str, nargs=1, help='The mid  of the object to get')
+ARGS.add_argument('sub', type=str, nargs='?', default="", help='[|descendants|members]')
 
 args = ARGS.parse_args()
 client = Media().command_line_client()
+sub = args.sub
+if len(sub) > 0:
+    sub = "/" + sub
 
-print(client.get(args.mid[0]))
+print(client.get(args.mid[0], sub))
