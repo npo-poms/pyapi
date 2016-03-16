@@ -3,7 +3,7 @@ from distutils.core import setup
 
 setup(
     name='NPO API',
-    version='0.3dev',
+    version='0.4dev',
     packages=['npoapi', ],
     scripts=[
         'bin/npo_media_get.py',
