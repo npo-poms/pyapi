@@ -46,21 +46,32 @@ michiel@baleno:~$ ENV=dev npo_schedule_get.py | jq
 
 More information about command line options can be gotten with  '-h'
 ```bash
-michiel@baleno:~$ npo_media_get.py -h
-usage: npo_media_get.py [-h] mid [sub]
+michiel@belono:~$ npo_media_get.py -h
+usage: npo_media_get.py [-h] [-s {asc,desc}] [-a {json,xml}]
+                        [-e {prod,test,dev}] [-d]
+                        mid [{descendants,members,episodes,related,}]
 
 Get an media object from the NPO Frontend API
 
 positional arguments:
-  mid         The mid of the object to get
-  sub         descendants|members|episodes
+  mid                   The mid of the object to get
+  {descendants,members,episodes,related,}
+                        Sub call for the mediaobject. On default the
+                        mediaobject itself is returned, but ou can also opt
+                        for one of these choices
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  -s {asc,desc}, --sort {asc,desc}
+                        sort (only relevant when using sub)
+  -a {json,xml}, --accept {json,xml}
+  -e {prod,test,dev}, --env {prod,test,dev}
+  -d, --debug
 
 DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
 Credentials are read from a config file. If such a file does not exist it will
 offer to create one.
+
 ```
 
 # Tests
