@@ -44,6 +44,24 @@ michiel@baleno:~$ ENV=dev npo_schedule_get.py | jq
 ...
 ```
 
+More information about command line options can be gotten with  '-h'
+```bash
+michiel@baleno:~$ npo_media_get.py -h
+usage: npo_media_get.py [-h] mid [sub]
+
+Get an media object from the NPO Frontend API
+
+positional arguments:
+  mid         The mid of the object to get
+  sub         descendants|members|episodes
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
+Credentials are read from a config file. If such a file does not exist it will
+offer to create one.
+```
 
 # Tests
 Tests can be run like so:
