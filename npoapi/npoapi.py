@@ -3,7 +3,7 @@ from email import utils
 import urllib.request
 import logging
 import json
-
+import sys
 
 
 class NpoApi:
@@ -170,10 +170,14 @@ class NpoApi:
 
         return None,None
 
-    def request(self, path, params=None, accept="application/json", data=None):
-        return self.stream(path, params, accept, data).read().decode('utf-8')
-
-    def stream(self, path, params=None, accept="application/json", data=None):
+    def request(self, path, params=None, accept=None, data=None):
+        s = self.stream(path, params, accept, data)
+        if s:
+            return s.read().decode('utf-8')
+        else: 
+            return ""
+        
+    def stream(self, path, params=None, accept=None, data=None):
         url, path_for_authentication = self._get_url(path, params)
         d, ct = self._get_data(data)
         req = urllib.request.Request(url, data=d)
@@ -181,7 +185,12 @@ class NpoApi:
             req.add_header("Content-Type", ct)
 
         self._authentication_headers(req, path_for_authentication)
-        req.add_header("Accept", accept)
-        return urllib.request.urlopen(req)
+        req.add_header("Accept", accept if accept else "application/json")
+        try:
+            return urllib.request.urlopen(req)
+        except urllib.error.HTTPError as e:
+            print(e.code, e.msg, file=sys.stderr)
+            return None
+
 
 

@@ -3,8 +3,8 @@ import urllib.request
 
 
 class Media(NpoApi):
-    def get(self, mid, sub=""):
-        return self.request("/api/media/" + urllib.request.quote(mid) + sub)
+    def get(self, mid, sub="", sort=None, accept=None):
+        return self.request("/api/media/" + urllib.request.quote(mid) + sub, params={"sort": sort}, accept=accept)
 
     def list(self):
         return self.request("/api/media")
