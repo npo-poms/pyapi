@@ -17,10 +17,12 @@ ARGS.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
 ARGS.add_argument('-s', "--sort", type=str, default=None, choices={"asc", "desc"},
                   help="sort (only relevant when using sub)")
 ARGS.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
+ARGS.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev"})
+ARGS.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
 
 args = ARGS.parse_args()
-client = Media().command_line_client()
+client = Media(env=args.env, debug=args.debug).command_line_client()
 print(client.get(args.mid[0], 
-                 sub="" if args.sub == "" else "/" + args.sub, 
-                 sort=args.sort, 
+                 sub="" if args.sub == "" else "/" + args.sub,
+                 sort=args.sort,
                  accept="application/" + args.accept if args.accept else None))

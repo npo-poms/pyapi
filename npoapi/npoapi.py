@@ -12,7 +12,7 @@ class NpoApi:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, key:str=None, secret:str=None, env="test", origin:str=None, email:str=None, debug=False):
+    def __init__(self, key:str=None, secret:str=None, env=None, origin:str=None, email:str=None, debug=False):
         """
         Instantiates a client to the NPO Frontend API
         """
@@ -28,9 +28,10 @@ class NpoApi:
         return self
 
     def env(self, e):
+        self._env = e
         if e == "prod":
             self.url = "https://rs.poms.omroep.nl/v1"
-        elif e == "test":
+        elif e == None or e == "test":
             self.url = "https://rs-test.poms.omroep.nl/v1"
         elif e == "dev":
             self.url = "https://rs-dev.poms.omroep.nl/v1"
@@ -48,11 +49,12 @@ class NpoApi:
     def read_environmental_variables(self):
         import os
 
-        if 'ENV' in os.environ:
-            self.env(os.environ['ENV'])
-        else:
-            self.env('test')
-
+        if self._env == None:
+            if 'ENV' in os.environ:
+                self.env(os.environ['ENV'])
+            else:
+                self.env('test')
+                
         if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'true':
             self.debug()
 
@@ -133,7 +135,7 @@ class NpoApi:
             hmac.new(self.secret.encode('utf-8'), msg=message.encode('utf-8'), digestmod=hashlib.sha256).digest())
         return "NPO " + self.key + ":" + encoded.decode('utf-8'), now
 
-    def _get_url(self, path, params=None):
+    def _get_url(self, path, params=None, env=None):
         if not params:
             params = {}
 
