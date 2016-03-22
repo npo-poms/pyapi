@@ -54,7 +54,7 @@ class NpoApi:
                 self.env(os.environ['ENV'])
             else:
                 self.env('test')
-                
+
         if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'true':
             self.debug()
 
@@ -129,13 +129,13 @@ class NpoApi:
         return self.key + "@" + self.url
 
     def authenticate(self, uri=None, now=utils.formatdate()):
-        message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + urllib.request.unquote(uri)
+        message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         logging.debug("message:" + message)
         encoded = base64.b64encode(
             hmac.new(self.secret.encode('utf-8'), msg=message.encode('utf-8'), digestmod=hashlib.sha256).digest())
         return "NPO " + self.key + ":" + encoded.decode('utf-8'), now
 
-    def _get_url(self, path, params=None, env=None):
+    def _get_url(self, path, params=None):
         if not params:
             params = {}
 
@@ -176,9 +176,9 @@ class NpoApi:
         s = self.stream(path, params, accept, data)
         if s:
             return s.read().decode('utf-8')
-        else: 
+        else:
             return ""
-        
+
     def stream(self, path, params=None, accept=None, data=None):
         url, path_for_authentication = self._get_url(path, params)
         d, ct = self._get_data(data)
