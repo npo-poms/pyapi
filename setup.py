@@ -7,6 +7,7 @@ setup(
     packages=['npoapi', ],
     scripts=[
         'bin/npo_media_get.py',
+        'bin/npo_media_search.py',
         'bin/npo_pages_get.py',
         'bin/npo_media_changes.py',
         'bin/npo_schedule_get.py',
