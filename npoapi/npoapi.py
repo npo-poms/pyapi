@@ -4,7 +4,7 @@ import urllib.request
 import logging
 import json
 import sys
-
+import os
 
 class NpoApi:
     EPILOG = """
@@ -12,15 +12,15 @@ class NpoApi:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, key:str=None, secret:str=None, env=None, origin:str=None, email:str=None, debug=False):
+    def __init__(self, key:str=None, secret:str=None, env=None, origin:str=None, email:str=None, debug=False, accept=None):
         """
         Instantiates a client to the NPO Frontend API
         """
         self.key, self.secret, self.origin, self.errors \
             = key, secret, origin, email
         self.env(env)
-        if debug:
-            self.debug()
+        self.debug(debug)
+        self.accept(accept)
 
     def login(self, key, secret):
         self.key = key
@@ -41,9 +41,17 @@ class NpoApi:
             self.url = e
         return self
 
-    def debug(self):
-        import logging
-        logging.basicConfig(level=logging.DEBUG)
+    def debug(self, arg=True):
+        if arg:
+            import logging
+            logging.basicConfig(level=logging.DEBUG)
+        return self
+
+    def accept(self, arg=None):
+        if arg:
+            self._accept = arg
+        else:
+            self._accept = "application/json"
         return self
 
     def read_environmental_variables(self):
@@ -122,8 +130,31 @@ class NpoApi:
             self.origin = settings["origin"]
         return self
 
-    def command_line_client(self):
+    def command_line_client(self, ARGS=None, description=None):
+        if ARGS:
+            self.ARGS = ARGS
+        else:
+            self.common_arguments(description=description)
         return self.configured_login(read_environment=True, create_config_file=True)
+
+    def common_arguments(self, ARGS=None, description=None):
+        import argparse
+        parent = argparse.ArgumentParser(add_help=False)
+        parent.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
+        parent.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev"})
+        parent.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
+        pargs = parent.parse_args(filter(lambda e: e in ["-d", "--debug"], sys.argv))
+        self.debug(pargs.debug)
+        if description:
+            self.ARGS=argparse.ArgumentParser(description=description, parents=[parent], epilog=NpoApi.EPILOG)
+                
+    def parse_args(self):
+        args = self.ARGS.parse_args()
+        if args.env:
+            self.env(args.env)        
+        self.debug(args.debug)
+        self.accept("application/" + args.accept if args.accept else None)
+        return args
 
     def info(self):
         return self.key + "@" + self.url
@@ -143,7 +174,7 @@ class NpoApi:
         if params.items():
             sep = "?"
             for k, v in sorted(params.items()):
-                if v:
+                if v is not None:
                     path += sep + k + "=" + urllib.request.quote(str(v))
                     path_for_authentication += "," + k + ":" + str(v)
                     sep = "&"
@@ -180,6 +211,13 @@ class NpoApi:
             return ""
 
     def stream(self, path, params=None, accept=None, data=None):
+        if data:
+            if os.path.isfile(data):
+                logging.debug("" + data + " is file, reading it in")
+                with open(data, 'r') as myfile:
+                    data = myfile.read()
+                    logging.debug("Found data " + data)
+
         url, path_for_authentication = self._get_url(path, params)
         d, ct = self._get_data(data)
         req = urllib.request.Request(url, data=d)
@@ -187,7 +225,7 @@ class NpoApi:
             req.add_header("Content-Type", ct)
 
         self._authentication_headers(req, path_for_authentication)
-        req.add_header("Accept", accept if accept else "application/json")
+        req.add_header("Accept", accept if accept else self._accept)
         try:
             return urllib.request.urlopen(req)
         except urllib.error.HTTPError as e:
