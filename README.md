@@ -10,7 +10,9 @@ Then you can install the python libraries and command line scripts with the foll
 pip3 install git+git://github.com/npo-poms/pyapi.git
 ```
 
-Then you can do:
+Check [setup.py](https://github.com/npo-poms/pyapi/blob/master/setup.py) to see which command line clients it will make available.
+
+E.g. you can do:
 ```bash
 michiel@belono:~$ npo_media_get.py POMS_NTR_388772
 No configuration file found. Now creating.
