@@ -1,11 +1,10 @@
 #!/usr/bin/env python3
 import json
 import unittest
-from npoapi.npoapi import NpoApi
-from npoapi import Media
-from npoapi import Pages
-from npoapi import Screens
 
+from npoapi import Media
+from npoapi import Screens
+from npoapi.npoapi import NpoApi
 
 ENV = "dev"
 
@@ -27,7 +26,7 @@ class MediaTests(unittest.TestCase):
     def test_get_quote(self):
         client = Media().configured_login().env(ENV).debug()
         result = json.JSONDecoder().decode(client.get(" Avro_1260864"))
-        self.assertEqual(result["mid"], " Avro_1260864")
+        self.assertEqual(result["mid"], " Avro_1260864")        
 
     def test_get_space(self):
         client = Media().configured_login().env(ENV).debug()
@@ -43,6 +42,23 @@ class MediaTests(unittest.TestCase):
         client = Media().configured_login().env(ENV)
         result = json.JSONDecoder().decode(client.search("{}"))
         ""
+
+    def test_stream(self):
+        import ijson
+        from datetime import datetime
+        client = Media(env="test").configured_login(create_config_file=True)
+        objects = ijson.items(client.changes(stream=True), 'changes.item')
+        for o in objects:
+            media = o["media"]
+            sortDate = datetime.fromtimestamp(media["sortDate"] / 1e3)
+            print(media["broadcasters"], sortDate)
+
+
+    def test(self):
+        import datetime
+        dates = [datetime.date(2016, 1, 31), datetime.date(2016, 1, 30), datetime.date(2016, 2, 1)]
+        sorted(dates)
+        print(dates)
 
 
 class ScreenTests(unittest.TestCase):
