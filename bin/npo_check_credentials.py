@@ -16,7 +16,6 @@ ARGS.add_argument('mid', type=str, nargs='?', help='mid', default="WO_NCRV_02620
 
 args = ARGS.parse_args()
 client = Media(key=args.apikey[0], secret=args.apisecret[0], origin=args.origin[0]).read_environmental_variables()
-
 mid = args.mid
 
 print(client.get(mid))

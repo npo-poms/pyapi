@@ -1,17 +1,11 @@
 #!/usr/bin/env python3
 """
-  Simple client to get an object from the NPO Frontend API media endpoint
+  Simple client to get the changes feed from the NPO Frontend API
 """
 from npoapi import Media
-import argparse
 
-ARGS = argparse.ArgumentParser(
-    description="Get changes feed from the NPO Frontend API",
-    epilog=Media.EPILOG
-)
-ARGS.add_argument('profile', type=str, nargs='?', help='Profile')
+client = Media().command_line_client("Get changes feed from the NPO Frontend API")
+client.add_argument('profile', type=str, nargs='?', help='Profile')
 
-args = ARGS.parse_args()
-client = Media().command_line_client()
-
+args = client.parse_args()
 print(client.changes(profile=args.profile))

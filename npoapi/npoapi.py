@@ -5,6 +5,7 @@ import logging
 import json
 import sys
 import os
+import argparse
 
 class NpoApi:
     EPILOG = """
@@ -12,7 +13,14 @@ class NpoApi:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, key:str=None, secret:str=None, env=None, origin:str=None, email:str=None, debug=False, accept=None):
+    def __init__(self, 
+                 key:str=None, 
+                 secret:str=None, 
+                 env:str=None, 
+                 origin:str=None, 
+                 email:str=None, 
+                 debug:bool=False, 
+                 accept:str=None):
         """
         Instantiates a client to the NPO Frontend API
         """
@@ -130,26 +138,26 @@ class NpoApi:
             self.origin = settings["origin"]
         return self
 
-    def command_line_client(self, ARGS=None, description=None):
-        if ARGS:
-            self.ARGS = ARGS
-        else:
-            self.common_arguments(description=description)
+    def command_line_client(self, description=None):
+        self.common_arguments(description=description)
         return self.configured_login(read_environment=True, create_config_file=True)
+    
+    def add_argument(self, *args, **kwargs):
+        self.argument_parser.add_argument(*args, **kwargs)
 
-    def common_arguments(self, ARGS=None, description=None):
-        import argparse
-        parent = argparse.ArgumentParser(add_help=False)
-        parent.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
-        parent.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev"})
-        parent.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
-        pargs = parent.parse_args(filter(lambda e: e in ["-d", "--debug"], sys.argv))
+    def common_arguments(self, description=None):
+        
+        parent_args = argparse.ArgumentParser(add_help=False)
+        parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
+        parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev"})
+        parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
+        pargs = parent_args.parse_args(filter(lambda e: e in ["-d", "--debug"], sys.argv))
         self.debug(pargs.debug)
-        if description:
-            self.ARGS=argparse.ArgumentParser(description=description, parents=[parent], epilog=NpoApi.EPILOG)
+        self.argument_parser = argparse.ArgumentParser(description=description, parents=[parent_args],
+                                                       epilog=NpoApi.EPILOG)
                 
     def parse_args(self):
-        args = self.ARGS.parse_args()
+        args = self.argument_parser.parse_args()
         if args.env:
             self.env(args.env)        
         self.debug(args.debug)
