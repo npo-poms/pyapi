@@ -6,13 +6,13 @@ setup(
     version='0.4dev',
     packages=['npoapi', ],
     scripts=[
-        'bin/npo_media_get.py',
-        'bin/npo_media_search.py',
-        'bin/npo_pages_get.py',
-        'bin/npo_pages_search.py',
-        'bin/npo_media_changes.py',
-        'bin/npo_schedule_get.py',
-        'bin/npo_check_credentials.py'
+        'bin/npo_media_get',
+        'bin/npo_media_search',
+        'bin/npo_pages_get',
+        'bin/npo_pages_search',
+        'bin/npo_media_changes',
+        'bin/npo_schedule_get',
+        'bin/npo_check_credentials'
         ],
     long_description=open('README.txt').read(),
 )

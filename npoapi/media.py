@@ -1,10 +1,18 @@
 from npoapi.npoapi import NpoApi
 import urllib.request
+import os
 
 
 class Media(NpoApi):
     def get(self, mid, sub="", sort=None, accept=None):
         return self.request("/api/media/" + urllib.request.quote(mid) + sub, params={"sort": sort}, accept=accept)
+
+    def multiple(self, mids, sort=None, accept=None):
+        if os.path.isfile(mids):
+            return self.request("/api/media/multiple", data=mids, params={}, accept=accept)
+        else:
+            return self.request("/api/media/multiple", params={"ids": mids}, accept=accept)
+
 
     def list(self):
         return self.request("/api/media")

@@ -10,9 +10,14 @@ client.add_argument('mid', type=str, nargs=1, help='The mid  of the object to ge
 client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
                   help="Sub call for the mediaobject. On default the mediaobject itself is returned, but you can also opt for one of these choices")
 client.add_argument('-s', "--sort", type=str, default=None, choices={"asc", "desc"},
-                  help="sort (only relevant when using sub)")
+                    help="sort (only relevant when using sub)")
+client.add_argument('-m', "--multiple", action='store_true')
 
 args = client.parse_args()
-print(client.get(args.mid[0], 
-                 sub="" if args.sub == "" else "/" + args.sub,
-                 sort=args.sort))
+
+if args.multiple:
+    print(client.multiple(args.mid[0]))
+else:
+    print(client.get(args.mid[0],
+    sub="" if args.sub == "" else "/" + args.sub,
+    sort=args.sort))
