@@ -1,11 +1,12 @@
 import hmac, hashlib, base64
 from email import utils
 import urllib.request
-import logging
 import json
 import sys
 import os
 import argparse
+import copy
+import logging
 
 class NpoApi:
     EPILOG = """
@@ -29,6 +30,7 @@ class NpoApi:
         self.env(env)
         self.debug(debug)
         self.accept(accept)
+        self.logger = logging.getLogger("NpoApi")
 
     def login(self, key, secret):
         self.key = key
@@ -51,7 +53,6 @@ class NpoApi:
 
     def debug(self, arg=True):
         if arg:
-            import logging
             logging.basicConfig(level=logging.DEBUG, format='%(levelname)s %(message)s')
         return self
 
@@ -99,11 +100,11 @@ class NpoApi:
                 config_file = os.path.normpath(file)
                 break
             else:
-                logging.debug("not a file " + file)
+                self.logger.debug("not a file " + file)
 
         settings = {}
         if config_file:
-            logging.debug("Reading " + config_file)
+            self.logger.debug("Reading " + config_file)
             with open(config_file, "r") as f:
                 for line in f:
                     l = line.strip()
@@ -118,10 +119,10 @@ class NpoApi:
             for file in config_files:
                 config_file = os.path.normpath(file)
                 if os.access(os.path.dirname(config_file), os.W_OK):
-                    logging.debug("Found " + config_file)
+                    self.logger.debug("Found " + config_file)
                     break
                 else:
-                    logging.debug("Not writeable " + config_file)
+                    self.logger.debug("Not writeable " + config_file)
                     config_file = None
 
             if config_file:
@@ -132,7 +133,17 @@ class NpoApi:
             else:
                 print("(Configuration could not be saved since no file of %s is writable" % str(config_files))
 
-        logging.debug(str(settings))
+
+
+
+        if self.logger.isEnabledFor(logging.DEBUG):
+            settings_for_log = copy.copy(settings)
+            if settings_for_log['secret']:
+                settings_for_log['secret'] = "xxx"
+            if settings_for_log['user']:
+                settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
+            self.logger.debug("settings" + str(settings_for_log))
+
         self.login(settings["apikey"], settings["secret"])
         if "origin" in settings:
             self.origin = settings["origin"]
@@ -169,7 +180,7 @@ class NpoApi:
 
     def authenticate(self, uri=None, now=utils.formatdate()):
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
-        logging.debug("message: " + message)
+        self.logger.debug("message: " + message)
         encoded = base64.b64encode(
             hmac.new(self.secret.encode('utf-8'), msg=message.encode('utf-8'), digestmod=hashlib.sha256).digest())
         return "NPO " + self.key + ":" + encoded.decode('utf-8'), now
@@ -196,7 +207,7 @@ class NpoApi:
         req.add_header("X-NPO-Date", date)
         req.add_header("Origin", self.origin)
 
-        logging.debug("url: " + str(req.get_full_url()))
+        self.logger.debug("url: " + str(req.get_full_url()))
 
     @staticmethod
     def _get_data(data=None):
@@ -221,10 +232,10 @@ class NpoApi:
     def stream(self, path, params=None, accept=None, data=None):
         if data:
             if os.path.isfile(data):
-                logging.debug("" + data + " is file, reading it in")
+                self.logger.debug("" + data + " is file, reading it in")
                 with open(data, 'r') as myfile:
                     data = myfile.read()
-                    logging.debug("Found data " + data)
+                    self.logger.debug("Found data " + data)
 
         url, path_for_authentication = self._get_url(path, params)
         d, ct = self._get_data(data)
@@ -235,7 +246,7 @@ class NpoApi:
 
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept if accept else self._accept)
-        logging.debug("headers: " + str(req.headers))
+        self.logger.debug("headers: " + str(req.headers))
         try:
             return urllib.request.urlopen(req)
         except urllib.error.HTTPError as e:
