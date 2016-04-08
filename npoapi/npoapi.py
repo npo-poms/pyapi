@@ -169,7 +169,7 @@ class NpoApi:
 
     def authenticate(self, uri=None, now=utils.formatdate()):
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
-        logging.debug("message:" + message)
+        logging.debug("message: " + message)
         encoded = base64.b64encode(
             hmac.new(self.secret.encode('utf-8'), msg=message.encode('utf-8'), digestmod=hashlib.sha256).digest())
         return "NPO " + self.key + ":" + encoded.decode('utf-8'), now
@@ -196,7 +196,7 @@ class NpoApi:
         req.add_header("X-NPO-Date", date)
         req.add_header("Origin", self.origin)
 
-        logging.debug(str(req.get_full_url()))
+        logging.debug("url: " + str(req.get_full_url()))
 
     @staticmethod
     def _get_data(data=None):
@@ -235,7 +235,7 @@ class NpoApi:
 
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept if accept else self._accept)
-        logging.debug(req.headers)
+        logging.debug("headers: " + str(req.headers))
         try:
             return urllib.request.urlopen(req)
         except urllib.error.HTTPError as e:
