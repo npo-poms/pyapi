@@ -13,13 +13,13 @@ class NpoApi:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, 
-                 key:str=None, 
-                 secret:str=None, 
-                 env:str=None, 
-                 origin:str=None, 
-                 email:str=None, 
-                 debug:bool=False, 
+    def __init__(self,
+                 key:str=None,
+                 secret:str=None,
+                 env:str=None,
+                 origin:str=None,
+                 email:str=None,
+                 debug:bool=False,
                  accept:str=None):
         """
         Instantiates a client to the NPO Frontend API
@@ -141,12 +141,12 @@ class NpoApi:
     def command_line_client(self, description=None):
         self.common_arguments(description=description)
         return self.configured_login(read_environment=True, create_config_file=True)
-    
+
     def add_argument(self, *args, **kwargs):
         self.argument_parser.add_argument(*args, **kwargs)
 
     def common_arguments(self, description=None):
-        
+
         parent_args = argparse.ArgumentParser(add_help=False)
         parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev"})
@@ -155,11 +155,11 @@ class NpoApi:
         self.debug(pargs.debug)
         self.argument_parser = argparse.ArgumentParser(description=description, parents=[parent_args],
                                                        epilog=NpoApi.EPILOG)
-                
+
     def parse_args(self):
         args = self.argument_parser.parse_args()
         if args.env:
-            self.env(args.env)        
+            self.env(args.env)
         self.debug(args.debug)
         self.accept("application/" + args.accept if args.accept else None)
         return args
@@ -229,11 +229,13 @@ class NpoApi:
         url, path_for_authentication = self._get_url(path, params)
         d, ct = self._get_data(data)
         req = urllib.request.Request(url, data=d)
+
         if ct:
             req.add_header("Content-Type", ct)
 
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept if accept else self._accept)
+        logging.debug(req.headers)
         try:
             return urllib.request.urlopen(req)
         except urllib.error.HTTPError as e:
