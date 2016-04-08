@@ -14,7 +14,7 @@ Check [setup.py](https://github.com/npo-poms/pyapi/blob/master/setup.py) to see 
 
 E.g. you can do:
 ```bash
-michiel@belono:~$ npo_media_get.py POMS_NTR_388772
+michiel@belono:~$ npo_media_get POMS_NTR_388772
 No configuration file found. Now creating.
 Your NPO api key?:
 Your NPO api secret?:
@@ -24,7 +24,7 @@ Your NPO api origin?:
 
 Or e.g.
 ```bash
-michiel@baleno:~$ ENV=dev npo_schedule_get.py | jq             
+michiel@baleno:~$ ENV=dev npo_schedule_get | jq             
 {
   "total": 850553,
   "offset": 0,
@@ -48,7 +48,7 @@ michiel@baleno:~$ ENV=dev npo_schedule_get.py | jq
 
 More information about command line options can be gotten with  '-h'
 ```bash
-michiel@belono:~$ npo_media_get.py -h
+michiel@belono:~$ npo_media_get -h
 usage: npo_media_get.py [-h] [-s {asc,desc}] [-a {json,xml}]
                         [-e {prod,test,dev}] [-d]
                         mid [{descendants,members,episodes,related,}]
