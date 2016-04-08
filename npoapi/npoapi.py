@@ -52,7 +52,7 @@ class NpoApi:
     def debug(self, arg=True):
         if arg:
             import logging
-            logging.basicConfig(level=logging.DEBUG)
+            logging.basicConfig(level=logging.DEBUG, format='%(levelname)s %(message)s')
         return self
 
     def accept(self, arg=None):
