@@ -52,8 +52,7 @@ class NpoApi:
         return self
 
     def debug(self, arg=True):
-        if arg:
-            logging.basicConfig(level=logging.DEBUG, format='%(levelname)s %(message)s')
+        logging.basicConfig(level=logging.DEBUG if arg else logging.ERROR, format='%(levelname)s %(message)s')            
         return self
 
     def accept(self, arg=None):
@@ -138,9 +137,9 @@ class NpoApi:
 
         if self.logger.isEnabledFor(logging.DEBUG):
             settings_for_log = copy.copy(settings)
-            if settings_for_log['secret']:
+            if 'secret' in settings_for_log:
                 settings_for_log['secret'] = "xxx"
-            if settings_for_log['user']:
+            if 'user' in settings_for_log:
                 settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
             self.logger.debug("settings" + str(settings_for_log))
 
@@ -223,9 +222,9 @@ class NpoApi:
         return None,None
 
     def request(self, path, params=None, accept=None, data=None):
-        s = self.stream(path, params, accept, data)
-        if s:
-            return s.read().decode('utf-8')
+        response = self.stream(path, params, accept, data)
+        if response:
+            return response.read().decode('utf-8')
         else:
             return ""
 
@@ -248,9 +247,12 @@ class NpoApi:
         req.add_header("Accept", accept if accept else self._accept)
         self.logger.debug("headers: " + str(req.headers))
         try:
-            return urllib.request.urlopen(req)
+            response = urllib.request.urlopen(req)
+            self.logger.debug("response code: " + str(response.getcode()))
+            self.logger.debug("response headers: " + str(response.getheaders()))
+            return response
         except urllib.error.HTTPError as e:
-            print(e.code, e.msg, file=sys.stderr)
+            self.logger.error("%s: %s %s", e.code, e.msg, pprint.pformat(e, depth=10))
             return None
 
 
