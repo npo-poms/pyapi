@@ -17,6 +17,8 @@ Use the 'multiple' call. This will result not one media object, but a list.
 If the argument is a comma separated list of mids or a file (e.g. ~/github/npo-poms/api/examples/media/get-multiple.json). If it is a file, the POST call is done.
 Sub calls and the sort option are ignored.
 """)
+client.add_argument('-p', "--properties", type=str, default=None,
+                    help="properties filtering")
 
 args = client.parse_args()
 
@@ -25,4 +27,5 @@ if args.multiple:
 else:
     print(client.get(args.mid[0],
     sub="" if args.sub == "" else "/" + args.sub,
+    properties=args.properties,
     sort=args.sort))
