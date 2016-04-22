@@ -28,10 +28,11 @@ class NpoApi:
         """
         self.key, self.secret, self.origin, self.errors \
             = key, secret, origin, email
+        logging.basicConfig(format='%(levelname)s %(message)s')
+        self.logger = logging.getLogger("NpoApi")
         self.env(env)
         self.debug(debug)
         self.accept(accept)
-        self.logger = logging.getLogger("NpoApi")
 
     def login(self, key, secret):
         self.key = key
@@ -53,7 +54,7 @@ class NpoApi:
         return self
 
     def debug(self, arg=True):
-        logging.basicConfig(level=logging.DEBUG if arg else logging.ERROR, format='%(levelname)s %(message)s')            
+        self.logger.setLevel(level=logging.DEBUG if arg else logging.ERROR)
         return self
 
     def accept(self, arg=None):
