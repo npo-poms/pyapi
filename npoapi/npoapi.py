@@ -7,6 +7,7 @@ import os
 import argparse
 import copy
 import logging
+import pprint
 
 class NpoApi:
     EPILOG = """
