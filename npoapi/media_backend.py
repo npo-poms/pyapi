@@ -1,18 +1,17 @@
-import shelve
-import urllib.request
-import sys
 import base64
-import xml.etree.ElementTree as ET
-from xml.sax.saxutils import escape
-from xml.dom import minidom
-import getopt
-import getpass
-import os
-import logging
-import pytz
-import subprocess
-import threading
 import codecs
+import logging
+import os
+import subprocess
+import sys
+import threading
+import urllib.request
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+from xml.sax.saxutils import escape
+
+import pytz
+
 from npoapi.base import NpoApiBase
 
 
@@ -158,7 +157,7 @@ class MediaBackend(NpoApiBase):
 
     def post_to(self, path, xml, accept="application/xml", **kwargs):
         self.creds()
-        url = append_params(self.url + path, **kwargs)
+        url = self.append_params(self.url + path, **kwargs)
         bytes = xml_to_bytes(xml)
         req = urllib.request.Request(url, data=bytes)
         logging.debug("Posting to " + url)
@@ -231,6 +230,19 @@ class MediaBackend(NpoApiBase):
 
     def info(self):
         return self.url
+
+    def append_params(self, url, include_errors=True, **kwargs):
+        if not kwargs:
+            kwargs = {}
+
+        if not "errors" in kwargs and self.email and include_errors:
+            kwargs["errors"] = self.email
+
+        sep = "?"
+        for key, value in sorted(kwargs.items()):
+            url += sep + key + "=" + str(value)
+            sep = "&"
+        return url
 
 
 lock = threading.Lock()
@@ -440,19 +452,6 @@ def parkpost(xml):
     logging.info("posting to " + url)
     req = urllib.request.Request(url, data=xml.toxml('utf-8'))
     return _post(req)
-
-
-def append_params(url, include_errors=True, **kwargs):
-    if not kwargs:
-        kwargs = {}
-    if not "errors" in kwargs and email and include_errors:
-        kwargs["errors"] = email
-
-    sep = "?"
-    for key, value in sorted(kwargs.items()):
-        url += sep + key + "=" + str(value)
-        sep = "&"
-    return url
 
 
 
