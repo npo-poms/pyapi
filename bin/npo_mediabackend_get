@@ -1,0 +1,14 @@
+#!/usr/bin/env python3
+"""
+  Simple client to get an object from the NPO Backend API media endpoint
+"""
+from npoapi import MediaBackend
+
+client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
+
+client.add_argument('mid', type=str, nargs=1, help='The mid  of the object to get')
+
+args = client.parse_args()
+
+print(client.get(args.mid[0]).toprettyxml(indent="  "))
+

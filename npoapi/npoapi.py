@@ -1,38 +1,28 @@
-import hmac, hashlib, base64
-from email import utils
-import urllib.request
+import base64
+import hashlib
+import hmac
 import json
-import sys
 import os
-import argparse
-import copy
-import logging
 import pprint
+import urllib.request
+from email import utils
 
-class NpoApi:
+from npoapi.base import NpoApiBase
+
+
+class NpoApi(NpoApiBase):
     EPILOG = """
     DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self,
-                 key:str=None,
-                 secret:str=None,
-                 env:str=None,
-                 origin:str=None,
-                 email:str=None,
-                 debug:bool=False,
-                 accept:str=None):
+    def __init__(self, key: str = None, secret: str = None, env: str = None, origin: str = None, email: str = None,
+                 debug: bool = False, accept: str = None):
         """
         Instantiates a client to the NPO Frontend API
         """
-        self.key, self.secret, self.origin, self.errors \
-            = key, secret, origin, email
-        logging.basicConfig(format='%(levelname)s %(message)s')
-        self.logger = logging.getLogger("NpoApi")
-        self.env(env)
-        self.debug(debug)
-        self.accept(accept)
+        super().__init__(env, debug, accept)
+        self.key, self.secret, self.origin = key, secret, origin
 
     def login(self, key, secret):
         self.key = key
@@ -40,7 +30,7 @@ class NpoApi:
         return self
 
     def env(self, e):
-        self._env = e
+        super().env(e)
         if e == "prod":
             self.url = "https://rs.poms.omroep.nl/v1"
         elif e == None or e == "test":
@@ -53,128 +43,29 @@ class NpoApi:
             self.url = e
         return self
 
-    def debug(self, arg=True):
-        self.logger.setLevel(level=logging.DEBUG if arg else logging.ERROR)
-        return self
-
-    def accept(self, arg=None):
-        if arg:
-            self._accept = arg
-        else:
-            self._accept = "application/json"
-        return self
-
-    def read_environmental_variables(self):
-        import os
-
-        if self._env == None:
-            if 'ENV' in os.environ:
-                self.env(os.environ['ENV'])
-            else:
-                self.env('test')
-
-        if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'true':
-            self.debug()
-
-        return self
-
-    def configured_login(self, read_environment=False, create_config_file=False):
+    def create_config(self, settings,):
         """
-        Logs in using configuration file. Considered using json (no comments-> unusable) or configparser (nearly properties, but heading are required..)
-        So, now it simply parses the file itself.
-        :param create_config_file: If there is no existing config file, offer to create one
-        :param read_environment: If this is set to true, shel environment variables like DEBUG and ENV will be recognized
         """
-        import os
-        if read_environment:
-            self.read_environmental_variables()
+        settings["apikey"] = input("Your NPO api key?: ")
+        settings["secret"] = input("Your NPO api secret?: ")
+        settings["origin"] = input("Your NPO api origin?: ")
+        return self
 
-        config_files = [
-            os.path.join(os.path.expanduser("~"), "conf", "creds.properties"),
-            os.path.join(os.path.dirname(__file__), "..", "..", "..", "creds.properties"),
-            os.path.join(os.path.dirname(__file__), "..", "..", "..", "creds.sh"),
-            os.path.join(os.path.dirname(__file__), "creds.properties")]
+    def read_settings(self, settings):
+        """
+        """
 
-        config_file = None
-        for file in config_files:
-            if os.path.isfile(file):
-                config_file = os.path.normpath(file)
-                break
-            else:
-                self.logger.debug("not a file " + file)
-
-        settings = {}
-        if config_file:
-            self.logger.debug("Reading " + config_file)
-            with open(config_file, "r") as f:
-                for line in f:
-                    l = line.strip()
-                    if l and not l.startswith("#"):
-                        key_value = l.split("=", 2)
-                        settings[key_value[0].strip().lower()] = key_value[1].strip('" \t')
-        elif create_config_file:
-            print("No configuration file found. Now creating.")
-            settings["apikey"] = input("Your NPO api key?: ")
-            settings["secret"] = input("Your NPO api secret?: ")
-            settings["origin"] = input("Your NPO api origin?: ")
-            for file in config_files:
-                config_file = os.path.normpath(file)
-                if os.access(os.path.dirname(config_file), os.W_OK):
-                    self.logger.debug("Found " + config_file)
-                    break
-                else:
-                    self.logger.debug("Not writeable " + config_file)
-                    config_file = None
-
-            if config_file:
-                with open(config_file, "w") as f:
-                    f.write("# Automaticly generated by " + __file__ + "\n")
-                    for key in settings:
-                        f.write(key + "=" + settings[key] + "\n")
-            else:
-                print("(Configuration could not be saved since no file of %s is writable" % str(config_files))
-
-
-
-
-        if self.logger.isEnabledFor(logging.DEBUG):
-            settings_for_log = copy.copy(settings)
-            if 'secret' in settings_for_log:
-                settings_for_log['secret'] = "xxx"
-            if 'user' in settings_for_log:
-                settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
-            self.logger.debug("settings" + str(settings_for_log))
 
         self.login(settings["apikey"], settings["secret"])
         if "origin" in settings:
             self.origin = settings["origin"]
-        return self
 
-    def command_line_client(self, description=None):
-        self.common_arguments(description=description)
-        return self.configured_login(read_environment=True, create_config_file=True)
-
-    def add_argument(self, *args, **kwargs):
-        self.argument_parser.add_argument(*args, **kwargs)
-
-    def common_arguments(self, description=None):
-
-        parent_args = argparse.ArgumentParser(add_help=False)
-        parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
-        parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev"})
-        parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
-        pargs = parent_args.parse_args(filter(lambda e: e in ["-d", "--debug"], sys.argv))
-        self.debug(pargs.debug)
-        self.argument_parser = argparse.ArgumentParser(description=description, parents=[parent_args],
-                                                       epilog=NpoApi.EPILOG)
-
-    def parse_args(self):
-        args = self.argument_parser.parse_args()
-        if args.env:
-            self.env(args.env)
-        self.debug(args.debug)
-        self.accept("application/" + args.accept if args.accept else None)
-        return args
+    def anonymize_for_logging(self, settings_for_log):
+        if 'secret' in settings_for_log:
+            settings_for_log['secret'] = "xxx"
+        if 'user' in settings_for_log:
+            settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
+        return
 
     def info(self):
         return self.key + "@" + self.url

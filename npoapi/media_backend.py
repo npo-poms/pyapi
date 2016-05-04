@@ -13,181 +13,227 @@ import pytz
 import subprocess
 import threading
 import codecs
+from npoapi.base import NpoApiBase
 
 
-class MediaBackend:
-    def __init__(self, key: str = None, secret: str = None, env=None, origin: str = None, email: str = None,
-                 debug=False, accept=None):
+class MediaBackend(NpoApiBase):
+    def __init__(self, env=None, email: str = None, debug=False, accept=None):
         """
-        Instantiates a client to the NPO Frontend API
+        Instantiates a client to the NPO Backend API
         """
-        self.key, self.secret, self.origin, self.errors \
-            = key, secret, origin, email
-        self.env(env)
-        self.debug(debug)
-        self.accept(accept)
-        
-    environments = {
-    'test': 'https://api-test.poms.omroep.nl/',
-    'dev': 'https://api-dev.poms.omroep.nl/',
-    'prod': 'https://api.poms.omroep.nl/',
-    'localhost': 'http://localhost:8071/rs/'
-}
+        super().__init__(env, debug, accept)
+        self.email = email
+        self.authorizationHeader = None
 
-target = None
-"""The currently configured target. I.e. the URL of the POMS rest api"""
+    def create_config(self, settings, ):
+        """
+        """
+        settings["user"] = input("Your NPO backend user?: ")
+        settings["password"] = input("Your NPO backend password?: ")
+        return self
 
-email = None
+    def read_settings(self, settings):
+        """
+        """
+        self.user = settings["user"]
+        if ":" in self.user:
+            self.password = self.user.split(":", 2)[1]
+            self.user = self.user.split(":", 2)[0]
+        return
 
-authorizationHeader = None
+    def env(self, e):
+        super().env(e)
+        if e == "prod":
+            self.url = "https://api.poms.omroep.nl/"
+        elif e == None or e == "test":
+            self.url = "https://api-test.poms.omroep.nl/"
+        elif e == "dev":
+            self.url = "https://api-dev.poms.omroep.nl/"
+        elif e == "localhost":
+            self.url = "http://localhost:8071/rs/"
+        else:
+            self.url = e
+        return self
 
-namespaces = {'update': 'urn:vpro:media:update:2009'}
-
-
-def init_db(opts=None):
-    """username/password and target can be stored in a database.
-    If no username/password is known for a target, it is asked"""
-    global _opts, target, email
-
-    _opts = [] if opts is None else opts
-    d = open_db()
-
-    if not target and 'target' in d:
-        target = d['target']
-
-    for o, a in opts:
-        if o == '-t':
-            d['target'] = init_target(a)
-        if o == '-e':
-            errors(a)
-            d['email'] = email
-        if o == '-s':
-            for k in d.keys():
-                print(k + "=" + d[k])
-
-    d.close()
+    namespaces = {'update': 'urn:vpro:media:update:2009'}
 
 
-def init_target(env=None):
-    global target
-    t = None
-    if not env and 'ENV' in os.environ:
-        t = os.environ['ENV']
+    def get(self, mid, parser=minidom):
+        """Returns XML-representation of a mediaobject"""
+        self.creds()
+        url = self.url + "media/media/" + urllib.request.quote(mid)
+        return self._get_xml(url, parser=parser)
 
-    if t:
-        target = environments[t]
-    if not target:
-        target = environments['test']
+    def _get_xml(self, url, parser=minidom):
+        try:
+            logging.info("getting " + url)
+            req = urllib.request.Request(url)
+            req.add_header("Accept", "application/xml")
+            response = urllib.request.urlopen(req)
+        except Exception as e:
+            logging.error(url + " " + str(e))
+            sys.exit(1)
+        xml_bytes = response.read()
+        xml = None
+        try:
+            if parser == ET:
+                xml = ET.fromstring(xml_bytes)
+            elif parser == minidom:
+                xml = minidom.parseString(xml_bytes)
+        except Exception:
+            logging.error("Could not parse \n" + xml_bytes.decode(sys.stdout.encoding, "surrogateescape"))
+        return xml
 
-    return target
+
+    def anonymize_for_logging(self, settings_for_log):
+        if 'password' in settings_for_log:
+            settings_for_log['password'] = "xxx"
+        return
+
+    def login(self):
+        self.logger.debug("Logging in " + self.user)
+        password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+        username = self.user
+        password = self.password
+        password_manager.add_password(None, self.url, username, password)
+        urllib.request.install_opener(urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager)))
+        base64string = base64.encodebytes(('%s:%s' % (username, password)).encode()).decode()[:-1]
+        self.authorizationHeader = "Basic %s" % base64string
+        return self
+
+    def errors(self, mail=None):
+        if self.email != mail:
+            if mail:
+                self.email= mail
+                self.logger.debug("Emailing to " + self.email)
+            else:
+                self.email = None
+                self.logger.debug("Not emailing")
+
+    def creds(self):
+        if self.authorizationHeader:
+            self.logger.debug("Already authorized")
+            return
+        self.login()
 
 
-def init_logging():
-    if 'DEBUG' in os.environ and os.environ['DEBUG']:
-        logging.basicConfig(stream=sys.stderr, level=logging.DEBUG, format="%(asctime)-15s:%(levelname).3s:%(message)s")
-    else:
-        logging.basicConfig(stream=sys.stderr, level=logging.INFO, format="%(asctime)-15s:%(levelname).3s:%(message)s")
+    def post_location(self, mid, programUrl, duration=None, bitrate=None, height=None, width=None, aspectRatio=None, format=None,
+                      publishStart=None, publishStop=None):
+        if os.path.isfile(programUrl):
+            self.logger.debug(programUrl + " seems to be a local file")
+            with codecs.open(programUrl, "r", "utf-8") as myfile:
+                xml = myfile.read()
+        else:
+            if not format:
+                format = guess_format(programUrl)
+
+            xml = ("<location xmlns='urn:vpro:media:update:2009'" + date_attr("publishStart", publishStart) + date_attr(
+                "publishStop", publishStop) + ">" +
+                   "  <programUrl>" + programUrl + "</programUrl>" +
+                   "   <avAttributes>")
+            if bitrate:
+                xml += "<bitrate>" + str(bitrate) + "</bitrate>";
+            if format:
+                xml += "<avFileFormat>" + format + "</avFileFormat>";
+
+            if height or width or aspectRatio:
+                xml += "<videoAttributes "
+                if height:
+                    xml += "height='" + height + "' "
+                if width:
+                    xml += "width='" + width + "' "
+                xml += ">"
+                if aspectRatio:
+                    xml += "<aspectRatio>" + aspectRatio + "</aspectRatio>"
+                xml += "</videoAttributes>"
+
+            xml += "</avAttributes>"
+            if duration:
+                xml += "<duration>" + duration + "</duration>"
+
+            xml += "</location >"
+
+        self.logger.debug("posting " + xml)
+        return self.post_to("media/media/" + mid + "/location", xml, accept="text/plain")
+
+    def post_to(self, path, xml, accept="application/xml", **kwargs):
+        self.creds()
+        url = append_params(self.url + path, **kwargs)
+        bytes = xml_to_bytes(xml)
+        req = urllib.request.Request(url, data=bytes)
+        logging.debug("Posting to " + url)
+        return self._post(req, accept=accept)
 
 
-def opts(args="t:e:srh", usage=None, minargs=0, login=True, env=None, init_log=True):
-    """Initialization with opts. Some argument handling"""
-    if init_log:
-        init_logging()
-    try:
-        _opts, args = getopt.getopt(sys.argv[1:], args)
-    except getopt.GetoptError as err:
-        print(err)
-        if usage is not None:
-            usage()
-        generic_usage()
-        sys.exit(2)
+    def _post(self, req, accept="application/xml"):
+        req.add_header("Authorization", self.authorizationHeader);
+        req.add_header("Content-Type", "application/xml")
+        req.add_header("Accept", accept)
+        try:
+            response = urllib.request.urlopen(req)
+            return response.read().decode()
+        except urllib.request.HTTPError as e:
+            logging.error(e.read().decode())
+            return None
 
-    for o, a in _opts:
-        if o == '-h':
-            if usage is not None:
-                usage()
-            generic_usage()
-            sys.exit(0)
-        del sys.argv[0]
 
-    if len(args) < minargs:
-        if usage is not None:
-            usage()
-        generic_usage()
-        sys.exit(1)
+    def add_image(self, mid, image, image_type="PICTURE", title=None, description=None):
+        if os.path.isfile(image):
+            with open(image, "rb") as image_file:
+                if not title:
+                    title = "Image for %s" % escape(mid)
+                if not description:
+                    description_xml = ""
+                else:
+                    description_xml = "<description>%s</description>" % escape(description)
 
-    init_target(env)
-    init_db(_opts)
+                encoded_string = base64.b64encode(image_file.read()).decode("ascii")
+                xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+    <image xmlns="urn:vpro:media:update:2009" type="%s">
+      <title>%s</title>
+      %s
+      <imageData>
+        <data>%s</data>
+      </imageData>
+    </image>
+    """ % (image_type, escape(title), description_xml, encoded_string)
+                self.logger.debug(xml)
+                return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
-    if login:
-        creds(opts=_opts)
-    return _opts, args
+
+    def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
+        xml = self.get_locations(mid).toprettyxml()
+        if location.isdigit():
+            args = {"id": location}
+            if programUrl:
+                args["programUrl"] = programUrl
+        else:
+            args = {"programUrl": urllib.request.unquote(location)}
+
+        if publishStop:
+            args['publishStop'] = date_attr_value(publishStop)
+        if publishStart:
+            args['publishStart'] = date_attr_value(publishStart)
+
+        logging.debug("Found " + xml)
+        location_xml = xslt(xml, get_xslt("location_set_publishStop.xslt"), args)
+        if location_xml != "":
+            logging.debug("posting " + location_xml)
+            return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
+        else:
+            logging.debug("no location " + location)
+            return "No location " + location
+
+    def get_locations(self, mid):
+        self.creds()
+        url = self.url + "media/media/" + urllib.request.quote(mid) + "/locations"
+        return self._get_xml(url)
+
+    def info(self):
+        return self.url
 
 
 lock = threading.Lock()
-
-
-def creds(pref="", opts=None):
-    global authorizationHeader
-    if authorizationHeader:
-        # logging.debug("Already authorized")
-        return
-
-    with lock:
-        d = open_db()
-        if not target:
-            raise Exception("No target defined")
-
-        username_key = pref + target + ':username'
-        password_key = pref + target + ':password'
-
-        if not username_key in d or (opts and ('-r', '') in opts):
-            d[username_key] = input('Username for ' + target + ': ')
-            d[password_key] = getpass.getpass()
-            print("Username/password stored in file creds.db. Use -r to set it.")
-
-        login(d[username_key], d[password_key])
-        errors(d.get("email"))
-
-        d.close()
-
-
-def login(username, password):
-    logging.debug("Logging in " + username)
-    password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-    password_manager.add_password(None, target, username, password)
-    urllib.request.install_opener(urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager)))
-
-    global authorizationHeader
-    base64string = base64.encodebytes(('%s:%s' % (username, password)).encode()).decode()[:-1]
-    authorizationHeader = "Basic %s" % base64string
-
-
-def errors(mail=None):
-    global email
-    if email != mail:
-        if mail:
-            email = mail
-            logging.debug("Emailing to " + email)
-        else:
-            email = None
-            logging.debug("Not emailing")
-
-
-def open_db():
-    return shelve.open(os.path.join(get_poms_dir(), "creds"))
-
-
-def generic_usage():
-    print(
-        "-s       Show stored credentials (in creds.db). If none stored, username/password will be asked interactively.")
-    print("-t <url> Change target. 'test', 'dev' and 'prod' are " +
-          "possible abbreviations for https://api[-test|-dev].poms.omroep.nl/media/. " +
-          "Defaults to previously used version (stored in creds.db) or the environment variable 'ENV")
-    print("-r       Reset and ask username/password again")
-    print("-e <email> Set email address to mail errors to. " +
-          "Defaults to previously used value (stored in creds.db).")
-
 
 # private method to implement both members and episodes calls.
 def _members_or_episodes(mid, what):
@@ -237,68 +283,8 @@ def add_member(group_mid, member_mid, position=0, highlighted="false"):
     response = urllib.request.urlopen(urllib.request.Post(url, data=xml))
 
 
-def post_location(mid, programUrl, duration=None, bitrate=None, height=None, width=None, aspectRatio=None, format=None,
-                  publishStart=None, publishStop=None):
-    if os.path.isfile(programUrl):
-        logging.debug(programUrl + " seems to be a local file")
-        with codecs.open(programUrl, "r", "utf-8") as myfile:
-            xml = myfile.read()
-    else:
-        if not format:
-            format = guess_format(programUrl)
-
-        xml = ("<location xmlns='urn:vpro:media:update:2009'" + date_attr("publishStart", publishStart) + date_attr(
-            "publishStop", publishStop) + ">" +
-               "  <programUrl>" + programUrl + "</programUrl>" +
-               "   <avAttributes>")
-        if bitrate:
-            xml += "<bitrate>" + str(bitrate) + "</bitrate>";
-        if format:
-            xml += "<avFileFormat>" + format + "</avFileFormat>";
-
-        if height or width or aspectRatio:
-            xml += "<videoAttributes "
-            if height:
-                xml += "height='" + height + "' "
-            if width:
-                xml += "width='" + width + "' "
-            xml += ">"
-            if aspectRatio:
-                xml += "<aspectRatio>" + aspectRatio + "</aspectRatio>"
-            xml += "</videoAttributes>"
-
-        xml += "</avAttributes>"
-        if duration:
-            xml += "<duration>" + duration + "</duration>"
-
-        xml += "</location >"
-
-    logging.debug("posting " + xml)
-    return post_to("media/media/" + mid + "/location", xml, accept="text/plain")
 
 
-def set_location(mid, location, publishStop=None, publishStart=None, programUrl=None):
-    xml = get_locations(mid).toprettyxml()
-    if location.isdigit():
-        args = {"id": location}
-        if programUrl:
-            args["programUrl"] = programUrl
-    else:
-        args = {"programUrl": urllib.parse.unquote(location)}
-
-    if publishStop:
-        args['publishStop'] = date_attr_value(publishStop)
-    if publishStart:
-        args['publishStart'] = date_attr_value(publishStart)
-
-    logging.debug("Found " + xml)
-    location_xml = xslt(xml, get_xslt("location_set_publishStop.xslt"), args)
-    if location_xml != "":
-        logging.debug("posting " + location_xml)
-        return post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
-    else:
-        logging.debug("no location " + location)
-        return "No location " + location
 
 
 def get_xslt(name):
@@ -340,19 +326,6 @@ def parkpost_str(xml):
     return parkpost(minidom.parseString(xml).documentElement)
 
 
-def get(mid, parser=minidom):
-    """Returns XML-representation of a mediaobject"""
-    creds()
-    url = target + "media/media/" + urllib.parse.quote(mid)
-    return _get_xml(url, parser=parser)
-
-
-def get_locations(mid):
-    creds()
-    url = target + "media/media/" + urllib.parse.quote(mid) + "/locations"
-    return _get_xml(url)
-
-
 def xslt(xml, xslt_file, params=None):
     if not params:
         params = {}
@@ -367,26 +340,6 @@ def xslt(xml, xslt_file, params=None):
     return str(output[0].decode())
 
 
-def _get_xml(url, parser=minidom):
-    try:
-        logging.info("getting " + url)
-        req = urllib.request.Request(url)
-        req.add_header("Accept", "application/xml")
-        response = urllib.request.urlopen(req)
-    except Exception as e:
-        logging.error(url + " " + str(e))
-        sys.exit(1)
-    xml_bytes = response.read()
-    xml = None
-    try:
-        if parser == ET:
-            xml = ET.fromstring(xml_bytes)
-        elif parser == minidom:
-            xml = minidom.parseString(xml_bytes)
-    except Exception:
-        logging.error("Could not parse \n" + xml_bytes.decode(sys.stdout.encoding, "surrogateescape"))
-    return xml
-
 
 def xml_add_genre(xml, genre_id):
     """Adds a genre to the minidom object"""
@@ -400,28 +353,6 @@ def xml_add_duration(xml, duration):
     _append_element(xml, duration_el)
 
 
-def add_image(mid, image, image_type="PICTURE", title=None, description=None):
-    if os.path.isfile(image):
-        with open(image, "rb") as image_file:
-            if not title:
-                title = "Image for %s" % escape(mid)
-            if not description:
-                description_xml = ""
-            else:
-                description_xml = "<description>%s</description>" % escape(description)
-
-            encoded_string = base64.b64encode(image_file.read()).decode("ascii")
-            xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<image xmlns="urn:vpro:media:update:2009" type="%s">
-  <title>%s</title>
-  %s
-  <imageData>
-    <data>%s</data>
-  </imageData>
-</image>
-""" % (image_type, escape(title), description_xml, encoded_string)
-            logging.debug(xml)
-            return post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
 
 def _append_element(x, element, path=(
@@ -523,26 +454,6 @@ def append_params(url, include_errors=True, **kwargs):
         sep = "&"
     return url
 
-
-def post_to(path, xml, accept="application/xml", **kwargs):
-    creds()
-    url = append_params(target + path, **kwargs)
-    bytes = xml_to_bytes(xml)
-    req = urllib.request.Request(url, data=bytes)
-    logging.debug("Posting to " + url)
-    return _post(req, accept=accept)
-
-
-def _post(req, accept="application/xml"):
-    req.add_header("Authorization", authorizationHeader);
-    req.add_header("Content-Type", "application/xml")
-    req.add_header("Accept", accept)
-    try:
-        response = urllib.request.urlopen(req)
-        return response.read().decode()
-    except urllib.request.HTTPError as e:
-        logging.error(e.read().decode())
-        return None
 
 
 import unittest

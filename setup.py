@@ -12,7 +12,8 @@ setup(
         'bin/npo_pages_search',
         'bin/npo_media_changes',
         'bin/npo_schedule_get',
-        'bin/npo_check_credentials'
+        'bin/npo_check_credentials',
+        'bin/npo_mediabackend_get'
         ],
     long_description=open('README.txt').read(),
 )
