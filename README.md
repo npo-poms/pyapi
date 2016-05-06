@@ -1,5 +1,5 @@
 # pyapi
-Python scripts to talk to the NPO api
+Python scripts to talk to the NPO api's. Currently classes are available for the frontend api (Media, Pages, Schedule, and Screens) and for the media backend api (MediaBackend).
 
 #How to install
 
@@ -10,7 +10,7 @@ Then you can install the python libraries and command line scripts with the foll
 pip3 install git+https://github.com/npo-poms/pyapi.git
 ```
 
-Check [setup.py](https://github.com/npo-poms/pyapi/blob/master/setup.py) to see which command line clients it will make available.
+Check [setup.py](https://github.com/npo-poms/pyapi/blob/master/setup.py) to see which command line clients it will make available. These also serve as examples on how to use the npoapi module.
 
 E.g. you can do:
 ```bash
@@ -81,3 +81,5 @@ Tests can be run like so:
 ```bash
 python3 -m unittest discover -s tests  -p '*_test.py'
 ```
+
+
