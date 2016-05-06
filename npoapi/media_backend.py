@@ -64,6 +64,46 @@ class MediaBackend(NpoApiBase):
         url = self.url + "media/media/" + urllib.request.quote(mid)
         return self._get_xml(url, parser=parser)
 
+
+    def members(self, mid, **kwargs):
+        """return a list of all members of a group. As XML objects, wrapped
+        in 'items', so you can see the position"""
+        return self._members_or_episodes(mid, "members", **kwargs)
+
+
+    def episodes(self, mid, **kwargs):
+        """return a list of all episodes of a group. As XML objects, wrapped
+        in 'items', so you can see the position"""
+        return self._members_or_episodes(mid, "episodes", **kwargs)
+
+    def delete_member(self, mid, owner_mid):
+        self.creds()
+        path = "media/media/" + urllib.request.quote(mid) + "/memberOf/" + urllib.request.quote(owner_mid)
+        self.delete_to(path)
+
+
+    # private method to implement both members and episodes calls.
+    def _members_or_episodes(self, mid, what, max=None, batch=20):
+        self.creds()
+        self.logger.info("loading members of " + mid)
+        result = []
+        offset = 0
+        b = min(batch, max) if max else batch
+        while True:
+            url = (self.url + 'media/group/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
+                   "&offset=" + str(offset))
+            xml = self._get_xml(url)
+            items = xml.getElementsByTagName('item')
+            result.extend(items)
+            if len(items) == 0 or (max and len(result) >= max):
+                break
+            offset += b
+            # print xml.childNodes[0].toxml('utf-8')
+            total = xml.childNodes[0].getAttribute("totalCount")
+            self.logger.info(str(len(result)) + "/" + total + (("/" + str(max)) if max else ""))
+
+        return result
+
     def _get_xml(self, url, parser=minidom):
         try:
             logging.info("getting " + url)
@@ -161,11 +201,17 @@ class MediaBackend(NpoApiBase):
         url = self.append_params(self.url + path, **kwargs)
         bytes = xml_to_bytes(xml)
         req = urllib.request.Request(url, data=bytes)
-        logging.debug("Posting to " + url)
-        return self._post(req, accept=accept)
+        self.logger.debug("Posting to " + url)
+        return self._request(req, accept=accept)
 
+    def delete_to(self, path, **kwargs):
+        self.creds()
+        url = self.append_params(self.url + path, **kwargs)
+        req = urllib.request.Request(url, method="DELETE")
+        self.logger.debug("Deleting " + url)
+        return self._request(req)
 
-    def _post(self, req, accept="application/xml"):
+    def _request(self, req, accept="application/xml"):
         req.add_header("Authorization", self.authorizationHeader);
         req.add_header("Content-Type", "application/xml")
         req.add_header("Accept", accept)
@@ -175,6 +221,7 @@ class MediaBackend(NpoApiBase):
         except urllib.request.HTTPError as e:
             logging.error(e.read().decode())
             return None
+
 
 
     def add_image(self, mid, image, image_type="PICTURE", title=None, description=None):
@@ -248,39 +295,8 @@ class MediaBackend(NpoApiBase):
 
 lock = threading.Lock()
 
-# private method to implement both members and episodes calls.
-def _members_or_episodes(mid, what):
-    creds()
-    logging.info("loading members of " + mid)
-    result = []
-    offset = 0
-    batch = 20
-    while True:
-        url = (target + 'media/group/' + urllib.parse.quote(mid, '') + "/" + what + "?max=" + str(batch) +
-               "&offset=" + str(offset))
-        xml = _get_xml(url)
-        items = xml.getElementsByTagName('item')
-        result.extend(items)
-        if len(items) == 0:
-            break
-        offset += batch
-        # print xml.childNodes[0].toxml('utf-8')
-        total = xml.childNodes[0].getAttribute("totalCount")
-        logging.info(str(len(result)) + "/" + total)
-
-    return result
 
 
-def members(mid):
-    """return a list of all members of a group. As XML objects, wrapped
-    in 'items', so you can see the position"""
-    return _members_or_episodes(mid, "members")
-
-
-def episodes(mid):
-    """return a list of all episodes of a group. As XML objects, wrapped
-    in 'items', so you can see the position"""
-    return _members_or_episodes(mid, "episodes")
 
 
 def get_memberOf_xml(group_mid, position=0, highlighted="false"):
