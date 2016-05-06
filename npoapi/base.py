@@ -33,7 +33,7 @@ class NpoApiBase:
         return self
 
     def debug(self, arg=True):
-        self.logger.setLevel(level=logging.DEBUG if arg else logging.ERROR)
+        self.logger.setLevel(level=logging.DEBUG if arg else logging.INFO)
         return self
 
     def accept(self, arg=None):
