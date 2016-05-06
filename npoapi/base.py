@@ -86,8 +86,12 @@ class NpoApiBase:
                     if l and not l.startswith("#"):
                         key_value = l.split("=", 2)
                         settings[key_value[0].strip().lower()] = key_value[1].strip('" \t')
-        elif create_config_file:
+
+        if not config_file and create_config_file:
             print("No configuration file found. Now creating.")
+            self.force_create_config = True
+
+        if self.force_create_config:
             self.create_config(settings)
             config_file = None
             for file in config_files:
@@ -111,6 +115,8 @@ class NpoApiBase:
             settings_for_log = copy.copy(settings)
             self.anonymize_for_logging(settings_for_log)
             self.logger.debug("settings" + str(settings_for_log))
+
+        self.logger.debug("Reading settings")
         self.read_settings(settings)
 
         return self
@@ -133,9 +139,9 @@ class NpoApiBase:
         """
         return
 
-    def command_line_client(self, description=None):
+    def command_line_client(self, description=None, read_environment=True, create_config_file=True):
         self.common_arguments(description=description)
-        return self.configured_login(read_environment=True, create_config_file=True)
+        return self.configured_login(read_environment=read_environment, create_config_file=create_config_file)
 
     def add_argument(self, *args, **kwargs):
         self.argument_parser.add_argument(*args, **kwargs)
@@ -144,10 +150,13 @@ class NpoApiBase:
         parent_args = argparse.ArgumentParser(add_help=False)
         parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev"})
+        parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
-        pargs = parent_args.parse_args(filter(lambda e: e in ["-d", "--debug"], sys.argv))
+        pargs = parent_args.parse_args(filter(lambda e: e in ["-d", "--debug", "-c", "--createconfig"], sys.argv))
         self.debug(pargs.debug)
-        self.argument_parser = argparse.ArgumentParser(description=description, parents=[parent_args],
+        self.force_create_config = pargs.createconfig
+        self.argument_parser = argparse.ArgumentParser(description=description,
+                                                       parents=[parent_args],
                                                        epilog=NpoApiBase.EPILOG)
 
     def parse_args(self):

@@ -27,8 +27,9 @@ class MediaBackend(NpoApiBase):
     def create_config(self, settings, ):
         """
         """
-        settings["user"] = input("Your NPO backend user?: ")
-        settings["password"] = input("Your NPO backend password?: ")
+        user = input("Your NPO backend user?: ")
+        password = input("Your NPO backend password?: ")
+        settings["user"] = user + ":" + password
         return self
 
     def read_settings(self, settings):

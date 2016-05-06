@@ -7,12 +7,11 @@ class Media(NpoApi):
     def get(self, mid, sub="", sort=None, accept=None, properties=None):
         return self.request("/api/media/" + urllib.request.quote(mid) + sub, params={"sort": sort, "properties": properties}, accept=accept)
 
-    def multiple(self, mids, sort=None, accept=None):
+    def multiple(self, mids, accept=None):
         if os.path.isfile(mids):
             return self.request("/api/media/multiple", data=mids, params={}, accept=accept)
         else:
             return self.request("/api/media/multiple", params={"ids": mids}, accept=accept)
-
 
     def list(self):
         return self.request("/api/media")
