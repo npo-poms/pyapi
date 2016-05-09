@@ -156,7 +156,6 @@ class MediaBackend(NpoApiBase):
             return
         self.login()
 
-
     def post_location(self, mid, programUrl, duration=None, bitrate=None, height=None, width=None, aspectRatio=None, format=None,
                       publishStart=None, publishStop=None):
         if os.path.isfile(programUrl):
@@ -167,7 +166,7 @@ class MediaBackend(NpoApiBase):
             if not format:
                 format = guess_format(programUrl)
 
-            xml = ("<location xmlns='urn:vpro:media:update:2009'" + date_attr("publishStart", publishStart) + date_attr(
+            xml = ("<location xmlns='urn:vpro:media:update:2009'" + self.date_attr("publishStart", publishStart) + self.date_attr(
                 "publishStop", publishStop) + ">" +
                    "  <programUrl>" + programUrl + "</programUrl>" +
                    "   <avAttributes>")
@@ -196,6 +195,22 @@ class MediaBackend(NpoApiBase):
         self.logger.debug("posting " + xml)
         return self.post_to("media/media/" + mid + "/location", xml, accept="text/plain")
 
+    def date_attr(self, name, datetime):
+        if datetime:
+            aware = datetime.replace(tzinfo=pytz.UTC)
+            return " " + name + "='" + self.date_attr_value(datetime) + "'"
+        else:
+            return ""
+
+    def date_attr_value(self, datetime_att):
+        if datetime_att:
+            if type(datetime_att) == str:
+                return datetime_att
+            else:
+                aware = datetime_att.replace(tzinfo=pytz.UTC)
+                return aware.strftime("%Y-%m-%dT%H:%M:%SZ")
+        return None
+
     def post_to(self, path, xml, accept="application/xml", **kwargs):
         self.creds()
         url = self.append_params(self.url + path, **kwargs)
@@ -212,7 +227,7 @@ class MediaBackend(NpoApiBase):
         return self._request(req)
 
     def _request(self, req, accept="application/xml"):
-        req.add_header("Authorization", self.authorizationHeader);
+        req.add_header("Authorization", self.authorizationHeader)
         req.add_header("Content-Type", "application/xml")
         req.add_header("Accept", accept)
         try:
@@ -221,8 +236,6 @@ class MediaBackend(NpoApiBase):
         except urllib.request.HTTPError as e:
             logging.error(e.read().decode())
             return None
-
-
 
     def add_image(self, mid, image, image_type="PICTURE", title=None, description=None):
         if os.path.isfile(image):
@@ -247,7 +260,6 @@ class MediaBackend(NpoApiBase):
                 self.logger.debug(xml)
                 return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
-
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
         xml = self.get_locations(mid).toprettyxml()
         if location.isdigit():
@@ -258,18 +270,24 @@ class MediaBackend(NpoApiBase):
             args = {"programUrl": urllib.request.unquote(location)}
 
         if publishStop:
-            args['publishStop'] = date_attr_value(publishStop)
+            args['publishStop'] = self.date_attr_value(publishStop)
         if publishStart:
-            args['publishStart'] = date_attr_value(publishStart)
+            args['publishStart'] = self.date_attr_value(publishStart)
 
-        logging.debug("Found " + xml)
-        location_xml = xslt(xml, get_xslt("location_set_publishStop.xslt"), args)
+        self.logger.debug("Found " + xml)
+        location_xml = xslt(xml, self.get_xslt("location_set_publishStop.xslt"), args)
         if location_xml != "":
-            logging.debug("posting " + location_xml)
+            self.logger.debug("posting " + location_xml)
             return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
         else:
-            logging.debug("no location " + location)
+            self.logger.debug("no location " + location)
             return "No location " + location
+
+    def get_xslt(self, name):
+        return os.path.normpath(os.path.join(self.get_poms_dir(), "..", "xslt", name))
+
+    def get_poms_dir(self):
+        return os.path.dirname(__file__)
 
     def get_locations(self, mid):
         self.creds()
@@ -316,14 +334,6 @@ def add_member(group_mid, member_mid, position=0, highlighted="false"):
 
 
 
-def get_xslt(name):
-    return os.path.normpath(os.path.join(get_poms_dir(), "..", "xslt", name))
-
-
-def get_poms_dir():
-    return os.path.dirname(__file__)
-
-
 def guess_format(url):
     if url.endswith(".mp4"):
         return "MP4"
@@ -332,23 +342,6 @@ def guess_format(url):
     else:
         return "UNKNOWN"
 
-
-def date_attr(name, datetime):
-    if datetime:
-        aware = datetime.replace(tzinfo=pytz.UTC)
-        return " " + name + "='" + date_attr_value(datetime) + "'"
-    else:
-        return ""
-
-
-def date_attr_value(datetime_att):
-    if datetime_att:
-        if type(datetime_att) == str:
-            return datetime_att
-        else:
-            aware = datetime_att.replace(tzinfo=pytz.UTC)
-            return aware.strftime("%Y-%m-%dT%H:%M:%SZ")
-    return None
 
 
 def parkpost_str(xml):

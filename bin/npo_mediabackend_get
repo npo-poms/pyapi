@@ -10,5 +10,7 @@ client.add_argument('mid', type=str, nargs=1, help='The mid  of the object to ge
 
 args = client.parse_args()
 
+print(client.get_poms_dir())
+exit(1)
 print(client.get(args.mid[0]).toprettyxml(indent="  "))
 
