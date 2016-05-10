@@ -73,8 +73,8 @@ class ScreenTests(unittest.TestCase):
 
 
 class MediaBackendTest(unittest.TestCase):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.client = MediaBackend().configured_login().env(ENV)
 
     def test_xml_to_bytes_string(self):
@@ -90,12 +90,21 @@ class MediaBackendTest(unittest.TestCase):
     def test_append_params(self):
         self.assertEquals("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", a="a", x="y"))
 
-    def test_append_element(self):
-        self.assertEquals("<a><b>B</b><x>x</x><y>Y</y></a>",
+    def test_append_element_str(self):
+        self.assertEquals(
                           ET.tostring(
                               self.client._append_element("<a><b>B</b><y>Y</y></a>", "<x>x</x>", ("b", "x", "y", "z"))).decode(
-                              "utf-8"))
-        self.assertEquals("<a><b>B</b><x>x</x><y>Y</y></a>",
-                          ET.tostring(
+                              "utf-8"),
+            "<a><b>B</b><x>x</x><y>Y</y></a>"
+        )
+
+    def test_append_element_et(self):
+        self.assertEquals(
+                     ET.tostring(
                               self.client._append_element(ET.fromstring("<a><b>B</b><y>Y</y></a>"), ET.fromstring("<x>x</x>"),
-                                              ("b", "x", "y", "z"))).decode("utf-8"))
+                                              ("b", "x", "y", "z"))).decode("utf-8"),
+                     "<a><b>B</b><x>x</x><y>Y</y></a>")
+        
+    def test_get_xslt(self):
+        self.assertRegex(self.client.get_xslt("location_set_publishStop.xslt"), 
+                         ".*/npoapi/xslt/location_set_publishStop.xslt")

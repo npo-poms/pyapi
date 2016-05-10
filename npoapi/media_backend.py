@@ -35,10 +35,11 @@ class MediaBackend(NpoApiBase):
     def read_settings(self, settings):
         """
         """
-        self.user = settings["user"]
-        if ":" in self.user:
-            self.password = self.user.split(":", 2)[1]
-            self.user = self.user.split(":", 2)[0]
+        if "user" in settings:
+            self.user = settings["user"]
+            if ":" in self.user:
+                self.password = self.user.split(":", 2)[1]
+                self.user = self.user.split(":", 2)[0]
         return
 
     def env(self, e):
@@ -284,7 +285,7 @@ class MediaBackend(NpoApiBase):
             return "No location " + location
 
     def get_xslt(self, name):
-        return os.path.normpath(os.path.join(self.get_poms_dir(), "..", "xslt", name))
+        return os.path.normpath(os.path.join(self.get_poms_dir(), "xslt", name))
 
     def get_poms_dir(self):
         return os.path.dirname(__file__)
@@ -310,6 +311,79 @@ class MediaBackend(NpoApiBase):
             sep = "&"
         return url
 
+
+    def xml_to_bytes(self, xml):
+        t = type(xml)
+        if t == str:
+            return xml.encode('utf-8')
+        elif t == minidom.Element:
+            # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
+            # xml.setAttribute("xmlns:xsi",
+            #    "http://www.w3.org/2001/XMLSchema-instance")
+            return xml.toxml('utf-8')
+        elif t == ET.Element:
+            return ET.tostring(xml, encoding='utf-8')
+        else:
+            raise "unrecognized type " + t
+
+
+    def _append_element(self, x, element, path=(
+            "crid",
+            "broadcaster",
+            "portal",
+            "exclusive",
+            "region",
+            "title",
+            "description",
+            "tag",
+            "genre",
+            "avAttributes",
+            "releaseYear",
+            "duration",
+            "credits",
+            "memberOf",
+            "ageRating",
+            "contentRating",
+            "email",
+            "website",
+            "locations",
+            "scheduleEvents",
+            "relation",
+            "images",
+            "asset")):
+        t = type(x)
+        if t == minidom.Element:
+            return self._append_element_minidom(x, element, path)
+        elif t == ET.Element:
+            return self._append_element_et(x, element, path)
+        else:
+            return self._append_element_et(ET.fromstring(str(x)), ET.fromstring(str(element)), path)
+    
+    def _append_element_minidom(self, xml, element, path):
+        """Appends an element in the correct location in the given (minidom) xml"""
+        index = path.index(element.nodeName)
+        for child in xml.childNodes:
+            if path.index(child.nodeName) > index:
+                xml.insertBefore(element, child)
+                return xml
+        xml.appendChild(element)
+        return xml
+    
+    def _append_element_et(self, xml, element, path):
+        "asdf"
+        tagSplit = element.tag.split('}', 2)
+        if len(tagSplit) == 2:
+            tag = tagSplit[1]
+        else:
+            tag = tagSplit[0]
+        index = path.index(tag)
+        for i, child in enumerate(list(xml)):
+            if path.index(tag) > index:
+                xml.insert(i, element)
+                return xml
+        xml.insert(len(xml), element)
+        return xml
+    
 
 lock = threading.Lock()
 
@@ -375,76 +449,6 @@ def xml_add_duration(xml, duration):
     _append_element(xml, duration_el)
 
 
-
-
-def _append_element(x, element, path=(
-        "crid",
-        "broadcaster",
-        "portal",
-        "exclusive",
-        "region",
-        "title",
-        "description",
-        "tag",
-        "genre",
-        "avAttributes",
-        "releaseYear",
-        "duration",
-        "credits",
-        "memberOf",
-        "ageRating",
-        "contentRating",
-        "email",
-        "website",
-        "locations",
-        "scheduleEvents",
-        "relation",
-        "images",
-        "asset")):
-    t = type(x)
-    if t == minidom.Element:
-        return _append_element_minidom(x, element, path)
-    elif t == ET.Element:
-        return _append_element_et(x, element, path)
-    else:
-        return _append_element_et(ET.fromstring(str(x)), ET.fromstring(str(element)), path)
-
-
-def _append_element_minidom(xml, element, path):
-    """Appends an element in the correct location in the given (minidom) xml"""
-    index = path.index(element.nodeName)
-    for child in xml.childNodes:
-        if path.index(child.nodeName) > index:
-            xml.insertBefore(element, child)
-            return xml
-    xml.appendChild(element)
-    return xml
-
-
-def _append_element_et(xml, element, path):
-    "asdf"
-    index = path.index(element.tag[len("{urn:vpro:media:update:2009}"):])
-    for i, child in enumerate(list(xml)):
-        if path.index(child.tag[len("{urn:vpro:media:update:2009}"):]) > index:
-            xml.insert(i, element)
-            return xml
-    xml.insert(len(xml), element)
-    return xml
-
-
-def xml_to_bytes(xml):
-    t = type(xml)
-    if t == str:
-        return xml.encode('utf-8')
-    elif t == minidom.Element:
-        # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
-        # xml.setAttribute("xmlns:xsi",
-        #    "http://www.w3.org/2001/XMLSchema-instance")
-        return xml.toxml('utf-8')
-    elif t == ET.Element:
-        return ET.tostring(xml, encoding='utf-8')
-    else:
-        raise "unrecognized type " + t
 
 
 def post(xml, lookupcrid=False, followMerges=True):

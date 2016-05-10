@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 from distutils.core import setup
 
-
+ 
 setup(
     name='NPO API',
     version='0.4dev',
@@ -16,6 +16,6 @@ setup(
         'bin/npo_check_credentials',
         'bin/npo_mediabackend_get'
         ],
-    package_data={'npoapi': ['xslt/*.xslt']},
+    data_files=[('npoapi/xslt', ['npoapi/xslt/location_set_publishStop.xslt'])],
     long_description=open('README.txt').read(),
 )
