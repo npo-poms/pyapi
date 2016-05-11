@@ -76,6 +76,26 @@ offer to create one.
 
 ```
 
+# Backend API editing
+The 'npo_mediabackend_get' call supports a --process options, this works like so:
+```bash
+michiel@belono:~$ npo_mediabackend_get -e prod  POMS_S_VPRO_3512033 --process "update.duration='PT5M'"
+<?xml version="1.0" ?>
+<group avType="MIXED" embeddable="true" mid="POMS_S_VPRO_3512033" ordered="true" type="PLAYLIST" urn="urn:vpro:media:group:72865615" xmlns="urn:vpro:media:update:2009">
+  <broadcaster>VPRO</broadcaster>
+  <broadcaster>NTR</broadcaster>
+  <portal>NETINNL</portal>
+  <title type="MAIN">NetInNl</title>
+  <duration>PT5M</duration>
+  <locations/>
+  <scheduleEvents/>
+  <images/>
+  <poSeriesID>POMS_S_VPRO_3512033</poSeriesID>
+</group>
+```
+This way a poms object can be edited using python. The resulting XML can be posted back.
+
+
 # Tests
 Tests can be run like so:
 ```bash
