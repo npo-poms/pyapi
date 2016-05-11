@@ -19,12 +19,6 @@ if process is None:
     print(client.parse_minidom(bytes).toprettyxml(indent="  "))
 else:
     from npoapi.xml import mediaupdate
-    from npoapi.xml import media
-    from npoapi.xml import shared
-    import pyxb.utils.domutils
-    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
     code = """
 def _process(update):
     """

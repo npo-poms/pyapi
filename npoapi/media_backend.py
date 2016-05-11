@@ -15,6 +15,18 @@ import pytz
 
 from npoapi.base import NpoApiBase
 
+import importlib.util
+
+pyxb_loader = importlib.util.find_spec("pyxb")
+if pyxb_loader is not None:
+    import pyxb.utils.domutils
+    from npoapi.xml import mediaupdate
+    from npoapi.xml import media
+    from npoapi.xml import shared
+    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
+
 
 class MediaBackend(NpoApiBase):
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
