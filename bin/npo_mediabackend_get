@@ -4,13 +4,33 @@
 """
 from npoapi import MediaBackend
 
+
 client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
 
 client.add_argument('mid', type=str, nargs=1, help='The mid  of the object to get')
+client.add_argument('-p', '--process',  type=str, help="""python code to postprocess. E.g. "update.duration='PT5M'""""")
 
 args = client.parse_args()
+bytes = client.get(args.mid[0])
 
-print(client.get_poms_dir())
-exit(1)
-print(client.get(args.mid[0]).toprettyxml(indent="  "))
+process = args.process
+
+if process is None:
+    print(client.parse_minidom(bytes).toprettyxml(indent="  "))
+else:
+    from npoapi.xml import mediaupdate
+    from npoapi.xml import media
+    from npoapi.xml import shared
+    import pyxb.utils.domutils
+    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
+    code = """
+def _process(update):
+    """
+    code = code + process.replace('\n', '\n    ')
+    exec(code)
+    update = mediaupdate.CreateFromDocument(bytes)
+    _process(update)
+    print(update.toDOM().toprettyxml(indent="  "))
 

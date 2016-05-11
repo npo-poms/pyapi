@@ -5,7 +5,7 @@ from distutils.core import setup
 setup(
     name='NPO API',
     version='0.4dev',
-    packages=['npoapi', 'mediaupdate', ],
+    packages=['npoapi', 'npoapi.xml' ],
     scripts=[
         'bin/npo_media_get',
         'bin/npo_media_search',
@@ -16,6 +16,5 @@ setup(
         'bin/npo_check_credentials',
         'bin/npo_mediabackend_get'
         ],
-    data_files=[('npoapi/xslt', ['npoapi/xslt/location_set_publishStop.xslt'])],
     long_description=open('README.txt').read(),
 )

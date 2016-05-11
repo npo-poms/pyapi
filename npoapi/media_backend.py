@@ -6,9 +6,8 @@ import subprocess
 import sys
 import threading
 import urllib.request
-import xml.etree.ElementTree as ET
-import lxml.etree as ET
 
+import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from xml.sax.saxutils import escape
 
@@ -61,11 +60,11 @@ class MediaBackend(NpoApiBase):
     namespaces = {'update': 'urn:vpro:media:update:2009'}
 
 
-    def get(self, mid, parser=minidom):
+    def get(self, mid):
         """Returns XML-representation of a mediaobject"""
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid)
-        return self._get_xml(url, parser=parser)
+        return self._get_xml(url)
 
 
     def members(self, mid, **kwargs):
@@ -107,7 +106,7 @@ class MediaBackend(NpoApiBase):
 
         return result
 
-    def _get_xml(self, url, parser=minidom):
+    def _get_xml(self, url):
         try:
             logging.info("getting " + url)
             req = urllib.request.Request(url)
@@ -116,22 +115,26 @@ class MediaBackend(NpoApiBase):
         except Exception as e:
             logging.error(url + " " + str(e))
             sys.exit(1)
-        xml_bytes = response.read()
-        xml = None
+        return response.read()
+
+    
+    def parse_et(self, xml_bytes):
         try:
-            if parser == ET:
-                xml = ET.fromstring(xml_bytes)
-            elif parser == minidom:
-                xml = minidom.parseString(xml_bytes)
+            return ET.fromstring(xml_bytes)        
         except Exception:
-            logging.error("Could not parse \n" + xml_bytes.decode(sys.stdout.encoding, "surrogateescape"))
-        return xml
+            self.logger.error("Could not parse \n" + xml_bytes.decode(sys.stdout.encoding, "surrogateescape"))
+
+
+    def parse_minidom(self, xml_bytes):
+        try:
+            return minidom.parseString(xml_bytes)
+        except Exception:
+            self.logger.error("Could not parse \n" + xml_bytes.decode(sys.stdout.encoding, "surrogateescape"))
 
 
     def anonymize_for_logging(self, settings_for_log):
         if 'password' in settings_for_log:
             settings_for_log['password'] = "xxx"
-        return
 
     def login(self):
         self.logger.debug("Logging in " + self.user)
@@ -392,24 +395,7 @@ lock = threading.Lock()
 
 
 
-
-def get_memberOf_xml(group_mid, position=0, highlighted="false"):
-    """create an xml sniplet representing a memberOf"""
-    return ('<memberOf position="' + str(position) + '" highlighted="' +
-            highlighted + '">' + group_mid + '</memberOf>')
-
-
-def add_member(group_mid, member_mid, position=0, highlighted="false"):
-    """Adds a a member to a group"""
-    url = target + "api/media/" + member_mid + "/memberOf"
-    xml = get_memberOf_xml(group_mid, position, highlighted)
-    response = urllib.request.urlopen(urllib.request.Post(url, data=xml))
-
-
-
-
-
-
+ 
 def guess_format(url):
     if url.endswith(".mp4"):
         return "MP4"
