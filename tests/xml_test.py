@@ -3,13 +3,10 @@ import unittest
 
 from npoapi.xml import mediaupdate as U
 from npoapi.xml import media
-from npoapi.xml import shared
 
-import pyxb.utils.domutils
+import npoapi.media_backend  
 
-pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(U.Namespace)
-pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
-pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
+npoapi.media_backend.declare_namespaces()
 
 
 class Tests(unittest.TestCase):

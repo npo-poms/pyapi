@@ -17,16 +17,19 @@ from npoapi.base import NpoApiBase
 
 import importlib.util
 
-pyxb_loader = importlib.util.find_spec("pyxb")
-if pyxb_loader is not None:
-    import pyxb.utils.domutils
-    from npoapi.xml import mediaupdate
-    from npoapi.xml import media
-    from npoapi.xml import shared
-    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
-
+def declare_namespaces():
+    pyxb_loader = importlib.util.find_spec("pyxb")
+    if pyxb_loader is not None:
+        import pyxb.utils.domutils
+        from npoapi.xml import mediaupdate
+        from npoapi.xml import media
+        from npoapi.xml import shared
+    
+        pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
+        pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
+        pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
+    
+declare_namespaces()
 
 class MediaBackend(NpoApiBase):
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
@@ -232,7 +235,7 @@ class MediaBackend(NpoApiBase):
     def post_to(self, path, xml, accept="application/xml", **kwargs):
         self.creds()
         url = self.append_params(self.url + path, **kwargs)
-        bytes = xml_to_bytes(xml)
+        bytes = self.xml_to_bytes(xml)
         req = urllib.request.Request(url, data=bytes)
         self.logger.debug("Posting to " + url)
         return self._request(req, accept=accept)
@@ -300,13 +303,7 @@ class MediaBackend(NpoApiBase):
         else:
             self.logger.debug("no location " + location)
             return "No location " + location
-
-    def get_xslt(self, name):
-        return os.path.normpath(os.path.join(self.get_poms_dir(), "xslt", name))
-
-    def get_poms_dir(self):
-        return os.path.dirname(__file__)
-
+ 
     def get_locations(self, mid):
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid) + "/locations"
