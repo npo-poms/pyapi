@@ -7,6 +7,8 @@ import sys
 import threading
 import urllib.request
 import xml.etree.ElementTree as ET
+import lxml.etree as ET
+
 from xml.dom import minidom
 from xml.sax.saxutils import escape
 
@@ -468,30 +470,3 @@ def parkpost(xml):
     return _post(req)
 
 
-
-import unittest
-
-
-class Tests(unittest.TestCase):
-    def test_xml_to_bytes_string(self):
-        self.assertEquals("<a xmlns='urn:vpro:media:update:2009' />",
-                          xml_to_bytes("<a xmlns='urn:vpro:media:update:2009' />").decode("utf-8"))
-
-    def test_xml_to_bytes_minidom(self):
-        self.assertEquals('<a xmlns="urn:vpro:media:update:2009"/>',
-                          xml_to_bytes(
-                              minidom.parseString("<a xmlns='urn:vpro:media:update:2009' />").documentElement).decode(
-                              "utf-8"))
-
-    def test_append_params(self):
-        self.assertEquals("http://vpro.nl?a=a&x=y", append_params("http://vpro.nl", a="a", x="y"))
-
-    def test_append_element(self):
-        self.assertEquals("<a><b>B</b><x>x</x><y>Y</y></a>",
-                          ET.tostring(
-                              _append_element("<a><b>B</b><y>Y</y></a>", "<x>x</x>", ("b", "x", "y", "z"))).decode(
-                              "utf-8"))
-        self.assertEquals("<a><b>B</b><x>x</x><y>Y</y></a>",
-                          ET.tostring(
-                              _append_element(ET.fromstring("<a><b>B</b><y>Y</y></a>"), ET.fromstring("<x>x</x>"),
-                                              ("b", "x", "y", "z"))).decode("utf-8"))
