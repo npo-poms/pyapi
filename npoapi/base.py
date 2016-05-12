@@ -168,7 +168,7 @@ class NpoApiBase:
     def common_arguments(self, description=None):
         parent_args = argparse.ArgumentParser(add_help=False)
         parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
-        parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev"})
+        parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
         pargs = parent_args.parse_args(filter(lambda e: e in ["-d", "--debug", "-c", "--createconfig"], sys.argv))
