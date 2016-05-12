@@ -13,3 +13,4 @@ client.add_argument('-o', "--offset", type=int, default=0)
 
 args = client.parse_args()
 print(client.search(args.form[0], sort=args.sort, max_=args.max, offset=args.offset))
+client.exit()

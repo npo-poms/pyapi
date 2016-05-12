@@ -27,4 +27,5 @@ def _process(update):
     update = mediaupdate.CreateFromDocument(bytes)
     _process(update)
     print(update.toDOM().toprettyxml(indent="  "))
+client.exit()
 

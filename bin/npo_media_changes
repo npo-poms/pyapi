@@ -9,3 +9,4 @@ client.add_argument('profile', type=str, nargs='?', help='Profile')
 
 args = client.parse_args()
 print(client.changes(profile=args.profile))
+client.exit()

@@ -9,3 +9,4 @@ client.add_argument('guideDay', type=str, nargs='?', help='The day to get')
 args = client.parse_args()
 
 print(client.get(guideDay=args.guideDay))
+client.exit()

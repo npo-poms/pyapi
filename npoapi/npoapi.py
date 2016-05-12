@@ -120,6 +120,14 @@ class NpoApi(NpoApiBase):
         else:
             return ""
 
+    def exit_code(self):
+        if self.code is None or (self.code >= 200 and self.code < 300):
+            return 0
+        return self.code
+
+    def exit(self):
+        exit(self.exit_code())
+
     def stream(self, path, params=None, accept=None, data=None):
         if data:
             if os.path.isfile(data):
@@ -140,10 +148,12 @@ class NpoApi(NpoApiBase):
         self.logger.debug("headers: " + str(req.headers))
         try:
             response = urllib.request.urlopen(req)
+            self.code = response.getcode()
             self.logger.debug("response code: " + str(response.getcode()))
             self.logger.debug("response headers: " + str(response.getheaders()))
             return response
         except urllib.error.HTTPError as e:
+            self.code = e.code
             self.logger.error("%s: %s\n%s", e.code, e.msg, e.read().decode("utf-8"))
             return None
 

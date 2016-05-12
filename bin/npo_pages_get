@@ -9,3 +9,4 @@ client.add_argument('url', type=str, nargs=1, help='The url or crid of the objec
 
 args = client.parse_args()
 print(client.get(args.url[0]))
+client.exit()

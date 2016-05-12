@@ -33,3 +33,5 @@ else:
     sort=args.sort,
     max=args.max
     ))
+
+client.exit()
