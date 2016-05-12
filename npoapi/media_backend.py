@@ -17,6 +17,7 @@ from npoapi.base import NpoApiBase
 
 import importlib.util
 
+
 def declare_namespaces():
     pyxb_loader = importlib.util.find_spec("pyxb")
     if pyxb_loader is not None:
@@ -24,12 +25,13 @@ def declare_namespaces():
         from npoapi.xml import mediaupdate
         from npoapi.xml import media
         from npoapi.xml import shared
-    
+
         pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
         pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
         pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
-    
+
 declare_namespaces()
+
 
 class MediaBackend(NpoApiBase):
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
@@ -132,10 +134,10 @@ class MediaBackend(NpoApiBase):
             sys.exit(1)
         return response.read()
 
-    
+
     def parse_et(self, xml_bytes):
         try:
-            return ET.fromstring(xml_bytes)        
+            return ET.fromstring(xml_bytes)
         except Exception:
             self.logger.error("Could not parse \n" + xml_bytes.decode(sys.stdout.encoding, "surrogateescape"))
 
@@ -170,6 +172,7 @@ class MediaBackend(NpoApiBase):
             else:
                 self.email = None
                 self.logger.debug("Not emailing")
+
 
     def creds(self):
         if self.authorizationHeader:
@@ -303,7 +306,7 @@ class MediaBackend(NpoApiBase):
         else:
             self.logger.debug("no location " + location)
             return "No location " + location
- 
+
     def get_locations(self, mid):
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid) + "/locations"
@@ -372,7 +375,7 @@ class MediaBackend(NpoApiBase):
             return self._append_element_et(x, element, path)
         else:
             return self._append_element_et(ET.fromstring(str(x)), ET.fromstring(str(element)), path)
-    
+
     def _append_element_minidom(self, xml, element, path):
         """Appends an element in the correct location in the given (minidom) xml"""
         index = path.index(element.nodeName)
@@ -382,7 +385,7 @@ class MediaBackend(NpoApiBase):
                 return xml
         xml.appendChild(element)
         return xml
-    
+
     def _append_element_et(self, xml, element, path):
         "asdf"
         tagSplit = element.tag.split('}', 2)
@@ -397,14 +400,14 @@ class MediaBackend(NpoApiBase):
                 return xml
         xml.insert(len(xml), element)
         return xml
-    
+
 
 lock = threading.Lock()
 
 
 
 
- 
+
 def guess_format(url):
     if url.endswith(".mp4"):
         return "MP4"

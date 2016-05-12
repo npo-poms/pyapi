@@ -3,7 +3,6 @@ import hashlib
 import hmac
 import json
 import os
-import pprint
 import urllib.request
 from email import utils
 
@@ -145,7 +144,7 @@ class NpoApi(NpoApiBase):
             self.logger.debug("response headers: " + str(response.getheaders()))
             return response
         except urllib.error.HTTPError as e:
-            self.logger.error("%s: %s %s", e.code, e.msg, pprint.pformat(e, depth=10))
+            self.logger.error("%s: %s\n%s", e.code, e.msg, e.read().decode("utf-8"))
             return None
 
 
