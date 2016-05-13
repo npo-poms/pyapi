@@ -4,7 +4,7 @@ from distutils.core import setup
  
 setup(
     name='NPO API',
-    version='0.4',
+    version='4.4dev',
     packages=['npoapi', 'npoapi.xml' ],
     scripts=[
         'bin/npo_media_get',
