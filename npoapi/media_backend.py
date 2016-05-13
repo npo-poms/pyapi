@@ -1,21 +1,17 @@
 import base64
 import codecs
+import importlib.util
 import logging
 import os
-import subprocess
 import sys
-import threading
 import urllib.request
-
-import xml.etree.ElementTree as ET
 from xml.dom import minidom
 from xml.sax.saxutils import escape
 
 import pytz
 
 from npoapi.base import NpoApiBase
-
-import importlib.util
+from npoapi.xml import mediaupdate
 
 
 def declare_namespaces():
@@ -76,7 +72,6 @@ class MediaBackend(NpoApiBase):
 
     namespaces = {'update': 'urn:vpro:media:update:2009'}
 
-
     def get(self, mid):
         """Returns XML-representation of a mediaobject"""
         self.creds()
@@ -136,6 +131,7 @@ class MediaBackend(NpoApiBase):
 
 
     def parse_et(self, xml_bytes):
+        import xml.etree.ElementTree as ET
         try:
             return ET.fromstring(xml_bytes)
         except Exception:
@@ -173,7 +169,6 @@ class MediaBackend(NpoApiBase):
                 self.email = None
                 self.logger.debug("Not emailing")
 
-
     def creds(self):
         if self.authorizationHeader:
             self.logger.debug("Already authorized")
@@ -188,7 +183,7 @@ class MediaBackend(NpoApiBase):
                 xml = myfile.read()
         else:
             if not format:
-                format = guess_format(programUrl)
+                format = self.guess_format(programUrl)
 
             xml = ("<location xmlns='urn:vpro:media:update:2009'" + self.date_attr("publishStart", publishStart) + self.date_attr(
                 "publishStop", publishStop) + ">" +
@@ -285,7 +280,7 @@ class MediaBackend(NpoApiBase):
                 return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
-        xml = self.get_locations(mid).toprettyxml()
+        locations = mediaupdate.CreateFromDOM(self.get_locations(mid))
         if location.isdigit():
             args = {"id": location}
             if programUrl:
@@ -310,6 +305,11 @@ class MediaBackend(NpoApiBase):
     def get_locations(self, mid):
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid) + "/locations"
+        return self._get_xml(url)
+
+    def get_images(self, mid):
+        self.creds()
+        url = self.url + "media/media/" + urllib.request.quote(mid) + "/images"
         return self._get_xml(url)
 
     def info(self):
@@ -344,127 +344,14 @@ class MediaBackend(NpoApiBase):
             raise "unrecognized type " + t
 
 
-    def _append_element(self, x, element, path=(
-            "crid",
-            "broadcaster",
-            "portal",
-            "exclusive",
-            "region",
-            "title",
-            "description",
-            "tag",
-            "genre",
-            "avAttributes",
-            "releaseYear",
-            "duration",
-            "credits",
-            "memberOf",
-            "ageRating",
-            "contentRating",
-            "email",
-            "website",
-            "locations",
-            "scheduleEvents",
-            "relation",
-            "images",
-            "asset")):
-        t = type(x)
-        if t == minidom.Element:
-            return self._append_element_minidom(x, element, path)
-        elif t == ET.Element:
-            return self._append_element_et(x, element, path)
+    def guess_format(self, url):
+        if url.endswith(".mp4"):
+            return "MP4"
+        elif url.endswith(".mp3"):
+            return "MP3"
         else:
-            return self._append_element_et(ET.fromstring(str(x)), ET.fromstring(str(element)), path)
-
-    def _append_element_minidom(self, xml, element, path):
-        """Appends an element in the correct location in the given (minidom) xml"""
-        index = path.index(element.nodeName)
-        for child in xml.childNodes:
-            if path.index(child.nodeName) > index:
-                xml.insertBefore(element, child)
-                return xml
-        xml.appendChild(element)
-        return xml
-
-    def _append_element_et(self, xml, element, path):
-        "asdf"
-        tagSplit = element.tag.split('}', 2)
-        if len(tagSplit) == 2:
-            tag = tagSplit[1]
-        else:
-            tag = tagSplit[0]
-        index = path.index(tag)
-        for i, child in enumerate(list(xml)):
-            if path.index(tag) > index:
-                xml.insert(i, element)
-                return xml
-        xml.insert(len(xml), element)
-        return xml
+            return "UNKNOWN"
 
 
-lock = threading.Lock()
-
-
-
-
-
-def guess_format(url):
-    if url.endswith(".mp4"):
-        return "MP4"
-    elif url.endswith(".mp3"):
-        return "MP3"
-    else:
-        return "UNKNOWN"
-
-
-
-def parkpost_str(xml):
-    return parkpost(minidom.parseString(xml).documentElement)
-
-
-def xslt(xml, xslt_file, params=None):
-    if not params:
-        params = {}
-    args = ["xsltproc"]
-    for key, value in params.items():
-        args.extend(("--stringparam", key, value))
-    args.extend((xslt_file, "-"))
-    logging.debug(' '.join(args))
-    p = subprocess.Popen(args, stdin=subprocess.PIPE, stdout=subprocess.PIPE)
-    p.stdin.write(xml.encode())
-    output = p.communicate()
-    return str(output[0].decode())
-
-
-
-def xml_add_genre(xml, genre_id):
-    """Adds a genre to the minidom object"""
-    genre_el = xml.ownerDocument.createElement("genre")
-    genre_el.appendChild(xml.ownerDocument.createTextNode(genre_id))
-    _append_element(xml, genre_el)
-
-
-def xml_add_duration(xml, duration):
-    duration_el = ET.fromstring("<duration xmlns='urn:vpro:media:update:2009'>%s</duration>" % duration)
-    _append_element(xml, duration_el)
-
-
-
-
-def post(xml, lookupcrid=False, followMerges=True):
-    return post_to("media/media", xml, accept="text/plain", lookupcrid=lookupcrid, followMerges=followMerges)
-
-
-def find(xml, lookupcrid=False, followMerges=True):
-    return post_to("media/find", xml, lookupcrid=lookupcrid, followMerges=followMerges)
-
-
-def parkpost(xml):
-    creds("parkpost:")
-    url = target + "parkpost/promo"
-
-    logging.info("posting to " + url)
-    req = urllib.request.Request(url, data=xml.toxml('utf-8'))
-    return _post(req)
 
 

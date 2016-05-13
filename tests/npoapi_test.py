@@ -8,7 +8,7 @@ from npoapi import Media
 from npoapi import Screens
 from npoapi import MediaBackend
 from npoapi.npoapi import NpoApi
-
+from npoapi.xml import mediaupdate
 
 ENV = "dev"
 
@@ -75,7 +75,7 @@ class ScreenTests(unittest.TestCase):
 class MediaBackendTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.client = MediaBackend().configured_login().env(ENV)
+        self.client = MediaBackend().configured_login().env(ENV).debug()
 
     def test_xml_to_bytes_string(self):
         self.assertEquals("<a xmlns='urn:vpro:media:update:2009' />",
@@ -104,7 +104,23 @@ class MediaBackendTest(unittest.TestCase):
                               self.client._append_element(ET.fromstring("<a><b>B</b><y>Y</y></a>"), ET.fromstring("<x>x</x>"),
                                               ("b", "x", "y", "z"))).decode("utf-8"),
                      "<a><b>B</b><x>x</x><y>Y</y></a>")
-        
+
     def test_get_xslt(self):
-        self.assertRegex(self.client.get_xslt("location_set_publishStop.xslt"), 
+        self.assertRegex(self.client.get_xslt("location_set_publishStop.xslt"),
                          ".*/npoapi/xslt/location_set_publishStop.xslt")
+
+    def test_set_duration(self):
+        existing = mediaupdate.CreateFromDOM(self.client.get("WO_VPRO_1422026"))
+        existing.duration = "PT30M"
+        self.client.set(existing)
+
+    def test_get_locations(self):
+        bytes=self.client.get_locations("POMS_VPRO_1421796")
+        locations=mediaupdate.CreateFromDOM(bytes)
+
+
+    def test_get_images(self):
+        bytes = self.client.get_images("POMS_VPRO_1421796")
+        images= mediaupdate.CreateFromDOM(bytes)
+
+
