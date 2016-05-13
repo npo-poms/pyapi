@@ -4,6 +4,7 @@ import logging
 import sys
 import os
 import copy
+import npoapi
 
 
 class NpoApiBase:
@@ -167,12 +168,16 @@ class NpoApiBase:
 
     def common_arguments(self, description=None):
         parent_args = argparse.ArgumentParser(add_help=False)
+        parent_args.add_argument('-v', "--version", action="store_true", help="show current version")
         parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
-        pargs = parent_args.parse_args(filter(lambda e: e in ["-d", "--debug", "-c", "--createconfig"], sys.argv))
+        pargs = parent_args.parse_args(filter(lambda e: e in ["-d", "--debug", "-c", "--createconfig", "-v", "--version"], sys.argv))
         self.debug(pargs.debug)
+        if pargs.version:
+            print(npoapi.__version__)
+            exit(0)
         self.force_create_config = pargs.createconfig
         self.argument_parser = argparse.ArgumentParser(description=description,
                                                        parents=[parent_args],

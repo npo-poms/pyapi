@@ -1,10 +1,12 @@
 #!/usr/bin/env python3
 from distutils.core import setup
 
- 
+__version__ = None
+exec(open('npoapi/_version.py', "rt").read())
+
 setup(
     name='NPO API',
-    version='4.4dev',
+    version=__version__,
     packages=['npoapi', 'npoapi.xml' ],
     scripts=[
         'bin/npo_media_get',
