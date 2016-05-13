@@ -5,6 +5,7 @@ import json
 import os
 import urllib.request
 from email import utils
+import sys
 
 from npoapi.base import NpoApiBase
 
@@ -121,12 +122,12 @@ class NpoApi(NpoApiBase):
             return ""
 
     def exit_code(self):
-        if self.code is None or (self.code >= 200 and self.code < 300):
+        if self.code is None or 200 <= self.code < 300:
             return 0
-        return self.code
+        return self.code // 100
 
     def exit(self):
-        exit(self.exit_code())
+        sys.exit(self.exit_code())
 
     def stream(self, path, params=None, accept=None, data=None):
         if data:
