@@ -153,9 +153,13 @@ class NpoApi(NpoApiBase):
             self.logger.debug("response code: " + str(response.getcode()))
             self.logger.debug("response headers: " + str(response.getheaders()))
             return response
-        except urllib.error.HTTPError as e:
-            self.code = e.code
-            self.logger.error("%s: %s\n%s", e.code, e.msg, e.read().decode("utf-8"))
+        except urllib.error.URLError as ue:
+            self.logger.error('%s: %s %s', ue.reason.errno, url, ue.reason.strerror)
+            self.code = ue.reason.errno
+            return None
+        except urllib.error.HTTPError as he:
+            self.code = he.code
+            self.logger.error("%s: %s\n%s", he.code, he.msg, he.read().decode("utf-8"))
             return None
 
 
