@@ -54,6 +54,8 @@ class MediaBackend(NpoApiBase):
             if ":" in self.user:
                 self.password = self.user.split(":", 2)[1]
                 self.user = self.user.split(":", 2)[0]
+        if "email" in settings:
+            self.email= settings["email"]
         return
 
     def env(self, e):
@@ -78,6 +80,9 @@ class MediaBackend(NpoApiBase):
         url = self.url + "media/media/" + urllib.request.quote(mid)
         return self._get_xml(url)
 
+    def post(self, update):
+        self.creds()
+        return self.post_to("media/media/", update, accept="text/plain", errors=self.email)
 
     def members(self, mid, **kwargs):
         """return a list of all members of a group. As XML objects, wrapped
@@ -120,7 +125,7 @@ class MediaBackend(NpoApiBase):
 
     def _get_xml(self, url):
         try:
-            logging.info("getting " + url)
+            self.logger.info("getting " + url)
             req = urllib.request.Request(url)
             req.add_header("Accept", "application/xml")
             response = urllib.request.urlopen(req)
@@ -131,7 +136,7 @@ class MediaBackend(NpoApiBase):
 
 
     def parse_et(self, xml_bytes):
-        import xml.etree.ElementTree as ET
+        import xml.etree.ElementTree as a
         try:
             return ET.fromstring(xml_bytes)
         except Exception:
@@ -324,12 +329,14 @@ class MediaBackend(NpoApiBase):
 
         sep = "?"
         for key, value in sorted(kwargs.items()):
-            url += sep + key + "=" + str(value)
-            sep = "&"
+            if not value is None:
+                url += sep + key + "=" + str(value)
+                sep = "&"
         return url
 
 
     def xml_to_bytes(self, xml):
+        import xml.etree.ElementTree as ET
         t = type(xml)
         if t == str:
             return xml.encode('utf-8')
@@ -340,6 +347,8 @@ class MediaBackend(NpoApiBase):
             return xml.toxml('utf-8')
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
+        elif getattr(xml, "toDOM"):
+            return xml.toDOM().toxml('utf-8')
         else:
             raise "unrecognized type " + t
 
