@@ -12,6 +12,9 @@ import pytz
 
 from npoapi.base import NpoApiBase
 from npoapi.xml import poms
+from npoapi.xml import mediaupdate
+from npoapi.xml import media
+
 
 def declare_namespaces():
     pyxb_loader = importlib.util.find_spec("pyxb")
@@ -297,8 +300,23 @@ class MediaBackend(NpoApiBase):
                     break
 
         if location_object is None:
-            self.logger.debug("no match for %s " % location)
-            return None
+            # location_object = mediaupdate.locationUpdateType()
+            location_object = mediaupdate.CreateFromDocument("""<location xmlns="urn:vpro:media:update:2009">
+<programUrl>http://www.vpro.nl/123</programUrl>
+<avAttributes>
+<avFileFormat>MP4</avFileFormat>
+</avAttributes>
+</location>""")
+            if programUrl is not None:
+                location_object.programUrl = programUrl
+            elif not location.isdigit():
+                location_object.programUrl = location
+            else:
+                return None
+        location_object.avAttributes.avFileFormat = self.guess_format(location_object.programUrl)
+
+        self.logger.debug("no match for %s. Created location." % location)
+
         self.logger.debug("Processing %s" % location_object)
 
         if publishStop:
@@ -355,14 +373,13 @@ class MediaBackend(NpoApiBase):
         else:
             raise "unrecognized type " + t
 
-
     def guess_format(self, url):
-        if url.endswith(".mp4"):
-            return "MP4"
-        elif url.endswith(".mp3"):
-            return "MP3"
+        if str(url).endswith(".mp4"):
+            return media.avFileFormatEnum.MP4
+        elif str(url).endswith(".mp3"):
+            return media.avFileFormatEnum.MP3
         else:
-            return "UNKNOWN"
+            return media.avFileFormatEnum.UNKNOWN
 
 
 

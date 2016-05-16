@@ -9,8 +9,7 @@ from npoapi import Screens
 from npoapi import MediaBackend
 from npoapi.npoapi import NpoApi
 from npoapi.xml import poms
-from pyxb.utils import domutils
-from pyxb.utils import saxutils
+import time
 
 ENV = "dev"
 
@@ -136,6 +135,11 @@ class MediaBackendTest(unittest.TestCase):
     def test_set_location(self):
         mid = "POMS_VPRO_1421796"
         self.client.set_location(mid, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
+
+
+    def test_create_location(self):
+        mid = "POMS_VPRO_1421796"
+        self.client.set_location(mid, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
         
 
 
