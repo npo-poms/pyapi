@@ -5,7 +5,7 @@ import sys
 import os
 import copy
 import npoapi
-
+import urllib.request
 
 class NpoApiBase:
     __metaclass__ = abc.ABCMeta
@@ -190,6 +190,34 @@ class NpoApiBase:
         self.debug(args.debug)
         self.accept("application/" + args.accept if args.accept else None)
         return args
+
+    def get_response(self, req, url):
+        try:
+            response = urllib.request.urlopen(req)
+            self.code = response.getcode()
+            self.logger.debug("response code: " + str(response.getcode()))
+            self.logger.debug("response headers: " + str(response.getheaders()))
+            return response
+        except urllib.error.URLError as ue:
+            if type(ue.reason) is str:
+                self.logger.error('%s: %s %s', url, ue.reason)
+                self.code = 1
+            else:
+                self.logger.error('%s: %s %s', ue.reason.errno, url, ue.reason.strerror)
+                self.code = ue.reason.errno
+            return None
+        except urllib.error.HTTPError as he:
+            self.code = he.code
+            self.logger.error("%s: %s\n%s", he.code, he.msg, he.read().decode("utf-8"))
+            return None
+
+    def exit_code(self):
+        if self.code is None or 200 <= self.code < 300:
+            return 0
+        return self.code // 100
+
+    def exit(self):
+        sys.exit(self.exit_code())
 
     @abc.abstractmethod
     def info(self):

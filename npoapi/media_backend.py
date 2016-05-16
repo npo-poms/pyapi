@@ -126,14 +126,10 @@ class MediaBackend(NpoApiBase):
         return result
 
     def _get_xml(self, url):
-        try:
-            self.logger.info("getting " + url)
-            req = urllib.request.Request(url)
-            req.add_header("Accept", "application/xml")
-            response = urllib.request.urlopen(req)
-        except Exception as e:
-            logging.error(url + " " + str(e))
-            sys.exit(1)
+        self.logger.debug("getting " + url)
+        req = urllib.request.Request(url)
+        req.add_header("Accept", "application/xml")
+        response = self.get_response(req, url)
         return response.read()
 
 

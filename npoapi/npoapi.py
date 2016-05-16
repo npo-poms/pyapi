@@ -121,13 +121,6 @@ class NpoApi(NpoApiBase):
         else:
             return ""
 
-    def exit_code(self):
-        if self.code is None or 200 <= self.code < 300:
-            return 0
-        return self.code // 100
-
-    def exit(self):
-        sys.exit(self.exit_code())
 
     def stream(self, path, params=None, accept=None, data=None):
         if data:
@@ -147,24 +140,9 @@ class NpoApi(NpoApiBase):
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept if accept else self._accept)
         self.logger.debug("headers: " + str(req.headers))
-        try:
-            response = urllib.request.urlopen(req)
-            self.code = response.getcode()
-            self.logger.debug("response code: " + str(response.getcode()))
-            self.logger.debug("response headers: " + str(response.getheaders()))
-            return response
-        except urllib.error.URLError as ue:
-            if type(ue.reason) is str:
-                self.logger.error('%s: %s %s', url, ue.reason)
-                self.code = 1
-            else:
-                self.logger.error('%s: %s %s', ue.reason.errno, url, ue.reason.strerror)
-                self.code = ue.reason.errno
-            return None
-        except urllib.error.HTTPError as he:
-            self.code = he.code
-            self.logger.error("%s: %s\n%s", he.code, he.msg, he.read().decode("utf-8"))
-            return None
+        return self.get_response(req, url)
+        
+    
 
 
 
