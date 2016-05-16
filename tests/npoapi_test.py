@@ -8,7 +8,9 @@ from npoapi import Media
 from npoapi import Screens
 from npoapi import MediaBackend
 from npoapi.npoapi import NpoApi
-from npoapi.xml import mediaupdate
+from npoapi.xml import poms
+from pyxb.utils import domutils
+from pyxb.utils import saxutils
 
 ENV = "dev"
 
@@ -110,17 +112,31 @@ class MediaBackendTest(unittest.TestCase):
                          ".*/npoapi/xslt/location_set_publishStop.xslt")
 
     def test_set_duration(self):
-        existing = mediaupdate.CreateFromDOM(self.client.get("WO_VPRO_1422026"))
+        existing = poms.CreateFromDOM(self.client.get("WO_VPRO_1422026"))
         existing.duration = "PT30M"
         self.client.set(existing)
 
     def test_get_locations(self):
         bytes=self.client.get_locations("POMS_VPRO_1421796")
-        locations=mediaupdate.CreateFromDOM(bytes)
-
+        locations=poms.CreateFromDocument(bytes)
+        print(str(locations))
 
     def test_get_images(self):
+        mid="POMS_VPRO_1421796"
+        media=poms.CreateFromDocument(self.client.get(mid))
+        image=media.images.image[0]
         bytes = self.client.get_images("POMS_VPRO_1421796")
-        images= mediaupdate.CreateFromDOM(bytes)
+        images= poms.CreateFromDocument(bytes)
+        image2=images.wildcardElements()[0]
+        self.assertEquals(image.title, image2.title)
+        self.assertEquals(image2.title, "sdf")
+        print(image2.toxml())
+        
+        
+    def test_set_location(self):
+        mid = "POMS_VPRO_1421796"
+        self.client.set_location(mid, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
+        
+
 
 

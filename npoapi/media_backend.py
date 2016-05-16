@@ -11,8 +11,7 @@ from xml.sax.saxutils import escape
 import pytz
 
 from npoapi.base import NpoApiBase
-from npoapi.xml import mediaupdate
-
+from npoapi.xml import poms
 
 def declare_namespaces():
     pyxb_loader = importlib.util.find_spec("pyxb")
@@ -285,27 +284,31 @@ class MediaBackend(NpoApiBase):
                 return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
-        locations = mediaupdate.CreateFromDOM(self.get_locations(mid))
-        if location.isdigit():
-            args = {"id": location}
-            if programUrl:
-                args["programUrl"] = programUrl
-        else:
-            args = {"programUrl": urllib.request.unquote(location)}
+        locations = poms.CreateFromDocument(self.get_locations(mid)).wildcardElements()
+        location_object = None
+        for l in locations:
+            if location.isdigit():
+                if l.id == location and (programUrl is None or str(l.programUrl) == programUrl):
+                    location_object = l
+                    break
+            else:
+                if str(l.programUrl) == location:
+                    location_object = l
+                    break
+
+        if location_object is None:
+            self.logger.debug("no match for %s " % location)
+            return None
+        self.logger.debug("Processing %s" % location_object)
 
         if publishStop:
-            args['publishStop'] = self.date_attr_value(publishStop)
+            location_object.publishStop = publishStop
         if publishStart:
-            args['publishStart'] = self.date_attr_value(publishStart)
+            location_object.publishStart = publishStart
 
-        self.logger.debug("Found " + xml)
-        location_xml = xslt(xml, self.get_xslt("location_set_publishStop.xslt"), args)
-        if location_xml != "":
-            self.logger.debug("posting " + location_xml)
-            return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
-        else:
-            self.logger.debug("no location " + location)
-            return "No location " + location
+        location_xml = location_object.toxml()
+        self.logger.debug("Found " + location_xml)
+        return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
 
     def get_locations(self, mid):
         self.creds()
