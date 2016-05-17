@@ -200,11 +200,12 @@ class NpoApiBase:
             return response
         except urllib.error.URLError as ue:
             if type(ue.reason) is str:
-                self.logger.error('%s: %s %s', url, ue.reason)
+                self.logger.error('%s: %s', url, ue.reason)
                 self.code = 1
             else:
                 self.logger.error('%s: %s %s', ue.reason.errno, url, ue.reason.strerror)
                 self.code = ue.reason.errno
+            self.logger.error("%s", ue.read().decode("utf-8"))
             return None
         except urllib.error.HTTPError as he:
             self.code = he.code
