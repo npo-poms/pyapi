@@ -6,11 +6,7 @@ from npoapi import MediaBackend
 from npoapi.xml import poms
 
 
-client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
-
-client.add_argument('mid', type=str, nargs=1, help='The mid of the object to get')
-client.add_argument('-p', '--process',  type=str, help="""python code to postprocess. E.g. "update.duration='PT5M'""""")
-
+client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API")
 args = client.parse_args()
 bytes = client.get(args.mid[0])
 

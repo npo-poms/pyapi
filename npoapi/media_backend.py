@@ -11,7 +11,9 @@ from xml.sax.saxutils import escape
 import pytz
 
 from npoapi.base import NpoApiBase
+from npoapi.xml import poms
 from npoapi.xml import mediaupdate
+from npoapi.xml import media
 
 
 def declare_namespaces():
@@ -54,6 +56,8 @@ class MediaBackend(NpoApiBase):
             if ":" in self.user:
                 self.password = self.user.split(":", 2)[1]
                 self.user = self.user.split(":", 2)[0]
+        if "email" in settings:
+            self.email= settings["email"]
         return
 
     def env(self, e):
@@ -78,6 +82,9 @@ class MediaBackend(NpoApiBase):
         url = self.url + "media/media/" + urllib.request.quote(mid)
         return self._get_xml(url)
 
+    def post(self, update):
+        self.creds()
+        return self.post_to("media/media/", update, accept="text/plain", errors=self.email)
 
     def members(self, mid, **kwargs):
         """return a list of all members of a group. As XML objects, wrapped
@@ -119,19 +126,15 @@ class MediaBackend(NpoApiBase):
         return result
 
     def _get_xml(self, url):
-        try:
-            logging.info("getting " + url)
-            req = urllib.request.Request(url)
-            req.add_header("Accept", "application/xml")
-            response = urllib.request.urlopen(req)
-        except Exception as e:
-            logging.error(url + " " + str(e))
-            sys.exit(1)
+        self.logger.debug("getting " + url)
+        req = urllib.request.Request(url)
+        req.add_header("Accept", "application/xml")
+        response = self.get_response(req, url)
         return response.read()
 
 
     def parse_et(self, xml_bytes):
-        import xml.etree.ElementTree as ET
+        import xml.etree.ElementTree as a
         try:
             return ET.fromstring(xml_bytes)
         except Exception:
@@ -280,27 +283,46 @@ class MediaBackend(NpoApiBase):
                 return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
-        locations = mediaupdate.CreateFromDOM(self.get_locations(mid))
-        if location.isdigit():
-            args = {"id": location}
-            if programUrl:
-                args["programUrl"] = programUrl
-        else:
-            args = {"programUrl": urllib.request.unquote(location)}
+        locations = poms.CreateFromDocument(self.get_locations(mid)).wildcardElements()
+        location_object = None
+        for l in locations:
+            if location.isdigit():
+                if l.id == location and (programUrl is None or str(l.programUrl) == programUrl):
+                    location_object = l
+                    break
+            else:
+                if str(l.programUrl) == location:
+                    location_object = l
+                    break
+
+        if location_object is None:
+            # location_object = mediaupdate.locationUpdateType()
+            location_object = mediaupdate.CreateFromDocument("""<location xmlns="urn:vpro:media:update:2009">
+<programUrl>http://www.vpro.nl/123</programUrl>
+<avAttributes>
+<avFileFormat>MP4</avFileFormat>
+</avAttributes>
+</location>""")
+            if programUrl is not None:
+                location_object.programUrl = programUrl
+            elif not location.isdigit():
+                location_object.programUrl = location
+            else:
+                return None
+        location_object.avAttributes.avFileFormat = self.guess_format(location_object.programUrl)
+
+        self.logger.debug("no match for %s. Created location." % location)
+
+        self.logger.debug("Processing %s" % location_object)
 
         if publishStop:
-            args['publishStop'] = self.date_attr_value(publishStop)
+            location_object.publishStop = publishStop
         if publishStart:
-            args['publishStart'] = self.date_attr_value(publishStart)
+            location_object.publishStart = publishStart
 
-        self.logger.debug("Found " + xml)
-        location_xml = xslt(xml, self.get_xslt("location_set_publishStop.xslt"), args)
-        if location_xml != "":
-            self.logger.debug("posting " + location_xml)
-            return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
-        else:
-            self.logger.debug("no location " + location)
-            return "No location " + location
+        location_xml = location_object.toxml()
+        self.logger.debug("Found " + location_xml)
+        return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
 
     def get_locations(self, mid):
         self.creds()
@@ -324,12 +346,14 @@ class MediaBackend(NpoApiBase):
 
         sep = "?"
         for key, value in sorted(kwargs.items()):
-            url += sep + key + "=" + str(value)
-            sep = "&"
+            if not value is None:
+                url += sep + key + "=" + str(value)
+                sep = "&"
         return url
 
 
     def xml_to_bytes(self, xml):
+        import xml.etree.ElementTree as ET
         t = type(xml)
         if t == str:
             return xml.encode('utf-8')
@@ -340,17 +364,18 @@ class MediaBackend(NpoApiBase):
             return xml.toxml('utf-8')
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
+        elif getattr(xml, "toDOM"):
+            return xml.toDOM().toxml('utf-8')
         else:
             raise "unrecognized type " + t
 
-
     def guess_format(self, url):
-        if url.endswith(".mp4"):
-            return "MP4"
-        elif url.endswith(".mp3"):
-            return "MP3"
+        if str(url).endswith(".mp4"):
+            return media.avFileFormatEnum.MP4
+        elif str(url).endswith(".mp3"):
+            return media.avFileFormatEnum.MP3
         else:
-            return "UNKNOWN"
+            return media.avFileFormatEnum.UNKNOWN
 
 
 
