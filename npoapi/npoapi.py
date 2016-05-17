@@ -6,6 +6,7 @@ import os
 import urllib.request
 from email import utils
 import sys
+import codecs
 
 from npoapi.base import NpoApiBase
 
@@ -133,7 +134,7 @@ class NpoApi(NpoApiBase):
         if data:
             if os.path.isfile(data):
                 self.logger.debug("" + data + " is file, reading it in")
-                with open(data, 'r') as myfile:
+                with codecs.open(data, 'r', 'utf-8') as myfile:
                     data = myfile.read()
                     self.logger.debug("Found data " + data)
 
