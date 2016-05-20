@@ -1,0 +1,40 @@
+#!/usr/bin/env python3
+"""
+ Integrations test
+"""
+import time
+
+from npoapi import MediaBackend
+from npoapi.xml import mediaupdate
+import pyxb
+
+backend = MediaBackend().configured_login().debug()
+
+def create_clip():
+    program = mediaupdate.program(type="CLIP", avType="MIXED")
+    program.title.append(mediaupdate.titleUpdateType("hoi " + str(time.time()), type="MAIN"))
+    program.crid.append("crid://pyapi/clip/1")
+    program.broadcaster.append("VPRO")
+    program.segments = pyxb.BIND()
+    program.segments.append(create_segment())
+    program.images = pyxb.BIND()
+    image = mediaupdate.image(type="PICTURE", title="Plaatje van clip")
+    image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&w=120&h=120"
+    program.images.append(image)
+
+    return program
+
+def create_segment():
+    segment = mediaupdate.segment(avType="MIXED")
+    segment.title.append(mediaupdate.titleUpdateType("hoi " + str(time.time()), type="MAIN"))
+    segment.crid.append("crid://pyapi/segment/1")
+    segment.broadcaster.append("VPRO")
+    segment.start = 'PT10S'
+    segment.images = pyxb.BIND()
+    image = mediaupdate.image(type="PICTURE", title="Plaatje van segment")
+    image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=17&txt=image2&w=120&h=120"
+    return segment
+    
+clip = create_clip()
+print(backend.post(clip))
+    

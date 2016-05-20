@@ -1,7 +1,7 @@
 # ./npoapi/xml/media.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aaac8a39e00bcd1804b49bf5b5b8b83fb686b430
-# Generated 2016-05-16 14:38:29.403106 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-05-20 21:27:58.024681 by PyXB version 1.2.4 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:2009 [xmlns:media]
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:1687340c-1b63-11e6-a2ad-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:f3bc11d8-1ec0-11e6-83e9-60fb42f0af34')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -84,7 +84,7 @@ class mediaTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'mediaTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 89, 2)
     _Documentation = None
-mediaTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=mediaTypeEnum)
+mediaTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=mediaTypeEnum, enum_prefix=None)
 mediaTypeEnum.MEDIA = mediaTypeEnum._CF_enumeration.addEnumeration(unicode_value='MEDIA', tag='MEDIA')
 mediaTypeEnum.STRAND = mediaTypeEnum._CF_enumeration.addEnumeration(unicode_value='STRAND', tag='STRAND')
 mediaTypeEnum.ALBUM = mediaTypeEnum._CF_enumeration.addEnumeration(unicode_value='ALBUM', tag='ALBUM')
@@ -115,7 +115,7 @@ class groupTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'groupTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 113, 2)
     _Documentation = None
-groupTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=groupTypeEnum)
+groupTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=groupTypeEnum, enum_prefix=None)
 groupTypeEnum.STRAND = groupTypeEnum._CF_enumeration.addEnumeration(unicode_value='STRAND', tag='STRAND')
 groupTypeEnum.ALBUM = groupTypeEnum._CF_enumeration.addEnumeration(unicode_value='ALBUM', tag='ALBUM')
 groupTypeEnum.PLAYLIST = groupTypeEnum._CF_enumeration.addEnumeration(unicode_value='PLAYLIST', tag='PLAYLIST')
@@ -134,7 +134,7 @@ class programTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumera
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'programTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 125, 2)
     _Documentation = None
-programTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=programTypeEnum)
+programTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=programTypeEnum, enum_prefix=None)
 programTypeEnum.BROADCAST = programTypeEnum._CF_enumeration.addEnumeration(unicode_value='BROADCAST', tag='BROADCAST')
 programTypeEnum.MOVIE = programTypeEnum._CF_enumeration.addEnumeration(unicode_value='MOVIE', tag='MOVIE')
 programTypeEnum.TRAILER = programTypeEnum._CF_enumeration.addEnumeration(unicode_value='TRAILER', tag='TRAILER')
@@ -155,7 +155,7 @@ class segmentTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumera
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'segmentTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 139, 2)
     _Documentation = None
-segmentTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=segmentTypeEnum)
+segmentTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=segmentTypeEnum, enum_prefix=None)
 segmentTypeEnum.SEGMENT = segmentTypeEnum._CF_enumeration.addEnumeration(unicode_value='SEGMENT', tag='SEGMENT')
 segmentTypeEnum._InitializeFacetMap(segmentTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'segmentTypeEnum', segmentTypeEnum)
@@ -168,7 +168,7 @@ class workflowTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumer
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'workflowTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 146, 2)
     _Documentation = None
-workflowTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=workflowTypeEnum)
+workflowTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=workflowTypeEnum, enum_prefix=None)
 workflowTypeEnum.PUBLISHED = workflowTypeEnum._CF_enumeration.addEnumeration(unicode_value='PUBLISHED', tag='PUBLISHED')
 workflowTypeEnum.REVOKED = workflowTypeEnum._CF_enumeration.addEnumeration(unicode_value='REVOKED', tag='REVOKED')
 workflowTypeEnum.FOR_REPUBLICATION = workflowTypeEnum._CF_enumeration.addEnumeration(unicode_value='FOR REPUBLICATION', tag='FOR_REPUBLICATION')
@@ -199,7 +199,7 @@ class platformTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumer
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'platformTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 287, 2)
     _Documentation = None
-platformTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=platformTypeEnum)
+platformTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=platformTypeEnum, enum_prefix=None)
 platformTypeEnum.INTERNETVOD = platformTypeEnum._CF_enumeration.addEnumeration(unicode_value='INTERNETVOD', tag='INTERNETVOD')
 platformTypeEnum.TVVOD = platformTypeEnum._CF_enumeration.addEnumeration(unicode_value='TVVOD', tag='TVVOD')
 platformTypeEnum.PLUSVOD = platformTypeEnum._CF_enumeration.addEnumeration(unicode_value='PLUSVOD', tag='PLUSVOD')
@@ -226,7 +226,7 @@ class textualTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumera
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'textualTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 321, 2)
     _Documentation = None
-textualTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=textualTypeEnum)
+textualTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=textualTypeEnum, enum_prefix=None)
 textualTypeEnum.MAIN = textualTypeEnum._CF_enumeration.addEnumeration(unicode_value='MAIN', tag='MAIN')
 textualTypeEnum.SHORT = textualTypeEnum._CF_enumeration.addEnumeration(unicode_value='SHORT', tag='SHORT')
 textualTypeEnum.SUB = textualTypeEnum._CF_enumeration.addEnumeration(unicode_value='SUB', tag='SUB')
@@ -247,7 +247,7 @@ class avTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'avTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 335, 2)
     _Documentation = None
-avTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=avTypeEnum)
+avTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=avTypeEnum, enum_prefix=None)
 avTypeEnum.AUDIO = avTypeEnum._CF_enumeration.addEnumeration(unicode_value='AUDIO', tag='AUDIO')
 avTypeEnum.VIDEO = avTypeEnum._CF_enumeration.addEnumeration(unicode_value='VIDEO', tag='VIDEO')
 avTypeEnum.MIXED = avTypeEnum._CF_enumeration.addEnumeration(unicode_value='MIXED', tag='MIXED')
@@ -262,7 +262,7 @@ class avFileFormatEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumer
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'avFileFormatEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 386, 2)
     _Documentation = None
-avFileFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=avFileFormatEnum)
+avFileFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=avFileFormatEnum, enum_prefix=None)
 avFileFormatEnum.MP3 = avFileFormatEnum._CF_enumeration.addEnumeration(unicode_value='MP3', tag='MP3')
 avFileFormatEnum.RA = avFileFormatEnum._CF_enumeration.addEnumeration(unicode_value='RA', tag='RA')
 avFileFormatEnum.RM = avFileFormatEnum._CF_enumeration.addEnumeration(unicode_value='RM', tag='RM')
@@ -291,7 +291,7 @@ class colorType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_m
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'colorType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 418, 2)
     _Documentation = None
-colorType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=colorType)
+colorType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=colorType, enum_prefix=None)
 colorType.COLOR = colorType._CF_enumeration.addEnumeration(unicode_value='COLOR', tag='COLOR')
 colorType.BLACK_AND_WHITE = colorType._CF_enumeration.addEnumeration(unicode_value='BLACK AND WHITE', tag='BLACK_AND_WHITE')
 colorType.BLACK_AND_WHITE_AND_COLOR = colorType._CF_enumeration.addEnumeration(unicode_value='BLACK AND WHITE AND COLOR', tag='BLACK_AND_WHITE_AND_COLOR')
@@ -307,7 +307,7 @@ class aspectRatioEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumera
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'aspectRatioEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 427, 2)
     _Documentation = None
-aspectRatioEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=aspectRatioEnum)
+aspectRatioEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=aspectRatioEnum, enum_prefix=None)
 aspectRatioEnum.n43 = aspectRatioEnum._CF_enumeration.addEnumeration(unicode_value='4:3', tag='n43')
 aspectRatioEnum.n169 = aspectRatioEnum._CF_enumeration.addEnumeration(unicode_value='16:9', tag='n169')
 aspectRatioEnum._InitializeFacetMap(aspectRatioEnum._CF_enumeration)
@@ -321,7 +321,7 @@ class roleType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'roleType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 456, 2)
     _Documentation = None
-roleType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=roleType)
+roleType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=roleType, enum_prefix=None)
 roleType.DIRECTOR = roleType._CF_enumeration.addEnumeration(unicode_value='DIRECTOR', tag='DIRECTOR')
 roleType.CHIEF_EDITOR = roleType._CF_enumeration.addEnumeration(unicode_value='CHIEF_EDITOR', tag='CHIEF_EDITOR')
 roleType.EDITOR = roleType._CF_enumeration.addEnumeration(unicode_value='EDITOR', tag='EDITOR')
@@ -347,10 +347,10 @@ class websiteType (pyxb.binding.datatypes.anyURI):
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'websiteType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 518, 2)
     _Documentation = None
-websiteType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(255))
 websiteType._CF_minLength = pyxb.binding.facets.CF_minLength(value=pyxb.binding.datatypes.nonNegativeInteger(1))
-websiteType._InitializeFacetMap(websiteType._CF_maxLength,
-   websiteType._CF_minLength)
+websiteType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(255))
+websiteType._InitializeFacetMap(websiteType._CF_minLength,
+   websiteType._CF_maxLength)
 Namespace.addCategoryObject('typeBinding', 'websiteType', websiteType)
 
 # Atomic simple type: [anonymous]
@@ -361,7 +361,7 @@ class STD_ANON (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 529, 10)
     _Documentation = None
-STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON)
+STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON, enum_prefix=None)
 STD_ANON.ACCOUNT = STD_ANON._CF_enumeration.addEnumeration(unicode_value='ACCOUNT', tag='ACCOUNT')
 STD_ANON.HASHTAG = STD_ANON._CF_enumeration.addEnumeration(unicode_value='HASHTAG', tag='HASHTAG')
 STD_ANON._InitializeFacetMap(STD_ANON._CF_enumeration)
@@ -374,7 +374,7 @@ class scheduleEventTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.e
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'scheduleEventTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 590, 2)
     _Documentation = None
-scheduleEventTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=scheduleEventTypeEnum)
+scheduleEventTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=scheduleEventTypeEnum, enum_prefix=None)
 scheduleEventTypeEnum.STRAND = scheduleEventTypeEnum._CF_enumeration.addEnumeration(unicode_value='STRAND', tag='STRAND')
 scheduleEventTypeEnum._InitializeFacetMap(scheduleEventTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'scheduleEventTypeEnum', scheduleEventTypeEnum)
@@ -387,7 +387,7 @@ class predictionStateEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enu
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'predictionStateEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 596, 2)
     _Documentation = None
-predictionStateEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=predictionStateEnum)
+predictionStateEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=predictionStateEnum, enum_prefix=None)
 predictionStateEnum.ANNOUNCED = predictionStateEnum._CF_enumeration.addEnumeration(unicode_value='ANNOUNCED', tag='ANNOUNCED')
 predictionStateEnum.REALIZED = predictionStateEnum._CF_enumeration.addEnumeration(unicode_value='REALIZED', tag='REALIZED')
 predictionStateEnum.REVOKED = predictionStateEnum._CF_enumeration.addEnumeration(unicode_value='REVOKED', tag='REVOKED')
@@ -402,7 +402,7 @@ class locationTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumer
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'locationTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 635, 2)
     _Documentation = None
-locationTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=locationTypeEnum)
+locationTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=locationTypeEnum, enum_prefix=None)
 locationTypeEnum.INTERNAL = locationTypeEnum._CF_enumeration.addEnumeration(unicode_value='INTERNAL', tag='INTERNAL')
 locationTypeEnum.EXTERNAL = locationTypeEnum._CF_enumeration.addEnumeration(unicode_value='EXTERNAL', tag='EXTERNAL')
 locationTypeEnum.UNKNOWN = locationTypeEnum._CF_enumeration.addEnumeration(unicode_value='UNKNOWN', tag='UNKNOWN')
@@ -417,13 +417,13 @@ class midType (pyxb.binding.datatypes.string):
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'midType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 687, 2)
     _Documentation = None
+midType._CF_minLength = pyxb.binding.facets.CF_minLength(value=pyxb.binding.datatypes.nonNegativeInteger(4))
 midType._CF_pattern = pyxb.binding.facets.CF_pattern()
 midType._CF_pattern.addPattern(pattern='[ \\.a-zA-Z0-9_-]+')
 midType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(255))
-midType._CF_minLength = pyxb.binding.facets.CF_minLength(value=pyxb.binding.datatypes.nonNegativeInteger(4))
-midType._InitializeFacetMap(midType._CF_pattern,
-   midType._CF_maxLength,
-   midType._CF_minLength)
+midType._InitializeFacetMap(midType._CF_minLength,
+   midType._CF_pattern,
+   midType._CF_maxLength)
 Namespace.addCategoryObject('typeBinding', 'midType', midType)
 
 # Atomic simple type: {urn:vpro:media:2009}organizationIdType
@@ -460,10 +460,10 @@ class baseTextType (pyxb.binding.datatypes.string):
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'baseTextType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 707, 2)
     _Documentation = None
-baseTextType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(255))
 baseTextType._CF_minLength = pyxb.binding.facets.CF_minLength(value=pyxb.binding.datatypes.nonNegativeInteger(1))
-baseTextType._InitializeFacetMap(baseTextType._CF_maxLength,
-   baseTextType._CF_minLength)
+baseTextType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(255))
+baseTextType._InitializeFacetMap(baseTextType._CF_minLength,
+   baseTextType._CF_maxLength)
 Namespace.addCategoryObject('typeBinding', 'baseTextType', baseTextType)
 
 # Atomic simple type: {urn:vpro:media:2009}unrequiredBaseTextType
@@ -474,10 +474,10 @@ class unrequiredBaseTextType (pyxb.binding.datatypes.string):
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'unrequiredBaseTextType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 714, 2)
     _Documentation = None
-unrequiredBaseTextType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(255))
 unrequiredBaseTextType._CF_minLength = pyxb.binding.facets.CF_minLength(value=pyxb.binding.datatypes.nonNegativeInteger(0))
-unrequiredBaseTextType._InitializeFacetMap(unrequiredBaseTextType._CF_maxLength,
-   unrequiredBaseTextType._CF_minLength)
+unrequiredBaseTextType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(255))
+unrequiredBaseTextType._InitializeFacetMap(unrequiredBaseTextType._CF_minLength,
+   unrequiredBaseTextType._CF_maxLength)
 Namespace.addCategoryObject('typeBinding', 'unrequiredBaseTextType', unrequiredBaseTextType)
 
 # Atomic simple type: {urn:vpro:media:2009}unboundedTextType
@@ -524,7 +524,7 @@ class geoRestrictionEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enum
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'geoRestrictionEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 744, 2)
     _Documentation = None
-geoRestrictionEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=geoRestrictionEnum)
+geoRestrictionEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=geoRestrictionEnum, enum_prefix=None)
 geoRestrictionEnum.NL = geoRestrictionEnum._CF_enumeration.addEnumeration(unicode_value='NL', tag='NL')
 geoRestrictionEnum.BENELUX = geoRestrictionEnum._CF_enumeration.addEnumeration(unicode_value='BENELUX', tag='BENELUX')
 geoRestrictionEnum._InitializeFacetMap(geoRestrictionEnum._CF_enumeration)
@@ -538,7 +538,7 @@ class contentRatingType (pyxb.binding.datatypes.string, pyxb.binding.basis.enume
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'contentRatingType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 751, 2)
     _Documentation = None
-contentRatingType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=contentRatingType)
+contentRatingType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=contentRatingType, enum_prefix=None)
 contentRatingType.DISCRIMINATIE = contentRatingType._CF_enumeration.addEnumeration(unicode_value='DISCRIMINATIE', tag='DISCRIMINATIE')
 contentRatingType.GROF_TAALGEBRUIK = contentRatingType._CF_enumeration.addEnumeration(unicode_value='GROF_TAALGEBRUIK', tag='GROF_TAALGEBRUIK')
 contentRatingType.ANGST = contentRatingType._CF_enumeration.addEnumeration(unicode_value='ANGST', tag='ANGST')
@@ -556,7 +556,7 @@ class ageRatingType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'ageRatingType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 762, 2)
     _Documentation = None
-ageRatingType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=ageRatingType)
+ageRatingType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=ageRatingType, enum_prefix=None)
 ageRatingType.n6 = ageRatingType._CF_enumeration.addEnumeration(unicode_value='6', tag='n6')
 ageRatingType.n9 = ageRatingType._CF_enumeration.addEnumeration(unicode_value='9', tag='n9')
 ageRatingType.n12 = ageRatingType._CF_enumeration.addEnumeration(unicode_value='12', tag='n12')
@@ -599,7 +599,7 @@ class channelEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'channelEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 800, 2)
     _Documentation = None
-channelEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=channelEnum)
+channelEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=channelEnum, enum_prefix=None)
 channelEnum.NED1 = channelEnum._CF_enumeration.addEnumeration(unicode_value='NED1', tag='NED1')
 channelEnum.NED2 = channelEnum._CF_enumeration.addEnumeration(unicode_value='NED2', tag='NED2')
 channelEnum.NED3 = channelEnum._CF_enumeration.addEnumeration(unicode_value='NED3', tag='NED3')

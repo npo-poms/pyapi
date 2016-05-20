@@ -10,4 +10,5 @@ from npoapi.schedule import Schedule
 from npoapi.pages import Pages
 from npoapi.screens import Screens
 from npoapi.media_backend import MediaBackend
+from npoapi.pages_backend import PagesBackend
 

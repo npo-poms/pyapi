@@ -1,0 +1,13 @@
+#!/usr/bin/env python3
+"""
+  Simple client to get an object from the NPO Backend API media endpoint
+"""
+from npoapi import PagesBackend
+
+client = PagesBackend().command_line_client(description="Set an page object int  NPO Backend API")
+client.add_argument('xml', type=str, nargs=1, help='The xml to post')
+
+args = client.parse_args()
+print(client.post(args.xml[0]))
+client.exit()
+

@@ -3,8 +3,6 @@
   Simple client to get an object from the NPO Backend API media endpoint
 """
 from npoapi import MediaBackend
-from npoapi.xml import poms
-
 
 client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
 
@@ -19,6 +17,7 @@ process = args.process
 if process is None:
     print(client.parse_minidom(bytes).toprettyxml(indent="  "))
 else:
+    from npoapi.xml import poms
     update = poms.CreateFromDocument(bytes)
     exec(process)
     print(update.toDOM().toprettyxml(indent="  "))
