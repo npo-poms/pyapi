@@ -123,14 +123,15 @@ class MediaBackendTest(unittest.TestCase):
         print(str(locations))
 
     def test_get_segments(self):
-        bytes=self.client.get("RBX_AT_2145721")
-        existing = poms.CreateFromDocument(bytes)
-        print(str(existing))
+        bytes = self.client.get("RBX_AT_2145721")
+        existing = mediaupdate.CreateFromDocument(bytes)
+        self.assertTrue(type(existing) == mediaupdate.segmentUpdateType)
 
 
     def test_get_images(self):
         mid="POMS_VPRO_1421796"
         media=poms.CreateFromDocument(self.client.get(mid))
+        print(len(media.images.image))
         image=media.images.image[0]
         bytes = self.client.get_images("POMS_VPRO_1421796")
         images= poms.CreateFromDocument(bytes)
@@ -143,6 +144,19 @@ class MediaBackendTest(unittest.TestCase):
     def test_set_location(self):
         mid = "POMS_VPRO_1421796"
         self.client.set_location(mid, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
+
+
+    def test_set_location_by_id(self):
+        mid = "POMS_VPRO_1421796"
+        self.client.set_location(mid, 58758190, publishStop="2012-01-11T17:16:01.287Z")
+
+    def test_set_location_by_id_as_string(self):
+        mid = "POMS_VPRO_1421796"
+        self.client.set_location(mid, "58758190", publishStop="2013-01-11T17:16:01.287Z")
+
+    def test_set_location_by_urn(self):
+        mid = "POMS_VPRO_1421796"
+        self.client.set_location(mid, "urn:vpro:media:location:58758190", publishStop="2014-01-11T17:16:01.287Z")
 
 
     def test_create_location(self):
