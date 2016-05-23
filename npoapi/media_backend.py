@@ -174,8 +174,12 @@ class MediaBackend(BasicBackend):
         locations = poms.CreateFromDocument(self.get_locations(mid)).wildcardElements()
         location_object = None
         for l in locations:
-            if location.isdigit():
-                if l.id == location and (programUrl is None or str(l.programUrl) == programUrl):
+            if type(location) == int or location.isdigit():
+                if (l.urn is not None and str(l.urn).endswith(':' + str(location))) and (programUrl is None or str(l.programUrl) == programUrl):
+                    location_object = l
+                    break
+            elif str(l.urn).startswith("urn:vpro:media:location:"):
+                if (str(l.urn) == location) and (programUrl is None or str(l.programUrl) == programUrl):
                     location_object = l
                     break
             else:
