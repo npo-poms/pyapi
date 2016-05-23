@@ -9,6 +9,8 @@ from npoapi import Screens
 from npoapi import MediaBackend
 from npoapi.npoapi import NpoApi
 from npoapi.xml import poms
+from npoapi.xml import mediaupdate
+
 import time
 
 ENV = "dev"
@@ -120,6 +122,12 @@ class MediaBackendTest(unittest.TestCase):
         locations=poms.CreateFromDocument(bytes)
         print(str(locations))
 
+    def test_get_segments(self):
+        bytes=self.client.get("RBX_AT_2145721")
+        existing = poms.CreateFromDocument(bytes)
+        print(str(existing))
+
+
     def test_get_images(self):
         mid="POMS_VPRO_1421796"
         media=poms.CreateFromDocument(self.client.get(mid))
@@ -130,8 +138,8 @@ class MediaBackendTest(unittest.TestCase):
         self.assertEquals(image.title, image2.title)
         self.assertEquals(image2.title, "sdf")
         print(image2.toxml())
-        
-        
+
+
     def test_set_location(self):
         mid = "POMS_VPRO_1421796"
         self.client.set_location(mid, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
@@ -140,7 +148,7 @@ class MediaBackendTest(unittest.TestCase):
     def test_create_location(self):
         mid = "POMS_VPRO_1421796"
         self.client.set_location(mid, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
-        
+
 
 
 

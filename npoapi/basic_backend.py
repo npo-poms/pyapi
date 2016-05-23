@@ -50,7 +50,7 @@ class BasicBackend(NpoApiBase):
             self.user = settings["user"]
             if ":" in self.user:
                 self.password = self.user.split(":", 2)[1]
-                self.user = self.user.split(":", 2)[0]        
+                self.user = self.user.split(":", 2)[0]
         return
 
     def env(self, e):
@@ -66,6 +66,10 @@ class BasicBackend(NpoApiBase):
         else:
             self.url = e
         return self
+
+
+    def errors(self, email):
+        self.email = email
 
 
     def login(self):
