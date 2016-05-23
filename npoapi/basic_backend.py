@@ -2,6 +2,7 @@ import base64
 import importlib.util
 import logging
 import urllib.request
+import pytz
 from xml.dom import minidom
 
 from npoapi.base import NpoApiBase
