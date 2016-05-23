@@ -16,8 +16,8 @@ class Media(NpoApi):
     def list(self):
         return self.request("/api/media")
 
-    def search(self, form="{}", sort="asc", offset=0, max_=240):
-        return self.request("/api/media", data=form, params={"sort": sort, "offset": offset, "max": max_})
+    def search(self, form="{}", sort="asc", offset=0, max_=240, properties=None):
+        return self.request("/api/media", data=form, params={"sort": sort, "offset": offset, "max": max_, "properties": properties})
 
     def changes(self, profile=None, order="ASC", stream=False, max_=10):
         if stream:

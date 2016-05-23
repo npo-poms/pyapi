@@ -1,7 +1,7 @@
 # ./npoapi/xml/pagesupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:5f83322167e39b923e67d23964d9d10739352ba9
-# Generated 2016-05-20 21:27:58.023012 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-05-22 14:42:03.600307 by PyXB version 1.2.4 using Python 3.5.0.final.0
 # Namespace urn:vpro:pages:update:2013
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:f3bc11d8-1ec0-11e6-83e9-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:93a4c04c-201a-11e6-986b-60fb42f0af34')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -24,9 +24,9 @@ if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
 # Import bindings for namespaces imported into schema
-import npoapi.xml.pages as _ImportedBinding_npoapi_xml_pages
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import pyxb.binding.datatypes
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
+import npoapi.xml.pages as _ImportedBinding_npoapi_xml_pages
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:pages:update:2013', create_if_missing=True)

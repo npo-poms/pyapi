@@ -3,12 +3,21 @@
  Integrations test
 """
 import time
+import argparse
+import sys
 
 from npoapi import MediaBackend
+from npoapi import Media
 from npoapi.xml import mediaupdate
 import pyxb
 
-backend = MediaBackend().configured_login().debug()
+aparser = argparse.ArgumentParser(add_help=False)
+aparser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
+aparser.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
+args= aparser.parse_args()
+
+backend = MediaBackend().env(args.env).debug(args.debug).configured_login(read_environment=True)
+mediaapi = Media().env(args.env).debug(args.debug).configured_login(read_environment=True)
 
 def create_clip():
     program = mediaupdate.program(type="CLIP", avType="MIXED")
@@ -33,8 +42,17 @@ def create_segment():
     segment.images = pyxb.BIND()
     image = mediaupdate.image(type="PICTURE", title="Plaatje van segment")
     image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=17&txt=image2&w=120&h=120"
+    segment.images.append(image)
     return segment
+
+def create_media():
+    clip = create_clip()
+    print(backend.post(clip))
     
-clip = create_clip()
-print(backend.post(clip))
+def check_frontend_media():
+    print(mediaapi.get("crid://pyapi/clip/1"))
+    
+    
+check_frontend_media()
+
     

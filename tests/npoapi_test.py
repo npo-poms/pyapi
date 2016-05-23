@@ -8,6 +8,8 @@ from npoapi import Media
 from npoapi import Screens
 from npoapi import MediaBackend
 from npoapi.npoapi import NpoApi
+from npoapi.npoapi import NpoApiBase
+
 from npoapi.xml import poms
 from npoapi.xml import mediaupdate
 
@@ -22,8 +24,14 @@ class Tests(unittest.TestCase):
             .login(key="a", secret="b")
         self.assertEqual("NPO a:CtHYR9a+nr17OIn5rYml6a+A9ujqe0IywWqr93/DAOk=",
                          client.authenticate(uri="/media", now="Fri, 30 Oct 2015 08:43:31 -0000")[0])
-
-
+        
+    def test_env(self):
+        properties={'a': 'A', 'a.prod': 'Aprod', 'b': 'B', 'b.test': 'Btest'}
+        client = NpoApiBase().env('test')
+        settings = client.read_settings_from_properties(properties)
+        self.assertEquals(settings['a'], "A")
+        self.assertEquals(settings['b'], "Btest")
+        
 class MediaTests(unittest.TestCase):
     def test_get(self):
         client = Media().configured_login().env(ENV).debug()

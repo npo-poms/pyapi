@@ -1,7 +1,7 @@
 # ./npoapi/xml/pages.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:bae47b8c8a50fe304e6e9de618201baa8dfd97c5
-# Generated 2016-05-20 21:27:58.021815 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-05-22 14:42:03.599898 by PyXB version 1.2.4 using Python 3.5.0.final.0
 # Namespace urn:vpro:pages:2013 [xmlns:page]
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:f3bc11d8-1ec0-11e6-83e9-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:93a4c04c-201a-11e6-986b-60fb42f0af34')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -92,7 +92,7 @@ class pageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'pageTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://publish.pages.omroep.nl/schema/pages_2013.xsd', 16, 2)
     _Documentation = None
-pageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=pageTypeEnum, enum_prefix=None)
+pageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=pageTypeEnum)
 pageTypeEnum.ARTICLE = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='ARTICLE', tag='ARTICLE')
 pageTypeEnum.SPECIAL = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='SPECIAL', tag='SPECIAL')
 pageTypeEnum.HOME = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='HOME', tag='HOME')
@@ -116,7 +116,7 @@ class linkTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'linkTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://publish.pages.omroep.nl/schema/pages_2013.xsd', 33, 2)
     _Documentation = None
-linkTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=linkTypeEnum, enum_prefix=None)
+linkTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=linkTypeEnum)
 linkTypeEnum.TOP_STORY = linkTypeEnum._CF_enumeration.addEnumeration(unicode_value='TOP_STORY', tag='TOP_STORY')
 linkTypeEnum._InitializeFacetMap(linkTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'linkTypeEnum', linkTypeEnum)

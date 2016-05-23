@@ -59,7 +59,7 @@ class NpoApiBase:
 
     def configured_login(self, read_environment=False, create_config_file=False):
         """
-        Logs in using configuration file. Considered using json (no comments-> unusable) or configparser (nearly properties, but heading are required..)
+        Logs in using configuration file. Considered using json (no comments-> unusable) or configparser (nearly properties, but headings are required..)
         So, now it simply parses the file itself.
         :param create_config_file: If there is no existing config file, offer to create one
         :param read_environment: If this is set to true, shel environment variables like DEBUG and ENV will be recognized
@@ -84,20 +84,8 @@ class NpoApiBase:
         settings = {}
         if config_file:
             self.logger.debug("Reading " + config_file + " for env " + self.actualenv)
-            with open(config_file, "r") as f:
-                for line in f:
-                    l = line.strip()
-                    if l and not l.startswith("#"):
-                        key, value = l.split("=", 2)
-                        split = key.split('.', 2)
-                        if len(split) == 2:
-                            e, usedkey = split
-                        else:
-                            e, usedkey = None, key
-                        self.logger.debug("%s %s %s %s", e, usedkey,key, value)
-                        settings[key] = value.strip('" \t')
-                        if not e or e == self.actualenv:
-                            settings[usedkey.strip().lower()] = value.strip('" \t')
+            properties = self.read_properties_file(config_file)
+            self.read_settings_from_properties(properties, settings)
 
         if not config_file and create_config_file:
             print("No configuration file found. Now creating.")
@@ -121,7 +109,7 @@ class NpoApiBase:
                     for key in settings:
                         if len(key.split(".")) == 1:
                             f.write(key + "=" + settings[key] + "\n")
-                            f.write(self.actualenv + "." + key + "=" + settings[key] + "\n")
+                            f.write(key + "." + self.actualenv + "=" + settings[key] + "\n")
                         if len(key.split(".")) == 2:
                             f.write(key + "=" + settings[key] + "\n")
             else:
@@ -129,10 +117,6 @@ class NpoApiBase:
 
         if self.logger.isEnabledFor(logging.DEBUG):
             settings_for_log = copy.copy(settings)
-            remove = [k for k in settings_for_log if len(k.split('.', 2)) == 2]
-
-            for k in remove:
-                del settings_for_log[k]
             self.anonymize_for_logging(settings_for_log)
             self.logger.debug("settings" + str(settings_for_log))
 
@@ -140,9 +124,40 @@ class NpoApiBase:
         self.read_settings(settings)
 
         return self
+    
+    def read_properties_file(self, config_file, properties = None):
+        if properties is None:
+            properties = {}
+        with open(config_file, "r") as f:
+            for line in f:
+                l = line.strip()
+                if l and not l.startswith("#"):
+                    key, value = l.split("=", 2)
+                    properties[key] = value.strip('" \t')
+        return properties
+    
+    def read_settings_from_properties(self, properties, settings=None):
+        if settings is None:
+            settings = {}
+        for key, value in properties.items():
+            split = key.split('.', 2)
+            if len(split) == 1:
+                settings[key.strip().lower()] = value.strip('" \t')
+        for key, value in properties.items():
+            split = key.split('.', 2)
+            if len(split) == 2:
+                usedkey, e = split[0], split[1]
+                if e == self.actualenv:
+                    settings[usedkey.strip().lower()] = value.strip('" \t')
+                    self.logger.debug("%s %s %s %s", e, usedkey, key, value)
+        return settings
 
-    @abc.abstractmethod
-    def anonymize_for_logging(self, settings):
+    def anonymize_for_logging(self, settings_for_log):
+        if 'secret' in settings_for_log:
+            settings_for_log['secret'] = "xxx"
+
+        if 'user' in settings_for_log:
+            settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
         return
 
     @abc.abstractmethod
@@ -185,8 +200,7 @@ class NpoApiBase:
 
     def parse_args(self):
         args = self.argument_parser.parse_args()
-        if args.env:
-            self.env(args.env)
+        self.env(args.env)
         self.debug(args.debug)
         self.accept("application/" + args.accept if args.accept else None)
         return args

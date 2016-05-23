@@ -59,14 +59,7 @@ class NpoApi(NpoApiBase):
 
         self.login(settings["apikey"], settings["secret"])
         if "origin" in settings:
-            self.origin = settings["origin"]
-
-    def anonymize_for_logging(self, settings_for_log):
-        if 'secret' in settings_for_log:
-            settings_for_log['secret'] = "xxx"
-        if 'user' in settings_for_log:
-            settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
-        return
+            self.origin = settings["origin"]   
 
     def info(self):
         return self.key + "@" + self.url
@@ -102,16 +95,17 @@ class NpoApi(NpoApiBase):
 
         self.logger.debug("url: " + str(req.get_full_url()))
 
-    @staticmethod
-    def _get_data(data=None):
+    def _get_data(self, data=None, content_type=None):
+        """Automaticly determins the content_type if it is not set"""
         if type(data) == str:
+            if content_type is not None:
+                return data.encode("UTF-8"), content_type
             try:
-                json_object = json.JSONDecoder().decode(data)
+                json_object = json.JSONDecoder(strict=False).decode(data)
                 return json.JSONEncoder().encode(json_object).encode("UTF-8"), "application/json"
-            except json.JSONDecodeError:
+            except json.JSONDecodeError as je:
+                self.logger.debug(je)
                 return data.encode("UTF-8"), "application/xml"
-
-
 
         return None,None
 
@@ -122,21 +116,25 @@ class NpoApi(NpoApiBase):
         else:
             return ""
 
-
-    def stream(self, path, params=None, accept=None, data=None):
+    def stream(self, path, params=None, accept=None, data=None, content_type=None):
         if data:
             if os.path.isfile(data):
                 self.logger.debug("" + data + " is file, reading it in")
+                if content_type is None:
+                    if data.endswith(".json"):
+                        content_type = "application/json"
+                    elif data.endswith(".xml"):
+                        content_type = "application/xml"                        
                 with codecs.open(data, 'r', 'utf-8') as myfile:
                     data = myfile.read()
                     self.logger.debug("Found data " + data)
 
         url, path_for_authentication = self._get_url(path, params)
-        d, ct = self._get_data(data)
+        d, content_type = self._get_data(data, content_type=content_type)
         req = urllib.request.Request(url, data=d)
 
-        if ct:
-            req.add_header("Content-Type", ct)
+        if content_type:
+            req.add_header("Content-Type", content_type)
 
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept if accept else self._accept)
