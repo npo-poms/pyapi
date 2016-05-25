@@ -9,6 +9,11 @@ Then you can install the python libraries and command line scripts with the foll
 ```
 pip3 install git+https://github.com/npo-poms/pyapi.git@0.4
 ```
+or if you dare install the latest, which may sometimes be a bit broken:
+```
+pip3 install git+https://github.com/npo-poms/pyapi.git
+```
+
 
 Check [setup.py](https://github.com/npo-poms/pyapi/blob/master/setup.py) to see which command line clients it will make available. These also serve as examples on how to use the npoapi module.
 
