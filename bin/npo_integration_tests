@@ -72,7 +72,7 @@ def post_to_backend():
 
 
 def check_on_backend():
-    clip = backend.get("crid://pyapi/clip/1")
+    clip = backend.get("crid://pyapi/clip/1") ## FAILS, getting by crid doesn't work properly
     assert clip.mid == "WO_VPRO_1425989"
     assert clip.title[0].endswith(time_str)
 
