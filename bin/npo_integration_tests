@@ -1,15 +1,17 @@
 #!/usr/bin/env python3
 """
  Integrations test
-"""
-import time
-import argparse
-import sys
+ See http://poms-test.omroep.nl/#/edit/WO_VPRO_1425989
 
-from npoapi import MediaBackend
-from npoapi import Media
-from npoapi.xml import mediaupdate
+"""
+import argparse
+import time
+
 import pyxb
+
+from npoapi import Media
+from npoapi import MediaBackend
+from npoapi.xml import mediaupdate
 
 aparser = argparse.ArgumentParser(add_help=False)
 aparser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
@@ -19,40 +21,72 @@ args= aparser.parse_args()
 backend = MediaBackend().env(args.env).debug(args.debug).configured_login(read_environment=True)
 mediaapi = Media().env(args.env).debug(args.debug).configured_login(read_environment=True)
 
+
+time_str = str(time.time())
+
 def create_clip():
     program = mediaupdate.program(type="CLIP", avType="MIXED")
-    program.title.append(mediaupdate.titleUpdateType("hoi " + str(time.time()), type="MAIN"))
+    program.title.append(mediaupdate.titleUpdateType("hoi " + time_str, type="MAIN"))
     program.crid.append("crid://pyapi/clip/1")
     program.broadcaster.append("VPRO")
     program.segments = pyxb.BIND()
-    program.segments.append(create_segment())
+    program.segments.append(create_segment(1))
     program.images = pyxb.BIND()
-    image = mediaupdate.image(type="PICTURE", title="Plaatje van clip")
+    image = mediaupdate.image(type="PICTURE", title="Plaatje van clip " + time_str)
     image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&w=120&h=120"
     program.images.append(image)
-
     return program
 
-def create_segment():
+def create_segment(nr, ref=None):
     segment = mediaupdate.segment(avType="MIXED")
-    segment.title.append(mediaupdate.titleUpdateType("hoi " + str(time.time()), type="MAIN"))
-    segment.crid.append("crid://pyapi/segment/1")
+    segment.title.append(mediaupdate.titleUpdateType("hoi (" + str(nr) + ") " + time_str, type="MAIN"))
+    segment.crid.append("crid://pyapi/segment/" + str(nr))
     segment.broadcaster.append("VPRO")
     segment.start = 'PT10S'
     segment.images = pyxb.BIND()
-    image = mediaupdate.image(type="PICTURE", title="Plaatje van segment")
+    if ref:
+        segment.midRef = ref
+    image = mediaupdate.image(type="PICTURE", title="Plaatje van segment "  + time_str)
     image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=17&txt=image2&w=120&h=120"
     segment.images.append(image)
     return segment
 
-def create_media():
-    clip = create_clip()
-    print(backend.post(clip))
-    
-def check_frontend_media():
-    print(mediaapi.get("crid://pyapi/clip/1"))
-    
-    
-check_frontend_media()
 
-    
+def post_clip():
+    clip = create_clip()
+    result = backend.post(clip)
+    print(result)
+    assert result == "crid://pyapi/clip/1"
+
+
+def post_segment():
+    segment = create_segment(2, "WO_VPRO_1425989")
+    result = backend.post(segment)
+    print(result)
+    assert result == "crid://pyapi/segment/2"
+
+
+def post_to_backend():
+    post_clip()
+    post_segment()
+
+
+def check_on_backend():
+    clip = backend.get("crid://pyapi/clip/1")
+    assert clip.mid == "WO_VPRO_1425989"
+    assert clip.title[0].endswith(time_str)
+
+
+def check_frontend_media():
+    print(mediaapi.get(crid = "crid://pyapi/clip/1"))
+
+
+post_to_backend()
+time.sleep(5)
+check_on_backend()
+
+
+
+
+
+
