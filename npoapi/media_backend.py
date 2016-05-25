@@ -142,7 +142,6 @@ class MediaBackend(BasicBackend):
 
     def date_attr(self, name, datetime):
         if datetime:
-            aware = datetime.replace(tzinfo=pytz.UTC)
             return " " + name + "='" + self.date_attr_value(datetime) + "'"
         else:
             return ""

@@ -1,8 +1,8 @@
-# ./npoapi/xml/poms.py
+# ./npoapi/xml/api_constraint.py
 # -*- coding: utf-8 -*-
-# PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2016-05-25 16:19:22.677668 by PyXB version 1.2.4 using Python 3.5.0.final.0
-# Namespace AbsentNamespace0
+# PyXB bindings for NM:16fe21f7d82c570c380b0c8dc2a83f6f2249d3d1
+# Generated 2016-05-25 16:19:22.678768 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Namespace urn:vpro:api:constraint:2014 [xmlns:ns1]
 
 from __future__ import unicode_literals
 import pyxb
@@ -27,7 +27,7 @@ if pyxb.__version__ != _PyXBVersion:
 import pyxb.binding.datatypes
 
 # NOTE: All namespace declarations are reserved within the binding
-Namespace = pyxb.namespace.CreateAbsentNamespace()
+Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:api:constraint:2014', create_if_missing=True)
 Namespace.configureCategories(['typeBinding', 'elementBinding'])
 
 def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
@@ -73,51 +73,19 @@ def CreateFromDOM (node, default_namespace=None):
     return pyxb.binding.basis.element.AnyCreateFromDOM(node, default_namespace)
 
 
-# Complex type collectionType with content type ELEMENT_ONLY
-class collectionType (pyxb.binding.basis.complexTypeDefinition):
-    """Complex type collectionType with content type ELEMENT_ONLY"""
-    _TypeDefinition = None
-    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
-    _Abstract = False
-    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'collectionType')
-    _XSDLocation = pyxb.utils.utility.Location('http://localhost:8071/schema/absentnamespace.xsd', 6, 2)
-    _ElementMap = {}
-    _AttributeMap = {}
-    # Base type is pyxb.binding.datatypes.anyType
-    _HasWildcardElement = True
-    _ElementMap.update({
-        
-    })
-    _AttributeMap.update({
-        
-    })
-Namespace.addCategoryObject('typeBinding', 'collectionType', collectionType)
+# Atomic simple type: {urn:vpro:api:constraint:2014}operatorType
+class operatorType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
 
+    """An atomic simple type."""
 
-collection = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'collection'), collectionType, location=pyxb.utils.utility.Location('http://localhost:8071/schema/absentnamespace.xsd', 4, 2))
-Namespace.addCategoryObject('elementBinding', collection.name().localName(), collection)
-
-
-
-def _BuildAutomaton ():
-    # Remove this helper function from the namespace after it is invoked
-    global _BuildAutomaton
-    del _BuildAutomaton
-    import pyxb.utils.fac as fac
-
-    counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('http://localhost:8071/schema/absentnamespace.xsd', 8, 6))
-    counters.add(cc_0)
-    states = []
-    final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.WildcardUse(pyxb.binding.content.Wildcard(process_contents=pyxb.binding.content.Wildcard.PC_lax, namespace_constraint=(pyxb.binding.content.Wildcard.NC_not, None)), pyxb.utils.utility.Location('http://localhost:8071/schema/absentnamespace.xsd', 8, 6))
-    st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
-    states.append(st_0)
-    transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
-    st_0._set_transitionSet(transitions)
-    return fac.Automaton(states, counters, True, containing_state=None)
-collectionType._Automaton = _BuildAutomaton()
-
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'operatorType')
+    _XSDLocation = pyxb.utils.utility.Location('http://localhost:8070/v1/schema/urn:vpro:api:constraint:2014', 4, 2)
+    _Documentation = None
+operatorType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=operatorType, enum_prefix=None)
+operatorType.LT = operatorType._CF_enumeration.addEnumeration(unicode_value='LT', tag='LT')
+operatorType.GT = operatorType._CF_enumeration.addEnumeration(unicode_value='GT', tag='GT')
+operatorType.EQ = operatorType._CF_enumeration.addEnumeration(unicode_value='EQ', tag='EQ')
+operatorType.LTE = operatorType._CF_enumeration.addEnumeration(unicode_value='LTE', tag='LTE')
+operatorType.GTE = operatorType._CF_enumeration.addEnumeration(unicode_value='GTE', tag='GTE')
+operatorType._InitializeFacetMap(operatorType._CF_enumeration)
+Namespace.addCategoryObject('typeBinding', 'operatorType', operatorType)
