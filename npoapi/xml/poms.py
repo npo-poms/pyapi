@@ -1,7 +1,7 @@
 # ./npoapi/xml/poms.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2016-05-25 16:19:22.677668 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-05-26 08:34:50.531849 by PyXB version 1.2.4 using Python 3.5.0.final.0
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ac7d4c80-2283-11e6-88a5-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:efbe1102-230b-11e6-b4ee-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -80,7 +80,7 @@ class collectionType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'collectionType')
-    _XSDLocation = pyxb.utils.utility.Location('http://localhost:8071/schema/absentnamespace.xsd', 6, 2)
+    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/absentnamespace.xsd', 6, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
@@ -94,7 +94,7 @@ class collectionType (pyxb.binding.basis.complexTypeDefinition):
 Namespace.addCategoryObject('typeBinding', 'collectionType', collectionType)
 
 
-collection = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'collection'), collectionType, location=pyxb.utils.utility.Location('http://localhost:8071/schema/absentnamespace.xsd', 4, 2))
+collection = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'collection'), collectionType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/absentnamespace.xsd', 4, 2))
 Namespace.addCategoryObject('elementBinding', collection.name().localName(), collection)
 
 
@@ -106,12 +106,12 @@ def _BuildAutomaton ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('http://localhost:8071/schema/absentnamespace.xsd', 8, 6))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/absentnamespace.xsd', 8, 6))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.WildcardUse(pyxb.binding.content.Wildcard(process_contents=pyxb.binding.content.Wildcard.PC_lax, namespace_constraint=(pyxb.binding.content.Wildcard.NC_not, None)), pyxb.utils.utility.Location('http://localhost:8071/schema/absentnamespace.xsd', 8, 6))
+    symbol = pyxb.binding.content.WildcardUse(pyxb.binding.content.Wildcard(process_contents=pyxb.binding.content.Wildcard.PC_lax, namespace_constraint=(pyxb.binding.content.Wildcard.NC_not, None)), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/absentnamespace.xsd', 8, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []

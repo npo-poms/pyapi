@@ -1,8 +1,6 @@
 
 POMS=http://poms-dev.omroep.nl/
-#POMS=http://localhost:8071/
 RS=https://rs-dev.poms.omroep.nl/v1/
-#RS=http://localhost:8070/v1/
 
 npoapi/xml/__init__.py:
 	pyxbgen \
