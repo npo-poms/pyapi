@@ -59,7 +59,7 @@ class NpoApi(NpoApiBase):
 
         self.login(settings["apikey"], settings["secret"])
         if "origin" in settings:
-            self.origin = settings["origin"]   
+            self.origin = settings["origin"]
 
     def info(self):
         return self.key + "@" + self.url
@@ -117,17 +117,8 @@ class NpoApi(NpoApiBase):
             return ""
 
     def stream(self, path, params=None, accept=None, data=None, content_type=None):
-        if data:
-            if os.path.isfile(data):
-                self.logger.debug("" + data + " is file, reading it in")
-                if content_type is None:
-                    if data.endswith(".json"):
-                        content_type = "application/json"
-                    elif data.endswith(".xml"):
-                        content_type = "application/xml"                        
-                with codecs.open(data, 'r', 'utf-8') as myfile:
-                    data = myfile.read()
-                    self.logger.debug("Found data " + data)
+
+        data, content_type = self.data_to_xml(data, content_type)
 
         url, path_for_authentication = self._get_url(path, params)
         d, content_type = self._get_data(data, content_type=content_type)
@@ -140,8 +131,8 @@ class NpoApi(NpoApiBase):
         req.add_header("Accept", accept if accept else self._accept)
         self.logger.debug("headers: " + str(req.headers))
         return self.get_response(req, url)
-        
-    
+
+
 
 
 

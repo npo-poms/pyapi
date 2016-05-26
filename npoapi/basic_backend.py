@@ -96,14 +96,14 @@ class BasicBackend(NpoApiBase):
         bytes = self.xml_to_bytes(xml)
         req = urllib.request.Request(url, data=bytes)
         self.logger.debug("Posting " + str(bytes) + " to " + url)
-        return self._request(req, accept=accept)
+        return self._request(req, url, accept=accept)
 
     def delete_to(self, path, **kwargs):
         self.creds()
         url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, method="DELETE")
         self.logger.debug("Deleting " + url)
-        return self._request(req)
+        return self._request(req, url)
 
     def _get_xml(self, url):
         self.logger.debug("getting " + url)
@@ -112,12 +112,12 @@ class BasicBackend(NpoApiBase):
         response = self.get_response(req, url)
         return response.read()
 
-    def _request(self, req, accept="application/xml"):
+    def _request(self, req, url, accept="application/xml"):
         req.add_header("Authorization", self.authorizationHeader)
         req.add_header("Content-Type", "application/xml")
         req.add_header("Accept", accept)
         try:
-            response = urllib.request.urlopen(req)
+            response = self.get_response(req, url)
             return response.read().decode()
         except urllib.request.HTTPError as e:
             logging.error(e.read().decode())
@@ -154,6 +154,7 @@ class BasicBackend(NpoApiBase):
         import xml.etree.ElementTree as ET
         t = type(xml)
         if t == str:
+            xml, content_type = self.data_to_xml(xml)
             return xml.encode('utf-8')
         elif t == minidom.Element:
             # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
