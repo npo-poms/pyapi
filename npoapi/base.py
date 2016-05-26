@@ -25,6 +25,7 @@ class NpoApiBase:
         self.env(env)
         self.debug(debug)
         self.accept(accept)
+        self.code = None
 
     @abc.abstractmethod
     def env(self, e):
@@ -124,7 +125,7 @@ class NpoApiBase:
         self.read_settings(settings)
 
         return self
-    
+
     def read_properties_file(self, config_file, properties = None):
         if properties is None:
             properties = {}
@@ -135,7 +136,7 @@ class NpoApiBase:
                     key, value = l.split("=", 2)
                     properties[key] = value.strip('" \t')
         return properties
-    
+
     def read_settings_from_properties(self, properties, settings=None):
         if settings is None:
             settings = {}

@@ -1,5 +1,6 @@
 from npoapi.basic_backend import BasicBackend
 
+
 class PagesBackend(BasicBackend):
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
         """
