@@ -24,14 +24,14 @@ class Tests(unittest.TestCase):
             .login(key="a", secret="b")
         self.assertEqual("NPO a:CtHYR9a+nr17OIn5rYml6a+A9ujqe0IywWqr93/DAOk=",
                          client.authenticate(uri="/media", now="Fri, 30 Oct 2015 08:43:31 -0000")[0])
-        
+
     def test_env(self):
         properties={'a': 'A', 'a.prod': 'Aprod', 'b': 'B', 'b.test': 'Btest'}
         client = NpoApiBase().env('test')
         settings = client.read_settings_from_properties(properties)
         self.assertEquals(settings['a'], "A")
         self.assertEquals(settings['b'], "Btest")
-        
+
 class MediaTests(unittest.TestCase):
     def test_get(self):
         client = Media().configured_login().env(ENV).debug()
@@ -99,31 +99,14 @@ class MediaBackendTest(unittest.TestCase):
                               "utf-8"))
 
     def test_append_params(self):
-        self.assertEquals("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", a="a", x="y"))
+        self.assertEquals("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", include_errors=False,  a="a", x="y"))
 
-    def test_append_element_str(self):
-        self.assertEquals(
-                          ET.tostring(
-                              self.client._append_element("<a><b>B</b><y>Y</y></a>", "<x>x</x>", ("b", "x", "y", "z"))).decode(
-                              "utf-8"),
-            "<a><b>B</b><x>x</x><y>Y</y></a>"
-        )
 
-    def test_append_element_et(self):
-        self.assertEquals(
-                     ET.tostring(
-                              self.client._append_element(ET.fromstring("<a><b>B</b><y>Y</y></a>"), ET.fromstring("<x>x</x>"),
-                                              ("b", "x", "y", "z"))).decode("utf-8"),
-                     "<a><b>B</b><x>x</x><y>Y</y></a>")
-
-    def test_get_xslt(self):
-        self.assertRegex(self.client.get_xslt("location_set_publishStop.xslt"),
-                         ".*/npoapi/xslt/location_set_publishStop.xslt")
 
     def test_set_duration(self):
-        existing = poms.CreateFromDOM(self.client.get("WO_VPRO_1422026"))
+        existing = poms.CreateFromDocument(self.client.get("WO_VPRO_1422026"))
         existing.duration = "PT30M"
-        self.client.set(existing)
+        self.client.post(existing)
 
     def test_get_locations(self):
         bytes=self.client.get_locations("POMS_VPRO_1421796")
