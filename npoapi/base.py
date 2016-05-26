@@ -228,7 +228,7 @@ class NpoApiBase:
             self.logger.error("%s: %s\n%s", he.code, he.msg, he.read().decode("utf-8"))
             return None
 
-    def data_to_xml(self, data, content_type = None):
+    def data_to_bytes(self, data, content_type = None):
         if data:
             if os.path.isfile(data):
                 if content_type is None:
@@ -243,6 +243,15 @@ class NpoApiBase:
                     self.logger.debug("Found data " + data)
 
         return data, content_type
+
+    def parse_xml_or_none(self, data):
+        from npoapi.xml import poms
+        import xml
+        try:
+            return poms.CreateFromDocument(data)
+        except xml.sax._exceptions.SAXParseException as e:
+            self.logger.debug("Not xml")
+            return None
 
     def exit_code(self):
         if self.code is None or 200 <= self.code < 300:

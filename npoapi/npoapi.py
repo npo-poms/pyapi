@@ -118,7 +118,7 @@ class NpoApi(NpoApiBase):
 
     def stream(self, path, params=None, accept=None, data=None, content_type=None):
 
-        data, content_type = self.data_to_xml(data, content_type)
+        data, content_type = self.data_to_bytes(data, content_type)
 
         url, path_for_authentication = self._get_url(path, params)
         d, content_type = self._get_data(data, content_type=content_type)

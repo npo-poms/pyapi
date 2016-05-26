@@ -1,27 +1,31 @@
 #!/usr/bin/env python3
 """
-  Simple client to get an object from the NPO Backend API media endpoint
+  Simple client publish to and delete pages from the NPO pages api. Using the rest interfaces at http://publish.pages.omroep.nl/api/pages/updates/
 """
 from npoapi import PagesBackend
 from npoapi.xml import poms
+import xml
 
 client = PagesBackend().command_line_client(description="Set an page object into  NPO Backend API")
 client.add_argument('xml', type=str, nargs=1, help='The xml to post')
 client.add_argument('-p', '--process', type=str, help="""python code to postprocess. E.g. "update.embeds.embed[0].midRef ='POMS_S_VPRO_168360'""""")
 client.add_argument('-D', '--delete', action='store_true',
                     help="""Deletes the page object. You can also only specify an URL""")
+client.add_argument('-G', '--get', action='store_true',
+                    help="""Get the page object. You can also only specify an URL""")
 
 args = client.parse_args()
 delete = args.delete
+get = args.get
 process = args.process
 
-data = client.data_to_xml(args.xml[0])[0]
+data = client.data_to_bytes(args.xml[0])[0]
 
 url = None
 update = None
 
 if data:
-    update = poms.CreateFromDocument(data)
+    update = client.parse_xml_or_none(data)
 
 if update:
     if process is not None:
@@ -29,12 +33,18 @@ if update:
         client.logger.debug("Execed " + process)
     url=update.url
 
-if delete:
+if delete or get:
     if update:
         url = update.url
     else:
         url = args.xml[0]
+
+if delete:
     client.delete(url)
+elif get:
+    string=client.get(url)
+    print(string)
+    update=client.parse_xml_or_none(string)
 else:
     client.post(update)
 

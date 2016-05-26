@@ -98,7 +98,14 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept)
 
-    def delete_to(self, path, **kwargs):
+    def get_from(self, path, accept="application/xml", **kwargs):
+        self.creds()
+        _url = self.append_params(self.url + path, **kwargs)
+        req = urllib.request.Request(_url)
+        self.logger.debug("Getting from " + _url)
+        return self._request(req, _url, accept=accept)
+
+    def delete_from(self, path, **kwargs):
         self.creds()
         url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, method="DELETE")
@@ -157,7 +164,7 @@ class BasicBackend(NpoApiBase):
         import xml.etree.ElementTree as ET
         t = type(xml)
         if t == str:
-            xml, content_type = self.data_to_xml(xml)
+            xml, content_type = self.data_to_bytes(xml)
             return xml.encode('utf-8')
         elif t == minidom.Element:
             # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")

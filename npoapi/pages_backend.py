@@ -28,7 +28,11 @@ class PagesBackend(BasicBackend):
 
     def delete(self, url):
         self.creds()
-        return self.delete_to("api/pages/updates", url=url)
+        return self.delete_from("api/pages/updates", url=url)
+
+    def get(self, url):
+        self.creds()
+        return self.get_from("api/pages/updates", url=url)
 
 
 
