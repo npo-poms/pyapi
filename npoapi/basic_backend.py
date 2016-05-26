@@ -117,7 +117,10 @@ class BasicBackend(NpoApiBase):
         req = urllib.request.Request(url)
         req.add_header("Accept", "application/xml")
         response = self.get_response(req, url)
-        return response.read()
+        if response:
+            return response.read()
+        else:
+            return None
 
     def _request(self, req, url, accept="application/xml"):
         req.add_header("Authorization", self.authorizationHeader)
