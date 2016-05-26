@@ -138,7 +138,7 @@ class BasicBackend(NpoApiBase):
                 return aware.strftime("%Y-%m-%dT%H:%M:%SZ")
         return None
 
-    def append_params(self, url, include_errors=True, **kwargs):
+    def append_params(self, _url, include_errors=True, **kwargs):
         if not kwargs:
             kwargs = {}
 
@@ -148,9 +148,9 @@ class BasicBackend(NpoApiBase):
         sep = "?"
         for key, value in sorted(kwargs.items()):
             if not value is None:
-                url += sep + key + "=" + str(value)
+                _url += sep + key + "=" + str(value)
                 sep = "&"
-        return url
+        return _url
 
 
     def xml_to_bytes(self, xml):

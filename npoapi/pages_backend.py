@@ -26,4 +26,9 @@ class PagesBackend(BasicBackend):
         self.creds()
         return self.post_to("api/pages/updates", update, accept="text/plain")
 
+    def delete(self, url):
+        self.creds()
+        return self.delete_to("api/pages/updates", url=url)
+
+
 
