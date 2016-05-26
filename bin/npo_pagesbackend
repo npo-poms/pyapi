@@ -3,11 +3,14 @@
   Simple client to get an object from the NPO Backend API media endpoint
 """
 from npoapi import PagesBackend
+from npoapi.xml import poms
 
 client = PagesBackend().command_line_client(description="Set an page object int  NPO Backend API")
 client.add_argument('xml', type=str, nargs=1, help='The xml to post')
 
 args = client.parse_args()
-print(client.post(args.xml[0]))
+update = poms.CreateFromDocument(client.data_to_xml(args.xml[0])[0])
+client.post(update)
+print(update.url)
 client.exit()
 

@@ -231,12 +231,13 @@ class NpoApiBase:
     def data_to_xml(self, data, content_type = None):
         if data:
             if os.path.isfile(data):
-                self.logger.debug("" + data + " is file, reading it in")
                 if content_type is None:
                     if data.endswith(".json"):
                         content_type = "application/json"
                     elif data.endswith(".xml"):
                         content_type = "application/xml"
+
+                self.logger.debug("" + data + " is file, reading it in as " + content_type)
                 with codecs.open(data, 'r', 'utf-8') as myfile:
                     data = myfile.read()
                     self.logger.debug("Found data " + data)

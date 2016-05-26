@@ -118,7 +118,10 @@ class BasicBackend(NpoApiBase):
         req.add_header("Accept", accept)
         try:
             response = self.get_response(req, url)
-            return response.read().decode()
+            if response:
+                return response.read().decode()
+            else:
+                return None
         except urllib.request.HTTPError as e:
             logging.error(e.read().decode())
             return None
