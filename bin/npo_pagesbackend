@@ -11,6 +11,6 @@ client.add_argument('xml', type=str, nargs=1, help='The xml to post')
 args = client.parse_args()
 update = poms.CreateFromDocument(client.data_to_xml(args.xml[0])[0])
 client.post(update)
-print(update.url)
+print(update.url, list(map(lambda e : e.midRef, update.embeds.embed)) if update.embeds else "")
 client.exit()
 
