@@ -5,8 +5,9 @@ RS=https://rs-dev.poms.omroep.nl/v1/
 npoapi/xml/__init__.py:
 	pyxbgen \
 	   --schema-location=$(POMS)schema/vproMedia.xsd --module media \
-	   --schema-location=$(POMS)schema/vproShared.xsd --module=shared \
-	   --schema-location=$(POMS)schema/update/vproMediaUpdate.xsd --module=mediaupdate   \
+	   --schema-location=$(POMS)schema/vproShared.xsd --module shared \
+	   --schema-location=$(POMS)schema/update/vproMediaUpdate.xsd --module mediaupdate   \
+	   --schema-location=$(POMS)schema/search/vproMediaSearch.xsd --module media_search \
 	   --schema-location=$(RS)schema/urn:vpro:api:constraint:page:2013 --module api_constraint_page \
 	   --schema-location=$(RS)schema/urn:vpro:pages:2013 --module page \
 	   --schema-location=$(RS)schema/urn:vpro:api:constraint:2014 --module api_constraint \
