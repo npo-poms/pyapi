@@ -1,7 +1,7 @@
 # ./npoapi/xml/mediaupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:2751238d63e5454a5dc65ff574f334ca7496c03f
-# Generated 2016-05-26 14:08:02.459110 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-05-27 17:20:14.477715 by PyXB version 1.2.4 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:update:2009
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:7d827ad8-233a-11e6-881c-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:802a5fba-241e-11e6-8fda-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'

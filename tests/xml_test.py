@@ -3,15 +3,16 @@ import unittest
 
 from npoapi.xml import poms
 from npoapi.xml import media
+import pyxb
 
-import npoapi.media_backend
+import npoapi.basic_backend
 
-npoapi.media_backend.declare_namespaces()
+npoapi.basic_backend.declare_namespaces()
 
 
 class Tests(unittest.TestCase):
-    
-    
+
+
     def test_set_duration(self):
         xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <program type="CLIP" avType="VIDEO" publishStop="2012-01-11T18:16:01.287+01:00" publishStart="2012-01-11T16:16:01.287+01:00" embeddable="true"
@@ -56,9 +57,9 @@ class Tests(unittest.TestCase):
 
 
     def test_image2(self):
-        xml = """<?xml version="1.0" ?><image highlighted="false" type="PORTRAIT" xmlns="urn:vpro:media:update:2009"><title>sdf</title><description>asdfasdf</description><urn>urn:vpro:image:274460</urn></image>"""        
+        xml = """<?xml version="1.0" ?><image highlighted="false" type="PORTRAIT" xmlns="urn:vpro:media:update:2009"><title>sdf</title><description>asdfasdf</description><urn>urn:vpro:image:274460</urn></image>"""
         image = poms.CreateFromDocument(xml)
-        self.assertEquals(image.title, "sdf")        
+        self.assertEquals(image.title, "sdf")
 
     def test_images_collection(self):
         xml = """<collection xmlns:update="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009">
@@ -70,3 +71,11 @@ class Tests(unittest.TestCase):
 </collection>"""
         images = poms.CreateFromDocument(xml)
         self.assertEquals(images.wildcardElements()[0].title, "sdf")
+
+
+    def test_media_form(self):
+        from npoapi.xml import api
+        form = api.mediaForm()
+        form.searches = pyxb.BIND()
+        form.searches.mediaIds = "crid://pyapi/clip/1"
+        self.assertEquals('<?xml version="1.0" ?><api:mediaForm xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:searches><api:mediaIds><api:matcher>crid://pyapi/clip/1</api:matcher></api:mediaIds></api:searches></api:mediaForm>', form.toxml())

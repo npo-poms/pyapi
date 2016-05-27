@@ -230,7 +230,11 @@ class NpoApiBase:
 
     def data_to_bytes(self, data, content_type = None):
         if data:
-            if os.path.isfile(data):
+            import pyxb
+            if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
+                content_type = "application/xml"
+                data = data.toxml()
+            elif os.path.isfile(data):
                 if content_type is None:
                     if data.endswith(".json"):
                         content_type = "application/json"
