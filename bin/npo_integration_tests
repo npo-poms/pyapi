@@ -12,6 +12,10 @@ import pyxb
 from npoapi import Media
 from npoapi import MediaBackend
 from npoapi.xml import mediaupdate
+from npoapi.xml import poms
+from npoapi.xml import api
+
+latency = 60 * 60 # one hour
 
 aparser = argparse.ArgumentParser(add_help=False)
 aparser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
@@ -80,12 +84,21 @@ def check_on_backend():
 
 
 def check_frontend_media():
-    print(mediaapi.get(crid = "crid://pyapi/clip/1"))
+    form = api.mediaForm()
+    form.searches = pyxb.BIND()
+    form.searches.mediaIds = "crid://pyapi/clip/1"
+    s = mediaapi.search(form, accept="application/xml")
+    result = poms.CreateFromDocument(s)
+    title = result.items.item[0].result.title[0].value()
+    t = float(title.split()[-1])
+
+    assert t > (time.time() - latency), "should be published in 10 minutes " + title + " < " + str(time.time())
 
 
 post_to_backend()
 time.sleep(5)
 check_on_backend()
+check_frontend_media()
 
 
 
