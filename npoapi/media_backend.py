@@ -54,13 +54,14 @@ class MediaBackend(BasicBackend):
         return self._get_xml(url)
 
     def post(self, update):
-        try:
-            update.validateBinding()
-        except pyxb.exceptions_.ContentValidationError as e:
-            self.logger.error(type(e), e)
-            return
+        update = self.to_object(update, validate=True)
         self.creds()
         return self.post_to("media/media/", update, accept="text/plain", errors=self.email)
+
+    def find(self, form, writeable=False):
+        self.creds()
+        form = self.to_object(form)
+        return self.post_to("media/media/find", form, accept="application/xml", writable=writeable)
 
     def members(self, mid, **kwargs):
         """return a list of all members of a group. As XML objects, wrapped

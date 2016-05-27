@@ -8,6 +8,7 @@ import npoapi
 import urllib.request
 import codecs
 
+
 class NpoApiBase:
     __metaclass__ = abc.ABCMeta
     EPILOG = """
@@ -102,7 +103,7 @@ class NpoApiBase:
                     self.logger.debug("Found " + config_file)
                     break
                 else:
-                    self.logger.debug("Not writeable " +  config_file)
+                    self.logger.debug("Not writeable " + config_file)
                     config_file = None
 
             if config_file:
@@ -127,7 +128,7 @@ class NpoApiBase:
 
         return self
 
-    def read_properties_file(self, config_file, properties = None):
+    def read_properties_file(self, config_file, properties=None):
         if properties is None:
             properties = {}
         with open(config_file, "r") as f:
@@ -190,7 +191,8 @@ class NpoApiBase:
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
-        pargs = parent_args.parse_args(filter(lambda e: e in ["-d", "--debug", "-c", "--createconfig", "-v", "--version"], sys.argv))
+        pargs = parent_args.parse_args(
+            filter(lambda e: e in ["-d", "--debug", "-c", "--createconfig", "-v", "--version"], sys.argv))
         self.debug(pargs.debug)
         if pargs.version:
             print(npoapi.__version__)
@@ -228,7 +230,7 @@ class NpoApiBase:
             self.logger.error("%s: %s\n%s", he.code, he.msg, he.read().decode("utf-8"))
             return None
 
-    def data_to_bytes(self, data, content_type = None):
+    def data_to_bytes(self, data, content_type=None):
         if data:
             import pyxb
             if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
@@ -248,11 +250,19 @@ class NpoApiBase:
 
         return data, content_type
 
-    def parse_xml_or_none(self, data):
+    def to_object(self, data, validate=False):
+        if data.validateBinding:
+            return data
         from npoapi.xml import poms
+        object = poms.CreateFromDocument(data)
+        if validate:
+            object.validateBinding()
+        return object
+
+    def parse_xml_or_none(self, data, validate=False):
         import xml
         try:
-            return poms.CreateFromDocument(data)
+            self.to_object(data, validate)
         except xml.sax._exceptions.SAXParseException as e:
             self.logger.debug("Not xml")
             return None

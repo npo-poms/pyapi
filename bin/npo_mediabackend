@@ -6,8 +6,16 @@ from npoapi import MediaBackend
 
 client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API")
 client.add_argument('xml', type=str, nargs=1, help='The xml to post')
+client.add_argument('-S', '--search', action='store_true',
+                    help="""The xml is interpreted as a search""")
+
 
 args = client.parse_args()
-print(client.post(args.xml[0]))
+search = args.search
+
+if search:
+    print(client.find(args.xml[0]))
+else:
+    print(client.post(args.xml[0]))
 client.exit()
 
