@@ -15,7 +15,8 @@ bytes = client.get(args.mid[0])
 process = args.process
 
 if process is None:
-    print(client.parse_minidom(bytes).toprettyxml(indent="  "))
+    from xml.dom.minidom import parseString
+    print(parseString(bytes).toprettyxml(indent="  "))
 else:
     from npoapi.xml import poms
     update = poms.CreateFromDocument(bytes)
