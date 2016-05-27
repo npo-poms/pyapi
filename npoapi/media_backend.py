@@ -50,7 +50,7 @@ class MediaBackend(BasicBackend):
     def get(self, mid):
         """Returns XML-representation of a mediaobject"""
         self.creds()
-        url = self.url + "media/media/" + urllib.request.quote(mid)
+        url = self.url + "media/media/" + urllib.request.quote(mid, safe='')
         return self._get_xml(url)
 
     def post(self, update):
