@@ -2,11 +2,8 @@ import base64
 import hashlib
 import hmac
 import json
-import os
 import urllib.request
 from email import utils
-import sys
-import codecs
 
 from npoapi.base import NpoApiBase
 
@@ -131,8 +128,4 @@ class NpoApi(NpoApiBase):
         req.add_header("Accept", accept if accept else self._accept)
         self.logger.debug("headers: " + str(req.headers))
         return self.get_response(req, url)
-
-
-
-
 
