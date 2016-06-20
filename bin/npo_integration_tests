@@ -79,7 +79,8 @@ def check_on_backend():
     clip = backend.get("crid://pyapi/clip/1")
     assert clip
     clip = mediaupdate.CreateFromDocument(clip)
-    #assert clip.mid == "WO_VPRO_1425989"
+    # assert clip.mid == "WO_VPRO_1425989"
+    print(clip.title[0].value())
     assert clip.title[0].value().endswith(time_str)
 
 
@@ -95,10 +96,21 @@ def check_frontend_media():
     assert t > (time.time() - latency), "should be published in 10 minutes " + title + " < " + str(time.time())
 
 
+def remove_clip():
+    backend.delete_from("crid://pyapi/clip/1")
+
+
+def remove_segment():
+    backend.delete_from("crid://pyapi/segment/2")
+
 post_to_backend()
 time.sleep(5)
 check_on_backend()
 check_frontend_media()
+
+# This doesn't work without the right credentials. How do we solve this for integration tests?
+remove_clip()
+remove_segment()
 
 
 

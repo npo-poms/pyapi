@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from distutils.core import setup
+from setuptools import setup
 
 __version__ = None
 exec(open('npoapi/_version.py', "rt").read())
@@ -7,7 +7,8 @@ exec(open('npoapi/_version.py', "rt").read())
 setup(
     name='NPO API',
     version=__version__,
-    packages=['npoapi', 'npoapi.xml' ],
+    packages=['npoapi', 'npoapi.xml'],
+    install_requires=['pytz', 'pyxb'],
     scripts=[
         'bin/npo_media_get',
         'bin/npo_media_search',
