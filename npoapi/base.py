@@ -159,8 +159,9 @@ class NpoApiBase:
         if 'secret' in settings_for_log:
             settings_for_log['secret'] = "xxx"
 
-        if 'user' in settings_for_log:
-            settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
+        for uk in ("user", "parkpost_user"):
+            if uk in settings_for_log:
+                settings_for_log[uk] = settings_for_log[uk].split(":", 1)[0] + ":xxx"
         return
 
     @abc.abstractmethod

@@ -46,12 +46,6 @@ class MediaBackend(BasicBackend):
             self.url = e
         return self
 
-    def anonymize_for_logging(self, settings_for_log):
-        super(BasicBackend, self).anonymize_for_logging(settings_for_log)
-        if 'parkpost_user' in settings_for_log:
-            settings_for_log['parkpost_user'] = settings_for_log['parkpost_user'].split(":", 1)[0] + ":xxx"
-        return
-
     def get(self, mid):
         """Returns XML-representation (as a byte array) of a mediaobject"""
         self.creds()
