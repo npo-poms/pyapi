@@ -109,6 +109,7 @@ check_on_backend()
 check_frontend_media()
 
 # This doesn't work without the right credentials. How do we solve this for integration tests?
+# MM: Credentials can be stored in ~/conf/creds.properties. So, the server running the tests just needs that file.
 remove_clip()
 remove_segment()
 
