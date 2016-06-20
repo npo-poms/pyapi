@@ -18,7 +18,6 @@ class MediaBackend(BasicBackend):
         """
         super().__init__(env, email, debug, accept)
 
-
     def read_settings(self, settings):
         """
         """
@@ -52,6 +51,11 @@ class MediaBackend(BasicBackend):
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid, safe='')
         return self._get_xml(url)
+
+    def delete(self, mid):
+        self.creds()
+        path = "media/media/" + urllib.request.quote(mid)
+        self.delete_from(path)
 
     def parkpost(self, xml):
         url = self.url + "parkpost/promo"

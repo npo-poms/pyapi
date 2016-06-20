@@ -127,14 +127,13 @@ def post_parkpost():
     assert re.match("Promo ProgramUpdate for .* has been processed",  result)
 
 
-
 # TODO This is hard, because if you delete a crid, you can't create it again?!
 def remove_clip():
-    backend.delete_from("crid://pyapi/clip/1")
+    backend.delete("crid://pyapi/clip/1")
 
 
 def remove_segment():
-    backend.delete_from("crid://pyapi/segment/2")
+    backend.delete("crid://pyapi/segment/2")
 
 post_to_backend()
 post_parkpost()
