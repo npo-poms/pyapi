@@ -4,9 +4,6 @@ import os
 import urllib.request
 from xml.sax.saxutils import escape
 
-import pytz
-import pyxb
-
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media
 from npoapi.xml import mediaupdate
