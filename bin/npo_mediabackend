@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-  Simple client to get an object from the NPO Backend API media endpoint
+  Simple client to post an object from the NPO Backend API
 """
 from npoapi import MediaBackend
 
