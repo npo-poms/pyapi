@@ -24,13 +24,15 @@ class MediaBackend(BasicBackend):
     def read_settings(self, settings):
         """
         """
-        if "user" in settings:
-            self.user = settings["user"]
-            if ":" in self.user:
-                self.password = self.user.split(":", 2)[1]
-                self.user = self.user.split(":", 2)[0]
+        super(MediaBackend, self).read_settings(settings)
         if "email" in settings:
             self.email= settings["email"]
+        if "parkpost_user" in settings:
+            self.parkpost_user = settings["parkpost_user"]
+            if ":" in self.parkpost_user:
+                self.parkpost_password = self.parkpost_user.split(":", 2)[1]
+                self.parkpost_user = self.parkpost_user.split(":", 2)[0]
+                self.parkpost_authorization = self.generate_authorization(self.parkpost_user, self.parkpost_password)
         return
 
     def env(self, e):
@@ -52,6 +54,11 @@ class MediaBackend(BasicBackend):
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid, safe='')
         return self._get_xml(url)
+
+    def parkpost(self, xml):
+        url = self.url + "parkpost/promo"
+        req = urllib.request.Request(url, data=xml.encode('utf-8'))
+        return self._request(req, url, accept="text/plain", authorization=self.parkpost_authorization)
 
     def post(self, update):
         update = self.to_object(update, validate=True)
@@ -76,7 +83,7 @@ class MediaBackend(BasicBackend):
     def delete_member(self, mid, owner_mid):
         self.creds()
         path = "media/media/" + urllib.request.quote(mid) + "/memberOf/" + urllib.request.quote(owner_mid)
-        self.delete_to(path)
+        self.delete_from(path)
 
 
     # private method to implement both members and episodes calls.
@@ -100,7 +107,6 @@ class MediaBackend(BasicBackend):
             self.logger.info(str(len(result)) + "/" + total + (("/" + str(max)) if max else ""))
 
         return result
-
 
     def post_location(self, mid, programUrl, duration=None, bitrate=None, height=None, width=None, aspectRatio=None, format=None,
                       publishStart=None, publishStop=None):

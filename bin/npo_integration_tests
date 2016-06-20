@@ -95,6 +95,34 @@ def check_frontend_media():
 
     assert t > (time.time() - latency), "should be published in 10 minutes " + title + " < " + str(time.time())
 
+def post_parkpost():
+    xml = """<?xml version="1.0"?>
+<NPO_gfxwrp>
+  <ProductCode>2P0108MO_BLAUWBLO</ProductCode>
+  <OrderCode>2P140801_EO___BLAUW_BL_MOR</OrderCode>
+  <Broadcaster>EO</Broadcaster>
+  <PromotedProgramProductCode>VPWON_1227699</PromotedProgramProductCode>
+  <Referrer/>
+  <MXF_Name>91345392</MXF_Name>
+  <ProgramTitle>Blauw Bloed Extra: Prinses Irene - 75 jaar</ProgramTitle>
+  <EpisodeTitle>Blauw Bloed Extra: Prinses Irene - 75 jaar</EpisodeTitle>
+  <PromoType>P</PromoType>
+  <TrailerTitle>Blauw Bloed Extra: Prinses Irene - 75 jaar</TrailerTitle>
+  <SerieTitle>Blauw Bloed Extra: Prinses Irene - 75 jaar</SerieTitle>
+  <FrameCount>750</FrameCount>
+  <VideoFormat>HD</VideoFormat>
+  <FirstTransmissionDate>2014-08-01T16:59:04+00:00</FirstTransmissionDate>
+  <PlacingWindowStart>2014-07-31T06:00:00+02:00</PlacingWindowStart>
+  <PlacingWindowEnd>2014-08-01T06:00:00+02:00</PlacingWindowEnd>
+  <Files>
+    <File Filename="2P0108MO_BLAUWBLO.ismv"/>
+    <File Filename="2P0108MO_BLAUWBLO.ismc"/>
+    <File Filename="2P0108MO_BLAUWBLO.ism"/>
+  </Files>
+</NPO_gfxwrp>
+"""
+    backend.parkpost(xml)
+
 
 def remove_clip():
     backend.delete_from("crid://pyapi/clip/1")
@@ -104,14 +132,16 @@ def remove_segment():
     backend.delete_from("crid://pyapi/segment/2")
 
 post_to_backend()
+post_parkpost()
+
 time.sleep(5)
 check_on_backend()
 check_frontend_media()
 
 # This doesn't work without the right credentials. How do we solve this for integration tests?
 # MM: Credentials can be stored in ~/conf/creds.properties. So, the server running the tests just needs that file.
-remove_clip()
-remove_segment()
+#remove_clip()
+#remove_segment()
 
 
 
