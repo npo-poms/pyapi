@@ -263,7 +263,7 @@ class NpoApiBase:
     def parse_xml_or_none(self, data, validate=False):
         import xml
         try:
-            self.to_object(data, validate)
+            return self.to_object(data, validate)
         except xml.sax._exceptions.SAXParseException as e:
             self.logger.debug("Not xml")
             return None
