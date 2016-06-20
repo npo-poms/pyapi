@@ -251,7 +251,7 @@ class NpoApiBase:
         return data, content_type
 
     def to_object(self, data, validate=False):
-        if data.validateBinding:
+        if hasattr(data, "validateBinding"):
             return data
         from npoapi.xml import poms
         object = poms.CreateFromDocument(data)

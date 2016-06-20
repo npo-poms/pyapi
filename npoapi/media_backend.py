@@ -3,6 +3,7 @@ import codecs
 import os
 import urllib.request
 from xml.sax.saxutils import escape
+from xml.dom.minidom import parseString
 
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media
@@ -47,7 +48,7 @@ class MediaBackend(BasicBackend):
         return self
 
     def get(self, mid):
-        """Returns XML-representation of a mediaobject"""
+        """Returns XML-representation (as a byte array) of a mediaobject"""
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid, safe='')
         return self._get_xml(url)
@@ -68,12 +69,12 @@ class MediaBackend(BasicBackend):
         return self.post_to("media/media/find", form, accept="application/xml", writable=writeable)
 
     def members(self, mid, **kwargs):
-        """return a list of all members of a group. As XML objects, wrapped
+        """return a list of all members of a group. As minidom objects, wrapped
         in 'items', so you can see the position"""
         return self._members_or_episodes(mid, "members", **kwargs)
 
     def episodes(self, mid, **kwargs):
-        """return a list of all episodes of a group. As XML objects, wrapped
+        """return a list of all episodes of a group. As minidom objects, wrapped
         in 'items', so you can see the position"""
         return self._members_or_episodes(mid, "episodes", **kwargs)
 
@@ -93,8 +94,9 @@ class MediaBackend(BasicBackend):
         while True:
             url = (self.url + 'media/group/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
                    "&offset=" + str(offset))
-            xml = self._get_xml(url)
-            items = xml.getElementsByTagName('item')
+            xml_bytes = self._get_xml(url)
+            xml = parseString(xml_bytes)
+            items = xml.getElementsByTagName("item")
             result.extend(items)
             if len(items) == 0 or (max and len(result) >= max):
                 break

@@ -114,6 +114,7 @@ class BasicBackend(NpoApiBase):
         return self._request(req, url)
 
     def _get_xml(self, url):
+        """Gets XML (as a byte array) from an URL. So this sets the accept header."""
         self.logger.debug("getting " + url)
         req = urllib.request.Request(url)
         req.add_header("Accept", "application/xml")
