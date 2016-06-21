@@ -31,7 +31,7 @@ else:
     sub="" if args.sub == "" else "/" + args.sub,
     properties=args.properties,
     sort=args.sort,
-    max=args.max
+    limit=args.max
     ))
 
 client.exit()

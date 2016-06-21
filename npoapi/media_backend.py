@@ -87,14 +87,15 @@ class MediaBackend(BasicBackend):
         path = "media/media/" + urllib.request.quote(mid) + "/memberOf/" + urllib.request.quote(owner_mid)
         self.delete_from(path)
 
-
-    # private method to implement both members and episodes calls.
-    def _members_or_episodes(self, mid, what, max=None, batch=20):
+    def _members_or_episodes(self, mid, what, limit=None, batch=20):
+        """
+        private method to implement both members and episodes calls.
+        """
         self.creds()
         self.logger.info("loading members of " + mid)
         result = []
         offset = 0
-        b = min(batch, max) if max else batch
+        b = min(batch, limit) if limit else batch
         while True:
             url = (self.url + 'media/group/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
                    "&offset=" + str(offset))
@@ -102,12 +103,12 @@ class MediaBackend(BasicBackend):
             xml = parseString(xml_bytes)
             items = xml.getElementsByTagName("item")
             result.extend(items)
-            if len(items) == 0 or (max and len(result) >= max):
+            if len(items) == 0 or (limit and len(result) >= limit):
                 break
             offset += b
             # print xml.childNodes[0].toxml('utf-8')
             total = xml.childNodes[0].getAttribute("totalCount")
-            self.logger.info(str(len(result)) + "/" + total + (("/" + str(max)) if max else ""))
+            self.logger.info(str(len(result)) + "/" + total + (("/" + str(limit)) if limit else ""))
 
         return result
 
