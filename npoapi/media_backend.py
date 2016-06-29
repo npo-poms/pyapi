@@ -63,13 +63,13 @@ class MediaBackend(BasicBackend):
         return self._request(req, url, accept="text/plain", authorization=self.parkpost_authorization)
 
     def post(self, update):
-        update = self.to_object(update, validate=True)
+        update = self.to_object(self.data_or_from_file(update), validate=True)
         self.creds()
         return self.post_to("media/media/", update, accept="text/plain", errors=self.email)
 
     def find(self, form, writeable=False):
         self.creds()
-        form = self.to_object(form)
+        form = self.to_object(self.data_or_from_file(form))
         return self.post_to("media/media/find", form, accept="application/xml", writable=writeable)
 
     def members(self, mid, **kwargs):

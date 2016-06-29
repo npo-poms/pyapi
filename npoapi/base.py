@@ -244,12 +244,16 @@ class NpoApiBase:
                     elif data.endswith(".xml"):
                         content_type = "application/xml"
 
-                self.logger.debug("" + data + " is file, reading it in as " + content_type)
-                with codecs.open(data, 'r', 'utf-8') as myfile:
-                    data = myfile.read()
-                    self.logger.debug("Found data " + data)
-
+                data = self.data_or_from_file(data)
         return data, content_type
+
+    def data_or_from_file(self, data):
+        if os.path.isfile(data):
+            self.logger.debug("" + data + " is file, reading it in")
+            with codecs.open(data, 'r', 'utf-8') as myfile:
+                data = myfile.read()
+                self.logger.debug("Found data " + data)
+        return data
 
     def to_object(self, data, validate=False):
         if hasattr(data, "validateBinding"):
