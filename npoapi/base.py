@@ -266,7 +266,7 @@ class NpoApiBase:
         if hasattr(data, "validateBinding"):
             return data
         from npoapi.xml import poms
-        object = poms.CreateFromDocument(data)
+        object = poms.CreateFromDocument(self.xml_to_bytes(data))
         if validate:
             object.validateBinding()
         return object
@@ -294,9 +294,12 @@ class NpoApiBase:
             self.logger.debug("xml is none")
             return None
         t = type(xml)
-        if t == str:
+        if t == bytes:
+            return xml
+        elif t == str:
             xml = self.data_or_from_file(xml)
             return xml.encode('utf-8')
+
         elif t == minidom.Element or t == minidom.Document:
             # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
             # xml.setAttribute("xmlns:xsi",

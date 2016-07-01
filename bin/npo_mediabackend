@@ -3,13 +3,15 @@
   Simple client to post an object from the NPO Backend API
 """
 from npoapi import MediaBackend
-from xml.dom.minidom import parse, parseString
+from xml.dom.minidom import parseString
 
 client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API")
 client.add_argument('xml', type=str, nargs=1, help='The xml to post')
 client.add_argument('-S', '--search', action='store_true',
                     help="""The xml is interpreted as a search""")
 
+client.add_argument('-p', '--process', type=str,
+                    help="""python code to postprocess. E.g. update.midRef ='POMS_S_VPRO_168360'""""")
 
 args = client.parse_args()
 search = args.search
@@ -21,6 +23,12 @@ else:
     if xml.childNodes[0].nodeName == "NPO_gfxwrp":
         print(client.parkpost(xml))
     else:
-        print(client.post(xml))
+        update = xml
+        if args.process is not None:
+            update = client.parse_xml_or_none(xml, validate = True)
+            exec(args.process)
+            client.logger.debug("Execed " + args.process)
+
+        print(client.post(update))
 client.exit()
 
