@@ -168,25 +168,6 @@ class BasicBackend(NpoApiBase):
                 sep = "&"
         return _url
 
-    def xml_to_bytes(self, xml):
-        import xml.etree.ElementTree as ET
-        if xml is None:
-            self.logger.debug("xml is none")
-            return None
-        t = type(xml)
-        if t == str:
-            xml, content_type = self.data_to_bytes(xml)
-            return xml.encode('utf-8')
-        elif t == minidom.Element:
-            # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
-            # xml.setAttribute("xmlns:xsi",
-            #    "http://www.w3.org/2001/XMLSchema-instance")
-            return xml.toxml('utf-8')
-        elif t == ET.Element:
-            return ET.tostring(xml, encoding='utf-8')
-        elif hasattr(xml, "toDOM"):
-            return xml.toDOM().toxml('utf-8')
-        else:
-            raise "unrecognized type " + t
+
 
 

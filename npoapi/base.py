@@ -4,6 +4,8 @@ import logging
 import sys
 import os
 import copy
+from xml.dom import minidom
+
 import npoapi
 import urllib.request
 import codecs
@@ -232,22 +234,26 @@ class NpoApiBase:
             return None
 
     def data_to_bytes(self, data, content_type=None):
+        """
+        Converts (any) object to a byte array
+        """
+
+        bytes = None
         if data:
-            import pyxb
-            if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-                content_type = "application/xml"
-                data = data.toxml()
-            elif os.path.isfile(data):
+            if os.path.isfile(data):
                 if content_type is None:
                     if data.endswith(".json"):
                         content_type = "application/json"
                     elif data.endswith(".xml"):
                         content_type = "application/xml"
+            if content_type == "application/json":
+                bytes = self.data_or_from_file(data)
+            else:
+                bytes = self.xml_to_bytes(data)
+        return bytes, content_type
 
-                data = self.data_or_from_file(data)
-        return data, content_type
-
-    def data_or_from_file(self, data):
+    def data_or_from_file(self, data:str):
+        """"""
         if os.path.isfile(data):
             self.logger.debug("" + data + " is file, reading it in")
             with codecs.open(data, 'r', 'utf-8') as myfile:
@@ -256,6 +262,7 @@ class NpoApiBase:
         return data
 
     def to_object(self, data, validate=False):
+        """Converts a string to a pyxb object (unless it is already a pyxb object)"""
         if hasattr(data, "validateBinding"):
             return data
         from npoapi.xml import poms
@@ -265,12 +272,45 @@ class NpoApiBase:
         return object
 
     def parse_xml_or_none(self, data, validate=False):
+        """Converts a string to a pyxb object, unless it is not valid, in which case it return Nones"""
         import xml
         try:
             return self.to_object(data, validate)
         except xml.sax._exceptions.SAXParseException as e:
             self.logger.debug("Not xml")
             return None
+
+    def xml_to_bytes(self, xml):
+        """Interpret any (known) object as xml, and returns it as a byte array
+        Supported are:
+         -string (xml or file)
+         -minidom objects
+         -xml.etree objects
+         -pyxb objects
+
+        """
+        import xml.etree.ElementTree as ET
+        if xml is None:
+            self.logger.debug("xml is none")
+            return None
+        t = type(xml)
+        if t == str:
+            xml = self.data_or_from_file(xml)
+            return xml.encode('utf-8')
+        elif t == minidom.Element or t == minidom.Document:
+            # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
+            # xml.setAttribute("xmlns:xsi",
+            #    "http://www.w3.org/2001/XMLSchema-instance")
+            return xml.toxml('utf-8')
+        elif t == ET.Element:
+            return ET.tostring(xml, encoding='utf-8')
+        elif hasattr(xml, "toDOM"):
+            return xml.toDOM().toxml('utf-8')
+        elif hasattr(xml, "toxml"):
+            # pyxb
+            return xml.toxml()
+        else:
+            raise Exception("unrecognized type " + str(t))
 
     def exit_code(self):
         if self.code is None or 200 <= self.code < 300:
