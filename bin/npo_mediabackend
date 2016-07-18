@@ -5,7 +5,7 @@
 from npoapi import MediaBackend
 from xml.dom.minidom import parseString
 
-client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API")
+client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API. It is also possible to search.")
 client.add_argument('xml', type=str, nargs=1, help='The xml to post')
 client.add_argument('-S', '--search', action='store_true',
                     help="""The xml is interpreted as a search""")
@@ -19,7 +19,8 @@ search = args.search
 if search:
     print(client.find(args.xml[0]))
 else:
-    xml=parseString(client.data_or_from_file(args.xml[0]))
+    xmlString = client.data_or_from_file(args.xml[0])
+    xml = parseString(xmlString)
     if xml.childNodes[0].nodeName == "NPO_gfxwrp":
         print(client.parkpost(xml))
     else:
@@ -28,7 +29,9 @@ else:
             update = client.parse_xml_or_none(xml, validate = True)
             exec(args.process)
             client.logger.debug("Execed " + args.process)
-
-        print(client.post(update))
+        if xml.childNodes[0].namespaceURI == "urn: vpro:media:search:2012":
+            print(client.find(update))
+        else:
+            print(client.post(update))
 client.exit()
 
