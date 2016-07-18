@@ -259,6 +259,8 @@ class NpoApiBase:
             with codecs.open(data, 'r', 'utf-8') as myfile:
                 data = myfile.read()
                 self.logger.debug("Found data " + data)
+        else:
+            self.logger("" + data + " is not a file")
         return data
 
     def to_object(self, data, validate=False):
