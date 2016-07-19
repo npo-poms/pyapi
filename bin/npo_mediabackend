@@ -47,7 +47,7 @@ else:
             if xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
                 if args.delete:
                     client.exit("cannot delete with search")
-                    print(client.find(update))
+                print(client.find(update))
             else:
                 if args.delete:
                     mid = update.mid

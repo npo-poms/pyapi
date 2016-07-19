@@ -54,7 +54,7 @@ class MediaBackend(BasicBackend):
         return self.delete_from("media/media/" + urllib.request.quote(mid, safe=''))
 
     def find(self, form, writeable=False):
-        form = self.to_object(form)
+        form = self.to_object(form, validate=True)
         return self.post_to("media/media/find", form, accept="application/xml", writable=writeable)
 
     def members(self, mid, **kwargs):

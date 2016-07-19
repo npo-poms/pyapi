@@ -94,6 +94,7 @@ class BasicBackend(NpoApiBase):
         return self._request(req, url)
 
     def _get_xml(self, url):
+        self.creds()
         self.logger.debug("getting " + url)
         req = urllib.request.Request(url)
         req.add_header("Accept", "application/xml")
@@ -104,6 +105,7 @@ class BasicBackend(NpoApiBase):
             return None
 
     def _request(self, req, url, accept="application/xml"):
+        self.creds()
         req.add_header("Authorization", self.authorizationHeader)
         req.add_header("Content-Type", "application/xml")
         req.add_header("Accept", accept)
