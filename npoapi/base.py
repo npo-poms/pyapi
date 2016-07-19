@@ -1,15 +1,34 @@
 import abc
 import argparse
-import logging
-import sys
-import os
-import copy
-import npoapi
-import urllib.request
 import codecs
+import copy
+import logging
+import os
+import sys
+import urllib.request
+
+import pyxb
+
+import npoapi
+
+
+def declare_namespaces():
+    import pyxb.utils.domutils
+    from npoapi.xml import mediaupdate, pageupdate, page, media, shared, api
+
+    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(pageupdate.Namespace, 'pu')
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(page.Namespace, 'pages')
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(api.Namespace, 'api')
+
+
+declare_namespaces()
 
 
 class NpoApiBase:
+    """Base class for all api client (both backend and frontend)"""
     __metaclass__ = abc.ABCMeta
     EPILOG = """
     DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
@@ -18,16 +37,17 @@ class NpoApiBase:
 
     def __init__(self, env: str = None, debug: bool = False, accept: str = None):
         """
-
+        Initializes logging, env-settings, and default accept headers.
         """
-        logging.basicConfig(format='%(levelname)s %(message)s')
         self.force_create_config = False
+        self.code = None
+
+        logging.basicConfig(format='%(levelname)s %(message)s')
         self.logger = logging.getLogger("Npo")
+        self.debug(debug)
         self._env = env
         self.env(env)
-        self.debug(debug)
         self.accept(accept)
-        self.code = None
 
     @abc.abstractmethod
     def env(self, e):
@@ -210,6 +230,7 @@ class NpoApiBase:
         return args
 
     def get_response(self, req, url):
+        """Error handling around urllib.request.urlopen"""
         try:
             response = urllib.request.urlopen(req)
             self.code = response.getcode()
@@ -231,6 +252,10 @@ class NpoApiBase:
             return None
 
     def data_to_bytes(self, data, content_type=None):
+        """
+        Gives some object representing API data returns it as a string.
+        Recognized are pyxb bindings, a files name, or else a string.
+        """
         if data:
             import pyxb
             if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
@@ -251,10 +276,14 @@ class NpoApiBase:
         return data, content_type
 
     def to_object(self, data, validate=False):
-        if data.validateBinding:
-            return data
-        from npoapi.xml import poms
-        object = poms.CreateFromDocument(data)
+        """Converts a string to a pyxb object and optionally validates it"""
+        object = None
+        if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
+            object = data
+        else:
+            from npoapi.xml import poms
+            object = poms.CreateFromDocument(data)
+
         if validate:
             object.validateBinding()
         return object
