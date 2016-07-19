@@ -31,7 +31,7 @@ else:
             update = client.parse_xml_or_none(xml, validate = True)
             exec(args.process)
             client.logger.debug("Execed " + args.process)
-        if xml.childNodes[0].namespaceURI == media_search.Namespace:
+        if xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
             print(client.find(update))
         else:
             print(client.post(update))

@@ -70,7 +70,7 @@ class MediaBackend(BasicBackend):
     def find(self, form, writeable=False):
         self.creds()
         form = self.to_object(self.xml_to_bytes(form))
-        return self.post_to("media/media/find", form, accept="application/xml", writable=writeable)
+        return self.post_to("media/find", form, accept="application/xml", writable=writeable)
 
     def members(self, mid, **kwargs):
         """return a list of all members of a group. As minidom objects, wrapped
