@@ -18,6 +18,7 @@ def declare_namespaces():
         from npoapi.xml import media
         from npoapi.xml import shared
         from npoapi.xml import api
+        from npoapi.xml import media_search
 
         pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
         pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(pageupdate.Namespace, 'pu')
@@ -25,6 +26,7 @@ def declare_namespaces():
         pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
         pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
         pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(api.Namespace, 'api')
+        pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media_search.Namespace, 's')
 
 declare_namespaces()
 

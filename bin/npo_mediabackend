@@ -3,6 +3,7 @@
   Simple client to post an object from the NPO Backend API
 """
 from npoapi import MediaBackend
+from npoapi.xml import media_search
 from xml.dom.minidom import parseString
 
 client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API. It is also possible to search.")
@@ -15,6 +16,7 @@ client.add_argument('-p', '--process', type=str,
 
 args = client.parse_args()
 search = args.search
+
 
 if search:
     print(client.find(args.xml[0]))
@@ -29,7 +31,7 @@ else:
             update = client.parse_xml_or_none(xml, validate = True)
             exec(args.process)
             client.logger.debug("Execed " + args.process)
-        if xml.childNodes[0].namespaceURI == "urn: vpro:media:search:2012":
+        if xml.childNodes[0].namespaceURI == media_search.Namespace:
             print(client.find(update))
         else:
             print(client.post(update))
