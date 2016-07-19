@@ -1,5 +1,5 @@
 from npoapi.npoapi import NpoApi
-import urllib.request
+
 
 class Pages(NpoApi):
     def get(self, url):

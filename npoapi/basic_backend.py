@@ -8,28 +8,8 @@ from xml.dom import minidom
 from npoapi.base import NpoApiBase
 
 
-def declare_namespaces():
-    pyxb_loader = importlib.util.find_spec("pyxb")
-    if pyxb_loader is not None:
-        import pyxb.utils.domutils
-        from npoapi.xml import mediaupdate
-        from npoapi.xml import pageupdate
-        from npoapi.xml import page
-        from npoapi.xml import media
-        from npoapi.xml import shared
-        from npoapi.xml import api
-
-        pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
-        pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(pageupdate.Namespace, 'pu')
-        pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(page.Namespace, 'pages')
-        pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
-        pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
-        pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(api.Namespace, 'api')
-
-declare_namespaces()
-
-
 class BasicBackend(NpoApiBase):
+    """Base class for backend apis. These use basic authentication. Normally communicate via XML."""
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
         """
         Instantiates a client to the NPO Backend API
@@ -70,10 +50,8 @@ class BasicBackend(NpoApiBase):
             self.url = e
         return self
 
-
     def errors(self, email):
         self.email = email
-
 
     def login(self):
         self.logger.debug("Logging in " + self.user)
@@ -81,7 +59,8 @@ class BasicBackend(NpoApiBase):
         username = self.user
         password = self.password
         password_manager.add_password(None, self.url, username, password)
-        urllib.request.install_opener(urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager)))
+        urllib.request.install_opener(
+            urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager)))
         base64string = base64.encodebytes(('%s:%s' % (username, password)).encode()).decode()[:-1]
         self.authorizationHeader = "Basic %s" % base64string
         return self
@@ -102,7 +81,7 @@ class BasicBackend(NpoApiBase):
 
     def get_from(self, path, accept="application/xml", **kwargs):
         self.creds()
-        _url = self.append_params(self.url + path, **kwargs)
+        _url = self.append_params(self.url + path, include_errors=False, **kwargs)
         req = urllib.request.Request(_url)
         self.logger.debug("Getting from " + _url)
         return self._request(req, _url, accept=accept)
@@ -164,7 +143,6 @@ class BasicBackend(NpoApiBase):
                 sep = "&"
         return _url
 
-
     def xml_to_bytes(self, xml):
         import xml.etree.ElementTree as ET
         t = type(xml)
@@ -182,5 +160,3 @@ class BasicBackend(NpoApiBase):
             return xml.toDOM().toxml('utf-8')
         else:
             raise "unrecognized type " + t
-
-

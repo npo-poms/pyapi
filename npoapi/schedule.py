@@ -1,7 +1,5 @@
 from npoapi.npoapi import NpoApi
 
-#import urllib.request
-
 class Schedule(NpoApi):
     def get(self, guideDay=None, channel=None):
         params = {
@@ -11,4 +9,3 @@ class Schedule(NpoApi):
             return self.request("/api/schedule/" + channel, params=params)
         else:
             return self.request("/api/schedule", params=params)
-
