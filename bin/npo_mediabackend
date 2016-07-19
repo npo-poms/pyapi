@@ -1,39 +1,63 @@
 #!/usr/bin/env python3
 """
-  Simple client to post an object from the NPO Backend API
+  Simple client to get an object from the NPO Backend API media endpoint
 """
 from npoapi import MediaBackend
 from npoapi.xml import media_search
 from xml.dom.minidom import parseString
 
-client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API. It is also possible to search.")
-client.add_argument('xml', type=str, nargs=1, help='The xml to post')
+client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API")
+group = client.argument_parser.add_mutually_exclusive_group(required=True)
+
+group.add_argument('xml', type=str, nargs='?', help='The xml to post')
+group.add_argument('mid', type=str, nargs='?', help='The mid to get or delete')
+
 client.add_argument('-S', '--search', action='store_true',
-                    help="""The xml is interpreted as a search""")
+                   help="""The xml is interpreted as a search""")
+group.add_argument('-D', '--delete', action='store_true',
+                   help="""The mid will be deleted""")
 
 client.add_argument('-p', '--process', type=str,
                     help="""python code to postprocess. E.g. update.midRef ='POMS_S_VPRO_168360'""""")
 
 args = client.parse_args()
-search = args.search
+mid = None
 
-
-if search:
+if args.search:
     print(client.find(args.xml[0]))
 else:
-    xmlString = client.data_or_from_file(args.xml[0])
-    xml = parseString(xmlString)
-    if xml.childNodes[0].nodeName == "NPO_gfxwrp":
+    xmlString = client.data_or_from_file(args.xml)
+    try:
+        xml = parseString(xmlString)
+    except Exception as e:
+        xml = None
+        mid = args.xml
+
+    if xml and xml.childNodes[0].nodeName == "NPO_gfxwrp":
+        if args.delete or args.search:
+            client.exit("cannot delete or search parkpost")
         print(client.parkpost(xml))
     else:
-        update = xml
-        if args.process is not None:
-            update = client.parse_xml_or_none(xml, validate = True)
-            exec(args.process)
-            client.logger.debug("Execed " + args.process)
-        if xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
-            print(client.find(update))
-        else:
-            print(client.post(update))
-client.exit()
+        if xml:
+            update = xml
+            if args.process is not None:
+                update = client.parse_xml_or_none(xml, validate=True)
+                exec(args.process)
+                client.logger.debug("Execed " + args.process)
+            if xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
+                if args.delete:
+                    client.exit("cannot delete with search")
+                    print(client.find(update))
+            else:
+                if args.delete:
+                    mid = update.mid
+                    print(client.delete(mid))
+                else:
+                    print(client.post(update))
+        elif mid:
+            if args.delete:
+                print(client.delete(mid))
+            else:
+                print(client.get(mid))
 
+client.exit()

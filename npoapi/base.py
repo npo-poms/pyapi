@@ -275,6 +275,17 @@ class NpoApiBase:
 
         return data, content_type
 
+    def data_or_from_file(self, data: str):
+        """"""
+        if os.path.isfile(data):
+            self.logger.debug("" + data + " is file, reading it in")
+            with codecs.open(data, 'r', 'utf-8') as myfile:
+                data = myfile.read()
+                self.logger.debug("Found data " + data)
+        else:
+            self.logger.debug("" + data + " is not a file")
+        return data
+
     def to_object(self, data, validate=False):
         """Converts a string to a pyxb object and optionally validates it"""
         object = None
