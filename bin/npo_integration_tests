@@ -6,6 +6,7 @@
 """
 import argparse
 import time
+import re
 
 import pyxb
 
@@ -79,7 +80,8 @@ def check_on_backend():
     clip = backend.get("crid://pyapi/clip/1")
     assert clip
     clip = mediaupdate.CreateFromDocument(clip)
-    #assert clip.mid == "WO_VPRO_1425989"
+    # assert clip.mid == "WO_VPRO_1425989"
+    print(clip.title[0].value())
     assert clip.title[0].value().endswith(time_str)
 
 
@@ -94,11 +96,58 @@ def check_frontend_media():
 
     assert t > (time.time() - latency), "should be published in 10 minutes " + title + " < " + str(time.time())
 
+def post_parkpost():
+    xml = """<?xml version="1.0"?>
+<NPO_gfxwrp>
+  <ProductCode>2P0108MO_BLAUWBLO%s</ProductCode>
+  <OrderCode>2P140801_EO___BLAUW_BL_MOR</OrderCode>
+  <Broadcaster>EO</Broadcaster>
+  <PromotedProgramProductCode>VPWON_1227699</PromotedProgramProductCode>
+  <Referrer/>
+  <MXF_Name>91345392</MXF_Name>
+  <ProgramTitle>Blauw Bloed Extra: Prinses Irene - 75 jaar</ProgramTitle>
+  <EpisodeTitle>Blauw Bloed Extra: Prinses Irene - 75 jaar</EpisodeTitle>
+  <PromoType>P</PromoType>
+  <TrailerTitle>Blauw Bloed Extra: Prinses Irene - 75 jaar</TrailerTitle>
+  <SerieTitle>Blauw Bloed Extra: Prinses Irene - 75 jaar</SerieTitle>
+  <FrameCount>750</FrameCount>
+  <VideoFormat>HD</VideoFormat>
+  <FirstTransmissionDate>2014-08-01T16:59:04+00:00</FirstTransmissionDate>
+  <PlacingWindowStart>2014-07-31T06:00:00+02:00</PlacingWindowStart>
+  <PlacingWindowEnd>2014-08-01T06:00:00+02:00</PlacingWindowEnd>
+  <Files>
+    <File Filename="2P0108MO_BLAUWBLO.ismv"/>
+    <File Filename="2P0108MO_BLAUWBLO.ismc"/>
+    <File Filename="2P0108MO_BLAUWBLO.ism"/>
+  </Files>
+</NPO_gfxwrp>
+""" % time_str
+    result = backend.parkpost(xml)
+    print(result)
+    assert re.match("Promo ProgramUpdate for .* has been processed",  result)
+
+
+# TODO This is hard, because if you delete a crid, you can't create it again?!
+def remove_clip():
+    backend.delete("crid://pyapi/clip/1")
+
+
+def remove_segment():
+    backend.delete("crid://pyapi/segment/2")
 
 post_to_backend()
+post_parkpost()
+
 time.sleep(5)
 check_on_backend()
 check_frontend_media()
+
+# This doesn't work without the right credentials. How do we solve this for integration tests?
+# MM: Credentials can be stored in ~/conf/creds.properties. So, the server running the tests just needs that file.
+
+
+remove_clip()
+remove_segment()
 
 
 

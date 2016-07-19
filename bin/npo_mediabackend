@@ -1,21 +1,39 @@
 #!/usr/bin/env python3
 """
-  Simple client to get an object from the NPO Backend API media endpoint
+  Simple client to post an object from the NPO Backend API
 """
 from npoapi import MediaBackend
+from npoapi.xml import media_search
+from xml.dom.minidom import parseString
 
-client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API")
+client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API. It is also possible to search.")
 client.add_argument('xml', type=str, nargs=1, help='The xml to post')
 client.add_argument('-S', '--search', action='store_true',
                     help="""The xml is interpreted as a search""")
 
+client.add_argument('-p', '--process', type=str,
+                    help="""python code to postprocess. E.g. update.midRef ='POMS_S_VPRO_168360'""""")
 
 args = client.parse_args()
 search = args.search
 
+
 if search:
     print(client.find(args.xml[0]))
 else:
-    print(client.post(args.xml[0]))
+    xmlString = client.data_or_from_file(args.xml[0])
+    xml = parseString(xmlString)
+    if xml.childNodes[0].nodeName == "NPO_gfxwrp":
+        print(client.parkpost(xml))
+    else:
+        update = xml
+        if args.process is not None:
+            update = client.parse_xml_or_none(xml, validate = True)
+            exec(args.process)
+            client.logger.debug("Execed " + args.process)
+        if xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
+            print(client.find(update))
+        else:
+            print(client.post(update))
 client.exit()
 

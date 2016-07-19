@@ -14,5 +14,5 @@ client.add_argument('-p', "--properties", type=str, default=None,
                     help="properties filtering")
 
 args = client.parse_args()
-print(client.search(args.form[0], sort=args.sort, max_=args.max, offset=args.offset, properties=args.properties))
+print(client.search(args.form[0], sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties))
 client.exit()

@@ -129,7 +129,3 @@ class NpoApi(NpoApiBase):
         self.logger.debug("headers: " + str(req.headers))
         return self.get_response(req, url)
 
-
-
-
-
