@@ -4,13 +4,8 @@ import os
 import urllib.request
 from xml.sax.saxutils import escape
 
-import pytz
-import pyxb
-
 from npoapi.basic_backend import BasicBackend
-from npoapi.xml import media
-from npoapi.xml import mediaupdate
-from npoapi.xml import poms
+from npoapi.xml import media, mediaupdate, poms
 
 
 class MediaBackend(BasicBackend):
@@ -19,7 +14,6 @@ class MediaBackend(BasicBackend):
         Instantiates a client to the NPO Backend API
         """
         super().__init__(env, email, debug, accept)
-
 
     def read_settings(self, settings):
         """
@@ -30,7 +24,7 @@ class MediaBackend(BasicBackend):
                 self.password = self.user.split(":", 2)[1]
                 self.user = self.user.split(":", 2)[0]
         if "email" in settings:
-            self.email= settings["email"]
+            self.email = settings["email"]
         return
 
     def env(self, e):
@@ -49,17 +43,17 @@ class MediaBackend(BasicBackend):
 
     def get(self, mid):
         """Returns XML-representation of a mediaobject"""
-        self.creds()
-        url = self.url + "media/media/" + urllib.request.quote(mid, safe='')
-        return self._get_xml(url)
+        return self.get_from("media/media/" + urllib.request.quote(mid, safe=''))
 
     def post(self, update):
         update = self.to_object(update, validate=True)
-        self.creds()
         return self.post_to("media/media/", update, accept="text/plain", errors=self.email)
 
+    def delete(self, mid):
+        """"""
+        return self.delete_from("media/media/" + urllib.request.quote(mid, safe=''))
+
     def find(self, form, writeable=False):
-        self.creds()
         form = self.to_object(form)
         return self.post_to("media/media/find", form, accept="application/xml", writable=writeable)
 
@@ -74,10 +68,8 @@ class MediaBackend(BasicBackend):
         return self._members_or_episodes(mid, "episodes", **kwargs)
 
     def delete_member(self, mid, owner_mid):
-        self.creds()
         path = "media/media/" + urllib.request.quote(mid) + "/memberOf/" + urllib.request.quote(owner_mid)
-        self.delete_to(path)
-
+        self.delete_from(path)
 
     # private method to implement both members and episodes calls.
     def _members_or_episodes(self, mid, what, max=None, batch=20):
@@ -101,8 +93,8 @@ class MediaBackend(BasicBackend):
 
         return result
 
-
-    def post_location(self, mid, programUrl, duration=None, bitrate=None, height=None, width=None, aspectRatio=None, format=None,
+    def post_location(self, mid, programUrl, duration=None, bitrate=None, height=None, width=None, aspectRatio=None,
+                      format=None,
                       publishStart=None, publishStop=None):
         if os.path.isfile(programUrl):
             self.logger.debug(programUrl + " seems to be a local file")
@@ -112,7 +104,8 @@ class MediaBackend(BasicBackend):
             if not format:
                 format = self.guess_format(programUrl)
 
-            xml = ("<location xmlns='urn:vpro:media:update:2009'" + self.date_attr("publishStart", publishStart) + self.date_attr(
+            xml = ("<location xmlns='urn:vpro:media:update:2009'" + self.date_attr("publishStart",
+                                                                                   publishStart) + self.date_attr(
                 "publishStop", publishStop) + ">" +
                    "  <programUrl>" + programUrl + "</programUrl>" +
                    "   <avAttributes>")
@@ -175,7 +168,8 @@ class MediaBackend(BasicBackend):
         location_object = None
         for l in locations:
             if type(location) == int or location.isdigit():
-                if (l.urn is not None and str(l.urn).endswith(':' + str(location))) and (programUrl is None or str(l.programUrl) == programUrl):
+                if (l.urn is not None and str(l.urn).endswith(':' + str(location))) and (
+                        programUrl is None or str(l.programUrl) == programUrl):
                     location_object = l
                     break
             elif str(l.urn).startswith("urn:vpro:media:location:"):
@@ -233,7 +227,3 @@ class MediaBackend(BasicBackend):
             return media.avFileFormatEnum.MP3
         else:
             return media.avFileFormatEnum.UNKNOWN
-
-
-
-
