@@ -258,9 +258,12 @@ class NpoApiBase:
         """
         if data:
             import pyxb
+            import xml.dom.minidom
             if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
                 content_type = "application/xml"
                 data = data.toxml()
+            elif isinstance(data, xml.dom.minidom.Document):
+                data = data.toxml().encode("utf-8")
             elif os.path.isfile(data):
                 if content_type is None:
                     if data.endswith(".json"):
@@ -293,7 +296,7 @@ class NpoApiBase:
             object = data
         else:
             from npoapi.xml import poms
-            object = poms.CreateFromDocument(data)
+            object = poms.CreateFromDocument(self.data_to_bytes(data)[0])
 
         if validate:
             object.validateBinding()
