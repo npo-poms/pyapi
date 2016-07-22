@@ -19,11 +19,11 @@ class Media(NpoApi):
     def search(self, form="{}", sort="asc", offset=0, limit=240, properties=None, accept=None):
         return self.request("/api/media", data=form, accept=accept, params={"sort": sort, "offset": offset, "max": limit, "properties": properties})
 
-    def changes(self, profile=None, order="ASC", stream=False, limit=10, since=None):
+    def changes(self, profile=None, order="ASC", stream=False, limit=10, since=None, forceOldStyle=False):
         sinceLong = None
         sinceDate = None
         if not since is None:
-            if not since.isdigit() or int(since) > 946681200000:
+            if not forceOldStyle and (not since.isdigit() or int(since) > 946681200000):
                 sinceDate = since
             else:
                 sinceLong = since
