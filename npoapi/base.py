@@ -197,17 +197,20 @@ class NpoApiBase:
         """
         return
 
-    def command_line_client(self, description=None, read_environment=True, create_config_file=True):
-        self.common_arguments(description=description)
+    def command_line_client(self, description=None, read_environment=True, create_config_file=True, exclude_arguments=None):
+        self.common_arguments(description=description, exclude_arguments=exclude_arguments)
         return self.configured_login(read_environment=read_environment, create_config_file=create_config_file)
 
     def add_argument(self, *args, **kwargs):
         self.argument_parser.add_argument(*args, **kwargs)
 
-    def common_arguments(self, description=None):
+    def common_arguments(self, description=None, exclude_arguments=None):
+        if exclude_arguments is None:
+            exclude_arguments = {}
         parent_args = argparse.ArgumentParser(add_help=False)
         parent_args.add_argument('-v', "--version", action="store_true", help="show current version")
-        parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
+        if not "accept" in exclude_arguments:
+            parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
@@ -226,7 +229,8 @@ class NpoApiBase:
         args = self.argument_parser.parse_args()
         self.env(args.env)
         self.debug(args.debug)
-        self.accept("application/" + args.accept if args.accept else None)
+        if "accept" in args:
+            self.accept("application/" + args.accept if args.accept else None)
         return args
 
     def get_response(self, req, url):
