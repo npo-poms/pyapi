@@ -10,5 +10,5 @@ client.add_argument("-s", "--since", type=str, default=None)
 client.add_argument('-m', "--max", type=int, default="100")
 
 args = client.parse_args()
-print(client.changes(profile=args.profile, since=args.since, limit=args.max, forceOldStyle=True))
+print(client.changes(profile=args.profile, since=args.since, limit=args.max, forceOldStyle=False))
 client.exit()
