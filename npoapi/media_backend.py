@@ -25,6 +25,12 @@ class MediaBackend(BasicBackend):
                 self.user = self.user.split(":", 2)[0]
         if "email" in settings:
             self.email = settings["email"]
+        if "parkpost_user" in settings:
+            self.parkpost_user = settings["parkpost_user"]
+            if ":" in self.parkpost_user:
+                self.parkpost_password = self.parkpost_user.split(":", 2)[1]
+                self.parkpost_user = self.parkpost_user.split(":", 2)[0]
+                self.parkpost_authorization = self.generate_authorization(self.parkpost_user, self.parkpost_password)
         return
 
     def env(self, e):
@@ -49,13 +55,20 @@ class MediaBackend(BasicBackend):
         update = self.to_object(update, validate=True)
         return self.post_to("media/media/", update, accept="text/plain", errors=self.email)
 
+
     def delete(self, mid):
         """"""
         return self.delete_from("media/media/" + urllib.request.quote(mid, safe=''))
 
+    def parkpost(self, xml):
+        url = self.url + "parkpost/promo"
+        req = urllib.request.Request(url, data=self.xml_to_bytes(xml))
+        return self._request(req, url, accept="text/plain", authorization=self.parkpost_authorization)
+
     def find(self, form, writeable=False):
         form = self.to_object(form, validate=True)
         return self.post_to("media/find", form, accept="application/xml", writable=writeable)
+
 
     def members(self, mid, **kwargs):
         """return a list of all members of a group. As XML objects, wrapped

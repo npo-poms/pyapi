@@ -55,15 +55,16 @@ class BasicBackend(NpoApiBase):
 
     def login(self):
         self.logger.debug("Logging in " + self.user)
+        self.authorizationHeader = self.generate_authorization(self.user, self.password)
+        return self
+
+    def generate_authorization(self, username, password):
         password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-        username = self.user
-        password = self.password
         password_manager.add_password(None, self.url, username, password)
         urllib.request.install_opener(
             urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager)))
         base64string = base64.encodebytes(('%s:%s' % (username, password)).encode()).decode()[:-1]
-        self.authorizationHeader = "Basic %s" % base64string
-        return self
+        return "Basic %s" % base64string
 
     def creds(self):
         if self.authorizationHeader:
@@ -94,6 +95,7 @@ class BasicBackend(NpoApiBase):
         return self._request(req, url)
 
     def _get_xml(self, url):
+        """Gets XML (as a byte array) from an URL. So this sets the accept header."""
         self.creds()
         self.logger.debug("getting " + url)
         req = urllib.request.Request(url)
@@ -104,9 +106,12 @@ class BasicBackend(NpoApiBase):
         else:
             return None
 
-    def _request(self, req, url, accept="application/xml"):
-        self.creds()
-        req.add_header("Authorization", self.authorizationHeader)
+    def _request(self, req, url, accept="application/xml", needs_authentication=True, authorization=None):
+        if needs_authentication:
+            if authorization:
+                req.add_header("Authorization", authorization)
+            else:
+                req.add_header("Authorization", self.authorizationHeader)
         req.add_header("Content-Type", "application/xml")
         req.add_header("Accept", accept)
         try:
