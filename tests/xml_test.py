@@ -3,11 +3,12 @@ import unittest
 
 from npoapi.xml import poms
 from npoapi.xml import media
+from npoapi import base
 import pyxb
 
 import npoapi.basic_backend
 
-npoapi.basic_backend.declare_namespaces()
+base.declare_namespaces()
 
 
 class Tests(unittest.TestCase):
@@ -79,3 +80,17 @@ class Tests(unittest.TestCase):
         form.searches = pyxb.BIND()
         form.searches.mediaIds = "crid://pyapi/clip/1"
         self.assertEquals('<?xml version="1.0" ?><api:mediaForm xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:searches><api:mediaIds><api:matcher>crid://pyapi/clip/1</api:matcher></api:mediaIds></api:searches></api:mediaForm>', form.toxml())
+
+    def test_add_person(selfs):
+        from npoapi.xml import mediaupdate
+        program = mediaupdate.program(type="CLIP", avType="MIXED")
+        program.title.append(mediaupdate.titleUpdateType("hoi ", type="MAIN"))
+        program.broadcaster.append("VPRO")
+
+        program.credits = pyxb.BIND()
+        person = mediaupdate.personUpdateType()
+        person.role = media.roleType.ACTOR
+        person.givenName = "pietje"
+        person.familyName = "puk"
+        program.credits.append(person)
+        print(program.toxml())
