@@ -81,7 +81,7 @@ class Tests(unittest.TestCase):
         form.searches.mediaIds = "crid://pyapi/clip/1"
         self.assertEquals('<?xml version="1.0" ?><api:mediaForm xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:searches><api:mediaIds><api:matcher>crid://pyapi/clip/1</api:matcher></api:mediaIds></api:searches></api:mediaForm>', form.toxml())
 
-    def test_add_person(selfs):
+    def test_add_person(self):
         from npoapi.xml import mediaupdate
         program = mediaupdate.program(type="CLIP", avType="MIXED")
         program.title.append(mediaupdate.titleUpdateType("hoi ", type="MAIN"))
