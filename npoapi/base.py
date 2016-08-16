@@ -233,7 +233,7 @@ class NpoApiBase:
             self.accept("application/" + args.accept if args.accept else None)
         return args
 
-    def get_response(self, req, url):
+    def get_response(self, req, url, ignoreNotFound=False):
         """Error handling around urllib.request.urlopen"""
         try:
             response = urllib.request.urlopen(req)
@@ -242,9 +242,13 @@ class NpoApiBase:
             self.logger.debug("response headers: " + str(response.getheaders()))
             return response
         except urllib.error.URLError as ue:
+            if ignoreNotFound and ue.code == 404:
+                self.logger.debug('%s: %s', url, ue.reason)
+                self.code = 404
+                return None
             if type(ue.reason) is str:
                 self.logger.error('%s: %s', url, ue.reason)
-                self.code = 1
+                self.code = ue.code
             else:
                 self.logger.error('%s: %s %s', ue.reason.errno, url, ue.reason.strerror)
                 self.code = ue.reason.errno

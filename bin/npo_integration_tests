@@ -40,6 +40,8 @@ def create_clip():
     image = mediaupdate.image(type="PICTURE", title="Plaatje van clip " + time_str)
     image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&w=120&h=120"
     program.images.append(image)
+    program.credits = pyxb.BIND()
+    program.credits.append(mediaupdate.personUpdateType())
     return program
 
 def create_segment(nr, ref=None):
@@ -65,7 +67,7 @@ def post_clip():
 
 
 def post_segment():
-    segment = create_segment(4, "WO_VPRO_1425989")
+    segment = create_segment(2, "WO_VPRO_1425989")
     result = backend.post(segment)
     print(result)
     assert result == "crid://pyapi/segment/2"
@@ -109,7 +111,7 @@ def remove_segment():
 post_to_backend()
 
 
-time.sleep(5)
+time.sleep(70)
 check_on_backend()
 check_frontend_media()
 
