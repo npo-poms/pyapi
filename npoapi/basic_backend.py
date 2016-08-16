@@ -80,14 +80,12 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept)
 
-    def get_from(self, path, accept="application/xml", ignoreNotFound=False, **kwargs):
+    def get_from(self, path, accept="application/xml", ignore_not_found=False, **kwargs):
         self.creds()
-        #accept = kwargs.pop('accept', 'application/xml')
-        #ignoreNotFound = kwargs.pop('ignoreNotFound', False)
         _url = self.append_params(self.url + path, include_errors=False, **kwargs)
         req = urllib.request.Request(_url)
         self.logger.debug("Getting from " + _url)
-        return self._request(req, _url, accept=accept, ignoreNotFound=ignoreNotFound)
+        return self._request(req, _url, accept=accept, ignore_not_found=ignore_not_found)
 
     def delete_from(self, path, **kwargs):
         self.creds()
@@ -108,7 +106,7 @@ class BasicBackend(NpoApiBase):
         else:
             return None
 
-    def _request(self, req, url, accept="application/xml", needs_authentication=True, authorization=None, ignoreNotFound=False):
+    def _request(self, req, url, accept="application/xml", needs_authentication=True, authorization=None, ignore_not_found=False):
         if needs_authentication:
             if authorization:
                 req.add_header("Authorization", authorization)
@@ -117,7 +115,7 @@ class BasicBackend(NpoApiBase):
         req.add_header("Content-Type", "application/xml")
         req.add_header("Accept", accept)
         try:
-            response = self.get_response(req, url, ignoreNotFound=ignoreNotFound)
+            response = self.get_response(req, url, ignore_not_found=ignore_not_found)
             if response:
                 return response.read().decode()
             else:
