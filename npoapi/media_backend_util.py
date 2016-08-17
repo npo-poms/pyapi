@@ -18,7 +18,7 @@ class MediaBackendUtil(object):
         object.title.append(title)
 
     @staticmethod
-    def create_location(programUrl:str, avType = None):
+    def create_location(programUrl:str, avType = None, bitrate = None, height = None, width = None, aspectratio = None, duration = None):
         # location_object = mediaupdate.locationUpdateType()
         location_object = mediaupdate.location()
         location_object.programUrl = programUrl
@@ -27,18 +27,26 @@ class MediaBackendUtil(object):
             index = programUrl.rfind('.')
             avType = getattr(media.avFileFormatEnum, programUrl[index + 1:].upper())
         if type(avType) is str:
-            getattr(media.avFileFormatEnum, avType)
+            avType = getattr(media.avFileFormatEnum, avType)
 
         avAttributes.avFileFormat = avType
         location_object.avAttributes = avAttributes
+        location_object.avAttributes.bitrate = bitrate
+        location_object.duration = duration
+        if height or width or aspectratio:
+            location_object.avAttributes.videoAttributes = mediaupdate.videoAttributesUpdateType()
+            location_object.avAttributes.videoAttributes.height = height
+            location_object.avAttributes.videoAttributes.width = width
+            location_object.avAttributes.videoAttributes.aspectRatio = aspectratio
+
         return location_object
 
     @staticmethod
-    def add_location(object: mediaupdate.mediaUpdateType, programUrl: str, avType = None):
+    def add_location(object: mediaupdate.mediaUpdateType, programUrl:str, **kwargs):
         if not object.locations:
             object.locations = pyxb.BIND()
 
-        location = MediaBackendUtil.create_location(programUrl, avType)
+        location = MediaBackendUtil.create_location(programUrl, *kwargs)
         object.locations.append(location)
         return location
 

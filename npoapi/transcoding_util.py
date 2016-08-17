@@ -3,6 +3,8 @@ import re
 import logging
 import subprocess
 import urllib
+from fractions import Fraction
+
 
 class TranscodingUtil(object):
     """A common use case for using the NPO backend api is trancoding 'locations'. This provides some utilities for doing that."""
@@ -27,6 +29,17 @@ class TranscodingUtil(object):
             array = line.decode().strip().split(":", 1)
             result[array[0].strip()] = array[1].strip()
         return result
+
+    @staticmethod
+    def exiftool_aspectratio(info: dict):
+        string = info.get('Image Size', None)
+        if not string:
+            return None
+        else:
+            a = string.split("x", 2)
+            logging.info(str(a))
+            f = Fraction(int(a[0]), int(a[1]))
+            return str(f.numerator) + ":" + str(f.denominator)
 
     @staticmethod
     def exiftool_duration(info: dict):
