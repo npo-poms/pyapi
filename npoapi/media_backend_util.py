@@ -40,6 +40,7 @@ class MediaBackendUtil(object):
 
         location = MediaBackendUtil.create_location(programUrl, avType)
         object.locations.append(location)
+        return location
 
     @staticmethod
     def member_of(object: mediaupdate.mediaUpdateType, group: str, position = 1):
