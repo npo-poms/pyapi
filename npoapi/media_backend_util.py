@@ -18,26 +18,25 @@ class MediaBackendUtil(object):
         object.title.append(title)
 
     @staticmethod
-    def create_location(programUrl:str, avType = None, bitrate = None, height = None, width = None, aspectratio = None, duration = None):
+    def create_location(programUrl:str, avFileFormat=None, bitrate=None, height=None, width=None, aspectratio=None):
         # location_object = mediaupdate.locationUpdateType()
         location_object = mediaupdate.location()
         location_object.programUrl = programUrl
         avAttributes = mediaupdate.avAtributeUpdateType()
-        if avType is None:
+        if avFileFormat is None:
             index = programUrl.rfind('.')
-            avType = getattr(media.avFileFormatEnum, programUrl[index + 1:].upper())
-        if type(avType) is str:
-            avType = getattr(media.avFileFormatEnum, avType)
+            avFileFormat = getattr(media.avFileFormatEnum, programUrl[index + 1:].upper())
+        if type(avFileFormat) is str:
+            avFileFormat = getattr(media.avFileFormatEnum, avFileFormat)
 
-        avAttributes.avFileFormat = avType
+        avAttributes.avFileFormat = avFileFormat
         location_object.avAttributes = avAttributes
         location_object.avAttributes.bitrate = bitrate
-        location_object.duration = duration
         if height or width or aspectratio:
             location_object.avAttributes.videoAttributes = mediaupdate.videoAttributesUpdateType()
             location_object.avAttributes.videoAttributes.height = height
             location_object.avAttributes.videoAttributes.width = width
-            location_object.avAttributes.videoAttributes.aspectRatio = aspectratio
+            location_object.avAttributes.videoAttributes.aspectRatio = getattr(media.aspectRatioEnum, aspectratio, None)
 
         return location_object
 
@@ -46,7 +45,7 @@ class MediaBackendUtil(object):
         if not object.locations:
             object.locations = pyxb.BIND()
 
-        location = MediaBackendUtil.create_location(programUrl, *kwargs)
+        location = MediaBackendUtil.create_location(programUrl, **kwargs)
         object.locations.append(location)
         return location
 
