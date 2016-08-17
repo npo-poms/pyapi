@@ -80,21 +80,21 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept)
 
-    def get_from(self, path, accept="application/xml", ignore_not_found=False, **kwargs):
+    def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs):
         self.creds()
         _url = self.append_params(self.url + path, include_errors=False, **kwargs)
         req = urllib.request.Request(_url)
         self.logger.debug("Getting from " + _url)
         return self._request(req, _url, accept=accept, ignore_not_found=ignore_not_found)
 
-    def delete_from(self, path, **kwargs):
+    def delete_from(self, path: str, **kwargs):
         self.creds()
         url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, method="DELETE")
         self.logger.debug("Deleting " + url)
         return self._request(req, url)
 
-    def _get_xml(self, url):
+    def _get_xml(self, url:str) -> bytearray:
         """Gets XML (as a byte array) from an URL. So this sets the accept header."""
         self.creds()
         self.logger.debug("getting " + url)

@@ -3,19 +3,20 @@ import codecs
 import os
 import urllib.request
 from xml.sax.saxutils import escape
+from xml.dom import minidom
 
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media, mediaupdate, poms
 
 
 class MediaBackend(BasicBackend):
-    def __init__(self, env=None, email: str = None, debug=False, accept=None):
+    def __init__(self, env:str=None, email:str = None, debug:bool=False, accept:str=None):
         """
         Instantiates a client to the NPO Backend API
         """
         super().__init__(env, email, debug, accept)
 
-    def read_settings(self, settings):
+    def read_settings(self, settings: dict):
         """
         """
         if "user" in settings:
@@ -33,7 +34,7 @@ class MediaBackend(BasicBackend):
                 self.parkpost_authorization = self.generate_authorization(self.parkpost_user, self.parkpost_password)
         return
 
-    def env(self, e):
+    def env(self, e:str):
         super().env(e)
         if e == "prod":
             self.url = "https://api.poms.omroep.nl/"
@@ -47,7 +48,7 @@ class MediaBackend(BasicBackend):
             self.url = e
         return self
 
-    def get(self, mid, ignore_not_found=False):
+    def get(self, mid:str, ignore_not_found=False):
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.request.quote(mid, safe=''), ignore_not_found=ignore_not_found)
 
@@ -55,8 +56,7 @@ class MediaBackend(BasicBackend):
         update = self.to_object(update, validate=True)
         return self.post_to("media/media/", update, accept="text/plain", errors=self.email, lookupcrid=lookupcrid)
 
-
-    def delete(self, mid):
+    def delete(self, mid:str):
         """"""
         return self.delete_from("media/media/" + urllib.request.quote(mid, safe=''))
 
@@ -70,7 +70,7 @@ class MediaBackend(BasicBackend):
         return self.post_to("media/find", form, accept="application/xml", writable=writeable)
 
 
-    def members(self, mid, **kwargs):
+    def members(self, mid: str, **kwargs):
         """return a list of all members of a group. As XML objects, wrapped
         in 'items', so you can see the position"""
         return self._members_or_episodes(mid, "members", **kwargs)
@@ -85,7 +85,7 @@ class MediaBackend(BasicBackend):
         self.delete_from(path)
 
     # private method to implement both members and episodes calls.
-    def _members_or_episodes(self, mid, what, max=None, batch=20):
+    def _members_or_episodes(self, mid:str, what:str, max:int=None, batch:int=20):
         self.creds()
         self.logger.info("loading members of " + mid)
         result = []
@@ -94,7 +94,7 @@ class MediaBackend(BasicBackend):
         while True:
             url = (self.url + 'media/group/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
                    "&offset=" + str(offset))
-            xml = self._get_xml(url)
+            xml = minidom.parseString(self._get_xml(url))
             items = xml.getElementsByTagName('item')
             result.extend(items)
             if len(items) == 0 or (max and len(result) >= max):
@@ -106,8 +106,8 @@ class MediaBackend(BasicBackend):
 
         return result
 
-    def post_location(self, mid, programUrl, duration=None, bitrate=None, height=None, width=None, aspectRatio=None,
-                      format=None,
+    def post_location(self, mid:str, programUrl, duration:str=None, bitrate:int=None, height:int=None, width:int=None, aspectRatio:str=None,
+                      format:str=None,
                       publishStart=None, publishStop=None):
         if os.path.isfile(programUrl):
             self.logger.debug(programUrl + " seems to be a local file")
@@ -123,16 +123,16 @@ class MediaBackend(BasicBackend):
                    "  <programUrl>" + programUrl + "</programUrl>" +
                    "   <avAttributes>")
             if bitrate:
-                xml += "<bitrate>" + str(bitrate) + "</bitrate>";
+                xml += "<bitrate>" + str(bitrate) + "</bitrate>"
             if format:
-                xml += "<avFileFormat>" + format + "</avFileFormat>";
+                xml += "<avFileFormat>" + format + "</avFileFormat>"
 
             if height or width or aspectRatio:
                 xml += "<videoAttributes "
                 if height:
-                    xml += "height='" + height + "' "
+                    xml += "height='" + str(height) + "' "
                 if width:
-                    xml += "width='" + width + "' "
+                    xml += "width='" + str(width) + "' "
                 xml += ">"
                 if aspectRatio:
                     xml += "<aspectRatio>" + aspectRatio + "</aspectRatio>"
@@ -147,13 +147,13 @@ class MediaBackend(BasicBackend):
         self.logger.debug("posting " + xml)
         return self.post_to("media/media/" + mid + "/location", xml, accept="text/plain")
 
-    def date_attr(self, name, datetime):
+    def date_attr(self, name:str, datetime):
         if datetime:
             return " " + name + "='" + self.date_attr_value(datetime) + "'"
         else:
             return ""
 
-    def add_image(self, mid, image, image_type="PICTURE", title=None, description=None):
+    def add_image(self, mid:str, image, image_type="PICTURE", title=None, description=None):
         if os.path.isfile(image):
             with open(image, "rb") as image_file:
                 if not title:
@@ -223,7 +223,7 @@ class MediaBackend(BasicBackend):
         self.logger.debug("Found " + location_xml)
         return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
 
-    def get_locations(self, mid):
+    def get_locations(self, mid:str):
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid) + "/locations"
         return self._get_xml(url)
