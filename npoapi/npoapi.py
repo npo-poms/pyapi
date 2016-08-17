@@ -101,8 +101,12 @@ class NpoApi(NpoApiBase):
                 json_object = json.JSONDecoder(strict=False).decode(data)
                 return json.JSONEncoder().encode(json_object).encode("UTF-8"), "application/json"
             except json.JSONDecodeError as je:
-                self.logger.debug(je)
-                return data.encode("UTF-8"), "application/xml"
+                if data.startswith("<"):
+                    self.logger.debug("Data looks like xml, taking content type accordingline (%s)", str(je))
+                    return data.encode("UTF-8"), "application/xml"
+                else:
+                    self.logger.warn("Data %s could not be parsed as json. Leaving content type unspecified", data)
+                    return data.encode("UTF-8"), None
 
         return None,None
 
