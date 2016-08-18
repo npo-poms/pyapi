@@ -24,7 +24,7 @@ url = None
 update = None
 
 if data:
-    update = client.parse_xml_or_none(data)
+    update = client.to_object_or_none(data)
 
 if update:
     if process is not None:
@@ -43,7 +43,7 @@ if delete:
 elif get:
     string = client.get(url)
     print(string)
-    update = client.parse_xml_or_none(string)
+    update = client.to_object_or_none(string)
 else:
     client.post(update)
 

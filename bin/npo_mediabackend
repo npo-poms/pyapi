@@ -41,7 +41,7 @@ else:
         if xml:
             update = xml
             if args.process is not None:
-                update = client.parse_xml_or_none(xml, validate=True)
+                update = client.to_object_or_none(xml, validate=True)
                 exec(args.process)
                 client.logger.debug("Execed " + args.process)
             if xml.childNodes[0].namespaceURI == media_search.Namespace.uri():

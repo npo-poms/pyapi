@@ -6,31 +6,48 @@ from npoapi import MediaBackend
 
 client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
 
+list_of_subs = ["members", "episodes", "images", "locations", ""]
+
 client.add_argument('mid', type=str, nargs=1, help='The mid of the object to get')
+client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
+                    help="Sub call for the mediaobject. On default the mediaobject itself is returned, but you can also opt for one of these choices")
+
 client.add_argument('-p', '--process',  type=str, help="""python code to postprocess. E.g. "update.duration='PT5M'""""")
 client.add_argument('-D', '--delete', action='store_true',
                     help="""The mid is deleted""")
 
 args = client.parse_args()
 process = args.process
+sub = args.sub
+mid = args.mid[0]
+
+def get():
+    if sub == 'members' or sub == 'episodes':
+        return client.members_or_episodes(mid, sub)
+    else:
+        return client.get_sub(mid, sub)
 
 if not args.delete or process:
-    bytes = client.get(args.mid[0])
+    result = get()
 else:
-    bytes = None
+    result = None
 
 if args.delete:
     client.delete(args.mid[0])
 
-
-if not bytes is None:
+if type(result) == list:
+    strings = map(lambda o: o.toxml(element_name = "item"), result)
+    print(strings)
+elif not result is None:
     if process is None:
         from xml.dom.minidom import parseString
-        print(parseString(bytes).toprettyxml(indent="  "))
+        print(parseString(result).toprettyxml(indent="  "))
     else:
         from npoapi.xml import poms
-        update = poms.CreateFromDocument(bytes)
+        update = poms.CreateFromDocument(result)
         exec(process)
         print(update.toDOM().toprettyxml(indent="  "))
+
+        
 client.exit()
 

@@ -48,7 +48,7 @@ class MediaBackend(BasicBackend):
             self.url = e
         return self
 
-    def get(self, mid:str, ignore_not_found=False):
+    def get(self, mid:str, ignore_not_found=False) -> bytearray:
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.request.quote(mid, safe=''), ignore_not_found=ignore_not_found)
 
@@ -73,21 +73,22 @@ class MediaBackend(BasicBackend):
     def members(self, mid: str, **kwargs):
         """return a list of all members of a group. As XML objects, wrapped
         in 'items', so you can see the position"""
-        return self._members_or_episodes(mid, "members", **kwargs)
+        return self.members_or_episodes(mid, "members", **kwargs)
 
     def episodes(self, mid, **kwargs):
         """return a list of all episodes of a group. As XML objects, wrapped
         in 'items', so you can see the position"""
-        return self._members_or_episodes(mid, "episodes", **kwargs)
+        return self.members_or_episodes(mid, "episodes", **kwargs)
 
     def delete_member(self, mid, owner_mid):
         path = "media/media/" + urllib.request.quote(mid) + "/memberOf/" + urllib.request.quote(owner_mid)
         self.delete_from(path)
 
     # private method to implement both members and episodes calls.
-    def _members_or_episodes(self, mid:str, what:str, max:int=None, batch:int=20):
+    def members_or_episodes(self, mid:str, what:str, max:int=None, batch:int=20) -> list:
+        """Returns a list of mediaupdate objects"""
         self.creds()
-        self.logger.info("loading members of " + mid)
+        self.logger.debug("loading %s of %s", what, mid)
         result = []
         offset = 0
         b = min(batch, max) if max else batch
@@ -96,13 +97,13 @@ class MediaBackend(BasicBackend):
                    "&offset=" + str(offset))
             xml = minidom.parseString(self._get_xml(url))
             items = xml.getElementsByTagName('item')
-            result.extend(items)
+            result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items)) 
             if len(items) == 0 or (max and len(result) >= max):
                 break
             offset += b
             # print xml.childNodes[0].toxml('utf-8')
             total = xml.childNodes[0].getAttribute("totalCount")
-            self.logger.info(str(len(result)) + "/" + total + (("/" + str(max)) if max else ""))
+            self.logger.debug(str(len(result)) + "/" + total + (("/" + str(max)) if max else ""))
 
         return result
 
@@ -224,14 +225,16 @@ class MediaBackend(BasicBackend):
         return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")
 
     def get_locations(self, mid:str):
-        self.creds()
-        url = self.url + "media/media/" + urllib.request.quote(mid) + "/locations"
-        return self._get_xml(url)
+        return self.get_sub(mid, "locations")
 
-    def get_images(self, mid):
+    def get_images(self, mid:str):
+        return self.get_sub(mid, "images")
+    
+    def get_sub(self, mid:str, sub: str):
         self.creds()
-        url = self.url + "media/media/" + urllib.request.quote(mid) + "/images"
+        url = self.url + "media/media/" + urllib.request.quote(mid) + "/" + sub
         return self._get_xml(url)
+        
 
     def guess_format(self, url):
         if str(url).endswith(".mp4"):

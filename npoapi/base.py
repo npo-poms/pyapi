@@ -297,7 +297,7 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data, validate=False):
+    def to_object(self, data, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
         """Converts a string to a pyxb object and optionally validates it"""
         object = None
         if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
@@ -310,7 +310,7 @@ class NpoApiBase:
             object.validateBinding()
         return object
 
-    def parse_xml_or_none(self, data, validate=False):
+    def to_object_or_none(self, data, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
         import xml
         try:
             self.to_object(data, validate)
