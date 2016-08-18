@@ -6,6 +6,7 @@ import pytz
 from xml.dom import minidom
 
 from npoapi.base import NpoApiBase
+from npoapi.xml import mediaupdate
 
 
 class BasicBackend(NpoApiBase):
@@ -164,6 +165,12 @@ class BasicBackend(NpoApiBase):
             return xml.toxml('utf-8')
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
+        elif t == mediaupdate.programUpdateType:
+            return xml.toxml("utf-8", element_name='program')
+        elif t == mediaupdate.groupUpdateType:
+            return xml.toxml("utf-8", element_name='group')
+        elif t == mediaupdate.segmentUpdateType:
+            return xml.toxml("utf-8", element_name='segment')
         elif getattr(xml, "toDOM"):
             return xml.toDOM().toxml('utf-8')
         else:
