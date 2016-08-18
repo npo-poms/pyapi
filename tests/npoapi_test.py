@@ -2,7 +2,7 @@
 import json
 import unittest
 from xml.dom import minidom
-import xml.etree.ElementTree as ET
+import os
 
 from npoapi import Media
 from npoapi import Screens
@@ -34,40 +34,39 @@ class Tests(unittest.TestCase):
 
 class MediaTests(unittest.TestCase):
     def test_get(self):
-        client = Media().configured_login().env(ENV).debug()
+        client = self.get_client()
         result = json.JSONDecoder().decode(client.get("AVRO_1656037"))
         self.assertEqual(result["mid"], "AVRO_1656037")
 
     def test_get_quote(self):
-        client = Media().configured_login().env(ENV).debug()
+        client = self.get_client()
         result = json.JSONDecoder().decode(client.get(" Avro_1260864"))
         self.assertEqual(result["mid"], " Avro_1260864")
 
     def test_get_space(self):
-        client = Media().configured_login().env(ENV).debug()
+        client = self.get_client()
         result = json.JSONDecoder().decode(client.get("BNN 240466"))
         self.assertEqual(result["mid"], "BNN 240466")
 
     def test_list(self):
-        client = Media().configured_login().env(ENV)
+        client = self.get_client()
         result = json.JSONDecoder().decode(client.list())
         ""
 
     def test_search(self):
-        client = Media().configured_login().env(ENV)
+        client = self.get_client()
         result = json.JSONDecoder().decode(client.search("{}"))
         ""
 
     def test_stream(self):
         import ijson
         from datetime import datetime
-        client = Media(env="test").configured_login(create_config_file=True)
+        client = self.get_client()
         objects = ijson.items(client.changes(stream=True), 'changes.item')
         for o in objects:
             media = o["media"]
             sortDate = datetime.fromtimestamp(media["sortDate"] / 1e3)
             print(media["broadcasters"], sortDate)
-
 
     def test(self):
         import datetime
@@ -75,18 +74,26 @@ class MediaTests(unittest.TestCase):
         sorted(dates)
         print(dates)
 
+    def get_client(self):
+        print(os.path.dirname(__file__))
+        return Media().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
+
 
 class ScreenTests(unittest.TestCase):
     def test_screens(self):
-        client = Screens().configured_login().env(ENV)
+        client = self.get_client()
         result = json.JSONDecoder().decode(client.list(offset=3))
         self.assertEqual(result["offset"], 3)
+
+    def get_client(self):
+        print(os.path.dirname(__file__))
+        return Screens().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
 
 
 class MediaBackendTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.client = MediaBackend().configured_login().env(ENV).debug()
+        self.client = MediaBackend().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
 
     def test_xml_to_bytes_string(self):
         self.assertEquals("<a xmlns='urn:vpro:media:update:2009' />",

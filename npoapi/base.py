@@ -79,7 +79,7 @@ class NpoApiBase:
 
         return self
 
-    def configured_login(self, read_environment=False, create_config_file=False):
+    def configured_login(self, read_environment=False, create_config_file=False, config_dir=None):
         """
         Logs in using configuration file. Considered using json (no comments-> unusable) or configparser (nearly properties, but headings are required..)
         So, now it simply parses the file itself.
@@ -94,6 +94,9 @@ class NpoApiBase:
             os.path.join(os.path.dirname(__file__), "..", "..", "..", "creds.properties"),
             os.path.join(os.path.dirname(__file__), "..", "..", "..", "creds.sh"),
             os.path.join(os.path.dirname(__file__), "creds.properties")]
+
+        if not config_dir is None:
+            config_files.insert(0, os.path.join(config_dir, "creds.properties"))
 
         config_file = None
         for file in config_files:
