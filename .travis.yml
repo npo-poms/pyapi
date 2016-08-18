@@ -2,7 +2,7 @@ language: python
 python:
 - '3.5'
 install:
-- pip install .
+- pip install . ijson
 script: nosetests
 before_install:
 - openssl aes-256-cbc -K $encrypted_ccb885855d6e_key -iv $encrypted_ccb885855d6e_iv
