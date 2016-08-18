@@ -1,4 +1,6 @@
 from npoapi.xml import media, mediaupdate
+from npoapi import MediaBackend
+
 import pyxb
 import logging
 
@@ -64,7 +66,7 @@ class MediaBackendUtil(object):
         return location
 
     @staticmethod
-    def get_location(object: mediaupdate.mediaUpdateType, programUrl: str):
+    def get_location(object: mediaupdate.mediaUpdateType, programUrl:str) -> mediaupdate.locationUpdateType:
         if not object.locations:
             return None
         for loc in object.locations.location:
@@ -73,7 +75,7 @@ class MediaBackendUtil(object):
         return loc
 
     @staticmethod
-    def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl: str, **kwargs):
+    def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl:str, **kwargs) -> mediaupdate.locationUpdateType:
         loc = MediaBackendUtil.get_location(object, programUrl)
         if loc:
             logging.debug("Found existing %s for %s", loc, programUrl)
@@ -82,11 +84,27 @@ class MediaBackendUtil(object):
             return MediaBackendUtil.add_location(object, programUrl, **kwargs)
 
     @staticmethod
-    def member_of(object: mediaupdate.mediaUpdateType, group: str, position = 1):
+    def member_of(object: mediaupdate.mediaUpdateType, group:str, position:int=1):
         memberOf = mediaupdate.memberRefUpdateType(group)
         memberOf.highlighted = False
         memberOf.position = position
         object.memberOf.append(memberOf)
+
+    @staticmethod
+    def descendants(client: MediaBackend, mid:str, batch:int=200, target:list=None):
+        if target is None:
+            target = []
+        target.extend(client.members(mid, batch=batch))
+        target.extend(client.episodes(mid, batch=batch))
+
+        for m in target:
+            updateElement = m.getElementsByTagName("mediaUpdate")[0]
+            if updateElement.getAttribute("xsi:type") == "groupUpdateType":
+                MediaBackendUtil.descendants(client, updateElement.getAttribute("mid"), batch, target)
+
+        return target
+
+
 
 
 
