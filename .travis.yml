@@ -6,4 +6,4 @@ install:
 script: nosetests
 before_install:
 - openssl aes-256-cbc -K $encrypted_ccb885855d6e_key -iv $encrypted_ccb885855d6e_iv
-  -in creds.properties.enc -out tests/creds.properties -d
+  -in tests/creds.properties.enc -out tests/creds.properties -d
