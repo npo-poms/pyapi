@@ -1,7 +1,9 @@
 language: python
 python:
-  - "3.5"
+- '3.5'
 install:
-  - pip install .
-# command to run tests
+- pip install .
 script: nosetests
+before_install:
+- openssl aes-256-cbc -K $encrypted_ccb885855d6e_key -iv $encrypted_ccb885855d6e_iv
+  -in creds.properties.enc -out tests/creds.properties -d
