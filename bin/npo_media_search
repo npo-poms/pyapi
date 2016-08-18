@@ -21,11 +21,6 @@ client.add_argument('-p', "--properties", type=str, default=None,
 args = client.parse_args()
 mid = args.mid
 sub = args.sub
-if not mid:
-    print(client.search(args.form[0], sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties,
-                        sub=sub))
-else:
-    print(client.search(args.form[0], sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties,
-                        mid=mid,
-                        sub=sub))
+
+print(client.search(args.form[0], sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties,mid=mid,sub=sub))
 client.exit()
