@@ -1,4 +1,7 @@
 # pyapi
+[![Build Status](https://travis-ci.org/npo-poms/pyapi.svg?)](https://travis-ci.org/npo-poms/pyapi)
+
+
 Python libraries and scripts to talk to the NPO api's. Currently classes are available for the frontend api (Media, Pages, Schedule, and Screens) and for the media backend api (MediaBackend).
 
 #How to install
