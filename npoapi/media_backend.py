@@ -70,12 +70,12 @@ class MediaBackend(BasicBackend):
         return self.post_to("media/find", form, accept="application/xml", writable=writeable)
 
 
-    def members(self, mid: str, **kwargs):
+    def members(self, mid: str, **kwargs) -> list:
         """return a list of all members of a group. As XML objects, wrapped
         in 'items', so you can see the position"""
         return self.members_or_episodes(mid, "members", **kwargs)
 
-    def episodes(self, mid, **kwargs):
+    def episodes(self, mid, **kwargs) -> list:
         """return a list of all episodes of a group. As XML objects, wrapped
         in 'items', so you can see the position"""
         return self.members_or_episodes(mid, "episodes", **kwargs)
@@ -86,7 +86,7 @@ class MediaBackend(BasicBackend):
 
     # private method to implement both members and episodes calls.
     def members_or_episodes(self, mid:str, what:str, max:int=None, batch:int=20) -> list:
-        """Returns a list of mediaupdate objects"""
+        """Returns a list of minidom objects"""
         self.creds()
         self.logger.debug("loading %s of %s", what, mid)
         result = []
@@ -97,7 +97,8 @@ class MediaBackend(BasicBackend):
                    "&offset=" + str(offset))
             xml = minidom.parseString(self._get_xml(url))
             items = xml.getElementsByTagName('item')
-            result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items)) 
+            #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
+            result.extend(items)
             if len(items) == 0 or (max and len(result) >= max):
                 break
             offset += b
@@ -229,12 +230,12 @@ class MediaBackend(BasicBackend):
 
     def get_images(self, mid:str):
         return self.get_sub(mid, "images")
-    
+
     def get_sub(self, mid:str, sub: str):
         self.creds()
         url = self.url + "media/media/" + urllib.request.quote(mid) + "/" + sub
         return self._get_xml(url)
-        
+
 
     def guess_format(self, url):
         if str(url).endswith(".mp4"):

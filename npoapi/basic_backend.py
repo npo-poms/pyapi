@@ -150,7 +150,8 @@ class BasicBackend(NpoApiBase):
                 sep = "&"
         return _url
 
-    def xml_to_bytes(self, xml):
+    def xml_to_bytes(self, xml) -> bytearray:
+        """Accepts xml in several formats, and returns it as a byte array, ready for posting"""
         import xml.etree.ElementTree as ET
         t = type(xml)
         if t == str:
