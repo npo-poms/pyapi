@@ -18,7 +18,10 @@ class TranscodingUtil(object):
 
     @staticmethod
     def exiftool(file):
-        p = subprocess.Popen([TranscodingUtil.EXIFTOOL, file], stdin=None, stdout=subprocess.PIPE)
+        command = [TranscodingUtil.EXIFTOOL, file]
+        TranscodingUtil.logger.info("Calling %s", command)
+
+        p = subprocess.Popen(command, stdin=None, stdout=subprocess.PIPE)
 
         result = {}
         while True:
