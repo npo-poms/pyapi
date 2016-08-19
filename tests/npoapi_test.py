@@ -40,8 +40,9 @@ class MediaTests(unittest.TestCase):
 
     def test_get_quote(self):
         client = self.get_client()
-        result = json.JSONDecoder().decode(client.get(" Avro_1260864"))
-        self.assertEqual(result["mid"], " Avro_1260864")
+        result = client.get(" Avro_1260864")
+        self.assertEqual("", result)
+        self.assertEqual(404, client.code)
 
     def test_get_space(self):
         client = self.get_client()

@@ -2,9 +2,10 @@ import logging
 import os
 
 import pyxb
+from xml.dom import minidom
 
 from npoapi.media_backend import MediaBackend
-from npoapi.xml import media, mediaupdate
+from npoapi.xml import media, mediaupdate, poms
 
 
 class MediaBackendUtil(object):
@@ -161,7 +162,8 @@ class MediaBackendUtil(object):
         object.memberOf.append(memberOf)
 
     @staticmethod
-    def descendants(client: MediaBackend, mid:str, batch:int=200, target:list=None):
+    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None):
+        """Returns a list of dom"""
         if target is None:
             target = []
         target.extend(client.members(mid, batch=batch))
@@ -173,6 +175,19 @@ class MediaBackendUtil(object):
                 MediaBackendUtil.descendants(client, updateElement.getAttribute("mid"), batch, target)
 
         return target
+
+
+    @staticmethod
+    def iterate_objects(members):
+        if type(members) == str:
+            members = minidom.parseString(members)
+        if type(members) == minidom.Document:
+            members = members.getElementsByTagName('item')
+        
+        result = map(lambda m:
+                     poms.CreateFromDOM(m.getElementsByTagName("mediaUpdate")[0], mediaupdate.Namespace),
+                      members)
+        return result
 
     @staticmethod
     def parse(duration_in_ms: int):
