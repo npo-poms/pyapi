@@ -2,8 +2,6 @@ import codecs
 import os
 import urllib.request
 from xml.dom import minidom
-
-from npoapi import media_backend_util as MU
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media, mediaupdate, poms
 
@@ -155,11 +153,7 @@ class MediaBackend(BasicBackend):
             return ""
 
     def add_image(self, mid:str, image, **kwargs):
-        xml = MU.create_image_from_file(mid, image, **kwargs)
-        if xml:
-            return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
-
-
+        return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
         locations = poms.CreateFromDocument(self.get_locations(mid)).wildcardElements()
