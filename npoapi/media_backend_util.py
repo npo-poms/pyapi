@@ -1,5 +1,5 @@
 from npoapi.xml import media, mediaupdate, shared
-from npoapi import MediaBackend
+from npoapi import media_backend as MediaBackend
 
 import pyxb
 import os
