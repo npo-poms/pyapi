@@ -176,8 +176,7 @@ class MediaBackendUtil(object):
 
     @staticmethod
     def parse(duration_in_ms: int):
-        """Parse to hours, minutes, seconds millis"""
-
+        """Converts millis to hours, minutes, seconds, millis"""
         millis = duration_in_ms % 1000
         seconds = duration_in_ms / 1000
         hours = seconds // 3600

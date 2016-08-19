@@ -1,13 +1,10 @@
 #!/usr/bin/env python3
 import unittest
-import dateutil.parser
 
 from npoapi import TranscodingUtil as TU
 
 
 class Tests(unittest.TestCase):
-
-
 
 
     def test_parse_duration(self):
