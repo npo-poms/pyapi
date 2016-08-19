@@ -1,11 +1,9 @@
-import base64
 import codecs
 import os
 import urllib.request
-from xml.sax.saxutils import escape
 from xml.dom import minidom
 
-from npoapi import MediaBackendUtil as MU
+from npoapi import media_backend_util as MU
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media, mediaupdate, poms
 
