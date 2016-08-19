@@ -174,7 +174,26 @@ class MediaBackendUtil(object):
 
         return target
 
+    @staticmethod
+    def parse(duration_in_ms: int):
+        """Parse to hours, minutes, seconds millis"""
 
+        millis = duration_in_ms % 1000
+        seconds = duration_in_ms / 1000
+        hours = seconds // 3600
+        seconds -= hours * 3600
+        minutes = seconds // 60
+        seconds -= minutes * 60
+        return (hours, minutes, seconds, millis)
+
+    @staticmethod
+    def format_duration(duration_in_ms: int):
+        """ Format duration as a ISO_8601"""
+        (hours, minutes, seconds, millis) = MediaBackendUtil.parse(duration_in_ms)
+        if hours == 0 and minutes == 0 and millis == 0:
+            return "P0DT%dS" % seconds
+        else:
+            return "P0DT%dH%dM%d.%03dS" % (hours, minutes, seconds, millis)
 
 
 

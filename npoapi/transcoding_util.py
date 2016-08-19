@@ -5,6 +5,7 @@ import subprocess
 import urllib
 import os
 from fractions import Fraction
+from npoapi import MediaBackendUtil
 
 
 class TranscodingUtil(object):
@@ -58,18 +59,6 @@ class TranscodingUtil(object):
             a = string.split(":")
             return 1000 * (3600 * int(a[0]) + 60 * int(a[1]) +  int(a[2]))
 
-    @staticmethod
-    def format_duration(duration_in_ms: int):
-        millis = duration_in_ms % 1000
-        seconds = duration_in_ms / 1000
-        hours = seconds // 3600
-        seconds -= hours * 3600
-        minutes = seconds // 60
-        seconds -= minutes * 60
-        if hours == 0 and minutes == 0 and millis ==0:
-            return "P0DT%dS" % seconds
-        else:
-            return "P0DT%dH%dM%d.%03dS" % (hours, minutes, seconds, millis)
 
     @staticmethod
     def exiftool_parsebitrate(string: str):
@@ -123,6 +112,8 @@ class TranscodingUtil(object):
         seq = 1
         result = []
         for offset in offsets:
+            if type(offset) == int:
+                offset = TranscodingUtil.format_offset(offset)
             logging.info("offset " + offset)
             command = [TranscodingUtil.FFMEG, "-loglevel", "warning", "-i", sourcefile]
             image_file_name = os.path.join(dest_dir, "still." + str(seq) + ".jpg")
@@ -131,6 +122,10 @@ class TranscodingUtil(object):
             result.append([offset, image_file_name])
             seq += 1
         return result
+
+    @staticmethod
+    def format_offset(offset_in_ms:int):
+        return "%02d:%02d:%02d.%03d" % MediaBackendUtil.parse(offset_in_ms)
 
     @staticmethod
     def check_exists(programUrl):

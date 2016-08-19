@@ -15,3 +15,7 @@ class Tests(unittest.TestCase):
 
         image = MU.create_image_from_file("/tmp/still.3.jpg", title="hoi")
         print(image.toxml())
+
+    def format_duration(self):
+        duration = 1222000
+        self.assertEquals("P0DT0H20M22.000S", MU.format_duration(duration))

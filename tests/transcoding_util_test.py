@@ -37,4 +37,4 @@ class Tests(unittest.TestCase):
                    'File Size': '79 MB', 'Image Size': '480x270', 'File Access Date/Time': '2016:08:19 15:35:33+02:00'}
         duration = TU.exiftool_duration(exifinfo)
         self.assertEquals(1222000, duration)
-        self.assertEquals("P0DT0H20M22.000S", TU.format_duration(duration))
+
