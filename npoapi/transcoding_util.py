@@ -3,6 +3,7 @@ import re
 import logging
 import subprocess
 import urllib
+import os
 from fractions import Fraction
 
 
@@ -102,6 +103,20 @@ class TranscodingUtil(object):
                    "-profile:v", "main",
                    tempFile]
         TranscodingUtil.system_call(command)
+
+    @staticmethod
+    def ffmpeg_images(sourcefile, dest_dir, offsets=['00:01:00.000', '00:02:00.000', '00:03:00.000']):
+        seq = 1
+        result = []
+        for offset in offsets:
+            logging.info("offset " + offset)
+            command = [TranscodingUtil.FFMEG, "-loglevel" "warning", "-i", sourcefile]
+            image_file_name = os.path.join(dest_dir, "still." + str(seq) + ".jpg")
+            command.extend(["-ss", offset,  "-vframes",  1,  image_file_name])
+            TranscodingUtil.system_call(command)
+            result.append([offset, image_file_name])
+            seq += 1
+        return result
 
     @staticmethod
     def check_exists(programUrl):

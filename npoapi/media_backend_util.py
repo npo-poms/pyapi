@@ -2,6 +2,8 @@ from npoapi.xml import media, mediaupdate, shared
 from npoapi import MediaBackend
 
 import pyxb
+import os
+import base64
 import logging
 
 class MediaBackendUtil(object):
@@ -98,21 +100,45 @@ class MediaBackendUtil(object):
 
 
     @staticmethod
-    def create_image(imageUrl: str):
+    def create_image_from_file(image, **kwargs):
+        if os.path.isfile(image):
+            with open(image, "rb") as image_file:
+                image_object = mediaupdate.image()
+                image_object.imageData = mediaupdate.imageDataType()
+                image_object.imageData.data = encoded_string = base64.b64encode(image_file.read()).decode("ascii")
+                MediaBackendUtil.set_image_fields(image_object, **kwargs)
+                return image_object
+        return None
+
+    @staticmethod
+    def create_image(imageUrl: str, **kwargs):
         image_object = mediaupdate.image()
-        image_object.type = shared.imageTypeEnum.PICTURE
+
         image_object.imageLocation = mediaupdate.imageLocationType()
         image_object.imageLocation.url = imageUrl
-        image_object.highlighted = False
+        MediaBackendUtil.set_image_fields(image_object, **kwargs)
         return image_object
 
     @staticmethod
-    def add_image(object: mediaupdate.mediaUpdateType, imageUrl: str):
+    def set_image_fields(image_object, image_type="PICTURE", title=None, description=None):
+        image_object.type = image_type
+        #shared.imageTypeEnum.PICTURE
+        image_object.highlighted = False
+        if title:
+            image_object.title = title
+        if description:
+            image_object.description = description
+
+    @staticmethod
+    def add_image(object: mediaupdate.mediaUpdateType, image: str, **kwargs):
         if not object.images:
             object.images = pyxb.BIND()
 
-        image = MediaBackendUtil.create_image(imageUrl)
-        object.images.append(image)
+        if os.path.isfile(image):
+            new_image = MediaBackendUtil.create_image_from_file(image, **kwargs)
+        else:
+            new_image = MediaBackendUtil.create_image(image, **kwargs)
+        object.images.append(new_image)
         return image
 
     @staticmethod

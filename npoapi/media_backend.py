@@ -5,6 +5,7 @@ import urllib.request
 from xml.sax.saxutils import escape
 from xml.dom import minidom
 
+from npoapi import MediaBackendUtil as MU
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media, mediaupdate, poms
 
@@ -155,28 +156,12 @@ class MediaBackend(BasicBackend):
         else:
             return ""
 
-    def add_image(self, mid:str, image, image_type="PICTURE", title=None, description=None):
-        if os.path.isfile(image):
-            with open(image, "rb") as image_file:
-                if not title:
-                    title = "Image for %s" % escape(mid)
-                if not description:
-                    description_xml = ""
-                else:
-                    description_xml = "<description>%s</description>" % escape(description)
+    def add_image(self, mid:str, image, **kwargs):
+        xml = MU.create_image_from_file(mid, image, **kwargs)
+        if xml:
+            return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
-                encoded_string = base64.b64encode(image_file.read()).decode("ascii")
-                xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-    <image xmlns="urn:vpro:media:update:2009" type="%s">
-      <title>%s</title>
-      %s
-      <imageData>
-        <data>%s</data>
-      </imageData>
-    </image>
-    """ % (image_type, escape(title), description_xml, encoded_string)
-                self.logger.debug(xml)
-                return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
+
 
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
         locations = poms.CreateFromDocument(self.get_locations(mid)).wildcardElements()
