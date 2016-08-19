@@ -47,15 +47,29 @@ class TranscodingUtil(object):
 
     @staticmethod
     def exiftool_duration(info: dict):
+        """REturns the duration reported by exif in ms"""
         string = info.get('Media Duration', None)
         if not string:
             return None
         else:
             m = re.match("(.*) s", string)
             if m:
-                return "P0DT" + m.group(1) + "S"
+                int(m.group(1)) * 1000
             a = string.split(":")
-            return "P0DT" + a[0] + "H" + a[1] + "M" + a[2] + ".000S"
+            return 1000 * (3600 * int(a[0]) + 60 * int(a[1]) +  int(a[2]))
+
+    @staticmethod
+    def format_duration(duration_in_ms: int):
+        millis = duration_in_ms % 1000
+        seconds = duration_in_ms / 1000
+        hours = seconds // 3600
+        seconds -= hours * 3600
+        minutes = seconds // 60
+        seconds -= minutes * 60
+        if hours == 0 and minutes == 0 and millis ==0:
+            return "P0DT%dS" % seconds
+        else:
+            return "P0DT%dH%dM%d.%03dS" % (hours, minutes, seconds, millis)
 
     @staticmethod
     def exiftool_parsebitrate(string: str):
