@@ -136,7 +136,7 @@ class MediaBackendUtil(object):
         if not object.images:
             object.images = pyxb.BIND()
 
-        if os.path.isfile(image):
+        if type(image) == str and os.path.isfile(image):
             new_image = MediaBackendUtil.create_image_from_file(image, **kwargs)
         else:
             new_image = MediaBackendUtil.create_image(image, **kwargs)
