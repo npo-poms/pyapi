@@ -1,4 +1,4 @@
-from npoapi.xml import media, mediaupdate
+from npoapi.xml import media, mediaupdate, shared
 from npoapi import MediaBackend
 
 import pyxb
@@ -89,6 +89,35 @@ class MediaBackendUtil(object):
 
     @staticmethod
     def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl:str, **kwargs) -> mediaupdate.locationUpdateType:
+        loc = MediaBackendUtil.get_location(object, programUrl)
+        if loc:
+            logging.debug("Found existing %s for %s", loc, programUrl)
+            return MediaBackendUtil.update_location(loc, **kwargs)
+        else:
+            return MediaBackendUtil.add_location(object, programUrl, **kwargs)
+
+
+    @staticmethod
+    def create_image(imageUrl: str):
+        image_object = mediaupdate.image()
+        image_object.type = shared.imageTypeEnum.PICTURE
+        image_object.imageLocation = mediaupdate.imageLocationType()
+        image_object.imageLocation.url = imageUrl
+        image_object.highlighted = False
+        return image_object
+
+    @staticmethod
+    def add_image(object: mediaupdate.mediaUpdateType, imageUrl: str):
+        if not object.images:
+            object.images = pyxb.BIND()
+
+        image = MediaBackendUtil.create_image(imageUrl)
+        object.images.append(image)
+        return image
+
+    @staticmethod
+    def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl: str,
+                               **kwargs) -> mediaupdate.locationUpdateType:
         loc = MediaBackendUtil.get_location(object, programUrl)
         if loc:
             logging.debug("Found existing %s for %s", loc, programUrl)
