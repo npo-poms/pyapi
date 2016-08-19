@@ -1,10 +1,12 @@
-from npoapi.xml import media, mediaupdate, shared
-from npoapi import media_backend as MediaBackend
-
-import pyxb
-import os
 import base64
 import logging
+import os
+
+import pyxb
+
+from npoapi import media_backend
+from npoapi.xml import media, mediaupdate
+
 
 class MediaBackendUtil(object):
     logger = logging.getLogger("MediaBackendUtil")
@@ -160,7 +162,7 @@ class MediaBackendUtil(object):
         object.memberOf.append(memberOf)
 
     @staticmethod
-    def descendants(client: MediaBackend, mid:str, batch:int=200, target:list=None):
+    def descendants(client: media_backend, mid:str, batch:int=200, target:list=None):
         if target is None:
             target = []
         target.extend(client.members(mid, batch=batch))
