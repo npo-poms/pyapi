@@ -12,6 +12,10 @@ class MediaBackendUtil(object):
     def main_title(object: mediaupdate.mediaUpdateType, string: str):
         MediaBackendUtil.title(object, media.textualTypeEnum.MAIN, string)
 
+    @staticmethod
+    def main_description(object: mediaupdate.mediaUpdateType, string: str):
+        MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, string)
+
 
     @staticmethod
     def title(object: mediaupdate.mediaUpdateType, textualType, string: str):
@@ -21,6 +25,15 @@ class MediaBackendUtil(object):
         else:
             title.type = textualType
         object.title.append(title)
+
+    @staticmethod
+    def description(object: mediaupdate.mediaUpdateType, textualType, string: str):
+        description = mediaupdate.descriptionUpdateType(string)
+        if type(textualType) is str:
+            description.type = getattr(media.textualTypeEnum, textualType)
+        else:
+            description.type = textualType
+        object.description.append(description)
 
     @staticmethod
     def create_location(programUrl:str, **kwargs):
@@ -84,10 +97,11 @@ class MediaBackendUtil(object):
             return MediaBackendUtil.add_location(object, programUrl, **kwargs)
 
     @staticmethod
-    def member_of(object: mediaupdate.mediaUpdateType, group:str, position:int=1):
+    def member_of(object: mediaupdate.mediaUpdateType, group:str, position:int=None):
         memberOf = mediaupdate.memberRefUpdateType(group)
         memberOf.highlighted = False
-        memberOf.position = position
+        if position is not None:
+            memberOf.position = position
         object.memberOf.append(memberOf)
 
     @staticmethod

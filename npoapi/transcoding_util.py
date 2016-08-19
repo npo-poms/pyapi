@@ -93,7 +93,8 @@ class TranscodingUtil(object):
 
     @staticmethod
     def transcode(programUrl, tempFile):
-        command = [TranscodingUtil.FFMEG, "-y", "-loglevel", "warning",
+        command = [TranscodingUtil.FFMEG,
+                   "-y", "-loglevel", "warning",
                    "-i", programUrl,
                    "-profile:v", "main",
                    tempFile]

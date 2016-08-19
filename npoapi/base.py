@@ -183,6 +183,8 @@ class NpoApiBase:
 
         if 'user' in settings_for_log:
             settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
+        if 'parkpost_user' in settings_for_log:
+            settings_for_log['parkpost_user'] = settings_for_log['parkpost_user'].split(":", 1)[0] + ":xxx"
         return
 
     @abc.abstractmethod
