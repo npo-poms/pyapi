@@ -1,4 +1,3 @@
-import base64
 import logging
 import os
 
@@ -107,7 +106,7 @@ class MediaBackendUtil(object):
             with open(image, "rb") as image_file:
                 image_object = mediaupdate.image()
                 image_object.imageData = mediaupdate.imageDataType()
-                image_object.imageData.data = encoded_string = base64.b64encode(image_file.read()).decode("ascii")
+                image_object.imageData.data = image_file.read()
                 MediaBackendUtil.set_image_fields(image_object, **kwargs)
                 return image_object
         return None
