@@ -112,7 +112,7 @@ class TranscodingUtil(object):
             logging.info("offset " + offset)
             command = [TranscodingUtil.FFMEG, "-loglevel" "warning", "-i", sourcefile]
             image_file_name = os.path.join(dest_dir, "still." + str(seq) + ".jpg")
-            command.extend(["-ss", offset,  "-vframes",  1,  image_file_name])
+            command.extend(["-ss", offset,  "-vframes",  str(1),  image_file_name])
             TranscodingUtil.system_call(command)
             result.append([offset, image_file_name])
             seq += 1
