@@ -152,7 +152,7 @@ class MediaBackend(BasicBackend):
         else:
             return ""
 
-    def add_image(self, mid:str, image, **kwargs):
+    def add_image(self, mid:str, image):
         return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
 
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
