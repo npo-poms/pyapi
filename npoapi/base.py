@@ -218,9 +218,20 @@ class NpoApiBase:
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
-        pargs = parent_args.parse_args(
-            filter(lambda e: e in ["-d", "--debug", "-c", "--createconfig", "-v", "--version"], sys.argv))
+        filtered_argv = []
+        i = 0
+        while i < len(sys.argv):
+            a = sys.argv[i]
+            if a in ["-d", "--debug", "-c", "--createconfig", "-v", "--version"]:
+                filtered_argv.append(a)
+            if a in ["-e", "--env"]:
+                filtered_argv.append(a)
+                i += 1
+                filtered_argv.append(sys.argv[i])
+            i += 1
+        pargs = parent_args.parse_args(filtered_argv)
         self.debug(pargs.debug)
+        self.env(pargs.env)
         if pargs.version:
             print(npoapi.__version__)
             exit(0)
@@ -231,7 +242,6 @@ class NpoApiBase:
 
     def parse_args(self):
         args = self.argument_parser.parse_args()
-        self.env(args.env)
         self.debug(args.debug)
         if "accept" in args:
             self.accept("application/" + args.accept if args.accept else None)
