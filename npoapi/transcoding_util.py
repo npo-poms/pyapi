@@ -109,6 +109,9 @@ class TranscodingUtil(object):
 
     @staticmethod
     def ffmpeg_images(sourcefile, dest_dir, offsets=['00:01:00.000', '00:02:00.000', '00:03:00.000']):
+        """
+        Generates a number of stills (files).
+        """
         seq = 1
         result = []
         for offset in offsets:
