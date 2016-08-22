@@ -68,12 +68,12 @@ class MediaBackend(BasicBackend):
 
 
     def members(self, mid: str, **kwargs) -> list:
-        """return a list of all members of a group. As XML objects, wrapped
+        """return a list of all members of a group. As minidom  XML objects, wrapped
         in 'items', so you can see the position"""
         return self.members_or_episodes(mid, "members", **kwargs)
 
     def episodes(self, mid, **kwargs) -> list:
-        """return a list of all episodes of a group. As XML objects, wrapped
+        """return a list of all episodes of a group. As minidom XML objects, wrapped
         in 'items', so you can see the position"""
         return self.members_or_episodes(mid, "episodes", **kwargs)
 
