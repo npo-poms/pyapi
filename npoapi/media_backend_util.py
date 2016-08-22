@@ -23,12 +23,15 @@ class MediaBackendUtil(object):
 
     @staticmethod
     def title(object: mediaupdate.mediaUpdateType, textualType, string: str):
-        title = mediaupdate.titleUpdateType(string)
-        if type(textualType) is str:
-            title.type = getattr(media.textualTypeEnum, textualType)
+        if string:
+            title = mediaupdate.titleUpdateType(string)
+            if type(textualType) is str:
+                title.type = getattr(media.textualTypeEnum, textualType)
+            else:
+                title.type = textualType
+            object.title.append(title)
         else:
-            title.type = textualType
-        object.title.append(title)
+            MediaBackendUtil.logger.debug("Not appending title because it is empty")
 
     @staticmethod
     def description(object: mediaupdate.mediaUpdateType, textualType, string: str):
@@ -183,7 +186,7 @@ class MediaBackendUtil(object):
             members = minidom.parseString(members)
         if type(members) == minidom.Document:
             members = members.getElementsByTagName('item')
-        
+
         result = map(lambda m:
                      poms.CreateFromDOM(m.getElementsByTagName("mediaUpdate")[0], mediaupdate.Namespace),
                       members)

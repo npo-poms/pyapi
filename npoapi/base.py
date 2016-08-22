@@ -256,17 +256,19 @@ class NpoApiBase:
             self.logger.debug("response headers: " + str(response.getheaders()))
             return response
         except urllib.error.URLError as ue:
+            error_type = str(type(ue))
             if ignore_not_found and ue.code == 404:
-                self.logger.debug('%s: %s', url, ue.reason)
+                self.logger.debug('%s: %s (%s)', url, ue.reason, error_type)
                 self.code = 404
                 return None
             if type(ue.reason) is str:
-                self.logger.error('%s: %s', url, ue.reason)
+                self.logger.error('%s: %s (%s)', url, ue.reason, error_type)
                 self.code = ue.code
             else:
-                self.logger.error('%s: %s %s', ue.reason.errno, url, ue.reason.strerror)
+                self.logger.error('%s: %s %s (%s)', ue.reason.errno, url, ue.reason.strerror, error_type)
                 self.code = ue.reason.errno
-            self.logger.error("%s", ue.read().decode("utf-8"))
+            if hasattr(ue, "read"):
+                self.logger.error("%s", ue.read().decode("utf-8"))
             return None
         except urllib.error.HTTPError as he:
             self.code = he.code
