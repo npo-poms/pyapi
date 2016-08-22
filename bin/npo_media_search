@@ -3,6 +3,8 @@
   Simple client to search media in the  NPO Frontend API
 """
 from npoapi import Media
+import os
+import json
 
 client = Media()\
     .command_line_client(description="Search from the NPO Frontend API")
@@ -22,5 +24,10 @@ args = client.parse_args()
 mid = args.mid
 sub = args.sub
 
-print(client.search(args.form[0], sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties,mid=mid,sub=sub))
+form = args.form[0]
+
+if not os.path.isfile(form) and not form.startswith("{"):
+    form = "{\"searches\": {\"text\": %s}}" % json.dumps(form)
+
+print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties,mid=mid,sub=sub))
 client.exit()
