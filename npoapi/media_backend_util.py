@@ -14,11 +14,15 @@ class MediaBackendUtil(object):
 
     @staticmethod
     def main_title(object: mediaupdate.mediaUpdateType, string: str):
-        MediaBackendUtil.title(object, media.textualTypeEnum.MAIN, string)
+        result = MediaBackendUtil.title(object, media.textualTypeEnum.MAIN, string)
+        if not result:
+            MediaBackendUtil.logger.warn("Could not set main title because string was None")
+        return result
 
     @staticmethod
     def main_description(object: mediaupdate.mediaUpdateType, string: str):
-        MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, string)
+        return \
+            MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, string)
 
 
     @staticmethod
@@ -30,17 +34,25 @@ class MediaBackendUtil(object):
             else:
                 title.type = textualType
             object.title.append(title)
+            return title
         else:
             MediaBackendUtil.logger.debug("Not appending title because it is empty")
+            return None
 
     @staticmethod
     def description(object: mediaupdate.mediaUpdateType, textualType, string: str):
-        description = mediaupdate.descriptionUpdateType(string)
-        if type(textualType) is str:
-            description.type = getattr(media.textualTypeEnum, textualType)
+        if string:
+            description = mediaupdate.descriptionUpdateType(string)
+            if type(textualType) is str:
+                description.type = getattr(media.textualTypeEnum, textualType)
+            else:
+                description.type = textualType
+            object.description.append(description)
+            return description
         else:
-            description.type = textualType
-        object.description.append(description)
+            MediaBackendUtil.logger.debug("Not appending description because it is empty")
+            return None
+
 
     @staticmethod
     def create_location(programUrl:str, **kwargs):
