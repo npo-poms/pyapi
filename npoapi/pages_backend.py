@@ -31,5 +31,8 @@ class PagesBackend(BasicBackend):
     def get(self, url):
         return self.get_from("api/pages/updates", url=url)
 
+    def get_users(self):
+        return ["pages_user", "user"]
+
 
 

@@ -180,11 +180,9 @@ class NpoApiBase:
     def anonymize_for_logging(self, settings_for_log):
         if 'secret' in settings_for_log:
             settings_for_log['secret'] = "xxx"
-
-        if 'user' in settings_for_log:
-            settings_for_log['user'] = settings_for_log['user'].split(":", 1)[0] + ":xxx"
-        if 'parkpost_user' in settings_for_log:
-            settings_for_log['parkpost_user'] = settings_for_log['parkpost_user'].split(":", 1)[0] + ":xxx"
+        for key, vale in settings_for_log.items():
+            if key.endswith("user"):
+                settings_for_log[key] = settings_for_log[key].split(":", 1)[0] + ":xxx"
         return
 
     @abc.abstractmethod
@@ -249,6 +247,7 @@ class NpoApiBase:
 
     def get_response(self, req, url, ignore_not_found=False):
         """Error handling around urllib.request.urlopen"""
+        summary = "%s %s" % (req.method if hasattr(req, "method") else "GET", url)
         try:
             response = urllib.request.urlopen(req)
             self.code = response.getcode()
@@ -257,22 +256,23 @@ class NpoApiBase:
             return response
         except urllib.error.URLError as ue:
             error_type = str(type(ue))
+
             if ignore_not_found and ue.code == 404:
-                self.logger.debug('%s: %s (%s)', url, ue.reason, error_type)
+                self.logger.debug('%s: %s (%s)', summary, ue.reason, error_type)
                 self.code = 404
                 return None
             if type(ue.reason) is str:
-                self.logger.error('%s: %s (%s)', url, ue.reason, error_type)
+                self.logger.error('%s: %s (%s)', summary, ue.reason, error_type)
                 self.code = ue.code
             else:
-                self.logger.error('%s: %s %s (%s)', ue.reason.errno, url, ue.reason.strerror, error_type)
+                self.logger.error('%s: %s %s (%s)', ue.reason.errno, summary, ue.reason.strerror, error_type)
                 self.code = ue.reason.errno
             if hasattr(ue, "read"):
                 self.logger.error("%s", ue.read().decode("utf-8"))
             return None
         except urllib.error.HTTPError as he:
             self.code = he.code
-            self.logger.error("%s: %s\n%s", he.code, he.msg, he.read().decode("utf-8"))
+            self.logger.error("%s %s: %s\n%s", summary, he.code, he.msg, he.read().decode("utf-8"))
             return None
 
     def data_to_bytes(self, data, content_type=None):

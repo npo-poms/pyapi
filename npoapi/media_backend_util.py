@@ -131,8 +131,11 @@ class MediaBackendUtil(object):
     def create_image(imageUrl: str, **kwargs):
         image_object = mediaupdate.image()
 
-        image_object.imageLocation = mediaupdate.imageLocationType()
-        image_object.imageLocation.url = imageUrl
+        if imageUrl.startswith("urn:"):
+            image_object.urn = imageUrl
+        else:
+            image_object.imageLocation = mediaupdate.imageLocationType()
+            image_object.imageLocation.url = imageUrl
         MediaBackendUtil.set_image_fields(image_object, **kwargs)
         return image_object
 
@@ -214,6 +217,10 @@ class MediaBackendUtil(object):
         minutes = seconds // 60
         seconds -= minutes * 60
         return (hours, minutes, seconds, millis)
+
+    @staticmethod
+    def un_parse(hours, minutes, seconds, millis=0):
+        return ((hours * 60 + minutes) * 60 + seconds) * 1000 + millis
 
     @staticmethod
     def format_duration(duration_in_ms: int):

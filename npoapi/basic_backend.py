@@ -19,22 +19,29 @@ class BasicBackend(NpoApiBase):
         self.email = email
         self.authorizationHeader = None
 
+    def get_users(self):
+        return ["user"]
+
     def create_config(self, settings, ):
         """
         """
         user = input("Your NPO backend user?: ")
         password = input("Your NPO backend password?: ")
-        settings["user"] = user + ":" + password
+        settings[self.get_users()[0]] = user + ":" + password
         return self
 
     def read_settings(self, settings):
         """
         """
-        if "user" in settings:
-            self.user = settings["user"]
-            if ":" in self.user:
-                self.password = self.user.split(":", 2)[1]
-                self.user = self.user.split(":", 2)[0]
+        for user in self.get_users():
+            if user in settings:
+                self.user = settings[user]
+                self.logger.debug("Found user in settings[%s]", user)
+                if ":" in self.user:
+                    self.password = self.user.split(":", 2)[1]
+                    self.user = self.user.split(":", 2)[0]
+                break
+
         return
 
     def env(self, e):
