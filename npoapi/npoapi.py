@@ -110,7 +110,7 @@ class NpoApi(NpoApiBase):
 
         return None,None
 
-    def request(self, path, params=None, accept=None, data=None):
+    def request(self, path, params=None, accept=None, data=None) -> str:
         response = self.stream(path, params, accept, data)
         if response:
             return response.read().decode('utf-8')
