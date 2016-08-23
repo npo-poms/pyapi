@@ -137,10 +137,10 @@ class MediaBackendUtil(object):
         return image_object
 
     @staticmethod
-    def set_image_fields(image_object, image_type="PICTURE", title=None, description=None):
+    def set_image_fields(image_object, image_type="PICTURE", title=None, description=None, highlighted=False):
         image_object.type = image_type
         #shared.imageTypeEnum.PICTURE
-        image_object.highlighted = False
+        image_object.highlighted = highlighted
         if title:
             image_object.title = title
         if description:
