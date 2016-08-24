@@ -250,8 +250,9 @@ class NpoApiBase:
 
     def get_response(self, req, url, ignore_not_found=False):
         """Error handling around urllib.request.urlopen"""
-        summary = "%s %s" % (req.method if hasattr(req, "method") else "'GET'", url)
+        summary = "%s %s" % (req.method if hasattr(req, "method") else "'GET'" if not req.data else "'POST'", url)
         try:
+            self.logger.debug("Executing %s", summary)
             response = urllib.request.urlopen(req)
             self.code = response.getcode()
             self.logger.debug("response code: " + str(response.getcode()))
