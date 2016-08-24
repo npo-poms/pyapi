@@ -6,15 +6,15 @@
 """
 import argparse
 import time
-import re
 
 import pyxb
 
 from npoapi import Media
 from npoapi import MediaBackend
+from npoapi.xml import api
+from npoapi.xml import media
 from npoapi.xml import mediaupdate
 from npoapi.xml import poms
-from npoapi.xml import api
 
 latency = 60 * 60 # one hour
 
@@ -41,7 +41,7 @@ def create_clip():
     image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&w=120&h=120"
     program.images.append(image)
     program.credits = pyxb.BIND()
-    program.credits.append(mediaupdate.personUpdateType())
+    program.credits.append(mediaupdate.personUpdateType(role="EDITOR", givenName="Pietje", familyName="PuK"))
     return program
 
 def create_segment(nr, ref=None):

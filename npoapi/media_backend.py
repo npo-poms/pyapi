@@ -49,7 +49,7 @@ class MediaBackend(BasicBackend):
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.request.quote(mid, safe=''), ignore_not_found=ignore_not_found)
 
-    def post(self, update, lookupcrid=False):
+    def post(self, update, lookupcrid=True):
         update = self.to_object(update, validate=True)
         return self.post_to("media/media/", update, accept="text/plain", errors=self.email, lookupcrid=lookupcrid)
 
