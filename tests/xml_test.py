@@ -87,10 +87,7 @@ class Tests(unittest.TestCase):
         program.broadcaster.append("VPRO")
 
         program.credits = pyxb.BIND()
-        person = mediaupdate.personUpdateType()
-        person.role = media.roleType.ACTOR
-        person.givenName = "pietje"
-        person.familyName = "puk"
+        person = mediaupdate.personUpdateType(role=media.roleType.ACTOR, givenName = "Pietje", familyName = "Puk")
         program.credits.append(person)
         print(program.toxml())
 
