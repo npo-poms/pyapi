@@ -7,14 +7,14 @@ import os
 import json
 
 client = Subtitles().command_line_client(description="Set subtitles")
-client.add_argument('mid|text', type=str, nargs='?', help='The mid for wich subtitles to get. Or form description')
+client.add_argument('mid|text', type=str, nargs=1, help='The mid for wich subtitles to get. Or form description')
 client.add_argument('-S', '--search', action='store_true',
                    help="""The argument is interpreted a a text to search on""")
 client.add_argument('language', type=str, nargs='?', default="nl", help='Language. Required when getting mid')
-client.add_argument('type', type=str, nargs='?', default="CAPTION", help='')
+client.add_argument('type', type=str, nargs='?', default="CAPTION", help='', choices={"CAPTION", "TRANSLATION"})
      
 args = client.parse_args()
-mid_or_text = vars(args)['mid|text']
+mid_or_text = vars(args)['mid|text'][0]
 language = args.language
 search = args.search
 
