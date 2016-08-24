@@ -3,20 +3,29 @@
   
 """
 from npoapi import Subtitles
+import os
+import json
 
 client = Subtitles().command_line_client(description="Set subtitles")
-client.add_argument('mid', type=str, nargs=1, help='The mid to get or delete')
-client.add_argument('language', type=str, nargs=1, help='The mid to get or delete')
-
+client.add_argument('mid|text', type=str, nargs='?', help='The mid for wich subtitles to get. Or form description')
 client.add_argument('-S', '--search', action='store_true',
-                   help="""The xml is interpreted as a search""")
+                   help="""The argument is interpreted a a text to search on""")
+client.add_argument('language', type=str, nargs='?', default="nl", help='Language. Required when getting mid')
+client.add_argument('type', type=str, nargs='?', default="CAPTION", help='')
+     
 args = client.parse_args()
-mid = args.mid[0]
-language = args.language[0]
+mid_or_text = vars(args)['mid|text']
+language = args.language
+search = args.search
 
-if args.search:
-    print(client.search(mid))
+if search:
+    form = mid_or_text
+    if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<"):
+        form = "{\"searches\": {\"text\": %s}}" % json.dumps(form)
+
+    print(client.search(form))
 else:
-    print(client.get(mid, language))
+    mid = mid_or_text    
+    print(client.get(mid, language, subtitle_type=args.type))
 
 client.exit()

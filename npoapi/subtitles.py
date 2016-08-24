@@ -12,12 +12,12 @@ class Subtitles(NpoApi):
         self.key, self.secret, self.origin = key, secret, origin
 
     def accept_choices(self):
-        return {"vtt": "text/vtt", "srt": "text/srt", "ebu": "text/ebu-tt"}
+        return {"vtt": "text/vtt", "srt": "text/srt", "ebu": "text/ebu-tt", "json": "application/json", "xml": "application/xml"}
 
 
-    def get(self, mid, language):
+    def get(self, mid, language, subtitle_type='CAPTION'):
         return self.request("/api/subtitles/" + urllib.request.quote(mid, safe='') + "/"
-                            + urllib.request.quote(language, safe='')) 
+                            + urllib.request.quote(language, safe='') + "/" + subtitle_type) 
 
-    def search(self, form="{}", sort="asc", offset=0, limit=240, accept=None):
+    def search(self, form="{}", sort="asc", offset=0, limit=240, accept="application/json"):
         return self.request("/api/subtitles", data=form, accept=accept, params={"sort": sort, "offset": offset, "max": limit})
