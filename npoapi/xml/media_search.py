@@ -1,7 +1,7 @@
 # ./npoapi/xml/media_search.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:c9f1e5fb53f06c35ed1f8bfb94927ecdc3fc6078
-# Generated 2016-05-27 17:20:14.477286 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-08-24 12:53:35.859385 by PyXB version 1.2.4 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:search:2012
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:802a5fba-241e-11e6-8fda-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -83,7 +83,7 @@ class STD_ANON (pyxb.binding.datatypes.integer):
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 70, 8)
     _Documentation = None
-STD_ANON._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value_datatype=STD_ANON, value=pyxb.binding.datatypes.integer(0))
+STD_ANON._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value=pyxb.binding.datatypes.integer(0), value_datatype=STD_ANON)
 STD_ANON._InitializeFacetMap(STD_ANON._CF_minInclusive)
 
 # Atomic simple type: [anonymous]
@@ -94,7 +94,7 @@ class STD_ANON_ (pyxb.binding.datatypes.integer):
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 77, 8)
     _Documentation = None
-STD_ANON_._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value_datatype=STD_ANON_, value=pyxb.binding.datatypes.integer(0))
+STD_ANON_._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value=pyxb.binding.datatypes.integer(0), value_datatype=STD_ANON_)
 STD_ANON_._InitializeFacetMap(STD_ANON_._CF_minInclusive)
 
 # Atomic simple type: [anonymous]
@@ -105,7 +105,7 @@ class STD_ANON_2 (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 85, 8)
     _Documentation = None
-STD_ANON_2._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON_2, enum_prefix=None)
+STD_ANON_2._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON_2)
 STD_ANON_2.ASC = STD_ANON_2._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 STD_ANON_2.DESC = STD_ANON_2._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 STD_ANON_2._InitializeFacetMap(STD_ANON_2._CF_enumeration)
@@ -118,7 +118,7 @@ class STD_ANON_3 (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 122, 6)
     _Documentation = None
-STD_ANON_3._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON_3, enum_prefix=None)
+STD_ANON_3._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON_3)
 STD_ANON_3.ASC = STD_ANON_3._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 STD_ANON_3.DESC = STD_ANON_3._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 STD_ANON_3._InitializeFacetMap(STD_ANON_3._CF_enumeration)

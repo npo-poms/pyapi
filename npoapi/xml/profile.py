@@ -1,7 +1,7 @@
 # ./npoapi/xml/profile.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:84b11206e77e35c14fdc92e4365d89906a1f1817
-# Generated 2016-05-27 17:20:14.480628 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-08-24 12:53:35.857272 by PyXB version 1.2.4 using Python 3.5.0.final.0
 # Namespace urn:vpro:api:profile:2013
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:802a5fba-241e-11e6-8fda-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -164,12 +164,21 @@ class profileDefinitionType (pyxb.binding.basis.complexTypeDefinition):
     
     since = property(__since.value, __since.set, None, None)
 
+    
+    # Attribute sinceDate uses Python identifier sinceDate
+    __sinceDate = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'sinceDate'), 'sinceDate', '__urnvproapiprofile2013_profileDefinitionType_sinceDate', pyxb.binding.datatypes.dateTime)
+    __sinceDate._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:profile:2013', 27, 4)
+    __sinceDate._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:profile:2013', 27, 4)
+    
+    sinceDate = property(__sinceDate.value, __sinceDate.set, None, None)
+
     _ElementMap.update({
         __filter.name() : __filter,
         __filter_.name() : __filter_
     })
     _AttributeMap.update({
-        __since.name() : __since
+        __since.name() : __since,
+        __sinceDate.name() : __sinceDate
     })
 Namespace.addCategoryObject('typeBinding', 'profileDefinitionType', profileDefinitionType)
 

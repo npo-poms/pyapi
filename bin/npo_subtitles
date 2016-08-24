@@ -1,0 +1,22 @@
+#!/usr/bin/env python3
+"""
+  
+"""
+from npoapi import Subtitles
+
+client = Subtitles().command_line_client(description="Set subtitles")
+client.add_argument('mid', type=str, nargs=1, help='The mid to get or delete')
+client.add_argument('language', type=str, nargs=1, help='The mid to get or delete')
+
+client.add_argument('-S', '--search', action='store_true',
+                   help="""The xml is interpreted as a search""")
+args = client.parse_args()
+mid = args.mid[0]
+language = args.language[0]
+
+if args.search:
+    print(client.search(mid))
+else:
+    print(client.get(mid, language))
+
+client.exit()

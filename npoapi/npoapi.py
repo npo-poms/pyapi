@@ -19,7 +19,7 @@ class NpoApi(NpoApiBase):
         """
         Instantiates a client to the NPO Frontend API
         """
-        super().__init__(env, debug, accept)
+        super().__init__(env=env, debug=debug, accept=accept)
         self.key, self.secret, self.origin = key, secret, origin
 
     def login(self, key, secret):

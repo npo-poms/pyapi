@@ -16,6 +16,7 @@ npoapi/xml/__init__.py:
 	   --schema-location=$(RS)schema/urn:vpro:pages:update:2013 --module pageupdate \
 	   --schema-location=$(RS)schema/urn:vpro:api:2013 --module api \
 	   --schema-location=$(RS)schema/urn:vpro:api:profile:2013 --module profile \
+	   --schema-location=$(RS)schema/urn:vpro:media:subtitles:2009 --module subtitles \
 	   --schema-location=$(RS)schema/combined.xsd --module poms \
 	   --module-prefix=npoapi.xml
 

@@ -9,6 +9,7 @@ from npoapi.media import Media
 from npoapi.schedule import Schedule
 from npoapi.pages import Pages
 from npoapi.screens import Screens
+from npoapi.subtitles import Subtitles
 from npoapi.media_backend import MediaBackend
 from npoapi.media_backend_util import MediaBackendUtil
 from npoapi.transcoding_util import TranscodingUtil

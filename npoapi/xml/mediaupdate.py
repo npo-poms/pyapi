@@ -1,7 +1,7 @@
 # ./npoapi/xml/mediaupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:2751238d63e5454a5dc65ff574f334ca7496c03f
-# Generated 2016-05-27 17:20:14.477715 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-08-24 12:53:35.861088 by PyXB version 1.2.4 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:update:2009
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import sys
 import pyxb.utils.six as _six
 
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:802a5fba-241e-11e6-8fda-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.4'
@@ -118,9 +118,9 @@ class STD_ANON (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     """An atomic simple type."""
 
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 397, 8)
+    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 390, 8)
     _Documentation = None
-STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON, enum_prefix=None)
+STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON)
 STD_ANON.ASC = STD_ANON._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 STD_ANON.DESC = STD_ANON._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 STD_ANON._InitializeFacetMap(STD_ANON._CF_enumeration)
@@ -450,16 +450,16 @@ class portalRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute start uses Python identifier start
     __start = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'start'), 'start', '__urnvpromediaupdate2009_portalRestrictionUpdateType_start', pyxb.binding.datatypes.dateTime)
-    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 259, 4)
-    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 259, 4)
+    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 278, 4)
+    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 278, 4)
     
     start = property(__start.value, __start.set, None, None)
 
     
     # Attribute stop uses Python identifier stop
     __stop = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'stop'), 'stop', '__urnvpromediaupdate2009_portalRestrictionUpdateType_stop', pyxb.binding.datatypes.dateTime)
-    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 260, 4)
-    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 260, 4)
+    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 279, 4)
+    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 279, 4)
     
     stop = property(__stop.value, __stop.set, None, None)
 
@@ -713,34 +713,26 @@ Namespace.addCategoryObject('typeBinding', 'assetLocationType', assetLocationTyp
 # Complex type [anonymous] with content type ELEMENT_ONLY
 class CTD_ANON_3 (pyxb.binding.basis.complexTypeDefinition):
     """
-                Optionele lijst met segmenten van een programma.
+                Optional list of program segments. A segment is a part of a program that can be visually shown on the
+                timeline of a player. A segment always has a start time indicating the start of the segment relative to
+                the parent program. A segment can have the same fields as other media objects, like titles, descriptions,
+                images, locations, etc.
 
-                Een segment is een deel van een programma dat gevisualiseerd kan worden op de tijdlijn in de speler. Een
-                segment heeft
-                altijd een start tijdstip dat het begin van het segment t.o.v het bijheborende programma. Voor zijn
-                overige velden is een
-                segment identiek aan alle media types (). Een segment kan dus alles bevatten wat hierboven boven
-                episodeOf wordt getoond, d.w.z. titels,
-                beschijvingen, afbeeldingen, locaties, etc..
+                The standard scenario when playing a segment is to load a location of the parent media object and
+                to use the start time as an offset to start playing the segment. However, it is also possible for a
+                segment to have its own locations. This makes it possible to for instance have a podcast of a weekly
+                segment in a radio show without providing the complete radio program it is a part of.
 
-                In het standaard gebruikscenario zal een speler bij het afspelen van een segment de locatie van het
-                omhullende programma aanroepen met
-                een start offset om op de tijdlijn naar het gevraagde segment te springen. Het is echter ook mogelijk om
-                locaties direct aan een segment
-                te koppelen. Hierdoor is het mogelijk om een MP3 podcast te maken van een vast wekelijks terugkerend
-                programma item, of om een deel van
-                een programma al online beschikbaar te maken, zonder het hele programma aan te bieden.
-
-                Regels:
-                - Start is vereist
-                - Als duration niet is ingevuld loopt het segment door tot het einde van het programma
-                - Als het programma wordt verwijderd verdwijnen ook de bijbehorende segmenten.
+                Rules:
+                - Start time is required
+                - If duration is not set the player should play until the end of the program
+                - Removing a program also deletes its segments
               """
     _TypeDefinition = None
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 356, 12)
+    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 346, 12)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
@@ -767,23 +759,23 @@ class memberUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'memberUpdateType')
-    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 379, 2)
+    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 369, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute position uses Python identifier position
     __position = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'position'), 'position', '__urnvpromediaupdate2009_memberUpdateType_position', pyxb.binding.datatypes.integer)
-    __position._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 383, 4)
-    __position._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 383, 4)
+    __position._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 376, 4)
+    __position._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 376, 4)
     
     position = property(__position.value, __position.set, None, None)
 
     
     # Attribute highlighted uses Python identifier highlighted
     __highlighted = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'highlighted'), 'highlighted', '__urnvpromediaupdate2009_memberUpdateType_highlighted', pyxb.binding.datatypes.boolean)
-    __highlighted._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 384, 4)
-    __highlighted._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 384, 4)
+    __highlighted._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 377, 4)
+    __highlighted._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 377, 4)
     
     highlighted = property(__highlighted.value, __highlighted.set, None, None)
 
@@ -805,20 +797,20 @@ class moveActionType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'moveActionType')
-    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 407, 2)
+    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 400, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {urn:vpro:media:update:2009}from uses Python identifier from_
-    __from = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'from'), 'from_', '__urnvpromediaupdate2009_moveActionType_urnvpromediaupdate2009from', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 409, 6), )
+    __from = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'from'), 'from_', '__urnvpromediaupdate2009_moveActionType_urnvpromediaupdate2009from', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 402, 6), )
 
     
     from_ = property(__from.value, __from.set, None, None)
 
     
     # Element {urn:vpro:media:update:2009}to uses Python identifier to
-    __to = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'to'), 'to', '__urnvpromediaupdate2009_moveActionType_urnvpromediaupdate2009to', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 410, 6), )
+    __to = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'to'), 'to', '__urnvpromediaupdate2009_moveActionType_urnvpromediaupdate2009to', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 403, 6), )
 
     
     to = property(__to.value, __to.set, None, None)
@@ -1236,16 +1228,16 @@ class geoRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute start uses Python identifier start
     __start = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'start'), 'start', '__urnvpromediaupdate2009_geoRestrictionUpdateType_start', pyxb.binding.datatypes.dateTime)
-    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 259, 4)
-    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 259, 4)
+    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 278, 4)
+    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 278, 4)
     
     start = property(__start.value, __start.set, None, None)
 
     
     # Attribute stop uses Python identifier stop
     __stop = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'stop'), 'stop', '__urnvpromediaupdate2009_geoRestrictionUpdateType_stop', pyxb.binding.datatypes.dateTime)
-    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 260, 4)
-    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 260, 4)
+    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 279, 4)
+    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 279, 4)
     
     stop = property(__stop.value, __stop.set, None, None)
 
@@ -1580,47 +1572,47 @@ class CTD_ANON_4 (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 388, 4)
+    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 381, 4)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute offset uses Python identifier offset
     __offset = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'offset'), 'offset', '__urnvpromediaupdate2009_CTD_ANON_4_offset', pyxb.binding.datatypes.nonNegativeInteger)
-    __offset._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 392, 6)
-    __offset._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 392, 6)
+    __offset._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 385, 6)
+    __offset._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 385, 6)
     
     offset = property(__offset.value, __offset.set, None, None)
 
     
     # Attribute totalCount uses Python identifier totalCount
     __totalCount = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'totalCount'), 'totalCount', '__urnvpromediaupdate2009_CTD_ANON_4_totalCount', pyxb.binding.datatypes.nonNegativeInteger)
-    __totalCount._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 393, 6)
-    __totalCount._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 393, 6)
+    __totalCount._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 386, 6)
+    __totalCount._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 386, 6)
     
     totalCount = property(__totalCount.value, __totalCount.set, None, None)
 
     
     # Attribute max uses Python identifier max
     __max = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'max'), 'max', '__urnvpromediaupdate2009_CTD_ANON_4_max', pyxb.binding.datatypes.nonNegativeInteger)
-    __max._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 394, 6)
-    __max._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 394, 6)
+    __max._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 387, 6)
+    __max._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 387, 6)
     
     max = property(__max.value, __max.set, None, None)
 
     
     # Attribute size uses Python identifier size
     __size = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'size'), 'size', '__urnvpromediaupdate2009_CTD_ANON_4_size', pyxb.binding.datatypes.nonNegativeInteger)
-    __size._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 395, 6)
-    __size._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 395, 6)
+    __size._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 388, 6)
+    __size._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 388, 6)
     
     size = property(__size.value, __size.set, None, None)
 
     
     # Attribute order uses Python identifier order
     __order = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'order'), 'order', '__urnvpromediaupdate2009_CTD_ANON_4_order', STD_ANON)
-    __order._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 396, 6)
-    __order._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 396, 6)
+    __order._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 389, 6)
+    __order._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 389, 6)
     
     order = property(__order.value, __order.set, None, None)
 
@@ -1797,14 +1789,14 @@ class programUpdateType (mediaUpdateType):
     __episodeOf = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'episodeOf'), 'episodeOf', '__urnvpromediaupdate2009_programUpdateType_urnvpromediaupdate2009episodeOf', True, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 319, 10), )
 
     
-    episodeOf = property(__episodeOf.value, __episodeOf.set, None, "\n                EpisodeOf werkt analoog aan memberOf. Belangrijk verschil is dat alleen programma's een aflevering van\n                een groep\n                kunnen worden, dat de groep van het type SERIES of SEASON moet zijn, en dat het programma van het type\n                CLIP of BROADCAST moet.\n              ")
+    episodeOf = property(__episodeOf.value, __episodeOf.set, None, '\n                episodeOf works similar to memberOf. Important differences: only programs of type CLIP or BROADCAST can\n                be an episode of a group and the group can only be of type SERIES or SEASON.\n              ')
 
     
     # Element {urn:vpro:media:update:2009}segments uses Python identifier segments
-    __segments = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'segments'), 'segments', '__urnvpromediaupdate2009_programUpdateType_urnvpromediaupdate2009segments', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 329, 10), )
+    __segments = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'segments'), 'segments', '__urnvpromediaupdate2009_programUpdateType_urnvpromediaupdate2009segments', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 327, 10), )
 
     
-    segments = property(__segments.value, __segments.set, None, '\n                Optionele lijst met segmenten van een programma.\n\n                Een segment is een deel van een programma dat gevisualiseerd kan worden op de tijdlijn in de speler. Een\n                segment heeft\n                altijd een start tijdstip dat het begin van het segment t.o.v het bijheborende programma. Voor zijn\n                overige velden is een\n                segment identiek aan alle media types (). Een segment kan dus alles bevatten wat hierboven boven\n                episodeOf wordt getoond, d.w.z. titels,\n                beschijvingen, afbeeldingen, locaties, etc..\n\n                In het standaard gebruikscenario zal een speler bij het afspelen van een segment de locatie van het\n                omhullende programma aanroepen met\n                een start offset om op de tijdlijn naar het gevraagde segment te springen. Het is echter ook mogelijk om\n                locaties direct aan een segment\n                te koppelen. Hierdoor is het mogelijk om een MP3 podcast te maken van een vast wekelijks terugkerend\n                programma item, of om een deel van\n                een programma al online beschikbaar te maken, zonder het hele programma aan te bieden.\n\n                Regels:\n                - Start is vereist\n                - Als duration niet is ingevuld loopt het segment door tot het einde van het programma\n                - Als het programma wordt verwijderd verdwijnen ook de bijbehorende segmenten.\n              ')
+    segments = property(__segments.value, __segments.set, None, '\n                Optional list of program segments. A segment is a part of a program that can be visually shown on the\n                timeline of a player. A segment always has a start time indicating the start of the segment relative to\n                the parent program. A segment can have the same fields as other media objects, like titles, descriptions,\n                images, locations, etc.\n\n                The standard scenario when playing a segment is to load a location of the parent media object and\n                to use the start time as an offset to start playing the segment. However, it is also possible for a\n                segment to have its own locations. This makes it possible to for instance have a podcast of a weekly\n                segment in a radio show without providing the complete radio program it is a part of.\n\n                Rules:\n                - Start time is required\n                - If duration is not set the player should play until the end of the program\n                - Removing a program also deletes its segments\n              ')
 
     
     # Attribute avType inherited from {urn:vpro:media:update:2009}mediaUpdateType
@@ -1825,8 +1817,8 @@ class programUpdateType (mediaUpdateType):
     
     # Attribute type uses Python identifier type
     __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpromediaupdate2009_programUpdateType_type', _ImportedBinding_npoapi_xml_media.programTypeEnum)
-    __type._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 363, 8)
-    __type._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 363, 8)
+    __type._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 353, 8)
+    __type._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 353, 8)
     
     type = property(__type.value, __type.set, None, None)
 
@@ -1847,7 +1839,7 @@ class segmentUpdateType (mediaUpdateType):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'segmentUpdateType')
-    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 368, 2)
+    _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 358, 2)
     _ElementMap = mediaUpdateType._ElementMap.copy()
     _AttributeMap = mediaUpdateType._AttributeMap.copy()
     # Base type is mediaUpdateType
@@ -1899,7 +1891,7 @@ class segmentUpdateType (mediaUpdateType):
     # Element asset ({urn:vpro:media:update:2009}asset) inherited from {urn:vpro:media:update:2009}mediaUpdateType
     
     # Element {urn:vpro:media:update:2009}start uses Python identifier start
-    __start = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'start'), 'start', '__urnvpromediaupdate2009_segmentUpdateType_urnvpromediaupdate2009start', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 372, 10), )
+    __start = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'start'), 'start', '__urnvpromediaupdate2009_segmentUpdateType_urnvpromediaupdate2009start', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 362, 10), )
 
     
     start = property(__start.value, __start.set, None, None)
@@ -1923,8 +1915,8 @@ class segmentUpdateType (mediaUpdateType):
     
     # Attribute midRef uses Python identifier midRef
     __midRef = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'midRef'), 'midRef', '__urnvpromediaupdate2009_segmentUpdateType_midRef', pyxb.binding.datatypes.string)
-    __midRef._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 374, 8)
-    __midRef._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 374, 8)
+    __midRef._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 364, 8)
+    __midRef._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 364, 8)
     
     midRef = property(__midRef.value, __midRef.set, None, None)
 
@@ -1955,7 +1947,7 @@ Namespace.addCategoryObject('elementBinding', image.name().localName(), image)
 memberRef = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'memberRef'), memberRefUpdateType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 26, 2))
 Namespace.addCategoryObject('elementBinding', memberRef.name().localName(), memberRef)
 
-list = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'list'), CTD_ANON_4, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 387, 2))
+list = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'list'), CTD_ANON_4, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 380, 2))
 Namespace.addCategoryObject('elementBinding', list.name().localName(), list)
 
 group = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'group'), groupUpdateType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 14, 2))
@@ -2489,12 +2481,12 @@ def _BuildAutomaton_14 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 358, 16))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 348, 16))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON_3._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'segment')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 358, 16))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON_3._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'segment')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 348, 16))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2516,7 +2508,7 @@ def _BuildAutomaton_15 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.WildcardUse(pyxb.binding.content.Wildcard(process_contents=pyxb.binding.content.Wildcard.PC_strict, namespace_constraint=pyxb.binding.content.Wildcard.NC_any), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 381, 6))
+    symbol = pyxb.binding.content.WildcardUse(pyxb.binding.content.Wildcard(process_contents=pyxb.binding.content.Wildcard.PC_strict, namespace_constraint=pyxb.binding.content.Wildcard.NC_any), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 371, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -2527,9 +2519,9 @@ memberUpdateType._Automaton = _BuildAutomaton_15()
 
 
 
-moveActionType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'from'), pyxb.binding.datatypes.int, scope=moveActionType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 409, 6)))
+moveActionType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'from'), pyxb.binding.datatypes.int, scope=moveActionType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 402, 6)))
 
-moveActionType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'to'), pyxb.binding.datatypes.int, scope=moveActionType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 410, 6)))
+moveActionType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'to'), pyxb.binding.datatypes.int, scope=moveActionType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 403, 6)))
 
 def _BuildAutomaton_16 ():
     # Remove this helper function from the namespace after it is invoked
@@ -2540,11 +2532,11 @@ def _BuildAutomaton_16 ():
     counters = set()
     states = []
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(moveActionType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'from')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 409, 6))
+    symbol = pyxb.binding.content.ElementUse(moveActionType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'from')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 402, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(moveActionType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'to')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 410, 6))
+    symbol = pyxb.binding.content.ElementUse(moveActionType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'to')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 403, 6))
     st_1 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     transitions = []
@@ -3524,7 +3516,7 @@ def _BuildAutomaton_22 ():
     counters = set()
     states = []
     final_update = set()
-    symbol = pyxb.binding.content.WildcardUse(pyxb.binding.content.Wildcard(process_contents=pyxb.binding.content.Wildcard.PC_strict, namespace_constraint=pyxb.binding.content.Wildcard.NC_any), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 390, 8))
+    symbol = pyxb.binding.content.WildcardUse(pyxb.binding.content.Wildcard(process_contents=pyxb.binding.content.Wildcard.PC_strict, namespace_constraint=pyxb.binding.content.Wildcard.NC_any), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 383, 8))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -4169,9 +4161,9 @@ groupUpdateType._Automaton = _BuildAutomaton_23()
 
 
 
-programUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'episodeOf'), memberRefUpdateType, scope=programUpdateType, documentation="\n                EpisodeOf werkt analoog aan memberOf. Belangrijk verschil is dat alleen programma's een aflevering van\n                een groep\n                kunnen worden, dat de groep van het type SERIES of SEASON moet zijn, en dat het programma van het type\n                CLIP of BROADCAST moet.\n              ", location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 319, 10)))
+programUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'episodeOf'), memberRefUpdateType, scope=programUpdateType, documentation='\n                episodeOf works similar to memberOf. Important differences: only programs of type CLIP or BROADCAST can\n                be an episode of a group and the group can only be of type SERIES or SEASON.\n              ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 319, 10)))
 
-programUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'segments'), CTD_ANON_3, scope=programUpdateType, documentation='\n                Optionele lijst met segmenten van een programma.\n\n                Een segment is een deel van een programma dat gevisualiseerd kan worden op de tijdlijn in de speler. Een\n                segment heeft\n                altijd een start tijdstip dat het begin van het segment t.o.v het bijheborende programma. Voor zijn\n                overige velden is een\n                segment identiek aan alle media types (). Een segment kan dus alles bevatten wat hierboven boven\n                episodeOf wordt getoond, d.w.z. titels,\n                beschijvingen, afbeeldingen, locaties, etc..\n\n                In het standaard gebruikscenario zal een speler bij het afspelen van een segment de locatie van het\n                omhullende programma aanroepen met\n                een start offset om op de tijdlijn naar het gevraagde segment te springen. Het is echter ook mogelijk om\n                locaties direct aan een segment\n                te koppelen. Hierdoor is het mogelijk om een MP3 podcast te maken van een vast wekelijks terugkerend\n                programma item, of om een deel van\n                een programma al online beschikbaar te maken, zonder het hele programma aan te bieden.\n\n                Regels:\n                - Start is vereist\n                - Als duration niet is ingevuld loopt het segment door tot het einde van het programma\n                - Als het programma wordt verwijderd verdwijnen ook de bijbehorende segmenten.\n              ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 329, 10)))
+programUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'segments'), CTD_ANON_3, scope=programUpdateType, documentation='\n                Optional list of program segments. A segment is a part of a program that can be visually shown on the\n                timeline of a player. A segment always has a start time indicating the start of the segment relative to\n                the parent program. A segment can have the same fields as other media objects, like titles, descriptions,\n                images, locations, etc.\n\n                The standard scenario when playing a segment is to load a location of the parent media object and\n                to use the start time as an offset to start playing the segment. However, it is also possible for a\n                segment to have its own locations. This makes it possible to for instance have a podcast of a weekly\n                segment in a radio show without providing the complete radio program it is a part of.\n\n                Rules:\n                - Start time is required\n                - If duration is not set the player should play until the end of the program\n                - Removing a program also deletes its segments\n              ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 327, 10)))
 
 def _BuildAutomaton_24 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4224,7 +4216,7 @@ def _BuildAutomaton_24 ():
     counters.add(cc_20)
     cc_21 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 319, 10))
     counters.add(cc_21)
-    cc_22 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 329, 10))
+    cc_22 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 327, 10))
     counters.add(cc_22)
     states = []
     final_update = None
@@ -4343,7 +4335,7 @@ def _BuildAutomaton_24 ():
     states.append(st_23)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_22, False))
-    symbol = pyxb.binding.content.ElementUse(programUpdateType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'segments')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 329, 10))
+    symbol = pyxb.binding.content.ElementUse(programUpdateType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'segments')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 327, 10))
     st_24 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_24)
     transitions = []
@@ -4854,7 +4846,7 @@ programUpdateType._Automaton = _BuildAutomaton_24()
 
 
 
-segmentUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'start'), pyxb.binding.datatypes.duration, scope=segmentUpdateType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 372, 10)))
+segmentUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'start'), pyxb.binding.datatypes.duration, scope=segmentUpdateType, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 362, 10)))
 
 def _BuildAutomaton_25 ():
     # Remove this helper function from the namespace after it is invoked
@@ -4999,7 +4991,7 @@ def _BuildAutomaton_25 ():
     st_22 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_22)
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(segmentUpdateType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'start')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 372, 10))
+    symbol = pyxb.binding.content.ElementUse(segmentUpdateType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'start')), pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 362, 10))
     st_23 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_23)
     transitions = []

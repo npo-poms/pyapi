@@ -205,6 +205,9 @@ class NpoApiBase:
 
     def add_argument(self, *args, **kwargs):
         self.argument_parser.add_argument(*args, **kwargs)
+        
+    def accept_choices(self):
+        return {"json": "application/json", "xml": "application/xml"}
 
     def common_arguments(self, description=None, exclude_arguments=None):
         if exclude_arguments is None:
@@ -212,7 +215,7 @@ class NpoApiBase:
         parent_args = argparse.ArgumentParser(add_help=False)
         parent_args.add_argument('-v', "--version", action="store_true", help="show current version")
         if not "accept" in exclude_arguments:
-            parent_args.add_argument('-a', "--accept", type=str, default=None, choices={"json", "xml"})
+            parent_args.add_argument('-a', "--accept", type=str, default=None, choices=self.accept_choices().keys())
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
@@ -241,8 +244,8 @@ class NpoApiBase:
     def parse_args(self):
         args = self.argument_parser.parse_args()
         self.debug(args.debug)
-        if "accept" in args:
-            self.accept("application/" + args.accept if args.accept else None)
+        if "accept" in args and args.accept:
+            self.accept(self.accept_choices().get(args.accept))
         return args
 
     def get_response(self, req, url, ignore_not_found=False):
