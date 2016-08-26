@@ -48,14 +48,14 @@ class TranscodingUtil(object):
 
     @staticmethod
     def exiftool_duration(info: dict):
-        """REturns the duration reported by exif in ms"""
+        """Returns the duration reported by exif in ms"""
         string = info.get('Media Duration', None)
         if not string:
             return None
         else:
             m = re.match("(.*) s", string)
             if m:
-                int(m.group(1)) * 1000
+                return int(float(m.group(1)) * 1000)
             a = string.split(":")
             return 1000 * (3600 * int(a[0]) + 60 * int(a[1]) +  int(a[2]))
 
