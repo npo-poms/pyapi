@@ -71,7 +71,7 @@ class MediaBackendUtil(object):
 
         if avFileFormat is None and avAttributes.avFileFormat is None:
             index = programUrl.rfind('.')
-            ext = getattr(media.avFileFormatEnum, programUrl[index + 1:].upper())
+            ext = programUrl[index + 1:].upper()
             if hasattr(media.avFileFormatEnum, ext):
                 avFileFormat = getattr(media.avFileFormatEnum, ext)
             else:
