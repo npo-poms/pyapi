@@ -186,17 +186,26 @@ class MediaBackendUtil(object):
         object.memberOf.append(memberOf)
 
     @staticmethod
-    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None):
+    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None, log_progress: bool = False, log_indent=""):
         """Returns a list of dom"""
+
         if target is None:
             target = []
-        target.extend(client.members(mid, batch=batch))
-        target.extend(client.episodes(mid, batch=batch))
-
-        for m in target:
+        new_targets = []
+        if log_progress:
+            MediaBackendUtil.logger.info("%sGetting members of %s", log_indent, mid)
+        new_targets.extend(client.members(mid, batch=batch, log_progress=log_progress, log_indent=log_indent))
+        if log_progress:
+            MediaBackendUtil.logger.info("%sGetting episodes of %s", log_indent, mid)
+        new_targets.extend(client.episodes(mid, batch=batch, log_progress=log_progress, log_indent=log_indent))
+        target.extend(new_targets)
+        for m in new_targets:
             updateElement = m.getElementsByTagName("mediaUpdate")[0]
             if updateElement.getAttribute("xsi:type") == "groupUpdateType":
-                MediaBackendUtil.descendants(client, updateElement.getAttribute("mid"), batch, target)
+                group_mid = updateElement.getAttribute("mid")
+                if log_progress:
+                    MediaBackendUtil.logger.info("%sThis is a group %s. Recursing", log_indent, group_mid)
+                MediaBackendUtil.descendants(client, group_mid, batch, target, log_progress=log_progress, log_indent=log_indent + "   ")
 
         return target
 

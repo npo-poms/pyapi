@@ -82,7 +82,7 @@ class MediaBackend(BasicBackend):
         self.delete_from(path)
 
     # private method to implement both members and episodes calls.
-    def members_or_episodes(self, mid:str, what:str, max:int=None, batch:int=20) -> list:
+    def members_or_episodes(self, mid:str, what:str, max:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
         """Returns a list of minidom objects"""
         self.creds()
         self.logger.debug("loading %s of %s", what, mid)
@@ -98,6 +98,11 @@ class MediaBackend(BasicBackend):
             result.extend(items)
             if len(items) == 0 or (max and len(result) >= max):
                 break
+            if log_progress:
+                if len(items) != len(result):
+                    self.logger.info("%s%s of %s: %s (+%s)", log_indent, what, mid, len(result), len(items))
+                else:
+                    self.logger.info("%s%s of %s: %s", log_indent, what, mid, len(result))
             offset += b
             # print xml.childNodes[0].toxml('utf-8')
             total = xml.childNodes[0].getAttribute("totalCount")
