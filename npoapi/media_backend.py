@@ -153,7 +153,7 @@ class MediaBackend(BasicBackend):
             return ""
 
     def add_image(self, mid:str, image):
-        return self.post_to("media/media/" + mid + "/image", xml, accept="text/plain")
+        return self.post_to("media/media/" + mid + "/image", image, accept="text/plain")
 
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
         locations = poms.CreateFromDocument(self.get_locations(mid)).wildcardElements()

@@ -128,7 +128,7 @@ class MediaBackendUtil(object):
         return None
 
     @staticmethod
-    def create_image(imageUrl: str, **kwargs):
+    def create_image_from_url(imageUrl: str, **kwargs):
         image_object = mediaupdate.image()
 
         if imageUrl.startswith("urn:"):
@@ -154,12 +154,18 @@ class MediaBackendUtil(object):
         if not object.images:
             object.images = pyxb.BIND()
 
-        if type(image) == str and os.path.isfile(image):
-            new_image = MediaBackendUtil.create_image_from_file(image, **kwargs)
-        else:
-            new_image = MediaBackendUtil.create_image(image, **kwargs)
+        new_image = MediaBackendUtil.create_image(image, **kwargs)
         object.images.append(new_image)
         return image
+
+
+    @staticmethod
+    def create_image(image: str, **kwargs):
+        if type(image) == str and os.path.isfile(image):
+            return MediaBackendUtil.create_image_from_file(image, **kwargs)
+        else:
+            return MediaBackendUtil.create_image_from_url(image, **kwargs)
+
 
     @staticmethod
     def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl: str,
