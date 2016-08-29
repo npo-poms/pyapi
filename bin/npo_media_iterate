@@ -1,0 +1,28 @@
+#!/usr/bin/env python3
+"""
+  Simple client to search media in the  NPO Frontend API
+"""
+from npoapi import Media
+import sys
+import os
+
+client = Media()\
+    .command_line_client(description="Iterate the NPO Frontend API")
+client.add_argument('profile', type=str, nargs='?')
+client.add_argument('form', type=str, nargs='?',
+                    help='The search form. This may be a json string, or the name of a file containing it')
+client.add_argument('-m', "--max", type=int, default="100")
+
+args = client.parse_args()
+
+response = client.iterate(profile=args.profile, form=args.form, max=args.max)
+
+buffer_size = 1000
+while True:
+    bytes = response.read(buffer_size)
+    if len(bytes) < buffer_size:
+        break
+    os.write(sys.stdout.fileno(), bytes)
+
+
+client.exit()

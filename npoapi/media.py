@@ -37,3 +37,14 @@ class Media(NpoApi):
             return self.stream("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate})
         else:
             return self.request("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate})
+
+    def iterate(self, form=None, profile=None, stream=True, max=100):
+        if not form:
+            form = "{}"
+        if stream:
+            return self.stream("/api/media/iterate", data=form,
+                               params={"profile": profile, "max": max})
+        else:
+
+            return self.request("/api/media/iterate", data=form,
+                                params={"profile": profile})
