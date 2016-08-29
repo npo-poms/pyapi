@@ -15,14 +15,15 @@ client.add_argument('-m', "--max", type=int, default="100")
 
 args = client.parse_args()
 
-response = client.iterate(profile=args.profile, form=args.form, max=args.max)
+response = client.iterate(profile=args.profile, form=args.form, limit=args.max)
 
-buffer_size = 1000
-while True:
-    bytes = response.read(buffer_size)
-    if len(bytes) < buffer_size:
+buffer = bytearray("-" * 1000, "ascii")
+while not response.closed:
+    os.write(sys.stderr.fileno(), bytes(".", 'UTF-8'))
+    result = response.readinto(buffer)
+    os.write(sys.stdout.fileno(), buffer[0:result])
+    if result < len(buffer):
+        response.close()
         break
-    os.write(sys.stdout.fileno(), bytes)
-
 
 client.exit()
