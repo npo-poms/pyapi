@@ -17,13 +17,17 @@ args = client.parse_args()
 
 response = client.iterate(profile=args.profile, form=args.form, limit=args.max)
 
-buffer = bytearray("-" * 1000, "ascii")
+buffer = bytearray("-" * 10000, "ascii")
+totalcount = 0
 while not response.closed:
+    sys.stderr.write('.')
     os.write(sys.stderr.fileno(), bytes(".", 'UTF-8'))
     result = response.readinto(buffer)
     os.write(sys.stdout.fileno(), buffer[0:result])
+    totalcount += result
     if result < len(buffer):
         response.close()
         break
 
+sys.stderr.write("\n%d byte written\n" % totalcount)
 client.exit()

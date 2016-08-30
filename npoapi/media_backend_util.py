@@ -255,7 +255,7 @@ class MediaBackendUtil(object):
 
     def strip_tags(html:str) -> str:
         s = MLStripper()
-        s.feed(html)
+        s.feed("<html>" + html + "</html>")
         return s.get_data()
 
 

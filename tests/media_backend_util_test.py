@@ -38,5 +38,6 @@ class Tests(unittest.TestCase):
     def testStripHtml(self):
         self.assertEqual("bla", MU.strip_tags("<a>bla</a>"))
         self.assertEqual("bl&a", MU.strip_tags("<a>bl&amp;a</a>"))
+        self.assertEquals("Trailer: Pather Panchali van Satyajit Ray", MU.strip_tags("Trailer: Pather Panchali van Satyajit Ray"))
 
 
