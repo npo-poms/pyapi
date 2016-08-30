@@ -2,6 +2,8 @@
 """
   Simple client to search media in the  NPO Frontend API
 """
+from http.client import IncompleteRead
+
 from npoapi import Media
 import sys
 import os
@@ -15,17 +17,22 @@ client.add_argument('-m', "--max", type=int, default="100")
 
 args = client.parse_args()
 
-response = client.iterate(profile=args.profile, form=args.form, limit=args.max)
+response = client.iterate(profile=args.profile, form=args.form, limit=args.max, timeout=1)
 
-buffer = bytearray("-" * 10000, "ascii")
+buffer_size = 10
+buffer = bytearray("-" * buffer_size, "ascii")
 totalcount = 0
 while not response.closed:
     sys.stderr.write('.')
-    os.write(sys.stderr.fileno(), bytes(".", 'UTF-8'))
-    result = response.readinto(buffer)
-    os.write(sys.stdout.fileno(), buffer[0:result])
-    totalcount += result
-    if result < len(buffer):
+    sys.stderr.flush()
+    try:
+        number_of_bytes_read = response.readinto(buffer)
+    except IncompleteRead as e:
+        number_of_bytes_read = len(e.partial)
+    os.write(sys.stdout.fileno(), buffer[0:number_of_bytes_read])
+    sys.stdout.flush()
+    totalcount += number_of_bytes_read
+    if number_of_bytes_read < buffer_size:
         response.close()
         break
 

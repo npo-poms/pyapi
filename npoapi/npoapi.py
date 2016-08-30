@@ -117,7 +117,7 @@ class NpoApi(NpoApiBase):
         else:
             return ""
 
-    def stream(self, path, params=None, accept=None, data=None, content_type=None):
+    def stream(self, path, params=None, accept=None, data=None, content_type=None, timeout=None):
 
         data, content_type = self.data_to_bytes(data, content_type)
 
@@ -131,5 +131,5 @@ class NpoApi(NpoApiBase):
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept if accept else self._accept)
         self.logger.debug("headers: " + str(req.headers))
-        return self.get_response(req, url)
+        return self.get_response(req, url, timeout)
 
