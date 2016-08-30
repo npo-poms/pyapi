@@ -28,7 +28,7 @@ class MediaBackendUtil(object):
     @staticmethod
     def title(object: mediaupdate.mediaUpdateType, textualType, string: str):
         if string:
-            title = mediaupdate.titleUpdateType(string)
+            title = mediaupdate.titleUpdateType(MediaBackendUtil.strip_tags(string))
             if type(textualType) is str:
                 title.type = getattr(media.textualTypeEnum, textualType)
             else:
@@ -42,7 +42,7 @@ class MediaBackendUtil(object):
     @staticmethod
     def description(object: mediaupdate.mediaUpdateType, textualType, string: str):
         if string:
-            description = mediaupdate.descriptionUpdateType(string)
+            description = mediaupdate.descriptionUpdateType(MediaBackendUtil.strip_tags(string))
             if type(textualType) is str:
                 description.type = getattr(media.textualTypeEnum, textualType)
             else:
@@ -150,9 +150,9 @@ class MediaBackendUtil(object):
         #shared.imageTypeEnum.PICTURE
         image_object.highlighted = highlighted
         if title:
-            image_object.title = title
+            image_object.title = MediaBackendUtil.strip_tags(title)
         if description:
-            image_object.description = description
+            image_object.description = MediaBackendUtil.strip_tags(description)
 
     @staticmethod
     def add_image(object: mediaupdate.mediaUpdateType, image: str, **kwargs):
@@ -253,4 +253,23 @@ class MediaBackendUtil(object):
 
 
 
+    def strip_tags(html:str) -> str:
+        s = MLStripper()
+        s.feed(html)
+        return s.get_data()
 
+
+from html.parser import HTMLParser
+class MLStripper(HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.reset()
+        self.strict = False
+        self.convert_charrefs = True
+        self.fed = []
+
+    def handle_data(self, d):
+        self.fed.append(d)
+
+    def get_data(self):
+        return ''.join(self.fed)
