@@ -16,13 +16,13 @@ class Media(NpoApi):
     def list(self):
         return self.request("/api/media")
 
-    def search(self, form="{}", sort="asc", offset=0, limit=240, properties=None, accept=None, sub=None, mid=None):
+    def search(self, form="{}", sort="asc", offset=0, limit=240, profile=None, properties=None, accept=None, sub=None, mid=None):
         if mid is None:
             return self.request("/api/media", data=form, accept=accept,
-                                params={"sort": sort, "offset": offset, "max": limit, "properties": properties})
+                                params={"profile": profile, "sort": sort, "offset": offset, "max": limit, "properties": properties})
         else:
             return self.request("/api/media/" + urllib.request.quote(mid) + "/" + sub, data=form, accept=accept,
-                                params={"sort": sort, "offset": offset, "max": limit, "properties": properties})
+                                params={"profile": profile, "sort": sort, "offset": offset, "max": limit, "properties": properties})
 
 
     def changes(self, profile=None, order="ASC", stream=False, limit=10, since=None, forceOldStyle=False):

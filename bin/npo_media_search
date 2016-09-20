@@ -19,15 +19,16 @@ client.add_argument('-m', "--max", type=int, default="240")
 client.add_argument('-o', "--offset", type=int, default=0)
 client.add_argument('-p', "--properties", type=str, default=None,
                     help="properties filtering")
+client.add_argument('-P', "--profile", type=str, default=None,
+                    help="profile filtering")
 
 args = client.parse_args()
 mid = args.mid
 sub = args.sub
-
 form = args.form[0]
 
 if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<"):
     form = "{\"searches\": {\"text\": %s}}" % json.dumps(form)
 
-print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties,mid=mid,sub=sub))
+print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties, mid=mid, sub=sub, profile=args.profile))
 client.exit()

@@ -12,6 +12,8 @@ client.add_argument('form', type=str, nargs=1, help='The search form. This may b
 client.add_argument('-s', "--sort", type=str, default=None, choices={"asc", "desc"})
 client.add_argument('-m', "--max", type=int, default="240")
 client.add_argument('-o', "--offset", type=int, default=0)
+client.add_argument('-P', "--profile", type=str, default=None,
+                    help="profile filtering")
 
 args = client.parse_args()
 
@@ -19,5 +21,5 @@ form = args.form[0]
 if not os.path.isfile(form) and not form.startswith("{"):
     form = "{\"searches\": {\"text\": %s}}" % json.dumps(form)
 
-print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset))
+print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, profile=args.profile))
 client.exit()
