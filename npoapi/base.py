@@ -217,6 +217,7 @@ class NpoApiBase:
         if not "accept" in exclude_arguments:
             parent_args.add_argument('-a', "--accept", type=str, default=None, choices=self.accept_choices().keys())
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
+        parent_args.add_argument('-u', "--url", type=str, default=None)
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
         filtered_argv = []
@@ -229,10 +230,16 @@ class NpoApiBase:
                 filtered_argv.append(a)
                 i += 1
                 filtered_argv.append(sys.argv[i])
+            if a in ["-u", "--url"]:
+                filtered_argv.append(a)
+                i += 1
+                filtered_argv.append(sys.argv[i])
             i += 1
         pargs = parent_args.parse_args(filtered_argv)
         self.debug(pargs.debug)
         self.env(pargs.env)
+        if pargs.url:
+            self.env(pargs.url)
         if pargs.version:
             print(npoapi.__version__)
             exit(0)

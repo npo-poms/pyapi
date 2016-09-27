@@ -7,6 +7,7 @@ from http.client import IncompleteRead
 from npoapi import Media
 import sys
 import os
+import ijson
 
 client = Media()\
     .command_line_client(description="Iterate the NPO Frontend API")
@@ -19,7 +20,8 @@ args = client.parse_args()
 
 response = client.iterate(profile=args.profile, form=args.form, limit=args.max, timeout=1)
 
-buffer_size = 10
+ijson.item(response, )
+buffer_size = 1000
 buffer = bytearray("-" * buffer_size, "ascii")
 totalcount = 0
 while not response.closed:
@@ -29,6 +31,7 @@ while not response.closed:
         number_of_bytes_read = response.readinto(buffer)
     except IncompleteRead as e:
         number_of_bytes_read = len(e.partial)
+
     os.write(sys.stdout.fileno(), buffer[0:number_of_bytes_read])
     sys.stdout.flush()
     totalcount += number_of_bytes_read
