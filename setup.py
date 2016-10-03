@@ -17,6 +17,7 @@ setup(
         'bin/npo_pages_search',
         'bin/npo_media_changes',
         'bin/npo_schedule_get',
+        'bin/npo_schedule_search',
         'bin/npo_check_credentials',
         'bin/npo_mediabackend_get',
         'bin/npo_mediabackend',
