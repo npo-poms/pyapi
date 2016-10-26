@@ -1,7 +1,7 @@
 # ./npoapi/xml/profile.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:84b11206e77e35c14fdc92e4365d89906a1f1817
-# Generated 2016-08-24 12:53:35.857272 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.733552 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:api:profile:2013
 
 from __future__ import unicode_literals
@@ -13,20 +13,23 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
+
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
-import npoapi.xml.api_constraint_media as _ImportedBinding_npoapi_xml_api_constraint_media
 import npoapi.xml.api_constraint_page as _ImportedBinding_npoapi_xml_api_constraint_page
+import npoapi.xml.api_constraint_media as _ImportedBinding_npoapi_xml_api_constraint_media
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:api:profile:2013', create_if_missing=True)
@@ -128,6 +131,7 @@ class profileType (pyxb.binding.basis.complexTypeDefinition):
         __timestamp.name() : __timestamp,
         __name.name() : __name
     })
+_module_typeBindings.profileType = profileType
 Namespace.addCategoryObject('typeBinding', 'profileType', profileType)
 
 
@@ -180,6 +184,7 @@ class profileDefinitionType (pyxb.binding.basis.complexTypeDefinition):
         __since.name() : __since,
         __sinceDate.name() : __sinceDate
     })
+_module_typeBindings.profileDefinitionType = profileDefinitionType
 Namespace.addCategoryObject('typeBinding', 'profileDefinitionType', profileDefinitionType)
 
 

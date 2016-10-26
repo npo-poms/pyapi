@@ -1,7 +1,7 @@
 # ./npoapi/xml/media_search.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:c9f1e5fb53f06c35ed1f8bfb94927ecdc3fc6078
-# Generated 2016-08-24 12:53:35.859385 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.729610 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:media:search:2012
 
 from __future__ import unicode_literals
@@ -13,20 +13,23 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
+
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:media:search:2012', create_if_missing=True)
@@ -83,8 +86,9 @@ class STD_ANON (pyxb.binding.datatypes.integer):
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 70, 8)
     _Documentation = None
-STD_ANON._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value=pyxb.binding.datatypes.integer(0), value_datatype=STD_ANON)
+STD_ANON._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value_datatype=STD_ANON, value=pyxb.binding.datatypes.integer(0))
 STD_ANON._InitializeFacetMap(STD_ANON._CF_minInclusive)
+_module_typeBindings.STD_ANON = STD_ANON
 
 # Atomic simple type: [anonymous]
 class STD_ANON_ (pyxb.binding.datatypes.integer):
@@ -94,8 +98,9 @@ class STD_ANON_ (pyxb.binding.datatypes.integer):
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 77, 8)
     _Documentation = None
-STD_ANON_._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value=pyxb.binding.datatypes.integer(0), value_datatype=STD_ANON_)
+STD_ANON_._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value_datatype=STD_ANON_, value=pyxb.binding.datatypes.integer(0))
 STD_ANON_._InitializeFacetMap(STD_ANON_._CF_minInclusive)
+_module_typeBindings.STD_ANON_ = STD_ANON_
 
 # Atomic simple type: [anonymous]
 class STD_ANON_2 (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
@@ -105,10 +110,11 @@ class STD_ANON_2 (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 85, 8)
     _Documentation = None
-STD_ANON_2._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON_2)
+STD_ANON_2._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON_2, enum_prefix=None)
 STD_ANON_2.ASC = STD_ANON_2._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 STD_ANON_2.DESC = STD_ANON_2._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 STD_ANON_2._InitializeFacetMap(STD_ANON_2._CF_enumeration)
+_module_typeBindings.STD_ANON_2 = STD_ANON_2
 
 # Atomic simple type: [anonymous]
 class STD_ANON_3 (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
@@ -118,10 +124,11 @@ class STD_ANON_3 (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 122, 6)
     _Documentation = None
-STD_ANON_3._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON_3)
+STD_ANON_3._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON_3, enum_prefix=None)
 STD_ANON_3.ASC = STD_ANON_3._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 STD_ANON_3.DESC = STD_ANON_3._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 STD_ANON_3._InitializeFacetMap(STD_ANON_3._CF_enumeration)
+_module_typeBindings.STD_ANON_3 = STD_ANON_3
 
 # Complex type {urn:vpro:media:search:2012}mediaFormType with content type ELEMENT_ONLY
 class mediaFormType (pyxb.binding.basis.complexTypeDefinition):
@@ -325,6 +332,7 @@ class mediaFormType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.mediaFormType = mediaFormType
 Namespace.addCategoryObject('typeBinding', 'mediaFormType', mediaFormType)
 
 
@@ -377,6 +385,7 @@ class pagerType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.pagerType = pagerType
 Namespace.addCategoryObject('typeBinding', 'pagerType', pagerType)
 
 
@@ -412,6 +421,7 @@ class dateRangeType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.dateRangeType = dateRangeType
 Namespace.addCategoryObject('typeBinding', 'dateRangeType', dateRangeType)
 
 
@@ -458,7 +468,7 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
         __owner.name() : __owner,
         __tokenized.name() : __tokenized
     })
-
+_module_typeBindings.CTD_ANON = CTD_ANON
 
 
 # Complex type {urn:vpro:media:search:2012}relationFormType with content type SIMPLE
@@ -504,6 +514,7 @@ class relationFormType (pyxb.binding.basis.complexTypeDefinition):
         __broadcaster.name() : __broadcaster,
         __uriRef.name() : __uriRef
     })
+_module_typeBindings.relationFormType = relationFormType
 Namespace.addCategoryObject('typeBinding', 'relationFormType', relationFormType)
 
 
@@ -567,7 +578,7 @@ class mediaListResultType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute order uses Python identifier order
-    __order = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'order'), 'order', '__urnvpromediasearch2012_mediaListResultType_order', STD_ANON_3)
+    __order = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'order'), 'order', '__urnvpromediasearch2012_mediaListResultType_order', _module_typeBindings.STD_ANON_3)
     __order._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 121, 4)
     __order._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 121, 4)
     
@@ -584,6 +595,7 @@ class mediaListResultType (pyxb.binding.basis.complexTypeDefinition):
         __sort.name() : __sort,
         __order.name() : __order
     })
+_module_typeBindings.mediaListResultType = mediaListResultType
 Namespace.addCategoryObject('typeBinding', 'mediaListResultType', mediaListResultType)
 
 
@@ -639,6 +651,7 @@ class publishableListItem (pyxb.binding.basis.complexTypeDefinition):
         __workflow.name() : __workflow,
         __deleted.name() : __deleted
     })
+_module_typeBindings.publishableListItem = publishableListItem
 Namespace.addCategoryObject('typeBinding', 'publishableListItem', publishableListItem)
 
 
@@ -837,6 +850,7 @@ class mediaListItem (publishableListItem):
         __mediaType.name() : __mediaType,
         __episodesLocked.name() : __episodesLocked
     })
+_module_typeBindings.mediaListItem = mediaListItem
 Namespace.addCategoryObject('typeBinding', 'mediaListItem', mediaListItem)
 
 
@@ -865,6 +879,7 @@ class imageListItem (publishableListItem):
     _AttributeMap.update({
         
     })
+_module_typeBindings.imageListItem = imageListItem
 Namespace.addCategoryObject('typeBinding', 'imageListItem', imageListItem)
 
 

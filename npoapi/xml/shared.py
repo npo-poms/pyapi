@@ -1,7 +1,7 @@
 # ./npoapi/xml/shared.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aa73b2ec19d0d50df44ac76274274e111838473b
-# Generated 2016-08-24 12:53:35.854669 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.727745 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:shared:2009 [xmlns:shared]
 
 from __future__ import unicode_literals
@@ -13,15 +13,18 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
+
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
@@ -81,7 +84,7 @@ class workflowEnumType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumer
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'workflowEnumType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 22, 2)
     _Documentation = None
-workflowEnumType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=workflowEnumType)
+workflowEnumType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=workflowEnumType, enum_prefix=None)
 workflowEnumType.DRAFT = workflowEnumType._CF_enumeration.addEnumeration(unicode_value='DRAFT', tag='DRAFT')
 workflowEnumType.FOR_APPROVAL = workflowEnumType._CF_enumeration.addEnumeration(unicode_value='FOR APPROVAL', tag='FOR_APPROVAL')
 workflowEnumType.REFUSED = workflowEnumType._CF_enumeration.addEnumeration(unicode_value='REFUSED', tag='REFUSED')
@@ -95,6 +98,7 @@ workflowEnumType.DELETED = workflowEnumType._CF_enumeration.addEnumeration(unico
 workflowEnumType.MERGED = workflowEnumType._CF_enumeration.addEnumeration(unicode_value='MERGED', tag='MERGED')
 workflowEnumType._InitializeFacetMap(workflowEnumType._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'workflowEnumType', workflowEnumType)
+_module_typeBindings.workflowEnumType = workflowEnumType
 
 # Atomic simple type: {urn:vpro:shared:2009}imageTypeEnum
 class imageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
@@ -104,7 +108,7 @@ class imageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'imageTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 57, 2)
     _Documentation = None
-imageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=imageTypeEnum)
+imageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=imageTypeEnum, enum_prefix=None)
 imageTypeEnum.PICTURE = imageTypeEnum._CF_enumeration.addEnumeration(unicode_value='PICTURE', tag='PICTURE')
 imageTypeEnum.PORTRAIT = imageTypeEnum._CF_enumeration.addEnumeration(unicode_value='PORTRAIT', tag='PORTRAIT')
 imageTypeEnum.STILL = imageTypeEnum._CF_enumeration.addEnumeration(unicode_value='STILL', tag='STILL')
@@ -115,6 +119,7 @@ imageTypeEnum.PROMO_PORTRAIT = imageTypeEnum._CF_enumeration.addEnumeration(unic
 imageTypeEnum.BACKGROUND = imageTypeEnum._CF_enumeration.addEnumeration(unicode_value='BACKGROUND', tag='BACKGROUND')
 imageTypeEnum._InitializeFacetMap(imageTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'imageTypeEnum', imageTypeEnum)
+_module_typeBindings.imageTypeEnum = imageTypeEnum
 
 # Atomic simple type: {urn:vpro:shared:2009}ownerTypeEnum
 class ownerTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
@@ -124,7 +129,7 @@ class ownerTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'ownerTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 70, 2)
     _Documentation = None
-ownerTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=ownerTypeEnum)
+ownerTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=ownerTypeEnum, enum_prefix=None)
 ownerTypeEnum.BROADCASTER = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_value='BROADCASTER', tag='BROADCASTER')
 ownerTypeEnum.RADIOBOX = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_value='RADIOBOX', tag='RADIOBOX')
 ownerTypeEnum.NEBO = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_value='NEBO', tag='NEBO')
@@ -136,6 +141,7 @@ ownerTypeEnum.WHATS_ON = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_va
 ownerTypeEnum.IMMIX = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_value='IMMIX', tag='IMMIX')
 ownerTypeEnum._InitializeFacetMap(ownerTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'ownerTypeEnum', ownerTypeEnum)
+_module_typeBindings.ownerTypeEnum = ownerTypeEnum
 
 # Complex type {urn:vpro:shared:2009}publishableObjectType with content type EMPTY
 class publishableObjectType (pyxb.binding.basis.complexTypeDefinition):
@@ -198,7 +204,7 @@ class publishableObjectType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute workflow uses Python identifier workflow
-    __workflow = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'workflow'), 'workflow', '__urnvproshared2009_publishableObjectType_workflow', workflowEnumType)
+    __workflow = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'workflow'), 'workflow', '__urnvproshared2009_publishableObjectType_workflow', _module_typeBindings.workflowEnumType)
     __workflow._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 14, 4)
     __workflow._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 14, 4)
     
@@ -216,6 +222,7 @@ class publishableObjectType (pyxb.binding.basis.complexTypeDefinition):
         __lastModified.name() : __lastModified,
         __workflow.name() : __workflow
     })
+_module_typeBindings.publishableObjectType = publishableObjectType
 Namespace.addCategoryObject('typeBinding', 'publishableObjectType', publishableObjectType)
 
 
@@ -343,7 +350,7 @@ class imageType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute workflow uses Python identifier workflow
-    __workflow = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'workflow'), 'workflow', '__urnvproshared2009_imageType_workflow', workflowEnumType)
+    __workflow = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'workflow'), 'workflow', '__urnvproshared2009_imageType_workflow', _module_typeBindings.workflowEnumType)
     __workflow._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 14, 4)
     __workflow._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 14, 4)
     
@@ -351,7 +358,7 @@ class imageType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute type uses Python identifier type
-    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvproshared2009_imageType_type', imageTypeEnum)
+    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvproshared2009_imageType_type', _module_typeBindings.imageTypeEnum)
     __type._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 51, 4)
     __type._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 51, 4)
     
@@ -359,7 +366,7 @@ class imageType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute owner uses Python identifier owner
-    __owner = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'owner'), 'owner', '__urnvproshared2009_imageType_owner', ownerTypeEnum, required=True)
+    __owner = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'owner'), 'owner', '__urnvproshared2009_imageType_owner', _module_typeBindings.ownerTypeEnum, required=True)
     __owner._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 52, 4)
     __owner._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 52, 4)
     
@@ -396,6 +403,7 @@ class imageType (pyxb.binding.basis.complexTypeDefinition):
         __owner.name() : __owner,
         __highlighted.name() : __highlighted
     })
+_module_typeBindings.imageType = imageType
 Namespace.addCategoryObject('typeBinding', 'imageType', imageType)
 
 

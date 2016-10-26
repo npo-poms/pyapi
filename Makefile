@@ -2,7 +2,7 @@
 POMS=http://poms-dev.omroep.nl/
 RS=https://rs-dev.poms.omroep.nl/v1/
 
-npoapi/xml/__init__.py:
+npoapi/xml/__init__.py: setup.py
 	pyxbgen \
 	   --schema-location=$(POMS)schema/vproMedia.xsd --module media \
 	   --schema-location=$(POMS)schema/vproShared.xsd --module shared \

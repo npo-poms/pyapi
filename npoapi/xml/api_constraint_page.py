@@ -1,7 +1,7 @@
 # ./npoapi/xml/api_constraint_page.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:cbe7b9d7dd36bd988c9688c9eaf5823a1b9e4f6b
-# Generated 2016-08-24 12:53:35.856882 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.733063 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:api:constraint:page:2013 [xmlns:page]
 
 from __future__ import unicode_literals
@@ -13,15 +13,18 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
+
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
@@ -83,6 +86,7 @@ class broadcasterConstraintType (pyxb.binding.datatypes.string):
     _Documentation = None
 broadcasterConstraintType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'broadcasterConstraintType', broadcasterConstraintType)
+_module_typeBindings.broadcasterConstraintType = broadcasterConstraintType
 
 # Atomic simple type: {urn:vpro:api:constraint:page:2013}pageTypeConstraintType
 class pageTypeConstraintType (pyxb.binding.datatypes.string):
@@ -94,6 +98,7 @@ class pageTypeConstraintType (pyxb.binding.datatypes.string):
     _Documentation = None
 pageTypeConstraintType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'pageTypeConstraintType', pageTypeConstraintType)
+_module_typeBindings.pageTypeConstraintType = pageTypeConstraintType
 
 # Atomic simple type: {urn:vpro:api:constraint:page:2013}pagePortalConstraintType
 class pagePortalConstraintType (pyxb.binding.datatypes.string):
@@ -105,6 +110,7 @@ class pagePortalConstraintType (pyxb.binding.datatypes.string):
     _Documentation = None
 pagePortalConstraintType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'pagePortalConstraintType', pagePortalConstraintType)
+_module_typeBindings.pagePortalConstraintType = pagePortalConstraintType
 
 # Atomic simple type: {urn:vpro:api:constraint:page:2013}pageSectionConstraintType
 class pageSectionConstraintType (pyxb.binding.datatypes.string):
@@ -116,6 +122,7 @@ class pageSectionConstraintType (pyxb.binding.datatypes.string):
     _Documentation = None
 pageSectionConstraintType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'pageSectionConstraintType', pageSectionConstraintType)
+_module_typeBindings.pageSectionConstraintType = pageSectionConstraintType
 
 # Complex type {urn:vpro:api:constraint:page:2013}filter with content type ELEMENT_ONLY
 class filter_ (pyxb.binding.basis.complexTypeDefinition):
@@ -181,6 +188,7 @@ class filter_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.filter_ = filter_
 Namespace.addCategoryObject('typeBinding', 'filter', filter_)
 
 
@@ -248,6 +256,7 @@ class and_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.and_ = and_
 Namespace.addCategoryObject('typeBinding', 'and', and_)
 
 
@@ -315,6 +324,7 @@ class or_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.or_ = or_
 Namespace.addCategoryObject('typeBinding', 'or', or_)
 
 
