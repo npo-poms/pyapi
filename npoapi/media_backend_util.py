@@ -62,7 +62,8 @@ class MediaBackendUtil(object):
         return MediaBackendUtil.update_location(location_object, **kwargs)
 
     @staticmethod
-    def update_location(location_object: mediaupdate.locationUpdateType, avFileFormat=None, bitrate=None, height=None, width=None, aspectratio=None):
+    def update_location(location_object: mediaupdate.locationUpdateType,
+                        avFileFormat=None, bitrate=None, height=None, width=None, aspectratio=None):
         programUrl = location_object.programUrl
         avAttributes = location_object.avAttributes
         if avAttributes is None:

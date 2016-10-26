@@ -160,6 +160,10 @@ class MediaBackend(BasicBackend):
     def add_image(self, mid:str, image):
         return self.post_to("media/media/" + mid + "/image", image, accept="text/plain")
 
+    def add_location(self, mid: str, location):
+        return self.post_to("media/media/" + mid + "/location", location, accept="text/plain")
+
+
     def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None):
         locations = poms.CreateFromDocument(self.get_locations(mid)).wildcardElements()
         location_object = None
