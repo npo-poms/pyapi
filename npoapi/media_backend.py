@@ -45,9 +45,21 @@ class MediaBackend(BasicBackend):
             self.url = e
         return self
 
-    def get(self, mid:str, ignore_not_found=False) -> bytearray:
+    def get(self, mid: str, ignore_not_found=False) -> bytearray:
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.request.quote(mid, safe=''), ignore_not_found=ignore_not_found)
+
+    def get_full(self, mid: str, ignore_not_found=False) -> bytearray:
+        """Returns XML-representation of a mediaobject"""
+        return self.get_from("media/media/" + urllib.request.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found)
+
+    def get_object(self, mid: str, ignore_not_found=False) -> mediaupdate:
+        """Returns pyxb-representation of a mediaobject"""
+        return self.to_object(self.get(mid, ignore_not_found), validate=False)
+
+    def get_full_object(self, mid: str, ignore_not_found=False) -> media:
+        """Returns pyxb-representation of a mediaobject"""
+        return self.to_object(self.get_full(mid, ignore_not_found), validate=False)
 
     def post(self, update, lookupcrid=True):
         update = self.to_object(update, validate=True)
@@ -90,23 +102,28 @@ class MediaBackend(BasicBackend):
         offset = 0
         b = min(batch, max) if max else batch
         while True:
-            url = (self.url + 'media/group/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
+            sub = "group" if what == "episodes" else "media"
+            url = (self.url + 'media/' + sub + '/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
                    "&offset=" + str(offset))
-            xml = minidom.parseString(self._get_xml(url))
-            items = xml.getElementsByTagName('item')
-            #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
-            result.extend(items)
-            if len(items) == 0 or (max and len(result) >= max):
-                break
-            if log_progress:
-                if len(items) != len(result):
-                    self.logger.info("%s%s of %s: %s (+%s)", log_indent, what, mid, len(result), len(items))
-                else:
-                    self.logger.info("%s%s of %s: %s", log_indent, what, mid, len(result))
-            offset += b
-            # print xml.childNodes[0].toxml('utf-8')
-            total = xml.childNodes[0].getAttribute("totalCount")
-            self.logger.debug(str(len(result)) + "/" + total + (("/" + str(max)) if max else ""))
+            bytes = self._get_xml(url)
+            if bytes:
+                xml = minidom.parseString(bytes)
+                items = xml.getElementsByTagName('item')
+                #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
+                result.extend(items)
+                if len(items) == 0 or (max and len(result) >= max):
+                    break
+                if log_progress:
+                    if len(items) != len(result):
+                        self.logger.info("%s%s of %s: %s (+%s)", log_indent, what, mid, len(result), len(items))
+                    else:
+                        self.logger.info("%s%s of %s: %s", log_indent, what, mid, len(result))
+                offset += b
+                # print xml.childNodes[0].toxml('utf-8')
+                total = xml.childNodes[0].getAttribute("totalCount")
+                self.logger.debug(str(len(result)) + "/" + total + (("/" + str(max)) if max else ""))
+            else:
+                self.logger.debug("None returned from %s", url)
 
         return result
 
