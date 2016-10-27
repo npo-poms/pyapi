@@ -326,6 +326,8 @@ class NpoApiBase:
 
     def to_object(self, data, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
         """Converts a string to a pyxb object and optionally validates it"""
+        if data is None:
+            return None
         object = None
         if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
             object = data
