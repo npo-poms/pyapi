@@ -15,7 +15,7 @@ from npoapi.xml import mediaupdate
 
 import time
 
-ENV = "dev"
+ENV = "test"
 
 
 class Tests(unittest.TestCase):
@@ -161,7 +161,3 @@ class MediaBackendTest(unittest.TestCase):
     def test_create_location(self):
         mid = "POMS_VPRO_1421796"
         self.client.set_location(mid, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
-
-
-
-
