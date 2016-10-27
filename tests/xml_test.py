@@ -6,6 +6,7 @@ import pyxb
 from npoapi import base
 from npoapi.xml import media
 from npoapi.xml import poms
+from npoapi.xml import mediaupdate
 
 base.declare_namespaces()
 
@@ -36,6 +37,12 @@ class Tests(unittest.TestCase):
         print(update.toxml())
         self.assertEquals(update.toxml(), """<?xml version="1.0" ?><program avType="VIDEO" embeddable="true" publishStart="2012-01-11T15:16:01.287Z" publishStop="2012-01-11T17:16:01.287Z" type="CLIP" xmlns="urn:vpro:media:update:2009"><broadcaster>VPRO</broadcaster><title type="MAIN">Main title</title><duration>PT5M</duration><memberOf position="34">urn:vpro:media:group:2981744</memberOf><memberOf>POMS_S_VPRO_159096</memberOf><images><image highlighted="false" type="PICTURE"><title>bla</title><urn>urn:vpro:image:496158</urn></image></images></program>""")
         print(len(update.images.image))
+
+    def test_segment(self):
+        pyxb.RequireValidWhenGenerating(False)
+        segment = mediaupdate.segmentUpdateType(midRef="program_mid")
+        segment.start = "PT0S"
+        print(segment.toxml(encoding='UTF-8', element_name="segment")),
 
     def test_image(self):
         xml = """<program xmlns="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009" type="CLIP" avType="AUDIO" embeddable="true" mid="POMS_VPRO_1421796" urn="urn:vpro:media:program:58516847">
@@ -91,4 +98,3 @@ class Tests(unittest.TestCase):
         program.credits.append(person)
         print(program.toxml())
 
-  
