@@ -19,6 +19,15 @@ class BasicBackend(NpoApiBase):
         self.email = email
         self.authorizationHeader = None
 
+    def client(self, user=None, password=None, url=None, email=None):
+        """
+        Explicitely sets some fields
+        """
+        self.email = email
+        self.user = user
+        self.password = password
+        self.url = url
+
     def get_users(self):
         return ["user"]
 
