@@ -1,7 +1,7 @@
 # ./npoapi/xml/page.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:bae47b8c8a50fe304e6e9de618201baa8dfd97c5
-# Generated 2016-08-24 12:53:35.858219 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.730085 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:pages:2013 [xmlns:page]
 
 from __future__ import unicode_literals
@@ -13,20 +13,23 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
+
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:pages:2013', create_if_missing=True)
@@ -87,6 +90,7 @@ class pridType (pyxb.binding.datatypes.string):
     _Documentation = None
 pridType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'pridType', pridType)
+_module_typeBindings.pridType = pridType
 
 # Atomic simple type: {urn:vpro:pages:2013}pageTermType
 class pageTermType (pyxb.binding.datatypes.string):
@@ -98,6 +102,7 @@ class pageTermType (pyxb.binding.datatypes.string):
     _Documentation = None
 pageTermType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'pageTermType', pageTermType)
+_module_typeBindings.pageTermType = pageTermType
 
 # Atomic simple type: {urn:vpro:pages:2013}linkTypeEnum
 class linkTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
@@ -107,10 +112,11 @@ class linkTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'linkTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 141, 2)
     _Documentation = None
-linkTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=linkTypeEnum)
+linkTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=linkTypeEnum, enum_prefix=None)
 linkTypeEnum.TOP_STORY = linkTypeEnum._CF_enumeration.addEnumeration(unicode_value='TOP_STORY', tag='TOP_STORY')
 linkTypeEnum._InitializeFacetMap(linkTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'linkTypeEnum', linkTypeEnum)
+_module_typeBindings.linkTypeEnum = linkTypeEnum
 
 # Atomic simple type: {urn:vpro:pages:2013}pageTypeEnum
 class pageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
@@ -120,7 +126,7 @@ class pageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'pageTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 147, 2)
     _Documentation = None
-pageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=pageTypeEnum)
+pageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=pageTypeEnum, enum_prefix=None)
 pageTypeEnum.ARTICLE = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='ARTICLE', tag='ARTICLE')
 pageTypeEnum.SPECIAL = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='SPECIAL', tag='SPECIAL')
 pageTypeEnum.HOME = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='HOME', tag='HOME')
@@ -137,6 +143,7 @@ pageTypeEnum.PERSON = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value=
 pageTypeEnum.SEARCH = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='SEARCH', tag='SEARCH')
 pageTypeEnum._InitializeFacetMap(pageTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'pageTypeEnum', pageTypeEnum)
+_module_typeBindings.pageTypeEnum = pageTypeEnum
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
 class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
@@ -162,7 +169,7 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON = CTD_ANON
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -189,7 +196,7 @@ class CTD_ANON_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_ = CTD_ANON_
 
 
 # Complex type {urn:vpro:pages:2013}portalType with content type ELEMENT_ONLY
@@ -241,6 +248,7 @@ class portalType (pyxb.binding.basis.complexTypeDefinition):
         __id.name() : __id,
         __url.name() : __url
     })
+_module_typeBindings.portalType = portalType
 Namespace.addCategoryObject('typeBinding', 'portalType', portalType)
 
 
@@ -269,6 +277,7 @@ class sectionType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __path.name() : __path
     })
+_module_typeBindings.sectionType = sectionType
 Namespace.addCategoryObject('typeBinding', 'sectionType', sectionType)
 
 
@@ -313,6 +322,7 @@ class genreType (pyxb.binding.basis.complexTypeDefinition):
         __displayName.name() : __displayName,
         __id.name() : __id
     })
+_module_typeBindings.genreType = genreType
 Namespace.addCategoryObject('typeBinding', 'genreType', genreType)
 
 
@@ -356,6 +366,7 @@ class paragraphType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.paragraphType = paragraphType
 Namespace.addCategoryObject('typeBinding', 'paragraphType', paragraphType)
 
 
@@ -415,6 +426,7 @@ class embedType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.embedType = embedType
 Namespace.addCategoryObject('typeBinding', 'embedType', embedType)
 
 
@@ -461,6 +473,7 @@ class relationType (pyxb.binding.basis.complexTypeDefinition):
         __broadcaster.name() : __broadcaster,
         __type.name() : __type
     })
+_module_typeBindings.relationType = relationType
 Namespace.addCategoryObject('typeBinding', 'relationType', relationType)
 
 
@@ -652,7 +665,7 @@ class pageType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute type uses Python identifier type
-    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpropages2013_pageType_type', pageTypeEnum, required=True)
+    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpropages2013_pageType_type', _module_typeBindings.pageTypeEnum, required=True)
     __type._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 49, 4)
     __type._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 49, 4)
     
@@ -687,6 +700,7 @@ class pageType (pyxb.binding.basis.complexTypeDefinition):
         __sortDate.name() : __sortDate,
         __type.name() : __type
     })
+_module_typeBindings.pageType = pageType
 Namespace.addCategoryObject('typeBinding', 'pageType', pageType)
 
 
@@ -739,6 +753,7 @@ class imageType (pyxb.binding.basis.complexTypeDefinition):
         __type.name() : __type,
         __url.name() : __url
     })
+_module_typeBindings.imageType = imageType
 Namespace.addCategoryObject('typeBinding', 'imageType', imageType)
 
 
@@ -763,7 +778,7 @@ class referralType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute type uses Python identifier type
-    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpropages2013_referralType_type', linkTypeEnum)
+    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpropages2013_referralType_type', _module_typeBindings.linkTypeEnum)
     __type._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 106, 8)
     __type._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 106, 8)
     
@@ -776,6 +791,7 @@ class referralType (pyxb.binding.basis.complexTypeDefinition):
         __referrer.name() : __referrer,
         __type.name() : __type
     })
+_module_typeBindings.referralType = referralType
 Namespace.addCategoryObject('typeBinding', 'referralType', referralType)
 
 
@@ -807,7 +823,7 @@ class linkType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute type uses Python identifier type
-    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpropages2013_linkType_type', linkTypeEnum)
+    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpropages2013_linkType_type', _module_typeBindings.linkTypeEnum)
     __type._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 116, 4)
     __type._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 116, 4)
     
@@ -820,6 +836,7 @@ class linkType (pyxb.binding.basis.complexTypeDefinition):
         __pageRef.name() : __pageRef,
         __type.name() : __type
     })
+_module_typeBindings.linkType = linkType
 Namespace.addCategoryObject('typeBinding', 'linkType', linkType)
 
 

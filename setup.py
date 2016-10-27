@@ -8,7 +8,7 @@ setup(
     name='NPO API',
     version=__version__,
     packages=['npoapi', 'npoapi.xml'],
-    install_requires=['pytz', 'pyxb'],
+    install_requires=['pytz', 'pyxb==1.2.5'],
     scripts=[
         'bin/npo_media_get',
         'bin/npo_media_search',

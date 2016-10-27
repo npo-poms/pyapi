@@ -1,7 +1,7 @@
 # ./npoapi/xml/mediaupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:2751238d63e5454a5dc65ff574f334ca7496c03f
-# Generated 2016-08-24 12:53:35.861088 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.728649 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:media:update:2009
 
 from __future__ import unicode_literals
@@ -13,20 +13,23 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
+
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:media:update:2009', create_if_missing=True)
@@ -86,6 +89,7 @@ class mediaRefType (pyxb.binding.datatypes.string):
 mediaRefType._CF_minLength = pyxb.binding.facets.CF_minLength(value=pyxb.binding.datatypes.nonNegativeInteger(4))
 mediaRefType._InitializeFacetMap(mediaRefType._CF_minLength)
 Namespace.addCategoryObject('typeBinding', 'mediaRefType', mediaRefType)
+_module_typeBindings.mediaRefType = mediaRefType
 
 # Atomic simple type: {urn:vpro:media:update:2009}imageLocationUrnType
 class imageLocationUrnType (pyxb.binding.datatypes.anyURI):
@@ -98,6 +102,7 @@ class imageLocationUrnType (pyxb.binding.datatypes.anyURI):
 imageLocationUrnType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(1024))
 imageLocationUrnType._InitializeFacetMap(imageLocationUrnType._CF_maxLength)
 Namespace.addCategoryObject('typeBinding', 'imageLocationUrnType', imageLocationUrnType)
+_module_typeBindings.imageLocationUrnType = imageLocationUrnType
 
 # Atomic simple type: {urn:vpro:media:update:2009}imageUrnType
 class imageUrnType (pyxb.binding.datatypes.string):
@@ -111,6 +116,7 @@ imageUrnType._CF_pattern = pyxb.binding.facets.CF_pattern()
 imageUrnType._CF_pattern.addPattern(pattern='urn:vpro[\\.:]image:[0-9]+')
 imageUrnType._InitializeFacetMap(imageUrnType._CF_pattern)
 Namespace.addCategoryObject('typeBinding', 'imageUrnType', imageUrnType)
+_module_typeBindings.imageUrnType = imageUrnType
 
 # Atomic simple type: [anonymous]
 class STD_ANON (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin):
@@ -120,10 +126,11 @@ class STD_ANON (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 390, 8)
     _Documentation = None
-STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON)
+STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON, enum_prefix=None)
 STD_ANON.ASC = STD_ANON._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 STD_ANON.DESC = STD_ANON._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 STD_ANON._InitializeFacetMap(STD_ANON._CF_enumeration)
+_module_typeBindings.STD_ANON = STD_ANON
 
 # Atomic simple type: {urn:vpro:media:update:2009}tagUpdateType
 class tagUpdateType (_ImportedBinding_npoapi_xml_media.baseTextType):
@@ -135,6 +142,7 @@ class tagUpdateType (_ImportedBinding_npoapi_xml_media.baseTextType):
     _Documentation = None
 tagUpdateType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'tagUpdateType', tagUpdateType)
+_module_typeBindings.tagUpdateType = tagUpdateType
 
 # Atomic simple type: {urn:vpro:media:update:2009}genreUpdateType
 class genreUpdateType (_ImportedBinding_npoapi_xml_media.genreIdType):
@@ -146,6 +154,7 @@ class genreUpdateType (_ImportedBinding_npoapi_xml_media.genreIdType):
     _Documentation = None
 genreUpdateType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'genreUpdateType', genreUpdateType)
+_module_typeBindings.genreUpdateType = genreUpdateType
 
 # Complex type {urn:vpro:media:update:2009}avAtributeUpdateType with content type ELEMENT_ONLY
 class avAtributeUpdateType (pyxb.binding.basis.complexTypeDefinition):
@@ -195,6 +204,7 @@ class avAtributeUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.avAtributeUpdateType = avAtributeUpdateType
 Namespace.addCategoryObject('typeBinding', 'avAtributeUpdateType', avAtributeUpdateType)
 
 
@@ -255,6 +265,7 @@ class videoAttributesUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __width.name() : __width,
         __height.name() : __height
     })
+_module_typeBindings.videoAttributesUpdateType = videoAttributesUpdateType
 Namespace.addCategoryObject('typeBinding', 'videoAttributesUpdateType', videoAttributesUpdateType)
 
 
@@ -290,6 +301,7 @@ class audioAttributesUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.audioAttributesUpdateType = audioAttributesUpdateType
 Namespace.addCategoryObject('typeBinding', 'audioAttributesUpdateType', audioAttributesUpdateType)
 
 
@@ -317,6 +329,7 @@ class creditsUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.creditsUpdateType = creditsUpdateType
 Namespace.addCategoryObject('typeBinding', 'creditsUpdateType', creditsUpdateType)
 
 
@@ -344,7 +357,7 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON = CTD_ANON
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -371,7 +384,7 @@ class CTD_ANON_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_ = CTD_ANON_
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -398,7 +411,7 @@ class CTD_ANON_2 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_2 = CTD_ANON_2
 
 
 # Complex type {urn:vpro:media:update:2009}bulkUpdateType with content type ELEMENT_ONLY
@@ -433,6 +446,7 @@ class bulkUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.bulkUpdateType = bulkUpdateType
 Namespace.addCategoryObject('typeBinding', 'bulkUpdateType', bulkUpdateType)
 
 
@@ -450,16 +464,16 @@ class portalRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute start uses Python identifier start
     __start = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'start'), 'start', '__urnvpromediaupdate2009_portalRestrictionUpdateType_start', pyxb.binding.datatypes.dateTime)
-    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 278, 4)
-    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 278, 4)
+    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 280, 4)
+    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 280, 4)
     
     start = property(__start.value, __start.set, None, None)
 
     
     # Attribute stop uses Python identifier stop
     __stop = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'stop'), 'stop', '__urnvpromediaupdate2009_portalRestrictionUpdateType_stop', pyxb.binding.datatypes.dateTime)
-    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 279, 4)
-    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 279, 4)
+    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 281, 4)
+    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 281, 4)
     
     stop = property(__stop.value, __stop.set, None, None)
 
@@ -470,6 +484,7 @@ class portalRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __start.name() : __start,
         __stop.name() : __stop
     })
+_module_typeBindings.portalRestrictionUpdateType = portalRestrictionUpdateType
 Namespace.addCategoryObject('typeBinding', 'portalRestrictionUpdateType', portalRestrictionUpdateType)
 
 
@@ -547,6 +562,7 @@ class locationUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __publishStop.name() : __publishStop,
         __urn.name() : __urn
     })
+_module_typeBindings.locationUpdateType = locationUpdateType
 Namespace.addCategoryObject('typeBinding', 'locationUpdateType', locationUpdateType)
 
 
@@ -574,6 +590,7 @@ class imageDataType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.imageDataType = imageDataType
 Namespace.addCategoryObject('typeBinding', 'imageDataType', imageDataType)
 
 
@@ -601,6 +618,7 @@ class imageLocationType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.imageLocationType = imageLocationType
 Namespace.addCategoryObject('typeBinding', 'imageLocationType', imageLocationType)
 
 
@@ -653,6 +671,7 @@ class assetType (pyxb.binding.basis.complexTypeDefinition):
         __publishStart.name() : __publishStart,
         __publishStop.name() : __publishStop
     })
+_module_typeBindings.assetType = assetType
 Namespace.addCategoryObject('typeBinding', 'assetType', assetType)
 
 
@@ -680,6 +699,7 @@ class assetDataType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.assetDataType = assetDataType
 Namespace.addCategoryObject('typeBinding', 'assetDataType', assetDataType)
 
 
@@ -707,6 +727,7 @@ class assetLocationType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.assetLocationType = assetLocationType
 Namespace.addCategoryObject('typeBinding', 'assetLocationType', assetLocationType)
 
 
@@ -749,7 +770,7 @@ class CTD_ANON_3 (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_3 = CTD_ANON_3
 
 
 # Complex type {urn:vpro:media:update:2009}memberUpdateType with content type ELEMENT_ONLY
@@ -787,6 +808,7 @@ class memberUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __position.name() : __position,
         __highlighted.name() : __highlighted
     })
+_module_typeBindings.memberUpdateType = memberUpdateType
 Namespace.addCategoryObject('typeBinding', 'memberUpdateType', memberUpdateType)
 
 
@@ -822,6 +844,7 @@ class moveActionType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.moveActionType = moveActionType
 Namespace.addCategoryObject('typeBinding', 'moveActionType', moveActionType)
 
 
@@ -850,6 +873,7 @@ class descriptionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __type.name() : __type
     })
+_module_typeBindings.descriptionUpdateType = descriptionUpdateType
 Namespace.addCategoryObject('typeBinding', 'descriptionUpdateType', descriptionUpdateType)
 
 
@@ -893,6 +917,7 @@ class personUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __role.name() : __role
     })
+_module_typeBindings.personUpdateType = personUpdateType
 Namespace.addCategoryObject('typeBinding', 'personUpdateType', personUpdateType)
 
 
@@ -1167,6 +1192,7 @@ class mediaUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __urn.name() : __urn,
         __ordered.name() : __ordered
     })
+_module_typeBindings.mediaUpdateType = mediaUpdateType
 Namespace.addCategoryObject('typeBinding', 'mediaUpdateType', mediaUpdateType)
 
 
@@ -1211,6 +1237,7 @@ class midAndTypeType (pyxb.binding.basis.complexTypeDefinition):
         __mid.name() : __mid,
         __type.name() : __type
     })
+_module_typeBindings.midAndTypeType = midAndTypeType
 Namespace.addCategoryObject('typeBinding', 'midAndTypeType', midAndTypeType)
 
 
@@ -1228,16 +1255,16 @@ class geoRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute start uses Python identifier start
     __start = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'start'), 'start', '__urnvpromediaupdate2009_geoRestrictionUpdateType_start', pyxb.binding.datatypes.dateTime)
-    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 278, 4)
-    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 278, 4)
+    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 280, 4)
+    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 280, 4)
     
     start = property(__start.value, __start.set, None, None)
 
     
     # Attribute stop uses Python identifier stop
     __stop = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'stop'), 'stop', '__urnvpromediaupdate2009_geoRestrictionUpdateType_stop', pyxb.binding.datatypes.dateTime)
-    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 279, 4)
-    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 279, 4)
+    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 281, 4)
+    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 281, 4)
     
     stop = property(__stop.value, __stop.set, None, None)
 
@@ -1248,6 +1275,7 @@ class geoRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __start.name() : __start,
         __stop.name() : __stop
     })
+_module_typeBindings.geoRestrictionUpdateType = geoRestrictionUpdateType
 Namespace.addCategoryObject('typeBinding', 'geoRestrictionUpdateType', geoRestrictionUpdateType)
 
 
@@ -1276,6 +1304,7 @@ class titleUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __type.name() : __type
     })
+_module_typeBindings.titleUpdateType = titleUpdateType
 Namespace.addCategoryObject('typeBinding', 'titleUpdateType', titleUpdateType)
 
 
@@ -1313,6 +1342,7 @@ class memberRefUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __position.name() : __position,
         __highlighted.name() : __highlighted
     })
+_module_typeBindings.memberRefUpdateType = memberRefUpdateType
 Namespace.addCategoryObject('typeBinding', 'memberRefUpdateType', memberRefUpdateType)
 
 
@@ -1365,6 +1395,7 @@ class scheduleEventUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __channel.name() : __channel,
         __net.name() : __net
     })
+_module_typeBindings.scheduleEventUpdateType = scheduleEventUpdateType
 Namespace.addCategoryObject('typeBinding', 'scheduleEventUpdateType', scheduleEventUpdateType)
 
 
@@ -1420,6 +1451,7 @@ class relationUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __uriRef.name() : __uriRef,
         __urn.name() : __urn
     })
+_module_typeBindings.relationUpdateType = relationUpdateType
 Namespace.addCategoryObject('typeBinding', 'relationUpdateType', relationUpdateType)
 
 
@@ -1562,6 +1594,7 @@ class imageUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __publishStop.name() : __publishStop,
         __highlighted.name() : __highlighted
     })
+_module_typeBindings.imageUpdateType = imageUpdateType
 Namespace.addCategoryObject('typeBinding', 'imageUpdateType', imageUpdateType)
 
 
@@ -1610,7 +1643,7 @@ class CTD_ANON_4 (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute order uses Python identifier order
-    __order = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'order'), 'order', '__urnvpromediaupdate2009_CTD_ANON_4_order', STD_ANON)
+    __order = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'order'), 'order', '__urnvpromediaupdate2009_CTD_ANON_4_order', _module_typeBindings.STD_ANON)
     __order._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 389, 6)
     __order._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 389, 6)
     
@@ -1627,7 +1660,7 @@ class CTD_ANON_4 (pyxb.binding.basis.complexTypeDefinition):
         __size.name() : __size,
         __order.name() : __order
     })
-
+_module_typeBindings.CTD_ANON_4 = CTD_ANON_4
 
 
 # Complex type {urn:vpro:media:update:2009}groupUpdateType with content type ELEMENT_ONLY
@@ -1724,6 +1757,7 @@ class groupUpdateType (mediaUpdateType):
     _AttributeMap.update({
         __type.name() : __type
     })
+_module_typeBindings.groupUpdateType = groupUpdateType
 Namespace.addCategoryObject('typeBinding', 'groupUpdateType', groupUpdateType)
 
 
@@ -1829,6 +1863,7 @@ class programUpdateType (mediaUpdateType):
     _AttributeMap.update({
         __type.name() : __type
     })
+_module_typeBindings.programUpdateType = programUpdateType
 Namespace.addCategoryObject('typeBinding', 'programUpdateType', programUpdateType)
 
 
@@ -1926,6 +1961,7 @@ class segmentUpdateType (mediaUpdateType):
     _AttributeMap.update({
         __midRef.name() : __midRef
     })
+_module_typeBindings.segmentUpdateType = segmentUpdateType
 Namespace.addCategoryObject('typeBinding', 'segmentUpdateType', segmentUpdateType)
 
 

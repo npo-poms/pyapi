@@ -1,7 +1,7 @@
 # ./npoapi/xml/api_constraint.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:16fe21f7d82c570c380b0c8dc2a83f6f2249d3d1
-# Generated 2016-08-24 12:53:35.856070 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.730567 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:api:constraint:2014 [xmlns:ns1]
 
 from __future__ import unicode_literals
@@ -13,15 +13,18 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
+
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
@@ -81,7 +84,7 @@ class operatorType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'operatorType')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:2014', 4, 2)
     _Documentation = None
-operatorType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=operatorType)
+operatorType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=operatorType, enum_prefix=None)
 operatorType.LT = operatorType._CF_enumeration.addEnumeration(unicode_value='LT', tag='LT')
 operatorType.GT = operatorType._CF_enumeration.addEnumeration(unicode_value='GT', tag='GT')
 operatorType.EQ = operatorType._CF_enumeration.addEnumeration(unicode_value='EQ', tag='EQ')
@@ -89,3 +92,4 @@ operatorType.LTE = operatorType._CF_enumeration.addEnumeration(unicode_value='LT
 operatorType.GTE = operatorType._CF_enumeration.addEnumeration(unicode_value='GTE', tag='GTE')
 operatorType._InitializeFacetMap(operatorType._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'operatorType', operatorType)
+_module_typeBindings.operatorType = operatorType

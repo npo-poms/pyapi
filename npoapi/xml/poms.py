@@ -1,7 +1,7 @@
 # ./npoapi/xml/poms.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2016-08-24 12:53:35.860229 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.729103 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
@@ -13,15 +13,18 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
+
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
@@ -91,6 +94,7 @@ class collectionType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.collectionType = collectionType
 Namespace.addCategoryObject('typeBinding', 'collectionType', collectionType)
 
 

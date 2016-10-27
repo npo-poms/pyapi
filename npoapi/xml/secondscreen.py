@@ -1,7 +1,7 @@
 # ./npoapi/xml/secondscreen.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:fe46ea2052bee47af12417922dca9d6562e4d308
-# Generated 2016-08-24 12:53:35.855674 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.732596 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:secondscreen:2015
 
 from __future__ import unicode_literals
@@ -13,20 +13,23 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
+
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:secondscreen:2015', create_if_missing=True)
@@ -101,7 +104,7 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON = CTD_ANON
 
 
 # Complex type {urn:vpro:secondscreen:2015}mediaRefType with content type EMPTY
@@ -138,6 +141,7 @@ class mediaRefType (pyxb.binding.basis.complexTypeDefinition):
         __midRef.name() : __midRef,
         __type.name() : __type
     })
+_module_typeBindings.mediaRefType = mediaRefType
 Namespace.addCategoryObject('typeBinding', 'mediaRefType', mediaRefType)
 
 
@@ -219,6 +223,7 @@ class screenType (_ImportedBinding_npoapi_xml_shared.publishableObjectType):
     _AttributeMap.update({
         __sid.name() : __sid
     })
+_module_typeBindings.screenType = screenType
 Namespace.addCategoryObject('typeBinding', 'screenType', screenType)
 
 

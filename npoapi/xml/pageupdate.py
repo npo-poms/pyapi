@@ -1,7 +1,7 @@
 # ./npoapi/xml/pageupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:5f83322167e39b923e67d23964d9d10739352ba9
-# Generated 2016-08-24 12:53:35.858875 by PyXB version 1.2.4 using Python 3.5.0.final.0
+# Generated 2016-10-26 13:35:55.734010 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:pages:update:2013
 
 from __future__ import unicode_literals
@@ -13,20 +13,23 @@ import pyxb.utils.utility
 import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
-
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ff62ef9e-69e8-11e6-b94f-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.4'
+_PyXBVersion = '1.2.5'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
 
+# A holder for module-level binding classes so we can access them from
+# inside class definitions where property names may conflict.
+_module_typeBindings = pyxb.utils.utility.Object()
+
 # Import bindings for namespaces imported into schema
 import pyxb.binding.datatypes
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.page as _ImportedBinding_npoapi_xml_page
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:pages:update:2013', create_if_missing=True)
@@ -99,7 +102,7 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON = CTD_ANON
 
 
 # Complex type [anonymous] with content type ELEMENT_ONLY
@@ -126,7 +129,7 @@ class CTD_ANON_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-
+_module_typeBindings.CTD_ANON_ = CTD_ANON_
 
 
 # Complex type {urn:vpro:pages:update:2013}portalUpdateType with content type ELEMENT_ONLY
@@ -170,6 +173,7 @@ class portalUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __id.name() : __id,
         __url.name() : __url
     })
+_module_typeBindings.portalUpdateType = portalUpdateType
 Namespace.addCategoryObject('typeBinding', 'portalUpdateType', portalUpdateType)
 
 
@@ -213,6 +217,7 @@ class paragraphUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.paragraphUpdateType = paragraphUpdateType
 Namespace.addCategoryObject('typeBinding', 'paragraphUpdateType', paragraphUpdateType)
 
 
@@ -240,6 +245,7 @@ class imageLocationType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
+_module_typeBindings.imageLocationType = imageLocationType
 Namespace.addCategoryObject('typeBinding', 'imageLocationType', imageLocationType)
 
 
@@ -283,6 +289,7 @@ class embedUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __midRef.name() : __midRef
     })
+_module_typeBindings.embedUpdateType = embedUpdateType
 Namespace.addCategoryObject('typeBinding', 'embedUpdateType', embedUpdateType)
 
 
@@ -329,6 +336,7 @@ class relationUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __broadcaster.name() : __broadcaster,
         __uriRef.name() : __uriRef
     })
+_module_typeBindings.relationUpdateType = relationUpdateType
 Namespace.addCategoryObject('typeBinding', 'relationUpdateType', relationUpdateType)
 
 
@@ -529,6 +537,7 @@ class pageUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __creationDate.name() : __creationDate,
         __lastModified.name() : __lastModified
     })
+_module_typeBindings.pageUpdateType = pageUpdateType
 Namespace.addCategoryObject('typeBinding', 'pageUpdateType', pageUpdateType)
 
 
@@ -580,6 +589,7 @@ class imageUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __type.name() : __type
     })
+_module_typeBindings.imageUpdateType = imageUpdateType
 Namespace.addCategoryObject('typeBinding', 'imageUpdateType', imageUpdateType)
 
 
@@ -624,6 +634,7 @@ class linkUpdateType (pyxb.binding.basis.complexTypeDefinition):
         __pageRef.name() : __pageRef,
         __type.name() : __type
     })
+_module_typeBindings.linkUpdateType = linkUpdateType
 Namespace.addCategoryObject('typeBinding', 'linkUpdateType', linkUpdateType)
 
 
