@@ -27,6 +27,7 @@ class BasicBackend(NpoApiBase):
         self.user = user
         self.password = password
         self.url = url
+        return self
 
     def get_users(self):
         return ["user"]
