@@ -191,7 +191,7 @@ class MediaBackendUtil(object):
         object.memberOf.append(memberOf)
 
     @staticmethod
-    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None, log_progress: bool = False, log_indent=""):
+    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None, log_progress: bool = False, log_indent="", episodes=True) -> list:
         """Returns a list of dom"""
 
         if target is None:
@@ -200,9 +200,10 @@ class MediaBackendUtil(object):
         if log_progress:
             MediaBackendUtil.logger.info("%sGetting members of %s", log_indent, mid)
         new_targets.extend(client.members(mid, batch=batch, log_progress=log_progress, log_indent=log_indent))
-        if log_progress:
-            MediaBackendUtil.logger.info("%sGetting episodes of %s", log_indent, mid)
-        new_targets.extend(client.episodes(mid, batch=batch, log_progress=log_progress, log_indent=log_indent))
+        if episodes:
+            if log_progress:
+                MediaBackendUtil.logger.info("%sGetting episodes of %s", log_indent, mid)
+            new_targets.extend(client.episodes(mid, batch=batch, log_progress=log_progress, log_indent=log_indent))
         target.extend(new_targets)
         for m in new_targets:
             updateElement = m.getElementsByTagName("mediaUpdate")[0]
