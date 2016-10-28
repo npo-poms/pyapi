@@ -40,4 +40,64 @@ class Tests(unittest.TestCase):
         self.assertEqual("bl&a", MU.strip_tags("<a>bl&amp;a</a>"))
         self.assertEquals("Trailer: Pather Panchali van Satyajit Ray", MU.strip_tags("Trailer: Pather Panchali van Satyajit Ray"))
 
-
+    def test_segments_as_members(self):
+        xml = """
+        <program xmlns="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009" type="BROADCAST" avType="AUDIO" embeddable="true" mid="RBX_NOS_703622" urn="urn:vpro:media:program:47853525">
+<crid>crid://broadcast.radiobox2/309347</crid>
+<broadcaster>NOS</broadcaster>
+<title type="MAIN">NOS-Radio 1-Journaal</title>
+<description type="MAIN">Nieuws en actualiteiten.</description>
+<locations/>
+<scheduleEvents>
+<scheduleEvent channel="RAD1">
+<start>2015-04-22T06:00:00.000+02:00</start>
+<duration>P0DT3H0M0.000S</duration>
+</scheduleEvent>
+</scheduleEvents>
+<images/>
+<episodeOf position="1" highlighted="false">RBX_S_NOS_553954</episodeOf>
+<segments>
+<segment midRef="RBX_NOS_703622" avType="AUDIO" embeddable="true" mid="RBX_NOS_839624" urn="urn:vpro:media:segment:54408153">
+<crid>crid://audiofragment.radiobox2/182587</crid>
+<broadcaster>NOS</broadcaster>
+<title type="MAIN">Actievoerende agenten rijden langzaam op snelweg</title>
+<description type="MAIN">
+In Groningen is de landelijke politieactie op de snelwegen begonnen. Politiewagens rijden met 60 kilometer per uur over de volle breedte van snelwegen naar het zuiden. De actie eindigt vanavond in Maastricht. Onderweg sluiten andere agenten zich vanuit het hele land bij de actie aan.De politie houdt de langzaamaanacties om aandacht te vragen voor het cao-conflict met minister Van der Steur. De agenten willen onder meer een hoger salaris. Vorige maand hielden ze al een sireneprotest.VertragingDe estafetteactie van vandaag gaat tot ongeveer 20.00 uur duren. Dan komen de laatste politiewagens in Maastricht aan.Rijkswaterstaat verwacht dat de langzaam rijdende wagens veel vertraging veroorzaken, vooral in de middag bij Rotterdam en tijdens de avondspits in Noord-Brabant.
+</description>
+<duration>P0DT0H3M14.000S</duration>
+<locations/>
+<scheduleEvents/>
+<images/>
+<start>P0DT0H12M44.000S</start>
+</segment>
+<segment midRef="RBX_NOS_703622" avType="AUDIO" embeddable="true" mid="RBX_NOS_839600" urn="urn:vpro:media:segment:54407864">
+<crid>crid://audiofragment.radiobox2/182585</crid>
+<broadcaster>NOS</broadcaster>
+<title type="MAIN">Saudi-Arabië begint 'nieuwe fase' in Jemen</title>
+<description type="MAIN">
+Saudi-Arabië heeft de bombardementscampagne 'Vastbesloten Storm' in Jemen voor beëindigd verklaard. De militaire doelen van die campagne zijn bereikt, zegt de regering in Riyad. Tegelijkertijd begint een nieuwe operatie in Jemen, die de naam 'Herstel van Hoop' krijgt.Daarbij gaat het volgens het Saudische ministerie van Defensie om het regelen van evacuaties in Jemen, het voorkomen van terreinwinst van de Houthi's en de bescherming van burgers.Koning SalmanEerder vandaag maakte de Saudische koning Salman bekend dat hij de Nationale Garde in zijn land opdracht heeft gegeven deel te nemen aan de strijd in het buurland Jemen. De nationale garde staat onder rechtstreeks bevel van het Saudische koningshuis. De gardisten staan al aan de grens opgesteld. Een invasie wordt echter onwaarschijnlijk geacht.Bijna een maand heeft de Saudische luchtmacht doelen in Jemen gebombardeerd. De Saudi's kwamen in actie naar aanleiding van de opmars van Houthi-rebellen in Jemen. Die hadden de macht in de hoofdstad Sanaa al maanden geleden overgenomen en stonden op het punt ook de zuidelijke havenstad Aden in te nemen.Bij de bombardementen zijn honderden doden gevallen. Vandaag melden artsen in Jemen veertig doden bij twee aanvallen. Gisteren vielen zeker twintig doden bij Saudische luchtaanvallen.
+</description>
+<tag>Jemen</tag>
+<duration>P0DT0H4M13.000S</duration>
+<locations/>
+<scheduleEvents/>
+<images/>
+<start>P0DT1H8M1.000S</start>
+</segment>
+<segment midRef="RBX_NOS_703622" avType="AUDIO" embeddable="true" mid="RBX_NOS_839602" urn="urn:vpro:media:segment:54408053">
+<crid>crid://audiofragment.radiobox2/182586</crid>
+<broadcaster>NOS</broadcaster>
+<title type="MAIN">Nationale Ik Stap Over Van Bank week</title>
+<description type="MAIN">
+Het rommelt in banken-land. Na de flinke salarisverhogingen voor de top van ING en ABN Amro, blijkt dat steeds meer mensen een andere bank zoeken. En dan is het ook nog de: 'Ik stap over van Bank week'. Bijna 4.000 mensen hebben deze week gezegd over te stappen. Bert van Slooten dook in de wereld van de overstappers
+</description>
+<duration>P0DT0H2M49.000S</duration>
+<locations/>
+<scheduleEvents/>
+<images/>
+<start>P0DT1H20M40.000S</start>
+</segment>
+</segments>
+</program>
+        """
+        print(list((MU.iterate_objects(MU.segments_as_members(xml)))))

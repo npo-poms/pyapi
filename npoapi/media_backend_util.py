@@ -192,8 +192,8 @@ class MediaBackendUtil(object):
         object.memberOf.append(memberOf)
 
     @staticmethod
-    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None, log_progress: bool = False, log_indent="", episodes=True, recurse_programs=False, limit:int = None) -> list:
-        """Returns a list of dom"""
+    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None, log_progress: bool = False, log_indent="", episodes=True, segments=False, recurse_programs=False, limit:int = None) -> list:
+        """Returns a list of minidom item -> mediaUpdate"""
         if target is None:
             target = []
         new_targets = []
@@ -209,7 +209,23 @@ class MediaBackendUtil(object):
             MediaBackendUtil.logger.debug("%s  -> found %s episodes", log_indent, str(len(eps)))
             new_targets.extend(eps)
 
+        if segments:
+            update = minidom.parseString(client.get(mid)).documentElement
+            updateType = update.localName
+            is_program = updateType == "program"
+            if is_program:
+                segments = MediaBackendUtil.segments_as_members(update)
+                new_targets.extend(segments)
+                if log_progress:
+                    MediaBackendUtil.logger.info("%sFound %s segments for %s", log_indent, len(segments), mid)
+            else:
+                MediaBackendUtil.logger.info("%sNot a program but %s", log_indent, updateType)
+
+
+
+
         target.extend(new_targets)
+
         if not limit or len(target) < int(limit):
             for m in new_targets:
                 updateElement = m.getElementsByTagName("mediaUpdate")[0]
@@ -218,16 +234,35 @@ class MediaBackendUtil(object):
                 if is_group or recurse_programs:
                     if log_progress:
                         MediaBackendUtil.logger.debug("%sRecursing in %s (group: %s)", log_indent, mid, str(is_group))
-                    MediaBackendUtil.descendants(client, mid, batch, target, log_progress=log_progress, log_indent=log_indent + "   ", limit=limit, episodes=episodes and is_group, recurse_programs=recurse_programs)
+                    MediaBackendUtil.descendants(client, mid, batch, target, log_progress=log_progress, log_indent=log_indent + "   ", limit=limit, episodes=episodes and is_group, recurse_programs=recurse_programs, segments=segments)
                     if limit and len(target) > int(limit):
                         MediaBackendUtil.logger.info("limit reached")
                         break
                 else:
+                    if segments:
+                        segments = MediaBackendUtil.segments_as_members(updateElement)
+                        new_targets.extend(segments)
+                        if log_progress:
+                            MediaBackendUtil.logger.info("%sFound %s segments for %s", log_indent, len(segments), mid)
                     MediaBackendUtil.logger.debug("%sNot recursing in %s (group: %s)", log_indent, mid, str(is_group))
         else:
             MediaBackendUtil.logger.info("Limit reached %s > %s", len(target), limit)
 
         return target
+
+
+    @staticmethod
+    def segments_as_members(program) -> list:
+        if type(program) == str:
+            program = minidom.parseString(program)
+        segments = program.getElementsByTagName('segment')
+
+        def segment_to_item(m):
+            m.tagName = "mediaUpdate"
+            m.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "segmentUpdateType")
+            return minidom.parseString('<item xmlns="urn:vpro:media:update:2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="memberUpdateType">' + m.toxml() + "</item>")
+
+        return list(map(segment_to_item, segments))
 
 
     @staticmethod
