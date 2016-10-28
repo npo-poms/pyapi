@@ -115,9 +115,9 @@ class MediaBackend(BasicBackend):
                     break
                 if log_progress:
                     if len(items) != len(result):
-                        self.logger.info("%s%s of %s: %s (+%s)", log_indent, what, mid, len(result), len(items))
+                        self.logger.debug("%s%s of %s: %s (+%s)", log_indent, what, mid, len(result), len(items))
                     else:
-                        self.logger.info("%s%s of %s: %s", log_indent, what, mid, len(result))
+                        self.logger.debug("%s%s of %s: %s", log_indent, what, mid, len(result))
                 offset += b
                 # print xml.childNodes[0].toxml('utf-8')
                 total = xml.childNodes[0].getAttribute("totalCount")

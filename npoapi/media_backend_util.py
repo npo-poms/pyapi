@@ -192,27 +192,40 @@ class MediaBackendUtil(object):
         object.memberOf.append(memberOf)
 
     @staticmethod
-    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None, log_progress: bool = False, log_indent="", episodes=True) -> list:
+    def descendants(client: MediaBackend, mid: str, batch: int = 200, target: list = None, log_progress: bool = False, log_indent="", episodes=True, recurse_programs=False, limit:int = None) -> list:
         """Returns a list of dom"""
-
         if target is None:
             target = []
         new_targets = []
         if log_progress:
             MediaBackendUtil.logger.info("%sGetting members of %s", log_indent, mid)
-        new_targets.extend(client.members(mid, batch=batch, log_progress=log_progress, log_indent=log_indent))
+        members = client.members(mid, batch=batch, log_progress=log_progress, log_indent=log_indent)
+        MediaBackendUtil.logger.debug("%s  -> found %s members", log_indent, str(len(members)))
+        new_targets.extend(members)
         if episodes:
             if log_progress:
                 MediaBackendUtil.logger.info("%sGetting episodes of %s", log_indent, mid)
-            new_targets.extend(client.episodes(mid, batch=batch, log_progress=log_progress, log_indent=log_indent))
+            eps = client.episodes(mid, batch=batch, log_progress=log_progress, log_indent=log_indent)
+            MediaBackendUtil.logger.debug("%s  -> found %s episodes", log_indent, str(len(eps)))
+            new_targets.extend(eps)
+
         target.extend(new_targets)
-        for m in new_targets:
-            updateElement = m.getElementsByTagName("mediaUpdate")[0]
-            if updateElement.getAttribute("xsi:type") == "groupUpdateType":
-                group_mid = updateElement.getAttribute("mid")
-                if log_progress:
-                    MediaBackendUtil.logger.info("%sThis is a group %s. Recursing", log_indent, group_mid)
-                MediaBackendUtil.descendants(client, group_mid, batch, target, log_progress=log_progress, log_indent=log_indent + "   ")
+        if not limit or len(target) < int(limit):
+            for m in new_targets:
+                updateElement = m.getElementsByTagName("mediaUpdate")[0]
+                mid = updateElement.getAttribute("mid")
+                is_group = updateElement.getAttribute("xsi:type") == "groupUpdateType"
+                if is_group or recurse_programs:
+                    if log_progress:
+                        MediaBackendUtil.logger.debug("%sRecursing in %s (group: %s)", log_indent, mid, str(is_group))
+                    MediaBackendUtil.descendants(client, mid, batch, target, log_progress=log_progress, log_indent=log_indent + "   ", limit=limit, episodes=episodes and is_group, recurse_programs=recurse_programs)
+                    if limit and len(target) > int(limit):
+                        MediaBackendUtil.logger.info("limit reached")
+                        break
+                else:
+                    MediaBackendUtil.logger.debug("%sNot recursing in %s (group: %s)", log_indent, mid, str(is_group))
+        else:
+            MediaBackendUtil.logger.info("Limit reached %s > %s", len(target), limit)
 
         return target
 
@@ -223,10 +236,9 @@ class MediaBackendUtil(object):
             members = minidom.parseString(members)
         if type(members) == minidom.Document:
             members = members.getElementsByTagName('item')
-
+        pyxb.RequireValidWhenParsing(False)
         result = map(lambda m:
-                     poms.CreateFromDOM(m.getElementsByTagName("mediaUpdate")[0], mediaupdate.Namespace),
-                      members)
+                     poms.CreateFromDOM(m.getElementsByTagName("mediaUpdate")[0], mediaupdate.Namespace), members)
         return result
 
     @staticmethod
