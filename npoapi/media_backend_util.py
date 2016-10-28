@@ -241,7 +241,7 @@ class MediaBackendUtil(object):
                 else:
                     if segments:
                         segments = MediaBackendUtil.segments_as_members(updateElement)
-                        new_targets.extend(segments)
+                        target.extend(segments)
                         if log_progress:
                             MediaBackendUtil.logger.info("%sFound %s segments for %s", log_indent, len(segments), mid)
                     MediaBackendUtil.logger.debug("%sNot recursing in %s (group: %s)", log_indent, mid, str(is_group))
@@ -258,9 +258,13 @@ class MediaBackendUtil(object):
         segments = program.getElementsByTagName('segment')
 
         def segment_to_item(m):
+            item = minidom.parseString('<item xmlns="urn:vpro:media:update:2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="memberUpdateType" />')
             m.tagName = "mediaUpdate"
             m.setAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "xsi:type", "segmentUpdateType")
-            return minidom.parseString('<item xmlns="urn:vpro:media:update:2009" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="memberUpdateType">' + m.toxml() + "</item>")
+            #m.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance")
+            #m.setAttribute("xmlns", "urn:vpro:media:update:2009")
+            item.documentElement.appendChild(m)
+            return item
 
         return list(map(segment_to_item, segments))
 
