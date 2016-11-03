@@ -199,13 +199,13 @@ class MediaBackendUtil(object):
         new_targets = []
         if log_progress:
             MediaBackendUtil.logger.info("%sGetting members of %s", log_indent, mid)
-        members = client.members(mid, batch=batch, log_progress=log_progress, log_indent=log_indent)
+        members = client.members(mid, batch=batch, limit=limit, log_progress=log_progress, log_indent=log_indent)
         MediaBackendUtil.logger.debug("%s  -> found %s members", log_indent, str(len(members)))
         new_targets.extend(members)
         if episodes:
             if log_progress:
                 MediaBackendUtil.logger.info("%sGetting episodes of %s", log_indent, mid)
-            eps = client.episodes(mid, batch=batch, log_progress=log_progress, log_indent=log_indent)
+            eps = client.episodes(mid, batch=batch,limit=limit - len(members),  log_progress=log_progress, log_indent=log_indent)
             MediaBackendUtil.logger.debug("%s  -> found %s episodes", log_indent, str(len(eps)))
             new_targets.extend(eps)
 

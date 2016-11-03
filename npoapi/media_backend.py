@@ -94,13 +94,13 @@ class MediaBackend(BasicBackend):
         self.delete_from(path)
 
     # private method to implement both members and episodes calls.
-    def members_or_episodes(self, mid:str, what:str, max:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
+    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
         """Returns a list of minidom objects"""
         self.creds()
         self.logger.debug("loading %s of %s", what, mid)
         result = []
         offset = 0
-        b = min(batch, max) if max else batch
+        b = min(batch, limit) if limit else batch
         while True:
             sub = "group" if what == "episodes" else "media"
             url = (self.url + 'media/' + sub + '/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
@@ -111,7 +111,7 @@ class MediaBackend(BasicBackend):
                 items = xml.getElementsByTagName('item')
                 #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
                 result.extend(items)
-                if len(items) == 0 or (max and len(result) >= max):
+                if len(items) == 0 or (limit and len(result) >= limit):
                     break
                 if log_progress:
                     if len(items) != len(result):
@@ -121,7 +121,7 @@ class MediaBackend(BasicBackend):
                 offset += b
                 # print xml.childNodes[0].toxml('utf-8')
                 total = xml.childNodes[0].getAttribute("totalCount")
-                self.logger.debug(str(len(result)) + "/" + total + (("/" + str(max)) if max else ""))
+                self.logger.debug(str(len(result)) + "/" + total + (("/" + str(limit)) if limit else ""))
             else:
                 self.logger.debug("None returned from %s", url)
 
