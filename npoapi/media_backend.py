@@ -4,6 +4,7 @@ import urllib.request
 from xml.dom import minidom
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media, mediaupdate, poms
+import logging
 
 
 class MediaBackend(BasicBackend):
@@ -97,7 +98,7 @@ class MediaBackend(BasicBackend):
     def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
         """Returns a list of minidom objects"""
         self.creds()
-        self.logger.debug("loading %s of %s", what, mid)
+        self.logger.log(logging.INFO if log_progress else logging.DEBUG, "loading %s of %s", what, mid)
         result = []
         offset = 0
         b = min(batch, limit) if limit else batch
@@ -111,16 +112,15 @@ class MediaBackend(BasicBackend):
                 items = xml.getElementsByTagName('item')
                 #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
                 result.extend(items)
+                total = xml.childNodes[0].getAttribute("totalCount")
                 if len(items) == 0 or (limit and len(result) >= limit):
                     break
-                if log_progress:
-                    if len(items) != len(result):
-                        self.logger.debug("%s%s of %s: %s (+%s)", log_indent, what, mid, len(result), len(items))
-                    else:
-                        self.logger.debug("%s%s of %s: %s", log_indent, what, mid, len(result))
+                if len(items) != len(result):
+                    self.logger.log(logging.INFO if log_progress else logging.DEBUG, "%s%s of %s: %s/%s (+%s)", log_indent, what, mid, len(result), total,  len(items))
+                else:
+                    self.logger.log(logging.INFO if log_progress else logging.DEBUG, "%s%s of %s: %s/%s", log_indent, what, mid, len(result), total)
                 offset += b
                 # print xml.childNodes[0].toxml('utf-8')
-                total = xml.childNodes[0].getAttribute("totalCount")
                 self.logger.debug(str(len(result)) + "/" + total + (("/" + str(limit)) if limit else ""))
             else:
                 self.logger.debug("None returned from %s", url)

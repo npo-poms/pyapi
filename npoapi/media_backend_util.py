@@ -62,8 +62,11 @@ class MediaBackendUtil(object):
         return MediaBackendUtil.update_location(location_object, **kwargs)
 
     @staticmethod
-    def update_location(location_object: mediaupdate.locationUpdateType,
-                        avFileFormat=None, bitrate=None, height=None, width=None, aspectratio=None):
+    def update_location(
+            location_object: mediaupdate.locationUpdateType,
+            avFileFormat=None, bitrate=None, height=None, width=None, aspectratio=None,
+            embargo=None
+            ):
         programUrl = location_object.programUrl
         avAttributes = location_object.avAttributes
         if avAttributes is None:
@@ -80,6 +83,10 @@ class MediaBackendUtil(object):
 
         if type(avFileFormat) is str:
             avFileFormat = getattr(media.avFileFormatEnum, avFileFormat)
+
+        if embargo:
+            location_object.publishStart = embargo['publish_start']
+            location_object.publishStop = embargo['publish_stop']
 
         if avFileFormat:
             avAttributes.avFileFormat = avFileFormat
@@ -205,7 +212,7 @@ class MediaBackendUtil(object):
         if episodes:
             if log_progress:
                 MediaBackendUtil.logger.info("%sGetting episodes of %s", log_indent, mid)
-            eps = client.episodes(mid, batch=batch,limit=limit - len(members),  log_progress=log_progress, log_indent=log_indent)
+            eps = client.episodes(mid, batch=batch,limit=limit - len(members) if limit else None,  log_progress=log_progress, log_indent=log_indent)
             MediaBackendUtil.logger.debug("%s  -> found %s episodes", log_indent, str(len(eps)))
             new_targets.extend(eps)
 
