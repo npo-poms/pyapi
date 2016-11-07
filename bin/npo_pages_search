@@ -21,7 +21,7 @@ args = client.parse_args()
 form = args.form[0]
 if not os.path.isfile(form) and not form.startswith("{"):
     if args.mids:
-        form = "{\"mediaForm\": { \"searches\": {\"mediaIds\": [%s]}}}" % (','.join(list(map(lambda m: '"' + m + '"', form.split(",")))))
+        form = "{\"mediaForm\": { \"searches\": {\"mediaIds\": %s}}}" % (json.dumps(form.split(",")))
     else:
         form = "{\"searches\": {\"text\": %s}}" % json.dumps(form)
 
