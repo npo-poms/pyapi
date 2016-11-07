@@ -31,6 +31,10 @@ class NpoApi(NpoApiBase):
         super().env(e)
         if e == "prod":
             self.url = "https://rs.poms.omroep.nl/v1"
+        elif e == "proda":
+            self.url = "https://rs-a.poms.omroep.nl/v1"
+        elif e == "prodb":
+            self.url = "https://rs-b.poms.omroep.nl/v1"
         elif e == None or e == "test":
             self.url = "https://rs-test.poms.omroep.nl/v1"
         elif e == "dev":
