@@ -3,6 +3,8 @@
   Simple client to get the changes feed from the NPO Frontend API
 """
 from npoapi import Media
+import io
+import sys
 
 client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
 client.add_argument('profile', type=str, nargs='?', help='Profile')
@@ -10,5 +12,12 @@ client.add_argument("-s", "--since", type=str, default=None)
 client.add_argument('-m', "--max", type=int, default="100")
 
 args = client.parse_args()
-print(client.changes(profile=args.profile, since=args.since, limit=args.max, forceOldStyle=False))
+response = io.TextIOWrapper(client.changes(profile=args.profile, since=args.since, limit=args.max, forceOldStyle=False, stream=True), encoding="UTF-8")
+
+buffer = response.read(1024)
+while buffer != -1:
+    sys.stdout.write(buffer)
+    buffer = response.read(1024)
+
+
 client.exit()
