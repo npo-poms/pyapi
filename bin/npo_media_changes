@@ -15,10 +15,9 @@ args = client.parse_args()
 response = TextIOWrapper(client.changes(profile=args.profile, since=args.since, limit=args.max, forceOldStyle=False, stream=True), encoding="UTF-8")
 
 buffer = response.read(1024)
-while buffer != -1:
+while len(buffer) > 0:
     stdout.write(buffer)
-    stdout.flush()
     buffer = response.read(1024)
-
 response.close()
+stdout.flush()
 client.exit()
