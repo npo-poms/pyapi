@@ -24,7 +24,7 @@ class Media(NpoApi):
             return self.request("/api/media/" + urllib.request.quote(mid) + "/" + sub, data=form, accept=accept,
                                 params={"profile": profile, "sort": sort, "offset": offset, "max": limit, "properties": properties})
 
-    def changes(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False):
+    def changes(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False, properties=None):
         sinceLong = None
         sinceDate = None
         if not since is None:
@@ -33,9 +33,9 @@ class Media(NpoApi):
             else:
                 sinceLong = since
         if stream:
-            return self.stream("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate})
+            return self.stream("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate, "properties": properties})
         else:
-            return self.request("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate})
+            return self.request("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate, "properties": properties})
 
     def iterate(self, form=None, profile=None, stream=True, limit=100, timeout=None):
         if not form:
