@@ -4,14 +4,14 @@ import os
 
 
 class Media(NpoApi):
-    def get(self, mid, sub="", sort=None, accept=None, properties=None, limit=None):
-        return self.request("/api/media/" + urllib.request.quote(mid, safe='') + sub, params={"sort": sort, "properties": properties, "max": limit}, accept=accept)
+    def get(self, mid, sub="", sort=None, accept=None, properties=None, limit=None, profile=None):
+        return self.request("/api/media/" + urllib.request.quote(mid, safe='') + sub, params={"sort": sort, "properties": properties, "max": limit, "profile": profile}, accept=accept)
 
-    def multiple(self, mids, accept=None):
+    def multiple(self, mids, accept=None, properties=None, profile=None):
         if os.path.isfile(mids):
-            return self.request("/api/media/multiple", data=mids, params={}, accept=accept)
+            return self.request("/api/media/multiple", data=mids, params={"properties": properties, "profile": profile}, accept=accept)
         else:
-            return self.request("/api/media/multiple", params={"ids": mids}, accept=accept)
+            return self.request("/api/media/multiple", params={"ids": mids, "properties": properties, "profile": profile}, accept=accept)
 
     def list(self):
         return self.request("/api/media")

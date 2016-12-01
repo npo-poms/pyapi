@@ -21,17 +21,21 @@ client.add_argument('-p', "--properties", type=str, default=None,
                     help="properties filtering")
 client.add_argument('-M', "--max", type=int, default=None,
                     help="max (only relevant when using sub)")
+client.add_argument('-P', "--profile", type=str, default=None,
+                    help="profile filtering")
 
 args = client.parse_args()
 
 if args.multiple:
-    print(client.multiple(args.mid[0]))
+    print(client.multiple(args.mid[0], properties=args.properties, profile=args.profile))
 else:
     print(client.get(args.mid[0],
-    sub="" if args.sub == "" else "/" + args.sub,
-    properties=args.properties,
-    sort=args.sort,
-    limit=args.max
+                     sub="" if args.sub == "" else "/" + args.sub,
+                     properties=args.properties,
+                     sort=args.sort,
+                     limit=args.max,
+                     profile=args.profile
+
     ))
 
 client.exit()
