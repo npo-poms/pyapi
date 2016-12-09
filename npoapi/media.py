@@ -37,6 +37,10 @@ class Media(NpoApi):
         else:
             return self.request("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate, "properties": properties})
 
+
+    def redirects(self):
+        return self.request("/api/media/redirects")
+
     def iterate(self, form=None, profile=None, stream=True, limit=100, timeout=None):
         if not form:
             form = "{}"

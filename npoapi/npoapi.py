@@ -9,6 +9,12 @@ from npoapi.base import NpoApiBase
 
 
 class NpoApi(NpoApiBase):
+    """
+    Client API for NPO Frontend Api
+
+    """
+    __author__ = "Michiel Meeuwissen"
+
     EPILOG = """
     DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
@@ -106,7 +112,7 @@ class NpoApi(NpoApiBase):
                 return json.JSONEncoder().encode(json_object).encode("UTF-8"), "application/json"
             except json.JSONDecodeError as je:
                 if data.startswith("<"):
-                    self.logger.debug("Data looks like xml, taking content type accordingline (%s)", str(je))
+                    self.logger.debug("Data looks like xml, taking content type accordingly (%s)", str(je))
                     return data.encode("UTF-8"), "application/xml"
                 else:
                     self.logger.warn("Data %s could not be parsed as json. Leaving content type unspecified", data)
@@ -122,7 +128,6 @@ class NpoApi(NpoApiBase):
             return ""
 
     def stream(self, path, params=None, accept=None, data=None, content_type=None, timeout=None):
-
         data, content_type = self.data_to_bytes(data, content_type)
 
         url, path_for_authentication = self._get_url(path, params)

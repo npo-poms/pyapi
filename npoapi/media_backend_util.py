@@ -9,6 +9,10 @@ from npoapi.xml import media, mediaupdate, poms
 
 
 class MediaBackendUtil(object):
+    """
+    Utilities for dealing with 'update' objects required by the NPO Backend API
+    """
+    __author__ = "Michiel Meeuwissen"
     logger = logging.getLogger("MediaBackendUtil")
 
 

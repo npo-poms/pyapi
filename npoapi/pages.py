@@ -2,6 +2,7 @@ from npoapi.npoapi import NpoApi
 
 
 class Pages(NpoApi):
+    __author__ = "Michiel Meeuwissen"
     def get(self, url) -> str:
         return self.request("/api/pages/multiple", params={"ids": url})
 

@@ -29,6 +29,7 @@ declare_namespaces()
 
 class NpoApiBase:
     """Base class for all api client (both backend and frontend)"""
+    __author__ = "Michiel Meeuwissen"
     __metaclass__ = abc.ABCMeta
     EPILOG = """
     DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.

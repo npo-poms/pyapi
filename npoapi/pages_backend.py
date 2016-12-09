@@ -2,6 +2,7 @@ from npoapi.basic_backend import BasicBackend
 
 
 class PagesBackend(BasicBackend):
+    __author__ = "Michiel Meeuwissen"
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
         """
 

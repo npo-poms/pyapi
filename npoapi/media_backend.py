@@ -8,6 +8,8 @@ import logging
 
 
 class MediaBackend(BasicBackend):
+    """Client for NPO Backend API"""
+    __author__ = "Michiel Meeuwissen"
     def __init__(self, env:str=None, email:str = None, debug:bool=False, accept:str=None):
         """
         Instantiates a client to the NPO Backend API

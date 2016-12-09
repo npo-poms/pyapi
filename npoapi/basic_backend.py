@@ -11,6 +11,8 @@ from npoapi.xml import mediaupdate
 
 class BasicBackend(NpoApiBase):
     """Base class for backend apis. These use basic authentication. Normally communicate via XML."""
+    __author__ = "Michiel Meeuwissen"
+
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
         """
         Instantiates a client to the NPO Backend API
