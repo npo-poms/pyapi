@@ -1,7 +1,7 @@
 # ./npoapi/xml/profile.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:84b11206e77e35c14fdc92e4365d89906a1f1817
-# Generated 2016-10-26 13:35:55.733552 by PyXB version 1.2.5 using Python 3.5.2.final.0
+# Generated 2016-12-15 14:29:52.444378 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:api:profile:2013
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4cfbd082-9b70-11e6-96c0-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:8d3593d4-c2ca-11e6-8135-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
+import npoapi.xml.api_constraint_media as _ImportedBinding_npoapi_xml_api_constraint_media
 import pyxb.binding.datatypes
 import npoapi.xml.api_constraint_page as _ImportedBinding_npoapi_xml_api_constraint_page
-import npoapi.xml.api_constraint_media as _ImportedBinding_npoapi_xml_api_constraint_media
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:api:profile:2013', create_if_missing=True)
@@ -162,27 +162,18 @@ class profileDefinitionType (pyxb.binding.basis.complexTypeDefinition):
 
     
     # Attribute since uses Python identifier since
-    __since = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'since'), 'since', '__urnvproapiprofile2013_profileDefinitionType_since', pyxb.binding.datatypes.long)
+    __since = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'since'), 'since', '__urnvproapiprofile2013_profileDefinitionType_since', pyxb.binding.datatypes.dateTime)
     __since._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:profile:2013', 26, 4)
     __since._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:profile:2013', 26, 4)
     
     since = property(__since.value, __since.set, None, None)
-
-    
-    # Attribute sinceDate uses Python identifier sinceDate
-    __sinceDate = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'sinceDate'), 'sinceDate', '__urnvproapiprofile2013_profileDefinitionType_sinceDate', pyxb.binding.datatypes.dateTime)
-    __sinceDate._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:profile:2013', 27, 4)
-    __sinceDate._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:profile:2013', 27, 4)
-    
-    sinceDate = property(__sinceDate.value, __sinceDate.set, None, None)
 
     _ElementMap.update({
         __filter.name() : __filter,
         __filter_.name() : __filter_
     })
     _AttributeMap.update({
-        __since.name() : __since,
-        __sinceDate.name() : __sinceDate
+        __since.name() : __since
     })
 _module_typeBindings.profileDefinitionType = profileDefinitionType
 Namespace.addCategoryObject('typeBinding', 'profileDefinitionType', profileDefinitionType)
