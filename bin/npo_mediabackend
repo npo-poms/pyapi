@@ -14,6 +14,8 @@ group.add_argument('mid', type=str, nargs='?', help='The mid to get or delete')
 
 client.add_argument('-S', '--search', action='store_true',
                    help="""The xml is interpreted as a search""")
+client.add_argument('-W', '--writable', action='store_true',
+                    help="""Only writable items are searched""")
 group.add_argument('-D', '--delete', action='store_true',
                    help="""The mid will be deleted""")
 
@@ -24,7 +26,7 @@ args = client.parse_args()
 mid = None
 
 if args.search:
-    print(client.find(args.xml[0]))
+    print(client.find(args.xml[0], writeable=args.writable))
 else:
     xmlString = client.data_or_from_file(args.xml)
     try:
@@ -47,7 +49,7 @@ else:
             if xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
                 if args.delete:
                     client.exit("cannot delete with search")
-                print(client.find(update))
+                print(client.find(update, writable=args.writable))
             else:
                 if args.delete:
                     mid = update.mid

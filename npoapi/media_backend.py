@@ -77,9 +77,9 @@ class MediaBackend(BasicBackend):
         req = urllib.request.Request(url, data=self.xml_to_bytes(xml))
         return self._request(req, url, accept="text/plain", authorization=self.parkpost_authorization)
 
-    def find(self, form, writeable=False):
+    def find(self, form, writable=False):
         form = self.to_object(form, validate=True)
-        return self.post_to("media/find", form, accept="application/xml", writable=writeable)
+        return self.post_to("media/find", form, accept="application/xml", writable=writable)
 
 
     def members(self, mid: str, **kwargs) -> list:
