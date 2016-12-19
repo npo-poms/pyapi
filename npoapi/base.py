@@ -343,7 +343,7 @@ class NpoApiBase:
     def to_object_or_none(self, data, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
         import xml
         try:
-            self.to_object(data, validate)
+            return self.to_object(data, validate)
         except xml.sax._exceptions.SAXParseException as e:
             self.logger.debug("Not xml")
             return None
