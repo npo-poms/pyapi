@@ -6,7 +6,7 @@ from npoapi import MediaBackend
 
 client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
 
-list_of_subs = ["members", "episodes", "images", "locations", ""]
+list_of_subs = ["members", "episodes", "images", "locations", "full", ""]
 
 client.add_argument('mid', type=str, nargs=1, help='The mid of the object to get')
 client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,

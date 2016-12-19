@@ -16,7 +16,7 @@ client.add_argument('-S', '--search', action='store_true',
                    help="""The xml is interpreted as a search""")
 client.add_argument('-W', '--writable', action='store_true',
                     help="""Only writable items are searched""")
-group.add_argument('-D', '--delete', action='store_true',
+client.add_argument('-D', '--delete', action='store_true',
                    help="""The mid will be deleted""")
 
 client.add_argument('-p', '--process', type=str,
