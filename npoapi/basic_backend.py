@@ -112,7 +112,7 @@ class BasicBackend(NpoApiBase):
         url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, method="DELETE")
         self.logger.debug("Deleting " + url)
-        return self._request(req, url)
+        return self._request(req, url, accept="text/plain")
 
     def _get_xml(self, url:str) -> bytearray:
         """Gets XML (as a byte array) from an URL. So this sets the accept header."""
