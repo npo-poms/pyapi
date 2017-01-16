@@ -7,7 +7,6 @@ from http.client import IncompleteRead
 from npoapi import Media
 import sys
 import os
-import ijson
 
 client = Media()\
     .command_line_client(description="Iterate the NPO Frontend API")
@@ -17,10 +16,16 @@ client.add_argument('form', type=str, nargs='?',
 client.add_argument('-m', "--max", type=int, default="100")
 
 args = client.parse_args()
+form = args.form
+if not form:
+    form = """{
+      "sort" : {
+          "creationDate" : "ASC"
+    }}
+    """
 
-response = client.iterate(profile=args.profile, form=args.form, limit=args.max, timeout=1)
+response = client.iterate(profile=args.profile, form=form, limit=args.max, timeout=1)
 
-ijson.item(response, )
 buffer_size = 1000
 buffer = bytearray("-" * buffer_size, "ascii")
 totalcount = 0

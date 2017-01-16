@@ -182,6 +182,8 @@ class BasicBackend(NpoApiBase):
             # xml.setAttribute("xmlns:xsi",
             #    "http://www.w3.org/2001/XMLSchema-instance")
             return xml.toxml('utf-8')
+        elif t == minidom.Document:
+            return xml.toxml('utf-8')
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
         elif t == mediaupdate.programUpdateType:
@@ -190,9 +192,9 @@ class BasicBackend(NpoApiBase):
             return xml.toxml("utf-8", element_name='group')
         elif t == mediaupdate.segmentUpdateType:
             return xml.toxml("utf-8", element_name='segment')
-        elif getattr(xml, "toDOM"):
+        elif hasattr(xml, "toDOM"):
             return xml.toDOM().toxml('utf-8')
         else:
-            raise "unrecognized type " + t
+            raise Exception("unrecognized type " + str(t))
 
 
