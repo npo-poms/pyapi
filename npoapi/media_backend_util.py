@@ -17,45 +17,57 @@ class MediaBackendUtil(object):
 
 
     @staticmethod
-    def main_title(object: mediaupdate.mediaUpdateType, string: str):
-        result = MediaBackendUtil.title(object, media.textualTypeEnum.MAIN, string)
-        if not result:
-            MediaBackendUtil.logger.warn("Could not set main title because string was None")
-        return result
+    def main_title(object: mediaupdate.mediaUpdateType, string: str = None):
+        """Gets/sets main title"""
+        return MediaBackendUtil.title(object, media.textualTypeEnum.MAIN, string)
 
     @staticmethod
-    def main_description(object: mediaupdate.mediaUpdateType, string: str):
+    def main_description(object: mediaupdate.mediaUpdateType, string: str = None):
+        """Gets/set main description"""
         return \
             MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, string)
 
 
     @staticmethod
-    def title(object: mediaupdate.mediaUpdateType, textualType, string: str):
+    def title(object: mediaupdate.mediaUpdateType, textualType, string: str = None):
+        """Gets the title with certain textual type from media update type.
+        Optionally, it can also be set
+        """
+        if type(textualType) is str:
+            textualType  = getattr(media.textualTypeEnum, textualType)
+
         if string:
             title = mediaupdate.titleUpdateType(MediaBackendUtil.strip_tags(string))
-            if type(textualType) is str:
-                title.type = getattr(media.textualTypeEnum, textualType)
-            else:
-                title.type = textualType
+            title.type = textualType
             object.title.append(title)
             return title
         else:
             MediaBackendUtil.logger.debug("Not appending title because it is empty")
+            if object.title:
+                for t in object.title:
+                    if t.type == textualType:
+                        return t.value()
             return None
 
     @staticmethod
     def description(object: mediaupdate.mediaUpdateType, textualType, string: str):
+        """Gets the description with certain textual type from media update type.
+      Optionally, it can also be set
+      """
+        if type(textualType) is str:
+            textualType = getattr(media.textualTypeEnum, textualType)
         if string:
             description = mediaupdate.descriptionUpdateType(MediaBackendUtil.strip_tags(string))
-            if type(textualType) is str:
-                description.type = getattr(media.textualTypeEnum, textualType)
-            else:
-                description.type = textualType
+            description.type = textualType
             object.description.append(description)
             return description
         else:
             MediaBackendUtil.logger.debug("Not appending description because it is empty")
-            return None
+            if object.description:
+                for d in object.description:
+                    if d.type == textualType:
+                        return d.value()
+        return None
 
 
     @staticmethod

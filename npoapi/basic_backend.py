@@ -126,7 +126,7 @@ class BasicBackend(NpoApiBase):
         else:
             return None
 
-    def _request(self, req, url, accept="application/xml", needs_authentication=True, authorization=None, ignore_not_found=False):
+    def _request(self, req, url, accept="application/xml", needs_authentication=True, authorization=None, ignore_not_found=False) -> str:
         if needs_authentication:
             if authorization:
                 req.add_header("Authorization", authorization)
@@ -137,7 +137,9 @@ class BasicBackend(NpoApiBase):
         try:
             response = self.get_response(req, url, ignore_not_found=ignore_not_found)
             if response:
-                return response.read().decode()
+                result = response.read().decode()
+                self.logger.debug("Found: %s", result)
+                return result
             else:
                 return None
         except urllib.request.HTTPError as e:
