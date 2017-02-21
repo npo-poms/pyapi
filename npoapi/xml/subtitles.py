@@ -1,7 +1,7 @@
 # ./npoapi/xml/subtitles.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:f5e9c7dba985d37f434a2bc6acd18425aef883c8
-# Generated 2016-12-17 14:42:26.871544 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-02-21 10:25:32.230102 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:subtitles:2009
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:a1a2586c-c45e-11e6-9a42-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:add7c830-f817-11e6-9860-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,8 +27,8 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import pyxb.binding.datatypes
 import pyxb.binding.xml_
+import pyxb.binding.datatypes
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:media:subtitles:2009', create_if_missing=True)
@@ -83,7 +83,7 @@ class subtitlesFormatEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enu
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesFormatEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 28, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 29, 2)
     _Documentation = None
 subtitlesFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesFormatEnum, enum_prefix=None)
 subtitlesFormatEnum.WEBVTT = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='WEBVTT', tag='WEBVTT')
@@ -99,11 +99,12 @@ class subtitlesTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enume
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesTypeEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 36, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 37, 2)
     _Documentation = None
 subtitlesTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesTypeEnum, enum_prefix=None)
 subtitlesTypeEnum.CAPTION = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='CAPTION', tag='CAPTION')
 subtitlesTypeEnum.TRANSLATION = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='TRANSLATION', tag='TRANSLATION')
+subtitlesTypeEnum.TRANSCRIPT = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='TRANSCRIPT', tag='TRANSCRIPT')
 subtitlesTypeEnum._InitializeFacetMap(subtitlesTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'subtitlesTypeEnum', subtitlesTypeEnum)
 _module_typeBindings.subtitlesTypeEnum = subtitlesTypeEnum
@@ -174,6 +175,14 @@ class subtitlesType (pyxb.binding.basis.complexTypeDefinition):
     
     type = property(__type.value, __type.set, None, None)
 
+    
+    # Attribute cueCount uses Python identifier cueCount
+    __cueCount = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'cueCount'), 'cueCount', '__urnvpromediasubtitles2009_subtitlesType_cueCount', pyxb.binding.datatypes.int)
+    __cueCount._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 18, 4)
+    __cueCount._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 18, 4)
+    
+    cueCount = property(__cueCount.value, __cueCount.set, None, None)
+
     _ElementMap.update({
         __content.name() : __content
     })
@@ -183,7 +192,8 @@ class subtitlesType (pyxb.binding.basis.complexTypeDefinition):
         __offset.name() : __offset,
         __creationDate.name() : __creationDate,
         __lastModified.name() : __lastModified,
-        __type.name() : __type
+        __type.name() : __type,
+        __cueCount.name() : __cueCount
     })
 _module_typeBindings.subtitlesType = subtitlesType
 Namespace.addCategoryObject('typeBinding', 'subtitlesType', subtitlesType)
@@ -196,15 +206,15 @@ class subtitlesContentType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_SIMPLE
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesContentType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 20, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 21, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.string
     
     # Attribute format uses Python identifier format
     __format = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'format'), 'format', '__urnvpromediasubtitles2009_subtitlesContentType_format', _module_typeBindings.subtitlesFormatEnum)
-    __format._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 23, 8)
-    __format._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 23, 8)
+    __format._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 24, 8)
+    __format._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 24, 8)
     
     format = property(__format.value, __format.set, None, None)
 

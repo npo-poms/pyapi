@@ -6,7 +6,7 @@ from npoapi import MediaBackend
 
 client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
 
-list_of_subs = ["members", "episodes", "images", "locations", "full", ""]
+list_of_subs = ["members", "episodes", "images", "locations", "full", "subtitles", ""]
 
 client.add_argument('mid', type=str, nargs=1, help='The mid of the object to get')
 client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
@@ -22,7 +22,9 @@ sub = args.sub
 mid = args.mid[0]
 
 def get():
-    if sub == 'members' or sub == 'episodes':
+    if sub == "subtitles":
+        return client.subtitles(mid)
+    elif sub == 'members' or sub == 'episodes':
         return client.members_or_episodes(mid, sub)
     else:
         return client.get_sub(mid, sub)
@@ -48,6 +50,6 @@ elif not result is None:
         exec(process)
         print(update.toDOM().toprettyxml(indent="  "))
 
-        
+
 client.exit()
 

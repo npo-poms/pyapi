@@ -1,7 +1,7 @@
 # ./npoapi/xml/secondscreen.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:fe46ea2052bee47af12417922dca9d6562e4d308
-# Generated 2016-12-17 14:42:26.873716 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-02-21 10:25:32.230682 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:secondscreen:2015
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:a1a2586c-c45e-11e6-9a42-60fb42f0af34')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:add7c830-f817-11e6-9860-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import pyxb.binding.datatypes
-import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
+import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
+import pyxb.binding.datatypes
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:secondscreen:2015', create_if_missing=True)
@@ -93,7 +93,7 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {urn:vpro:shared:2009}image uses Python identifier image
-    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(_Namespace_shared, 'image'), 'image', '__urnvprosecondscreen2015_CTD_ANON_urnvproshared2009image', True, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 5, 2), )
+    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(_Namespace_shared, 'image'), 'image', '__urnvprosecondscreen2015_CTD_ANON_urnvproshared2009image', True, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 7, 2), )
 
     
     image = property(__image.value, __image.set, None, None)
@@ -232,7 +232,7 @@ Namespace.addCategoryObject('elementBinding', screen.name().localName(), screen)
 
 
 
-CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(_Namespace_shared, 'image'), _ImportedBinding_npoapi_xml_shared.imageType, scope=CTD_ANON, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 5, 2)))
+CTD_ANON._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(_Namespace_shared, 'image'), _ImportedBinding_npoapi_xml_shared.imageType, scope=CTD_ANON, location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproShared.xsd', 7, 2)))
 
 def _BuildAutomaton ():
     # Remove this helper function from the namespace after it is invoked

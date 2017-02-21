@@ -81,6 +81,12 @@ class MediaBackend(BasicBackend):
         form = self.to_object(form, validate=True)
         return self.post_to("media/find", form, accept="application/xml", writable=writable)
 
+    def subtitles(self, mid: str, language=None, type="CAPTION"):
+        path = mid
+        if language:
+            path += "/" + language + "/" + type
+        return self.get_from("media/subtitles/" + path, accept="application/xml")
+
 
     def members(self, mid: str, **kwargs) -> list:
         """return a list of all members of a group. As minidom  XML objects, wrapped
