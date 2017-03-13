@@ -1,7 +1,7 @@
 # ./npoapi/xml/secondscreen.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:fe46ea2052bee47af12417922dca9d6562e4d308
-# Generated 2017-02-21 10:25:32.230682 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-03-13 16:49:25.746236 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:secondscreen:2015
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:add7c830-f817-11e6-9860-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:a0d787ba-0804-11e7-8466-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'

@@ -1,7 +1,7 @@
 # ./npoapi/xml/pageupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:5f83322167e39b923e67d23964d9d10739352ba9
-# Generated 2017-02-21 10:25:32.228873 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-03-13 16:49:25.748980 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:pages:update:2013
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:add7c830-f817-11e6-9860-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:a0d787ba-0804-11e7-8466-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'

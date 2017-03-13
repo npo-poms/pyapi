@@ -1,7 +1,7 @@
 # ./npoapi/xml/media.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aaac8a39e00bcd1804b49bf5b5b8b83fb686b430
-# Generated 2017-02-21 10:25:32.223559 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-03-13 16:49:25.743434 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:2009 [xmlns:media]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:add7c830-f817-11e6-9860-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:a0d787ba-0804-11e7-8466-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -451,12 +451,12 @@ class midType (pyxb.binding.datatypes.string):
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'midType')
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 745, 2)
     _Documentation = None
-midType._CF_minLength = pyxb.binding.facets.CF_minLength(value=pyxb.binding.datatypes.nonNegativeInteger(4))
 midType._CF_pattern = pyxb.binding.facets.CF_pattern()
 midType._CF_pattern.addPattern(pattern='[ \\.a-zA-Z0-9_-]+')
+midType._CF_minLength = pyxb.binding.facets.CF_minLength(value=pyxb.binding.datatypes.nonNegativeInteger(4))
 midType._CF_maxLength = pyxb.binding.facets.CF_maxLength(value=pyxb.binding.datatypes.nonNegativeInteger(255))
-midType._InitializeFacetMap(midType._CF_minLength,
-   midType._CF_pattern,
+midType._InitializeFacetMap(midType._CF_pattern,
+   midType._CF_minLength,
    midType._CF_maxLength)
 Namespace.addCategoryObject('typeBinding', 'midType', midType)
 _module_typeBindings.midType = midType
