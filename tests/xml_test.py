@@ -98,3 +98,10 @@ class Tests(unittest.TestCase):
         program.credits.append(person)
         print(program.toxml())
 
+    def test_memberRefUpdate(self):
+        from npoapi.xml import mediaupdate
+        memberOf = mediaupdate.memberRef("owner_mid")
+        memberOf.position = 4
+        memberOf.highlighted = False
+        print(memberOf.toxml())
+

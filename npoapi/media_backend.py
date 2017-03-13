@@ -102,6 +102,13 @@ class MediaBackend(BasicBackend):
         path = "media/media/" + urllib.request.quote(mid) + "/memberOf/" + urllib.request.quote(owner_mid)
         self.delete_from(path)
 
+    def add_member(self, mid, owner_mid, position=None, highlighted=False):
+        memberOf = mediaupdate.memberRef(owner_mid)
+        memberOf.position = position
+        memberOf.highlighted = highlighted
+        path = "media/media/" + urllib.request.quote(mid) + "/memberOf/"
+        self.post_to(path, memberOf, accept="application/xml")
+
     # private method to implement both members and episodes calls.
     def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
         """Returns a list of minidom objects"""
