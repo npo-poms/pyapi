@@ -304,6 +304,17 @@ class MediaBackendUtil(object):
         return result
 
     @staticmethod
+    def toxml(update):
+        "xsi:- xml are not working out of the box.."
+        t = type(update)
+        if t == mediaupdate.programUpdateType:
+            return update.toxml("utf-8", element_name='program')
+        elif t == mediaupdate.groupUpdateType:
+            return update .toxml("utf-8", element_name='group')
+        elif t == mediaupdate.segmentUpdateType:
+            return update.toxml("utf-8", element_name='segment')
+
+    @staticmethod
     def parse(duration_in_ms: int):
         """Converts millis to hours, minutes, seconds, millis"""
         millis = duration_in_ms % 1000

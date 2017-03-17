@@ -6,6 +6,9 @@ import pytz
 from xml.dom import minidom
 
 from npoapi.base import NpoApiBase
+from npoapi import MediaBackendUtil as MU
+
+
 from npoapi.xml import mediaupdate
 
 
@@ -175,6 +178,7 @@ class BasicBackend(NpoApiBase):
     def xml_to_bytes(self, xml) -> bytearray:
         """Accepts xml in several formats, and returns it as a byte array, ready for posting"""
         import xml.etree.ElementTree as ET
+        import pyxb
         t = type(xml)
         if t == str:
             xml, content_type = self.data_to_bytes(xml)
@@ -188,12 +192,8 @@ class BasicBackend(NpoApiBase):
             return xml.toxml('utf-8')
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
-        elif t == mediaupdate.programUpdateType:
-            return xml.toxml("utf-8", element_name='program')
-        elif t == mediaupdate.groupUpdateType:
-            return xml.toxml("utf-8", element_name='group')
-        elif t == mediaupdate.segmentUpdateType:
-            return xml.toxml("utf-8", element_name='segment')
+        elif isinstance(xml, pyxb.binding.basis.complexTypeDefinition):
+            return MU.toxml(xml)
         elif hasattr(xml, "toDOM"):
             return xml.toDOM().toxml('utf-8')
         else:
