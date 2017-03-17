@@ -30,6 +30,7 @@ form = args.form[0]
 
 if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<"):
     form = "{\"searches\": {\"text\": {\"value\": %s, \"fuzziness\": \"%s\" }}}" % (json.dumps(form), "AUTO" if args.fuzzy else "")
+    client.logger.debug("Posting " + form)
 
 print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties, mid=mid, sub=sub, profile=args.profile))
 client.exit()
