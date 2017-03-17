@@ -169,7 +169,7 @@ class MediaBackendUtil(object):
         return image_object
 
     @staticmethod
-    def set_image_fields(image_object, image_type="PICTURE", title=None, description=None, highlighted=False):
+    def set_image_fields(image_object, image_type="PICTURE", title=None, description=None, highlighted=False, license="COPYRIGHTED", source=None, source_name=None, credits=None):
         image_object.type = image_type
         #shared.imageTypeEnum.PICTURE
         image_object.highlighted = highlighted
@@ -177,6 +177,15 @@ class MediaBackendUtil(object):
             image_object.title = MediaBackendUtil.strip_tags(title)
         if description:
             image_object.description = MediaBackendUtil.strip_tags(description)
+        if source:
+            image_object.source = source
+        if source_name:
+            image_object.sourceName = source_name
+        if license:
+            image_object.license = license
+        if credits:
+            image_object.credits = credits
+
 
     @staticmethod
     def add_image(object: mediaupdate.mediaUpdateType, image: str, **kwargs):
@@ -306,13 +315,7 @@ class MediaBackendUtil(object):
     @staticmethod
     def toxml(update):
         "xsi:- xml are not working out of the box.."
-        t = type(update)
-        if t == mediaupdate.programUpdateType:
-            return update.toxml("utf-8", element_name='program')
-        elif t == mediaupdate.groupUpdateType:
-            return update .toxml("utf-8", element_name='group')
-        elif t == mediaupdate.segmentUpdateType:
-            return update.toxml("utf-8", element_name='segment')
+        return MediaBackend.toxml(update)
 
     @staticmethod
     def parse(duration_in_ms: int):

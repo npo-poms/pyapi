@@ -1,15 +1,12 @@
 import base64
-import importlib.util
 import logging
 import urllib.request
-import pytz
 from xml.dom import minidom
 
-from npoapi.base import NpoApiBase
-from npoapi import MediaBackendUtil as MU
-
-
+import pytz
 from npoapi.xml import mediaupdate
+
+from npoapi.base import NpoApiBase
 
 
 class BasicBackend(NpoApiBase):
@@ -175,6 +172,17 @@ class BasicBackend(NpoApiBase):
                 sep = "&"
         return _url
 
+    @staticmethod
+    def toxml(update):
+        "xsi:- xml are not working out of the box.."
+        t = type(update)
+        if t == mediaupdate.programUpdateType:
+            return update.toxml("utf-8", element_name='program')
+        elif t == mediaupdate.groupUpdateType:
+            return update.toxml("utf-8", element_name='group')
+        elif t == mediaupdate.segmentUpdateType:
+            return update.toxml("utf-8", element_name='segment')
+
     def xml_to_bytes(self, xml) -> bytearray:
         """Accepts xml in several formats, and returns it as a byte array, ready for posting"""
         import xml.etree.ElementTree as ET
@@ -193,7 +201,7 @@ class BasicBackend(NpoApiBase):
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
         elif isinstance(xml, pyxb.binding.basis.complexTypeDefinition):
-            return MU.toxml(xml)
+            return self.toxml(xml)
         elif hasattr(xml, "toDOM"):
             return xml.toDOM().toxml('utf-8')
         else:
