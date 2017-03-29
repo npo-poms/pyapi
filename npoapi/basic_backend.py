@@ -96,7 +96,7 @@ class BasicBackend(NpoApiBase):
         self.creds()
         url = self.append_params(self.url + path, **kwargs)
         bytes = self.xml_to_bytes(xml)
-        req = urllib.request.Request(url, data=bytes)
+        req = urllib.request.Request(url, data=bytes, method='POST')
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept)
 
@@ -182,6 +182,8 @@ class BasicBackend(NpoApiBase):
             return update.toxml("utf-8", element_name='group')
         elif t == mediaupdate.segmentUpdateType:
             return update.toxml("utf-8", element_name='segment')
+        else:
+            return update.toxml("utf-8")
 
     def xml_to_bytes(self, xml) -> bytearray:
         """Accepts xml in several formats, and returns it as a byte array, ready for posting"""
