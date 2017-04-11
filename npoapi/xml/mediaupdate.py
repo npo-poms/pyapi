@@ -1,7 +1,7 @@
 # ./npoapi/xml/mediaupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:2751238d63e5454a5dc65ff574f334ca7496c03f
-# Generated 2017-03-22 10:37:47.371268 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-04-11 17:01:35.952391 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:update:2009
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:33c87e6e-0ee3-11e7-bb92-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c0144418-1ec7-11e7-86c3-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 import pyxb.binding.datatypes
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:media:update:2009', create_if_missing=True)
@@ -126,7 +126,7 @@ class STD_ANON (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 409, 8)
     _Documentation = None
-STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON, enum_prefix=None)
+STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON)
 STD_ANON.ASC = STD_ANON._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 STD_ANON.DESC = STD_ANON._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 STD_ANON._InitializeFacetMap(STD_ANON._CF_enumeration)
@@ -464,16 +464,16 @@ class portalRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute start uses Python identifier start
     __start = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'start'), 'start', '__urnvpromediaupdate2009_portalRestrictionUpdateType_start', pyxb.binding.datatypes.dateTime)
-    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 283, 4)
-    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 283, 4)
+    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 292, 4)
+    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 292, 4)
     
     start = property(__start.value, __start.set, None, None)
 
     
     # Attribute stop uses Python identifier stop
     __stop = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'stop'), 'stop', '__urnvpromediaupdate2009_portalRestrictionUpdateType_stop', pyxb.binding.datatypes.dateTime)
-    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 284, 4)
-    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 284, 4)
+    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 293, 4)
+    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 293, 4)
     
     stop = property(__stop.value, __stop.set, None, None)
 
@@ -915,7 +915,7 @@ class descriptionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     # Base type is _ImportedBinding_npoapi_xml_media.unboundedTextType
     
     # Attribute type uses Python identifier type
-    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpromediaupdate2009_descriptionUpdateType_type', _ImportedBinding_npoapi_xml_media.textualTypeEnum)
+    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpromediaupdate2009_descriptionUpdateType_type', _ImportedBinding_npoapi_xml_media.textualTypeEnum, required=True)
     __type._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 62, 8)
     __type._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 62, 8)
     
@@ -1309,16 +1309,16 @@ class geoRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute start uses Python identifier start
     __start = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'start'), 'start', '__urnvpromediaupdate2009_geoRestrictionUpdateType_start', pyxb.binding.datatypes.dateTime)
-    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 283, 4)
-    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 283, 4)
+    __start._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 292, 4)
+    __start._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 292, 4)
     
     start = property(__start.value, __start.set, None, None)
 
     
     # Attribute stop uses Python identifier stop
     __stop = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'stop'), 'stop', '__urnvpromediaupdate2009_geoRestrictionUpdateType_stop', pyxb.binding.datatypes.dateTime)
-    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 284, 4)
-    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 284, 4)
+    __stop._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 293, 4)
+    __stop._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 293, 4)
     
     stop = property(__stop.value, __stop.set, None, None)
 
@@ -1346,7 +1346,7 @@ class titleUpdateType (pyxb.binding.basis.complexTypeDefinition):
     # Base type is _ImportedBinding_npoapi_xml_media.baseTextType
     
     # Attribute type uses Python identifier type
-    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpromediaupdate2009_titleUpdateType_type', _ImportedBinding_npoapi_xml_media.textualTypeEnum)
+    __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvpromediaupdate2009_titleUpdateType_type', _ImportedBinding_npoapi_xml_media.textualTypeEnum, required=True)
     __type._DeclarationLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 192, 8)
     __type._UseLocation = pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 192, 8)
     

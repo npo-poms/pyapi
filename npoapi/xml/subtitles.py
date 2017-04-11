@@ -1,7 +1,7 @@
 # ./npoapi/xml/subtitles.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:f5e9c7dba985d37f434a2bc6acd18425aef883c8
-# Generated 2017-03-22 10:37:47.369870 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-04-11 17:01:35.951373 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:subtitles:2009
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:33c87e6e-0ee3-11e7-bb92-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c0144418-1ec7-11e7-86c3-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,8 +27,8 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import pyxb.binding.xml_
 import pyxb.binding.datatypes
+import pyxb.binding.xml_
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:media:subtitles:2009', create_if_missing=True)
@@ -85,7 +85,7 @@ class subtitlesFormatEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enu
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesFormatEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 29, 2)
     _Documentation = None
-subtitlesFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesFormatEnum, enum_prefix=None)
+subtitlesFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=subtitlesFormatEnum)
 subtitlesFormatEnum.WEBVTT = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='WEBVTT', tag='WEBVTT')
 subtitlesFormatEnum.EBU = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='EBU', tag='EBU')
 subtitlesFormatEnum.SRT = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='SRT', tag='SRT')
@@ -101,7 +101,7 @@ class subtitlesTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enume
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 37, 2)
     _Documentation = None
-subtitlesTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesTypeEnum, enum_prefix=None)
+subtitlesTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=subtitlesTypeEnum)
 subtitlesTypeEnum.CAPTION = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='CAPTION', tag='CAPTION')
 subtitlesTypeEnum.TRANSLATION = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='TRANSLATION', tag='TRANSLATION')
 subtitlesTypeEnum.TRANSCRIPT = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='TRANSCRIPT', tag='TRANSCRIPT')

@@ -1,7 +1,7 @@
 # ./npoapi/xml/page.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:bae47b8c8a50fe304e6e9de618201baa8dfd97c5
-# Generated 2017-03-22 10:37:47.358607 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-04-11 17:01:35.946916 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:pages:2013 [xmlns:page]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:33c87e6e-0ee3-11e7-bb92-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c0144418-1ec7-11e7-86c3-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 import pyxb.binding.datatypes
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:pages:2013', create_if_missing=True)
@@ -112,7 +112,7 @@ class linkTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'linkTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 146, 2)
     _Documentation = None
-linkTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=linkTypeEnum, enum_prefix=None)
+linkTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=linkTypeEnum)
 linkTypeEnum.TOP_STORY = linkTypeEnum._CF_enumeration.addEnumeration(unicode_value='TOP_STORY', tag='TOP_STORY')
 linkTypeEnum._InitializeFacetMap(linkTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'linkTypeEnum', linkTypeEnum)
@@ -126,7 +126,7 @@ class pageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'pageTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 152, 2)
     _Documentation = None
-pageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=pageTypeEnum, enum_prefix=None)
+pageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=pageTypeEnum)
 pageTypeEnum.ARTICLE = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='ARTICLE', tag='ARTICLE')
 pageTypeEnum.SPECIAL = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='SPECIAL', tag='SPECIAL')
 pageTypeEnum.HOME = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='HOME', tag='HOME')
@@ -383,21 +383,21 @@ class embedType (pyxb.binding.basis.complexTypeDefinition):
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {urn:vpro:media:2009}program uses Python identifier program
-    __program = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(_Namespace_media, 'program'), 'program', '__urnvpropages2013_embedType_urnvpromedia2009program', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 22, 2), )
+    __program = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(_Namespace_media, 'program'), 'program', '__urnvpropages2013_embedType_urnvpromedia2009program', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 24, 2), )
 
     
     program = property(__program.value, __program.set, None, '\n        This is the most used entity in POMS. It represents e.g. one broadcast program or one web-only clip. It represent a standalone entity which a consumer can view or listen to.\n      ')
 
     
     # Element {urn:vpro:media:2009}group uses Python identifier group
-    __group = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(_Namespace_media, 'group'), 'group', '__urnvpropages2013_embedType_urnvpromedia2009group', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 29, 2), )
+    __group = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(_Namespace_media, 'group'), 'group', '__urnvpropages2013_embedType_urnvpromedia2009group', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 31, 2), )
 
     
     group = property(__group.value, __group.set, None, '\n        A groups collects a number of programs and/or other groups. Examples: season, series, playlist and album.\n      ')
 
     
     # Element {urn:vpro:media:2009}segment uses Python identifier segment
-    __segment = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(_Namespace_media, 'segment'), 'segment', '__urnvpropages2013_embedType_urnvpromedia2009segment', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 36, 2), )
+    __segment = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(_Namespace_media, 'segment'), 'segment', '__urnvpropages2013_embedType_urnvpromedia2009segment', False, pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 38, 2), )
 
     
     segment = property(__segment.value, __segment.set, None, '\n        A program can contain a number of segments. A segment is an identifiable part of a program.\n      ')
@@ -1063,11 +1063,11 @@ paragraphType._Automaton = _BuildAutomaton_4()
 
 
 
-embedType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(_Namespace_media, 'program'), _ImportedBinding_npoapi_xml_media.programType, scope=embedType, documentation='\n        This is the most used entity in POMS. It represents e.g. one broadcast program or one web-only clip. It represent a standalone entity which a consumer can view or listen to.\n      ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 22, 2)))
+embedType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(_Namespace_media, 'program'), _ImportedBinding_npoapi_xml_media.programType, scope=embedType, documentation='\n        This is the most used entity in POMS. It represents e.g. one broadcast program or one web-only clip. It represent a standalone entity which a consumer can view or listen to.\n      ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 24, 2)))
 
-embedType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(_Namespace_media, 'group'), _ImportedBinding_npoapi_xml_media.groupType, scope=embedType, documentation='\n        A groups collects a number of programs and/or other groups. Examples: season, series, playlist and album.\n      ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 29, 2)))
+embedType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(_Namespace_media, 'group'), _ImportedBinding_npoapi_xml_media.groupType, scope=embedType, documentation='\n        A groups collects a number of programs and/or other groups. Examples: season, series, playlist and album.\n      ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 31, 2)))
 
-embedType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(_Namespace_media, 'segment'), _ImportedBinding_npoapi_xml_media.segmentType, scope=embedType, documentation='\n        A program can contain a number of segments. A segment is an identifiable part of a program.\n      ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 36, 2)))
+embedType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(_Namespace_media, 'segment'), _ImportedBinding_npoapi_xml_media.segmentType, scope=embedType, documentation='\n        A program can contain a number of segments. A segment is an identifiable part of a program.\n      ', location=pyxb.utils.utility.Location('http://poms-dev.omroep.nl/schema/vproMedia.xsd', 38, 2)))
 
 embedType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'title'), pyxb.binding.datatypes.string, scope=embedType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 126, 6)))
 
