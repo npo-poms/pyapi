@@ -240,18 +240,19 @@ class MediaBackendUtil(object):
             eps = client.episodes(mid, batch=batch,limit=limit - len(members) if limit else None,  log_progress=log_progress, log_indent=log_indent)
             MediaBackendUtil.logger.debug("%s  -> found %s episodes", log_indent, str(len(eps)))
             new_targets.extend(eps)
+            #print(eps)
 
         if segments:
             update = minidom.parseString(client.get(mid)).documentElement
             updateType = update.localName
             is_program = updateType == "program"
             if is_program:
-                segments = MediaBackendUtil.segments_as_members(update)
-                new_targets.extend(segments)
+                program_segments = MediaBackendUtil.segments_as_members(update)
+                new_targets.extend(program_segments)
                 if log_progress:
-                    MediaBackendUtil.logger.info("%sFound %s segments for %s", log_indent, len(segments), mid)
+                    MediaBackendUtil.logger.info("%sFound %s segments for %s", log_indent, len(program_segments), mid)
             else:
-                MediaBackendUtil.logger.info("%sNot a program but %s", log_indent, updateType)
+                MediaBackendUtil.logger.info("%sNot a program but %s (%s)", log_indent, updateType, mid)
 
 
 
@@ -262,7 +263,8 @@ class MediaBackendUtil(object):
             for m in new_targets:
                 updateElement = m.getElementsByTagName("mediaUpdate")[0]
                 mid = updateElement.getAttribute("mid")
-                is_group = updateElement.getAttribute("xsi:type") == "groupUpdateType"
+                xsiType = updateElement.getAttribute("xsi:type")
+                is_group = xsiType == "groupUpdateType"
                 if is_group or recurse_programs:
                     if log_progress:
                         MediaBackendUtil.logger.debug("%sRecursing in %s (group: %s)", log_indent, mid, str(is_group))
@@ -271,11 +273,12 @@ class MediaBackendUtil(object):
                         MediaBackendUtil.logger.info("limit reached")
                         break
                 else:
-                    if segments:
-                        segments = MediaBackendUtil.segments_as_members(updateElement)
-                        target.extend(segments)
+                    if segments and xsiType == "programUpdateType":
+                        program_segments = MediaBackendUtil.segments_as_members(updateElement)
+                        target.extend(program_segments)
                         if log_progress:
-                            MediaBackendUtil.logger.info("%sFound %s segments for %s", log_indent, len(segments), mid)
+                            if len(program_segments) > 0:
+                                MediaBackendUtil.logger.info("%sFound %s segments for %s", log_indent, len(program_segments), mid)
                     MediaBackendUtil.logger.debug("%sNot recursing in %s (group: %s)", log_indent, mid, str(is_group))
         else:
             MediaBackendUtil.logger.info("Limit reached %s > %s", len(target), limit)
