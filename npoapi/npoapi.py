@@ -41,12 +41,16 @@ class NpoApi(NpoApiBase):
             self.url = "https://rs-a.poms.omroep.nl/v1"
         elif e == "prodb":
             self.url = "https://rs-b.poms.omroep.nl/v1"
+        elif e == "testa":
+            self.url = "https://rs-a-test.poms.omroep.nl/v1"
+        elif e == "testb":
+            self.url = "https://rs-b-test.poms.omroep.nl/v1"
         elif e == None or e == "test":
             self.url = "https://rs-test.poms.omroep.nl/v1"
         elif e == "dev":
             self.url = "https://rs-dev.poms.omroep.nl/v1"
         elif e == "localhost":
-            self.url = "http://localhost:8070/v1"
+            self.url = "http://localhost:8071/v1"
         else:
             self.url = e
         return self
@@ -72,6 +76,8 @@ class NpoApi(NpoApiBase):
         return self.key + "@" + self.url
 
     def authenticate(self, uri=None, now=utils.formatdate()):
+        if self.origin is None:
+            raise Exception("No origin configured. Start with -c?")
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         self.logger.debug("message: " + message)
         encoded = base64.b64encode(
