@@ -1,7 +1,7 @@
 # ./npoapi/xml/api_constraint_media.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:c4e4314e58c54eb763331b986f51d7c6d2480f27
-# Generated 2017-04-11 17:01:35.950378 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-06-02 17:13:48.879516 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:api:constraint:media:2013 [xmlns:media]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c0144418-1ec7-11e7-86c3-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:116f7218-47a6-11e7-9adf-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 import npoapi.xml.api_constraint as _ImportedBinding_npoapi_xml_api_constraint
 import pyxb.binding.datatypes
+import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:api:constraint:media:2013', create_if_missing=True)
