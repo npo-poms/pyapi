@@ -50,7 +50,7 @@ class NpoApi(NpoApiBase):
         elif e == "dev":
             self.url = "https://rs-dev.poms.omroep.nl/v1"
         elif e == "localhost":
-            self.url = "http://localhost:8071/v1"
+            self.url = "http://localhost:8070/v1"
         else:
             self.url = e
         return self
