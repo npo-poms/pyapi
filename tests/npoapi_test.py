@@ -137,7 +137,7 @@ class MediaBackendTest(unittest.TestCase):
         images= poms.CreateFromDocument(bytes)
         image2=images.wildcardElements()[0]
         self.assertEquals(image.title, image2.title)
-        self.assertEquals(image2.title, "sdf")
+        self.assertEquals(image2.title, "testte")
         print(image2.toxml())
 
 
