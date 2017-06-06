@@ -16,6 +16,7 @@ from npoapi.xml import mediaupdate
 import time
 
 ENV = "test"
+MID = "WO_VPRO_025057"
 
 
 class Tests(unittest.TestCase):
@@ -112,12 +113,12 @@ class MediaBackendTest(unittest.TestCase):
 
 
     def test_set_duration(self):
-        existing = poms.CreateFromDocument(self.client.get("WO_VPRO_1422026"))
+        existing = poms.CreateFromDocument(self.client.get(MID))
         existing.duration = "PT30M"
         self.client.post(existing)
 
     def test_get_locations(self):
-        bytes=self.client.get_locations("POMS_VPRO_1421796")
+        bytes=self.client.get_locations(MID)
         locations=poms.CreateFromDocument(bytes)
         print(str(locations))
 
@@ -128,11 +129,11 @@ class MediaBackendTest(unittest.TestCase):
 
 
     def test_get_images(self):
-        mid="POMS_VPRO_1421796"
+        mid=MID
         media=poms.CreateFromDocument(self.client.get(mid))
         print(len(media.images.image))
         image=media.images.image[0]
-        bytes = self.client.get_images("POMS_VPRO_1421796")
+        bytes = self.client.get_images(MID)
         images= poms.CreateFromDocument(bytes)
         image2=images.wildcardElements()[0]
         self.assertEquals(image.title, image2.title)
@@ -141,23 +142,24 @@ class MediaBackendTest(unittest.TestCase):
 
 
     def test_set_location(self):
-        mid = "POMS_VPRO_1421796"
+        mid = MID
         self.client.set_location(mid, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
 
 
     def test_set_location_by_id(self):
-        mid = "POMS_VPRO_1421796"
-        self.client.set_location(mid, 58758190, publishStop="2012-01-11T17:16:01.287Z")
+        mid = MID
+        #id  = 14728807
+        self.client.set_location(mid, 14728813, publishStop="2012-01-11T17:16:01.287Z")
 
     def test_set_location_by_id_as_string(self):
-        mid = "POMS_VPRO_1421796"
+        mid = MID
         self.client.set_location(mid, "58758190", publishStop="2013-01-11T17:16:01.287Z")
 
     def test_set_location_by_urn(self):
-        mid = "POMS_VPRO_1421796"
+        mid = MID
         self.client.set_location(mid, "urn:vpro:media:location:58758190", publishStop="2014-01-11T17:16:01.287Z")
 
 
     def test_create_location(self):
-        mid = "POMS_VPRO_1421796"
+        mid = MID
         self.client.set_location(mid, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
