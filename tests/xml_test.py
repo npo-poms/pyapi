@@ -13,6 +13,8 @@ base.declare_namespaces()
 
 class Tests(unittest.TestCase):
 
+    def setUp(self):
+        pyxb.RequireValidWhenGenerating(True)
 
     def test_set_duration(self):
         xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -20,14 +22,14 @@ class Tests(unittest.TestCase):
     xmlns="urn:vpro:media:update:2009">
   <broadcaster>VPRO</broadcaster>
   <title type="MAIN">Main title</title>
-    <memberOf position="34">urn:vpro:media:group:2981744</memberOf>
-    <memberOf>POMS_S_VPRO_159096</memberOf>
-    <images>
-<image type="PICTURE" highlighted="false">
-<title>bla</title>
-<urn>urn:vpro:image:496158</urn>
-</image>
-</images>
+  <memberOf position="34">urn:vpro:media:group:2981744</memberOf>
+  <memberOf>POMS_S_VPRO_159096</memberOf>
+  <images>
+    <image type="PICTURE" highlighted="false">
+      <title>bla</title>
+      <urn>urn:vpro:image:496158</urn>
+    </image>
+  </images>
 </program>
 """
         update = poms.CreateFromDocument(xml)
@@ -60,7 +62,7 @@ class Tests(unittest.TestCase):
 <segments/>
 </program>"""
         update = poms.CreateFromDocument(xml)
-        self.assertEquals(len(update.images.image), 1)
+        self.assertEqual(len(update.images.image), 1)
 
 
     def test_image2(self):
