@@ -11,8 +11,8 @@ client = Media()\
 list_of_subs = ["descendants", "members", "episodes", "related", ""]
 client.add_argument('form', type=str, nargs=1, help='The search form. This may be a json string, or the name of a file containing it')
 client.add_argument('mid', type=str, nargs='?', default=None,
-                    help="Mis fo")
-client.add_argument('sub', type=str, nargs='?', default=None, choices=list_of_subs,
+                    help="Mid for use with 'sub'")
+client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
                     help="Sub call for the mediaobject. On default the mediaobject itself is returned, but you can also opt for one of these choices")
 client.add_argument('-s', "--sort", type=str, default=None, choices={"asc", "desc"})
 client.add_argument('-m', "--max", type=int, default="240")
