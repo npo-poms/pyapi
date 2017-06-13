@@ -28,7 +28,7 @@ mid = args.mid
 sub = args.sub
 form = args.form[0]
 
-if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<"):
+if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<") and not form.endsWith(".json") and not form.endsWith(".xml"):
     form = "{\"searches\": {\"text\": {\"value\": %s, \"fuzziness\": \"%s\" }}}" % (json.dumps(form), "AUTO" if args.fuzzy else "")
     client.logger.debug("Posting " + form)
 
