@@ -1,7 +1,7 @@
 # ./npoapi/xml/api_constraint.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:16fe21f7d82c570c380b0c8dc2a83f6f2249d3d1
-# Generated 2017-06-02 17:13:48.877825 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-06-19 08:59:04.342431 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:api:constraint:2014 [xmlns:constraint]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:116f7218-47a6-11e7-9adf-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c5545e10-54bc-11e7-b052-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
