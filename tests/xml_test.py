@@ -15,6 +15,7 @@ class Tests(unittest.TestCase):
 
     def setUp(self):
         pyxb.RequireValidWhenGenerating(True)
+        self.maxDiff = None
 
     def test_set_duration(self):
         xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
