@@ -1,7 +1,7 @@
 # ./npoapi/xml/api_constraint.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:16fe21f7d82c570c380b0c8dc2a83f6f2249d3d1
-# Generated 2017-06-19 08:59:04.342431 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-06-20 10:12:21.677005 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:api:constraint:2014 [xmlns:constraint]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c5545e10-54bc-11e7-b052-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:2ba0e69c-5590-11e7-b4f4-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -82,7 +82,7 @@ class operatorType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'operatorType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:2014', 4, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:2014', 3, 2)
     _Documentation = None
 operatorType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=operatorType)
 operatorType.LT = operatorType._CF_enumeration.addEnumeration(unicode_value='LT', tag='LT')

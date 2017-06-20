@@ -1,7 +1,7 @@
 # ./npoapi/xml/secondscreen.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:fe46ea2052bee47af12417922dca9d6562e4d308
-# Generated 2017-06-19 08:59:04.343535 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-06-20 10:12:21.678982 by PyXB version 1.2.5 using Python 3.5.2.final.0
 # Namespace urn:vpro:secondscreen:2015
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c5545e10-54bc-11e7-b052-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:2ba0e69c-5590-11e7-b4f4-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import pyxb.binding.datatypes
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:secondscreen:2015', create_if_missing=True)
@@ -87,7 +87,7 @@ class CTD_ANON (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 19, 12)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 18, 12)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
@@ -114,23 +114,23 @@ class mediaRefType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'mediaRefType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 31, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 30, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute midRef uses Python identifier midRef
     __midRef = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'midRef'), 'midRef', '__urnvprosecondscreen2015_mediaRefType_midRef', pyxb.binding.datatypes.string)
-    __midRef._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 33, 4)
-    __midRef._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 33, 4)
+    __midRef._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 32, 4)
+    __midRef._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 32, 4)
     
     midRef = property(__midRef.value, __midRef.set, None, None)
 
     
     # Attribute type uses Python identifier type
     __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvprosecondscreen2015_mediaRefType_type', _ImportedBinding_npoapi_xml_media.mediaTypeEnum)
-    __type._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 34, 4)
-    __type._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 34, 4)
+    __type._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 33, 4)
+    __type._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 33, 4)
     
     type = property(__type.value, __type.set, None, None)
 
@@ -152,41 +152,41 @@ class screenType (_ImportedBinding_npoapi_xml_shared.publishableObjectType):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'screenType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 10, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 9, 2)
     _ElementMap = _ImportedBinding_npoapi_xml_shared.publishableObjectType._ElementMap.copy()
     _AttributeMap = _ImportedBinding_npoapi_xml_shared.publishableObjectType._AttributeMap.copy()
     # Base type is _ImportedBinding_npoapi_xml_shared.publishableObjectType
     
     # Element {urn:vpro:secondscreen:2015}title uses Python identifier title
-    __title = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'title'), 'title', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015title', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 14, 10), )
+    __title = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'title'), 'title', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015title', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 13, 10), )
 
     
     title = property(__title.value, __title.set, None, None)
 
     
     # Element {urn:vpro:secondscreen:2015}description uses Python identifier description
-    __description = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'description'), 'description', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015description', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 15, 10), )
+    __description = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'description'), 'description', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015description', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 14, 10), )
 
     
     description = property(__description.value, __description.set, None, None)
 
     
     # Element {urn:vpro:secondscreen:2015}url uses Python identifier url
-    __url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'url'), 'url', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015url', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 16, 10), )
+    __url = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'url'), 'url', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015url', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 15, 10), )
 
     
     url = property(__url.value, __url.set, None, None)
 
     
     # Element {urn:vpro:secondscreen:2015}screenOf uses Python identifier screenOf
-    __screenOf = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'screenOf'), 'screenOf', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015screenOf', True, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 17, 10), )
+    __screenOf = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'screenOf'), 'screenOf', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015screenOf', True, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 16, 10), )
 
     
     screenOf = property(__screenOf.value, __screenOf.set, None, None)
 
     
     # Element {urn:vpro:secondscreen:2015}images uses Python identifier images
-    __images = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'images'), 'images', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015images', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 18, 10), )
+    __images = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'images'), 'images', '__urnvprosecondscreen2015_screenType_urnvprosecondscreen2015images', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 17, 10), )
 
     
     images = property(__images.value, __images.set, None, None)
@@ -194,8 +194,8 @@ class screenType (_ImportedBinding_npoapi_xml_shared.publishableObjectType):
     
     # Attribute sid uses Python identifier sid
     __sid = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'sid'), 'sid', '__urnvprosecondscreen2015_screenType_sid', pyxb.binding.datatypes.string)
-    __sid._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 26, 8)
-    __sid._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 26, 8)
+    __sid._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 25, 8)
+    __sid._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 25, 8)
     
     sid = property(__sid.value, __sid.set, None, None)
 
@@ -227,7 +227,7 @@ _module_typeBindings.screenType = screenType
 Namespace.addCategoryObject('typeBinding', 'screenType', screenType)
 
 
-screen = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'screen'), screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 8, 2))
+screen = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'screen'), screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 7, 2))
 Namespace.addCategoryObject('elementBinding', screen.name().localName(), screen)
 
 
@@ -241,12 +241,12 @@ def _BuildAutomaton ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 21, 16))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 20, 16))
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(_Namespace_shared, 'image')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 21, 16))
+    symbol = pyxb.binding.content.ElementUse(CTD_ANON._UseForTag(pyxb.namespace.ExpandedName(_Namespace_shared, 'image')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 20, 16))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
@@ -259,15 +259,15 @@ CTD_ANON._Automaton = _BuildAutomaton()
 
 
 
-screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'title'), pyxb.binding.datatypes.string, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 14, 10)))
+screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'title'), pyxb.binding.datatypes.string, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 13, 10)))
 
-screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'description'), pyxb.binding.datatypes.string, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 15, 10)))
+screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'description'), pyxb.binding.datatypes.string, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 14, 10)))
 
-screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'url'), pyxb.binding.datatypes.anyURI, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 16, 10)))
+screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'url'), pyxb.binding.datatypes.anyURI, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 15, 10)))
 
-screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'screenOf'), mediaRefType, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 17, 10)))
+screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'screenOf'), mediaRefType, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 16, 10)))
 
-screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'images'), CTD_ANON, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 18, 10)))
+screenType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'images'), CTD_ANON, scope=screenType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 17, 10)))
 
 def _BuildAutomaton_ ():
     # Remove this helper function from the namespace after it is invoked
@@ -276,40 +276,40 @@ def _BuildAutomaton_ ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 14, 10))
+    cc_0 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 13, 10))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 15, 10))
+    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 14, 10))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 16, 10))
+    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 15, 10))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 17, 10))
+    cc_3 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 16, 10))
     counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 18, 10))
+    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 17, 10))
     counters.add(cc_4)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'title')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 14, 10))
+    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'title')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 13, 10))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'description')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 15, 10))
+    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'description')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 14, 10))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'url')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 16, 10))
+    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'url')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 15, 10))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_3, False))
-    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'screenOf')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 17, 10))
+    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'screenOf')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 16, 10))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_4, False))
-    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'images')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 18, 10))
+    symbol = pyxb.binding.content.ElementUse(screenType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'images')), pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:secondscreen:2015', 17, 10))
     st_4 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
     transitions = []
