@@ -1,7 +1,7 @@
 # ./npoapi/xml/profile.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:84b11206e77e35c14fdc92e4365d89906a1f1817
-# Generated 2017-06-02 17:13:48.882092 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-06-19 08:59:04.345068 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:api:profile:2013
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:116f7218-47a6-11e7-9adf-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c5545e10-54bc-11e7-b052-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,8 +27,8 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import npoapi.xml.api_constraint_media as _ImportedBinding_npoapi_xml_api_constraint_media
 import npoapi.xml.api_constraint_page as _ImportedBinding_npoapi_xml_api_constraint_page
+import npoapi.xml.api_constraint_media as _ImportedBinding_npoapi_xml_api_constraint_media
 import pyxb.binding.datatypes
 
 # NOTE: All namespace declarations are reserved within the binding

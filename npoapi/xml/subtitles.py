@@ -1,7 +1,7 @@
 # ./npoapi/xml/subtitles.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:f5e9c7dba985d37f434a2bc6acd18425aef883c8
-# Generated 2017-06-02 17:13:48.882600 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2017-06-19 08:59:04.344018 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:subtitles:2009
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:116f7218-47a6-11e7-9adf-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c5545e10-54bc-11e7-b052-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import pyxb.binding.xml_
 import pyxb.binding.datatypes
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:media:subtitles:2009', create_if_missing=True)
@@ -84,7 +84,7 @@ class subtitlesFormatEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enu
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesFormatEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 31, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 32, 2)
     _Documentation = None
 subtitlesFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=subtitlesFormatEnum)
 subtitlesFormatEnum.WEBVTT = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='WEBVTT', tag='WEBVTT')
@@ -188,14 +188,14 @@ Namespace.addCategoryObject('typeBinding', 'subtitlesType', subtitlesType)
 # Complex type {urn:vpro:media:subtitles:2009}subtitlesContentType with content type SIMPLE
 class subtitlesContentType (pyxb.binding.basis.complexTypeDefinition):
     """Complex type {urn:vpro:media:subtitles:2009}subtitlesContentType with content type SIMPLE"""
-    _TypeDefinition = pyxb.binding.datatypes.string
+    _TypeDefinition = pyxb.binding.datatypes.base64Binary
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_SIMPLE
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesContentType')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 23, 2)
     _ElementMap = {}
     _AttributeMap = {}
-    # Base type is pyxb.binding.datatypes.string
+    # Base type is pyxb.binding.datatypes.base64Binary
     
     # Attribute format uses Python identifier format
     __format = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'format'), 'format', '__urnvpromediasubtitles2009_subtitlesContentType_format', _module_typeBindings.subtitlesFormatEnum)
@@ -204,11 +204,20 @@ class subtitlesContentType (pyxb.binding.basis.complexTypeDefinition):
     
     format = property(__format.value, __format.set, None, None)
 
+    
+    # Attribute charset uses Python identifier charset
+    __charset = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'charset'), 'charset', '__urnvpromediasubtitles2009_subtitlesContentType_charset', pyxb.binding.datatypes.string)
+    __charset._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 27, 8)
+    __charset._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 27, 8)
+    
+    charset = property(__charset.value, __charset.set, None, None)
+
     _ElementMap.update({
         
     })
     _AttributeMap.update({
-        __format.name() : __format
+        __format.name() : __format,
+        __charset.name() : __charset
     })
 _module_typeBindings.subtitlesContentType = subtitlesContentType
 Namespace.addCategoryObject('typeBinding', 'subtitlesContentType', subtitlesContentType)

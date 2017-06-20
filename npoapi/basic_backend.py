@@ -168,7 +168,7 @@ class BasicBackend(NpoApiBase):
         sep = "?"
         for key, value in sorted(kwargs.items()):
             if not value is None:
-                _url += sep + key + "=" + str(value)
+                _url += sep + key + "=" + urllib.request.quote(str(value))
                 sep = "&"
         return _url
 

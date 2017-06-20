@@ -88,7 +88,7 @@ class Tests(unittest.TestCase):
         form = api.mediaForm()
         form.searches = pyxb.BIND()
         form.searches.mediaIds = "crid://pyapi/clip/1"
-        self.assertEquals('<?xml version="1.0" ?><api:mediaForm xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:searches><api:mediaIds><api:matcher>crid://pyapi/clip/1</api:matcher></api:mediaIds></api:searches></api:mediaForm>', form.toxml())
+        self.assertEqual('<?xml version="1.0" ?><api:mediaForm xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:searches><api:mediaIds><api:matcher>crid://pyapi/clip/1</api:matcher></api:mediaIds></api:searches></api:mediaForm>', form.toxml())
 
     def test_add_person(self):
         from npoapi.xml import mediaupdate
@@ -108,3 +108,14 @@ class Tests(unittest.TestCase):
         memberOf.highlighted = False
         print(memberOf.toxml())
 
+
+    def test_page_form(self):
+        from npoapi.xml import api
+        form = api.pagesForm()
+        form.sortFields = pyxb.BIND()
+        form.sortFields.append(api.pageSortTypeEnum.lastModified)
+        form.searches = pyxb.BIND()
+
+        form.highlight = False
+        self.assertEqual('<?xml version="1.0" ?><api:pagesForm highlight="false" xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:sortFields><api:sort>lastModified</api:sort></api:sortFields></api:pagesForm>',
+        form.toxml())
