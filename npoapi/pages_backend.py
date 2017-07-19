@@ -12,11 +12,11 @@ class PagesBackend(BasicBackend):
     def env(self, e):
         super().env(e)
         if e == "prod":
-            self.url = "http://publish.pages.omroep.nl/"
+            self.url = "https://publish.pages.omroep.nl/"
         elif e == None or e == "test":
-            self.url = "http://publish-test.pages.omroep.nl/"
+            self.url = "https://publish-test.pages.omroep.nl/"
         elif e == "dev":
-            self.url = "http://publish-dev.pages.omroep.nl/"
+            self.url = "https://publish-dev.pages.omroep.nl/"
         elif e == "localhost":
             self.url = "http://localhost:8068/"
         else:
