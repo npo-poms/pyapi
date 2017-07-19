@@ -15,6 +15,7 @@ class Tests(unittest.TestCase):
 
     def setUp(self):
         pyxb.RequireValidWhenGenerating(True)
+        self.maxDiff = None
 
     def test_set_duration(self):
         xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -110,11 +111,16 @@ class Tests(unittest.TestCase):
 
     def test_page_form(self):
         from npoapi.xml import api
+        import datetime
         form = api.pagesForm()
         form.sortFields = pyxb.BIND()
         form.sortFields.append(api.pageSortTypeEnum.lastModified)
         form.searches = pyxb.BIND()
-
-        form.highlight = False
-        self.assertEqual('<?xml version="1.0" ?><api:pagesForm highlight="false" xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:sortFields><api:sort>lastModified</api:sort></api:sortFields></api:pagesForm>',
+        form.searches.lastModifiedDates = pyxb.BIND()
+        end = datetime.datetime(2017, 6, 19, 0, 0)
+        #now = datetime.datetime.now()
+        #today = now.replace(hour = 6, minute=0, second=0, microsecond=0)
+        dateRange = api.dateRangeMatcherType(end = end)
+        form.searches.lastModifiedDates.append(dateRange)
+        self.assertEqual('<?xml version="1.0" ?><api:pagesForm xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:searches><api:lastModifiedDates><api:matcher><api:end>2017-06-19T00:00:00</api:end></api:matcher></api:lastModifiedDates></api:searches><api:sortFields><api:sort>lastModified</api:sort></api:sortFields></api:pagesForm>',
         form.toxml())
