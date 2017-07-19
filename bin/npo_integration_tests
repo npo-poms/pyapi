@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
  Integrations test
- See http://poms-test.omroep.nl/#/edit/WO_VPRO_1425989
+ See http://poms-test.omroep.nl/#/edit/<MID>
+
+ These tests are done much more extensively with that java client.
 
 """
 import argparse
@@ -17,20 +19,25 @@ from npoapi.xml import poms
 
 latency = 60 * 60 # one hour
 
-aparser = argparse.ArgumentParser(add_help=False)
-aparser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
-aparser.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
-args= aparser.parse_args()
+argument_parser = argparse.ArgumentParser(add_help=False)
+argument_parser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
+argument_parser.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
+args = argument_parser.parse_args()
 
 backend = MediaBackend().env(args.env).debug(args.debug).configured_login(read_environment=True)
 mediaapi = Media().env(args.env).debug(args.debug).configured_login(read_environment=True)
 
+MID = "WO_VPRO_025057"
 
 time_str = str(time.time())
 
+def create_title():
+    return "hoi " + time_str
+
 def create_clip():
     program = mediaupdate.program(type="CLIP", avType="MIXED")
-    program.title.append(mediaupdate.titleUpdateType("hoi " + time_str, type="MAIN"))
+    title = create_title()
+    program.title.append(mediaupdate.titleUpdateType(title, type="MAIN"))
     program.crid.append("crid://pyapi/clip/1")
     program.broadcaster.append("VPRO")
     program.segments = pyxb.BIND()
@@ -61,12 +68,12 @@ def create_segment(nr, ref=None):
 def post_clip():
     clip = create_clip()
     result = backend.post(clip)
-    print(result)
+    print(result + " " + create_title())
     assert result == "crid://pyapi/clip/1"
 
 
 def post_segment():
-    segment = create_segment(2, "WO_VPRO_1425989")
+    segment = create_segment(2, MID)
     result = backend.post(segment)
     print(result)
     assert result == "crid://pyapi/segment/2"
@@ -82,7 +89,7 @@ def check_on_backend():
     assert clip
     clip = mediaupdate.CreateFromDocument(clip)
     # assert clip.mid == "WO_VPRO_1425989"
-    print(clip.title[0].value())
+    print(clip.title[0].value() + " ends with " + time_str)
     assert clip.title[0].value().endswith(time_str)
 
 
@@ -109,9 +116,11 @@ def remove_segment():
 
 post_to_backend()
 
-
+print("Posted to backend,  now waiting before checking on backend api")
 time.sleep(70)
 check_on_backend()
+print("Checking on frontend API")
+
 check_frontend_media()
 
 # This doesn't work without the right credentials. How do we solve this for integration tests?
