@@ -1,7 +1,7 @@
 # ./npoapi/xml/api_constraint_media.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:c4e4314e58c54eb763331b986f51d7c6d2480f27
-# Generated 2017-06-20 10:12:21.678345 by PyXB version 1.2.5 using Python 3.5.2.final.0
+# Generated 2017-07-28 17:09:25.722998 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:api:constraint:media:2013 [xmlns:media]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:2ba0e69c-5590-11e7-b4f4-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b9a26bee-73a6-11e7-8794-3c075445667b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
+import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 import pyxb.binding.datatypes
 import npoapi.xml.api_constraint as _ImportedBinding_npoapi_xml_api_constraint
-import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:api:constraint:media:2013', create_if_missing=True)
@@ -186,25 +186,13 @@ portalRestrictionConstraintType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'portalRestrictionConstraintType', portalRestrictionConstraintType)
 _module_typeBindings.portalRestrictionConstraintType = portalRestrictionConstraintType
 
-# Atomic simple type: {urn:vpro:api:constraint:media:2013}geoRestrictionConstraintType
-class geoRestrictionConstraintType (pyxb.binding.datatypes.string):
-
-    """An atomic simple type."""
-
-    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'geoRestrictionConstraintType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 217, 2)
-    _Documentation = None
-geoRestrictionConstraintType._InitializeFacetMap()
-Namespace.addCategoryObject('typeBinding', 'geoRestrictionConstraintType', geoRestrictionConstraintType)
-_module_typeBindings.geoRestrictionConstraintType = geoRestrictionConstraintType
-
 # Atomic simple type: {urn:vpro:api:constraint:media:2013}ageRatingConstraintType
 class ageRatingConstraintType (pyxb.binding.datatypes.string):
 
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'ageRatingConstraintType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 221, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 225, 2)
     _Documentation = None
 ageRatingConstraintType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'ageRatingConstraintType', ageRatingConstraintType)
@@ -216,7 +204,7 @@ class contentRatingConstraintType (pyxb.binding.datatypes.string):
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'contentRatingConstraintType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 229, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 233, 2)
     _Documentation = None
 contentRatingConstraintType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'contentRatingConstraintType', contentRatingConstraintType)
@@ -225,11 +213,11 @@ _module_typeBindings.contentRatingConstraintType = contentRatingConstraintType
 # Atomic simple type: {urn:vpro:api:constraint:media:2013}genreConstraintType
 class genreConstraintType (pyxb.binding.datatypes.string):
 
-    """An atomic simple type."""
+    """A constraint on the genre id. This may be postfixed with an asterix"""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'genreConstraintType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 237, 2)
-    _Documentation = None
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 241, 2)
+    _Documentation = 'A constraint on the genre id. This may be postfixed with an asterix'
 genreConstraintType._InitializeFacetMap()
 Namespace.addCategoryObject('typeBinding', 'genreConstraintType', genreConstraintType)
 _module_typeBindings.genreConstraintType = genreConstraintType
@@ -1148,7 +1136,7 @@ Namespace.addCategoryObject('typeBinding', 'not', not_)
 
 # Complex type {urn:vpro:api:constraint:media:2013}programUrlConstraintType with content type SIMPLE
 class programUrlConstraintType (pyxb.binding.basis.complexTypeDefinition):
-    """Complex type {urn:vpro:api:constraint:media:2013}programUrlConstraintType with content type SIMPLE"""
+    """Constraints on the program url field of locations"""
     _TypeDefinition = pyxb.binding.datatypes.string
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_SIMPLE
     _Abstract = False
@@ -1295,7 +1283,7 @@ class hasAgeRatingConstraintType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'hasAgeRatingConstraintType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 225, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 229, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
@@ -1316,7 +1304,7 @@ class hasContentRatingConstraintType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'hasContentRatingConstraintType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 233, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 237, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
@@ -1395,6 +1383,35 @@ class scheduleEventType (pyxb.binding.basis.complexTypeDefinition):
     })
 _module_typeBindings.scheduleEventType = scheduleEventType
 Namespace.addCategoryObject('typeBinding', 'scheduleEventType', scheduleEventType)
+
+
+# Complex type {urn:vpro:api:constraint:media:2013}geoRestrictionConstraintType with content type SIMPLE
+class geoRestrictionConstraintType (pyxb.binding.basis.complexTypeDefinition):
+    """Complex type {urn:vpro:api:constraint:media:2013}geoRestrictionConstraintType with content type SIMPLE"""
+    _TypeDefinition = pyxb.binding.datatypes.string
+    _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_SIMPLE
+    _Abstract = False
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'geoRestrictionConstraintType')
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 217, 2)
+    _ElementMap = {}
+    _AttributeMap = {}
+    # Base type is pyxb.binding.datatypes.string
+    
+    # Attribute platform uses Python identifier platform
+    __platform = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'platform'), 'platform', '__urnvproapiconstraintmedia2013_geoRestrictionConstraintType_platform', _ImportedBinding_npoapi_xml_media.platformTypeEnum)
+    __platform._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 220, 8)
+    __platform._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 220, 8)
+    
+    platform = property(__platform.value, __platform.set, None, None)
+
+    _ElementMap.update({
+        
+    })
+    _AttributeMap.update({
+        __platform.name() : __platform
+    })
+_module_typeBindings.geoRestrictionConstraintType = geoRestrictionConstraintType
+Namespace.addCategoryObject('typeBinding', 'geoRestrictionConstraintType', geoRestrictionConstraintType)
 
 
 filter = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'filter'), filter_, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013', 7, 2))
