@@ -9,7 +9,12 @@ Python libraries and scripts to talk to the NPO api's. Currently classes are ava
 You need a [python3](https://www.python.org/downloads/) installation. Also you need the 'setuptools' module:
 
 ```
-pip2 install setuptools
+sudo -H pip3  install setuptools
+Collecting setuptools
+  Downloading setuptools-36.4.0-py2.py3-none-any.whl (478kB)
+    100% |################################| 481kB 2.1MB/s 
+Installing collected packages: setuptools
+Successfully installed setuptools-36.4.0
 ```
 
 Then you can install the python libraries and command line scripts with the following command
