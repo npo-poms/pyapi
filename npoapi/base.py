@@ -289,7 +289,7 @@ class NpoApiBase:
 
     def data_to_bytes(self, data, content_type=None):
         """
-        Gives some object representing API data returns it as a string.
+        Given some object representing API data returns it as a string.
         Recognized are pyxb bindings, a files name, or else a string.
         """
         if data:
