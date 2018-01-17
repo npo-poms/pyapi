@@ -22,6 +22,7 @@ setup(
         'bin/npo_mediabackend_get',
         'bin/npo_mediabackend',
         'bin/npo_pagesbackend',
+        'bin/npo_thesaurus',
         'bin/npo_subtitles',
         'bin/npo_integration_tests'
     ],

@@ -46,7 +46,7 @@ class PagesBackend(BasicBackend):
         elif e == "dev":
             self.url = "https://publish-dev.pages.omroep.nl/"
         elif e == "localhost":
-            self.url = "http://localhost:8068/"
+            self.url = "http://localhost:8069/"
         else:
             self.url = e
         return self

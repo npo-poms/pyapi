@@ -1,30 +1,37 @@
 #!/usr/bin/env python3
 """
-  Simple client publish to and delete pages from the NPO pages api. Using the rest interfaces at http://publish.pages.omroep.nl/api/pages/updates/
+  Simple client to post thesaurus updates to npo backend api.
 """
 from npoapi import PagesBackend
-import datetime
-import jwt
+from npoapi.xml import thesaurus
 
 client = PagesBackend().command_line_client(description="Submit thesaurus object")
-client.add_argument('xml', type=str, nargs=1, help='The xml to post')
+client.add_argument('xml', type=str, nargs='?', help='The xml to post')
 client.add_argument("--given_name", type=str, default=None, help="Override given name")
 client.add_argument("--family_name", type=str, default=None, help="Override family name")
 
 
 args = client.parse_args()
-data = client.data_to_bytes(args.xml[0])[0]
+
+data = None
+if args.xml:
+    date = client.data_to_bytes(args.xml[0])[0]
 update = None
 
 if data:
     update = client.to_object_or_none(data)
+else:
+    import pyxb
+    update = thesaurus.newPersonRequest()
+    update.person = pyxb.BIND()
 
 if args.given_name:
     update.person.givenName = args.given_name
 if args.family_name:
     update.person.familyName= args.family_name
 
-client.post_person(update)
+response = client.post_person(update)
+client.logger.info("%s", str(response))
 
 client.exit()
 
