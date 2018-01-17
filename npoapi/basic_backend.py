@@ -58,16 +58,6 @@ class BasicBackend(NpoApiBase):
 
     def env(self, e):
         super().env(e)
-        if e == "prod":
-            self.url = "https://publish.pages.omroep.nl/"
-        elif e == None or e == "test":
-            self.url = "https://publish-test.pages.omroep.nl/"
-        elif e == "dev":
-            self.url = "https://publish-dev.pages.omroep.nl/"
-        elif e == "localhost":
-            self.url = "http://localhost:8071/rs/"
-        else:
-            self.url = e
         return self
 
     def errors(self, email):
@@ -87,10 +77,13 @@ class BasicBackend(NpoApiBase):
         return "Basic %s" % base64string
 
     def creds(self):
-        if self.authorizationHeader:
+        if self.needs_login():
             self.logger.debug("Already authorized")
             return
         self.login()
+
+    def needs_login(self):
+        return self.authorizationHeader
 
     def post_to(self, path, xml, accept="application/xml", **kwargs):
         self.creds()
