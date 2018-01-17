@@ -1,7 +1,7 @@
 # ./npoapi/xml/shared.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aa73b2ec19d0d50df44ac76274274e111838473b
-# Generated 2017-07-28 17:09:25.715679 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2018-01-17 14:09:53.837892 by PyXB version 1.2.5 using Python 3.5.0.final.0
 # Namespace urn:vpro:shared:2009 [xmlns:shared]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b9a26bee-73a6-11e7-8794-3c075445667b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b40687d8-fb87-11e7-b18c-a860b637463b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.5'
@@ -174,11 +174,36 @@ licenseEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=Non
 licenseEnum.COPYRIGHTED = licenseEnum._CF_enumeration.addEnumeration(unicode_value='COPYRIGHTED', tag='COPYRIGHTED')
 licenseEnum.PUBLIC_DOMAIN = licenseEnum._CF_enumeration.addEnumeration(unicode_value='PUBLIC_DOMAIN', tag='PUBLIC_DOMAIN')
 licenseEnum.CC_BY = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY', tag='CC_BY')
+licenseEnum.CC_BY_1_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_1_0', tag='CC_BY_1_0')
+licenseEnum.CC_BY_2_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_2_0', tag='CC_BY_2_0')
+licenseEnum.CC_BY_3_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_3_0', tag='CC_BY_3_0')
+licenseEnum.CC_BY_4_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_4_0', tag='CC_BY_4_0')
 licenseEnum.CC_BY_SA = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_SA', tag='CC_BY_SA')
+licenseEnum.CC_BY_SA_1_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_SA_1_0', tag='CC_BY_SA_1_0')
+licenseEnum.CC_BY_SA_2_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_SA_2_0', tag='CC_BY_SA_2_0')
+licenseEnum.CC_BY_SA_3_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_SA_3_0', tag='CC_BY_SA_3_0')
+licenseEnum.CC_BY_SA_4_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_SA_4_0', tag='CC_BY_SA_4_0')
 licenseEnum.CC_BY_ND = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_ND', tag='CC_BY_ND')
+licenseEnum.CC_BY_ND_1_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_ND_1_0', tag='CC_BY_ND_1_0')
+licenseEnum.CC_BY_ND_2_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_ND_2_0', tag='CC_BY_ND_2_0')
+licenseEnum.CC_BY_ND_3_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_ND_3_0', tag='CC_BY_ND_3_0')
+licenseEnum.CC_BY_ND_4_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_ND_4_0', tag='CC_BY_ND_4_0')
 licenseEnum.CC_BY_NC = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC', tag='CC_BY_NC')
+licenseEnum.CC_BY_NC_1_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_1_0', tag='CC_BY_NC_1_0')
+licenseEnum.CC_BY_NC_2_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_2_0', tag='CC_BY_NC_2_0')
+licenseEnum.CC_BY_NC_3_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_3_0', tag='CC_BY_NC_3_0')
+licenseEnum.CC_BY_NC_4_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_4_0', tag='CC_BY_NC_4_0')
 licenseEnum.CC_BY_NC_SA = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_SA', tag='CC_BY_NC_SA')
+licenseEnum.CC_BY_NC_SA_1_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_SA_1_0', tag='CC_BY_NC_SA_1_0')
+licenseEnum.CC_BY_NC_SA_2_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_SA_2_0', tag='CC_BY_NC_SA_2_0')
+licenseEnum.CC_BY_NC_SA_3_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_SA_3_0', tag='CC_BY_NC_SA_3_0')
+licenseEnum.CC_BY_NC_SA_4_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_SA_4_0', tag='CC_BY_NC_SA_4_0')
 licenseEnum.CC_BY_NC_ND = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_ND', tag='CC_BY_NC_ND')
+licenseEnum.CC_BY_NC_ND_1_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_ND_1_0', tag='CC_BY_NC_ND_1_0')
+licenseEnum.CC_BY_NC_ND_2_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_ND_2_0', tag='CC_BY_NC_ND_2_0')
+licenseEnum.CC_BY_NC_ND_3_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_ND_3_0', tag='CC_BY_NC_ND_3_0')
+licenseEnum.CC_BY_NC_ND_4_0 = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY_NC_ND_4_0', tag='CC_BY_NC_ND_4_0')
+licenseEnum.USA_GOV = licenseEnum._CF_enumeration.addEnumeration(unicode_value='USA_GOV', tag='USA_GOV')
 licenseEnum._InitializeFacetMap(licenseEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'licenseEnum', licenseEnum)
 _module_typeBindings.licenseEnum = licenseEnum
