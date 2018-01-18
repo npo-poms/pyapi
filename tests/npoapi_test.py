@@ -108,7 +108,7 @@ class MediaBackendTest(unittest.TestCase):
                               "utf-8"))
 
     def test_append_params(self):
-        self.assertEquals("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", include_errors=False,  a="a", x="y"))
+        self.assertEqual("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", include_errors=False,  a="a", x="y"))
 
 
 

@@ -27,6 +27,8 @@ args = argument_parser.parse_args()
 backend = MediaBackend().env(args.env).debug(args.debug).configured_login(read_environment=True)
 mediaapi = Media().env(args.env).debug(args.debug).configured_login(read_environment=True)
 
+logger = mediaapi.logger
+
 MID = "WO_VPRO_025057"
 
 time_str = str(time.time())
@@ -84,13 +86,27 @@ def post_to_backend():
     post_segment()
 
 
-def check_on_backend():
-    clip = backend.get("crid://pyapi/clip/1")
+def check_on_backend(max_time = 70):
+    start_time = time.time()
+    title = None
+    while True:
+        clip = backend.get("crid://pyapi/clip/1")
+        if clip:
+            clip = mediaupdate.CreateFromDocument(clip)
+            title = clip.title[0].value()
+            # assert clip.mid == "WO_VPRO_1425989"
+            if title.endswith(time_str):
+                break
+            else:
+                logger.info("Clip %s found but title %s not yet ends in %s" % (clip.mid, title, time_str))
+
+        if time.time() - start_time > max_time:
+            logger.warn("Took too long, now breaking")
+            break
+        logger.info("Retrying in 10 seconds")
+        time.sleep(10)
     assert clip
-    clip = mediaupdate.CreateFromDocument(clip)
-    # assert clip.mid == "WO_VPRO_1425989"
-    print(clip.title[0].value() + " ends with " + time_str)
-    assert clip.title[0].value().endswith(time_str)
+    assert title.endswith(time_str), "actual title %s doesn't end in %s" % (title, time_str)
 
 
 def check_frontend_media():
@@ -117,8 +133,7 @@ def remove_segment():
 post_to_backend()
 
 print("Posted to backend,  now waiting before checking on backend api")
-time.sleep(70)
-check_on_backend()
+check_on_backend(max_time = 70)
 print("Checking on frontend API")
 
 check_frontend_media()
