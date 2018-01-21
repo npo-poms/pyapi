@@ -2,7 +2,7 @@
 [![Build Status](https://travis-ci.org/npo-poms/pyapi.svg?)](https://travis-ci.org/npo-poms/pyapi)
 
 
-Python libraries and scripts to talk to the NPO api's. Currently classes are available for the frontend api (Media, Pages, Schedule, and Screens) and for the media backend api (MediaBackend).
+Python libraries and scripts to talk to the NPO api's. Currently classes are available for the frontend api (Media, Pages, Schedule, and Screens) and for the media backend api (MediaBackend, Pages Backend and Thesaurus).
 
 #How to install
 
@@ -19,7 +19,7 @@ Successfully installed setuptools-36.4.0
 
 Then you can install the python libraries and command line scripts with the following command
 ```
-pip3 install git+https://github.com/npo-poms/pyapi.git@4.7.0
+pip3 install git+https://github.com/npo-poms/pyapi.git@5.5.0
 ```
 or if you dare install the latest, which may sometimes be a bit broken:
 ```
