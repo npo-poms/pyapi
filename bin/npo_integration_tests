@@ -30,6 +30,7 @@ mediaapi = Media().env(args.env).debug(args.debug).configured_login(read_environ
 logger = mediaapi.logger
 
 MID = "WO_VPRO_025057"
+CLIP_CRID = "crid://pyapi/clip/1"
 
 time_str = str(time.time())
 
@@ -40,7 +41,7 @@ def create_clip():
     program = mediaupdate.program(type="CLIP", avType="MIXED")
     title = create_title()
     program.title.append(mediaupdate.titleUpdateType(title, type="MAIN"))
-    program.crid.append("crid://pyapi/clip/1")
+    program.crid.append(CLIP_CRID)
     program.broadcaster.append("VPRO")
     program.segments = pyxb.BIND()
     program.segments.append(create_segment(1))
@@ -71,7 +72,7 @@ def post_clip():
     clip = create_clip()
     result = backend.post(clip)
     print(result + " " + create_title())
-    assert result == "crid://pyapi/clip/1"
+    assert result == CLIP_CRID
 
 
 def post_segment():
@@ -89,8 +90,9 @@ def post_to_backend():
 def check_on_backend(max_time = 70):
     start_time = time.time()
     title = None
+    clip = None
     while True:
-        clip = backend.get("crid://pyapi/clip/1")
+        clip = backend.get(CLIP_CRID)
         if clip:
             clip = mediaupdate.CreateFromDocument(clip)
             title = clip.title[0].value()
@@ -99,13 +101,15 @@ def check_on_backend(max_time = 70):
                 break
             else:
                 logger.info("Clip %s found but title %s not yet ends in %s" % (clip.mid, title, time_str))
+        else:
+            logger.info("Not found %s " % CLIP_CRID)
 
         if time.time() - start_time > max_time:
             logger.warn("Took too long, now breaking")
             break
         logger.info("Retrying in 10 seconds")
         time.sleep(10)
-    assert clip
+    assert clip, "no clip assigned"
     assert title.endswith(time_str), "actual title %s doesn't end in %s" % (title, time_str)
 
 
