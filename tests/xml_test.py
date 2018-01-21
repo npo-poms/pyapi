@@ -34,11 +34,11 @@ class Tests(unittest.TestCase):
 </program>
 """
         update = poms.CreateFromDocument(xml)
-        self.assertEquals(update.type, media.programTypeEnum.CLIP)
-        self.assertEquals(update.title[0].value(), "Main title")
+        self.assertEqual(update.type, media.programTypeEnum.CLIP)
+        self.assertEqual(update.title[0].value(), "Main title")
         update.duration = "PT5M"
         print(update.toxml())
-        self.assertEquals(update.toxml(), """<?xml version="1.0" ?><program avType="VIDEO" embeddable="true" publishStart="2012-01-11T15:16:01.287Z" publishStop="2012-01-11T17:16:01.287Z" type="CLIP" xmlns="urn:vpro:media:update:2009"><broadcaster>VPRO</broadcaster><title type="MAIN">Main title</title><duration>PT5M</duration><memberOf position="34">urn:vpro:media:group:2981744</memberOf><memberOf>POMS_S_VPRO_159096</memberOf><images><image highlighted="false" type="PICTURE"><title>bla</title><urn>urn:vpro:image:496158</urn></image></images></program>""")
+        self.assertEqual(update.toxml(), """<?xml version="1.0" ?><program avType="VIDEO" embeddable="true" publishStart="2012-01-11T15:16:01.287Z" publishStop="2012-01-11T17:16:01.287Z" type="CLIP" xmlns="urn:vpro:media:update:2009"><broadcaster>VPRO</broadcaster><title type="MAIN">Main title</title><duration>PT5M</duration><memberOf position="34">urn:vpro:media:group:2981744</memberOf><memberOf>POMS_S_VPRO_159096</memberOf><images><image highlighted="false" type="PICTURE"><title>bla</title><urn>urn:vpro:image:496158</urn></image></images></program>""")
         print(len(update.images.image))
 
     def test_segment(self):
@@ -69,7 +69,7 @@ class Tests(unittest.TestCase):
     def test_image2(self):
         xml = """<?xml version="1.0" ?><image highlighted="false" type="PORTRAIT" xmlns="urn:vpro:media:update:2009"><title>sdf</title><description>asdfasdf</description><urn>urn:vpro:image:274460</urn></image>"""
         image = poms.CreateFromDocument(xml)
-        self.assertEquals(image.title, "sdf")
+        self.assertEqual(image.title, "sdf")
 
     def test_images_collection(self):
         xml = """<collection xmlns:update="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009">
@@ -80,8 +80,7 @@ class Tests(unittest.TestCase):
 </update:image>
 </collection>"""
         images = poms.CreateFromDocument(xml)
-        self.assertEquals(images.wildcardElements()[0].title, "sdf")
-
+        self.assertEqual(images.wildcardElements()[0].title, "sdf")
 
     def test_media_form(self):
         from npoapi.xml import api
