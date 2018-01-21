@@ -113,16 +113,27 @@ def check_on_backend(max_time = 70):
     assert title.endswith(time_str), "actual title %s doesn't end in %s" % (title, time_str)
 
 
-def check_frontend_media():
-    form = api.mediaForm()
-    form.searches = pyxb.BIND()
-    form.searches.mediaIds = "crid://pyapi/clip/1"
-    s = mediaapi.search(form, accept="application/xml")
-    result = poms.CreateFromDocument(s)
-    title = result.items.item[0].result.title[0].value()
-    t = float(title.split()[-1])
+def check_frontend_media(max_time=600):
+    start_time = time.time()
+    while True:
+        form = api.mediaForm()
+        form.searches = pyxb.BIND()
+        form.searches.mediaIds = "crid://pyapi/clip/1"
+        s = mediaapi.search(form, accept="application/xml")
+        result = poms.CreateFromDocument(s)
+        title = result.items.item[0].result.title[0].value()
+        t = float(title.split()[-1])
+        if title.endswith(time_str):
+            logger.info("Seems to be found %s", title)
+            break
+        if t < (time.time() - latency):
+            logger.info("Not found but sufficiently recent: %s (probably for previous run?)", title)
+            break
+        if time.time() - start_time > max_time:
+            logger.warn("Took too long, now breaking")
+            break
 
-    assert t > (time.time() - latency), "should be published in 10 minutes " + title + " < " + str(time.time())
+    assert title.endswith(time_str) or t < (time.time() - latency), "should be published in 10 minutes " + title + " < " + str(time.time())
 
 
 
@@ -140,7 +151,7 @@ print("Posted to backend,  now waiting before checking on backend api")
 check_on_backend(max_time = 70)
 print("Checking on frontend API")
 
-check_frontend_media()
+check_frontend_media(max_time= 600)
 
 # This doesn't work without the right credentials. How do we solve this for integration tests?
 # MM: Credentials can be stored in ~/conf/creds.properties. So, the server running the tests just needs that file.
