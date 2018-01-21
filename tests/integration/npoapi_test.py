@@ -17,7 +17,8 @@ import time
 
 ENV = "test"
 MID = "WO_VPRO_025057"
-
+CONFIG_DIR=os.path.dirname(os.path.dirname(__file__))
+DEBUG=False
 
 class Tests(unittest.TestCase):
     def test_authentication(self):
@@ -78,7 +79,7 @@ class MediaTests(unittest.TestCase):
 
     def get_client(self):
         print(os.path.dirname(__file__))
-        return Media().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
+        return Media().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
 
 
 class ScreenTests(unittest.TestCase):
@@ -89,13 +90,13 @@ class ScreenTests(unittest.TestCase):
 
     def get_client(self):
         print(os.path.dirname(__file__))
-        return Screens().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
+        return Screens().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
 
 
 class MediaBackendTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.client = MediaBackend().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
+        self.client = MediaBackend().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
 
     def test_xml_to_bytes_string(self):
         self.assertEquals("<a xmlns='urn:vpro:media:update:2009' />",
