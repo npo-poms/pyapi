@@ -127,17 +127,16 @@ class MediaBackendTest(unittest.TestCase):
         existing = mediaupdate.CreateFromDocument(bytes)
         self.assertTrue(type(existing) == mediaupdate.segmentUpdateType)
 
-
     def test_get_images(self):
-        mid=MID
-        media=poms.CreateFromDocument(self.client.get(mid))
+        mid = MID
+        media = poms.CreateFromDocument(self.client.get(mid))
         print(len(media.images.image))
-        image=media.images.image[0]
+        image = media.images.image[0]
         bytes = self.client.get_images(MID)
-        images= poms.CreateFromDocument(bytes)
-        image2=images.wildcardElements()[0]
+        images = poms.CreateFromDocument(bytes)
+        image2 = images.wildcardElements()[0]
         self.assertEquals(image.title, image2.title)
-        self.assertEquals(image2.title, "testte")
+        #self.assertEquals(image2.title, "testte")
         print(image2.toxml())
 
 
