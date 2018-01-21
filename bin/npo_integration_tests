@@ -19,13 +19,13 @@ from npoapi.xml import poms
 
 latency = 60 * 60 # one hour
 
-argument_parser = argparse.ArgumentParser(add_help=False)
-argument_parser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
+argument_parser = argparse.ArgumentParser(add_help=True, description="Runs integration test for the NPO backend and frontend API's")
+argument_parser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "proda", "prodb", "dev", "localhost"})
 argument_parser.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
 args = argument_parser.parse_args()
 
-backend = MediaBackend().env(args.env).debug(args.debug).configured_login(read_environment=True)
-mediaapi = Media().env(args.env).debug(args.debug).configured_login(read_environment=True)
+backend = MediaBackend().env(args.env).debug(args.debug).configured_login(read_environment=True, create_config_file=True)
+mediaapi = Media().env(args.env).debug(args.debug).configured_login(read_environment=True, create_config_file=True)
 
 logger = mediaapi.logger
 
