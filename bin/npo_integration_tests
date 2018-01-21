@@ -150,7 +150,7 @@ def remove_segment():
 
 post_to_backend()
 
-print("Posted to backend,  now waiting before checking on backend api")
+print("Posted to backend %s,  now waiting before checking on backend api" % (backend.actualenv))
 check_on_backend(max_time = 70)
 print("Checking on frontend API")
 
