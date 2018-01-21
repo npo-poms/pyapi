@@ -136,9 +136,10 @@ class NpoApiBase:
     def get_configfiles(self, config_dir = None):
         config_files = [
             os.path.join(os.path.expanduser("~"), "conf", "creds.properties"),
-            os.path.join(os.path.dirname(__file__), "..", "..", "..", "creds.properties"),
-            os.path.join(os.path.dirname(__file__), "..", "..", "..", "creds.sh"),
-            os.path.join(os.path.dirname(__file__), "creds.properties")]
+            os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "creds.properties"),
+            os.path.join(os.path.dirname(sys.argv[0]), "..", "..", "..", "creds.sh"),
+            os.path.join(os.path.dirname(sys.argv[0]), "creds.properties")
+        ]
 
         if not config_dir is None:
             config_files.insert(0, os.path.join(config_dir, "creds.properties"))
