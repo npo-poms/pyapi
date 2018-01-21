@@ -18,6 +18,7 @@ class BasicBackend(NpoApiBase):
         Instantiates a client to the NPO Backend API
         """
         super().__init__(env, debug, accept)
+        self.user = None
         self.email = email
         self.authorizationHeader = None
 
@@ -46,7 +47,7 @@ class BasicBackend(NpoApiBase):
         """
         """
         for user in self.get_users():
-            if user in settings:
+            if user in settings and settings[user]:
                 self.user = settings[user]
                 self.logger.debug("Found user in settings[%s]", user)
                 if ":" in self.user:
@@ -64,9 +65,16 @@ class BasicBackend(NpoApiBase):
         self.email = email
 
     def login(self):
-        self.logger.debug("Logging in " + self.user)
-        self.authorizationHeader = self.generate_authorization(self.user, self.password)
+        if not self.user:
+            #if self.create_config():
+            self.logger.error("Not yet authenticated")
+        else:
+            self.logger.debug("Logging in " + self.user)
+            self.authorizationHeader = self.generate_authorization(self.user, self.password)
         return self
+
+    def needs_create_config(self, settings, ):
+        return super().needs_create_config(settings) or not "user" in settings
 
     def generate_authorization(self, username, password):
         password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
@@ -124,6 +132,8 @@ class BasicBackend(NpoApiBase):
             if authorization:
                 req.add_header("Authorization", authorization)
             else:
+                if not self.authorizationHeader:
+                    raise Exception("No user/password configured")
                 req.add_header("Authorization", self.authorizationHeader)
         req.add_header("Content-Type", "application/xml")
         req.add_header("Accept", accept)

@@ -111,7 +111,7 @@ class NpoApiBase:
             print("No configuration file found. Now creating.")
             self.force_create_config = True
 
-        if self.force_create_config:
+        if self.force_create_config or self.needs_create_config(settings):
             self.create_config(settings)
             self.write_settings(settings)
 
@@ -124,6 +124,14 @@ class NpoApiBase:
         self.read_settings(settings)
 
         return self
+
+    def needs_create_config(self, settings, ):
+        """Determin wether authentication information for this client is complete enough now.
+        If not, they will interactively requested.
+        This will typically be overriden, because this default implementation only checks if the settings object is not empty.
+        """
+        return not(bool(settings))
+
 
     def get_configfiles(self, config_dir = None):
         config_files = [
