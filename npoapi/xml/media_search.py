@@ -1,7 +1,7 @@
 # ./npoapi/xml/media_search.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:c9f1e5fb53f06c35ed1f8bfb94927ecdc3fc6078
-# Generated 2018-01-21 15:19:15.782859 by PyXB version 1.2.6 using Python 3.5.2.final.0
+# Generated 2018-01-21 16:39:33.874171 by PyXB version 1.2.6 using Python 3.5.2.final.0
 # Namespace urn:vpro:media:search:2012
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0daa9cda-feb6-11e7-b006-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4587d22c-fec1-11e7-a537-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -27,8 +27,8 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import pyxb.binding.datatypes
 
 # NOTE: All namespace declarations are reserved within the binding
@@ -86,7 +86,7 @@ class STD_ANON (pyxb.binding.datatypes.integer):
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 100, 8)
     _Documentation = None
-STD_ANON._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value=pyxb.binding.datatypes.integer(0), value_datatype=STD_ANON)
+STD_ANON._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value_datatype=STD_ANON, value=pyxb.binding.datatypes.integer(0))
 STD_ANON._InitializeFacetMap(STD_ANON._CF_minInclusive)
 _module_typeBindings.STD_ANON = STD_ANON
 
@@ -98,7 +98,7 @@ class STD_ANON_ (pyxb.binding.datatypes.integer):
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 107, 8)
     _Documentation = None
-STD_ANON_._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value=pyxb.binding.datatypes.integer(0), value_datatype=STD_ANON_)
+STD_ANON_._CF_minInclusive = pyxb.binding.facets.CF_minInclusive(value_datatype=STD_ANON_, value=pyxb.binding.datatypes.integer(0))
 STD_ANON_._InitializeFacetMap(STD_ANON_._CF_minInclusive)
 _module_typeBindings.STD_ANON_ = STD_ANON_
 
