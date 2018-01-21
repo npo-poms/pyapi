@@ -3,8 +3,8 @@ python:
 - '3.5'
 install:
 script:
- - nosetests --where=tests/unit
- - nosetests --where=tests/integration
+ - nosetests -s -v --where=tests/unit
+ - nosetests -s -v --where=tests/integration
 before_install:
 - openssl aes-256-cbc -K $encrypted_ccb885855d6e_key -iv $encrypted_ccb885855d6e_iv
   -in tests/creds.properties.enc -out tests/creds.properties -d
