@@ -310,9 +310,9 @@ class MediaBackendUtil(object):
             members = minidom.parseString(members)
         if type(members) == minidom.Document:
             members = members.getElementsByTagName('item')
-        pyxb.RequireValidWhenParsing(False)
         result = map(lambda m:
                      poms.CreateFromDOM(m.getElementsByTagName("mediaUpdate")[0], mediaupdate.Namespace), members)
+
         return result
 
     @staticmethod
