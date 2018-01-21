@@ -108,7 +108,7 @@ class NpoApiBase:
             self.read_settings_from_properties(properties, settings)
 
         if not config_file and create_config_file:
-            print("No configuration file found. Now creating.")
+            print("No configuration file (%s) found. Now creating." % ",".join(config_files))
             self.force_create_config = True
 
         if self.force_create_config or self.needs_create_config(settings):
@@ -287,21 +287,21 @@ class NpoApiBase:
             error_type = str(type(ue))
 
             if ignore_not_found and ue.code == 404:
-                self.logger.debug('%s: %s (%s)', summary, ue.reason, error_type)
+                self.logger.debug('%s: %s: %s (%s)', url,  summary, ue.reason, error_type)
                 self.code = 404
                 return None
             if type(ue.reason) is str:
-                self.logger.error('%s: %s (%s)', summary, ue.reason, error_type)
+                self.logger.error('%s: %s: %s (%s)', url, summary, ue.reason, error_type)
                 self.code = ue.code
             else:
-                self.logger.error('%s: %s %s (%s)', ue.reason.errno, summary, ue.reason.strerror, error_type)
+                self.logger.error('%s: %s: %s %s (%s)', url, ue.reason.errno, summary, ue.reason.strerror, error_type)
                 self.code = ue.reason.errno
             if hasattr(ue, "read"):
-                self.logger.error("%s", ue.read().decode("utf-8"))
+                self.logger.error("%s: %s", url, ue.read().decode("utf-8"))
             return None
         except urllib.error.HTTPError as he:
             self.code = he.code
-            self.logger.error("%s %s: %s\n%s", summary, he.code, he.msg, he.read().decode("utf-8"))
+            self.logger.error("%s: %s %s: %s\n%s", url, summary, he.code, he.msg, he.read().decode("utf-8"))
             return None
 
     def data_to_bytes(self, data, content_type=None):
