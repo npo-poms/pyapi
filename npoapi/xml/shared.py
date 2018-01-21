@@ -1,7 +1,7 @@
 # ./npoapi/xml/shared.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aa73b2ec19d0d50df44ac76274274e111838473b
-# Generated 2018-01-17 14:09:53.837892 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2018-01-21 15:19:15.769403 by PyXB version 1.2.6 using Python 3.5.2.final.0
 # Namespace urn:vpro:shared:2009 [xmlns:shared]
 
 from __future__ import unicode_literals
@@ -14,10 +14,10 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b40687d8-fb87-11e7-b18c-a860b637463b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0daa9cda-feb6-11e7-b006-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.5'
+_PyXBVersion = '1.2.6'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
@@ -84,7 +84,7 @@ class workflowEnumType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumer
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'workflowEnumType')
     _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproShared.xsd', 24, 2)
     _Documentation = None
-workflowEnumType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=workflowEnumType)
+workflowEnumType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=workflowEnumType, enum_prefix=None)
 workflowEnumType.DRAFT = workflowEnumType._CF_enumeration.addEnumeration(unicode_value='DRAFT', tag='DRAFT')
 workflowEnumType.FOR_APPROVAL = workflowEnumType._CF_enumeration.addEnumeration(unicode_value='FOR APPROVAL', tag='FOR_APPROVAL')
 workflowEnumType.REFUSED = workflowEnumType._CF_enumeration.addEnumeration(unicode_value='REFUSED', tag='REFUSED')
@@ -108,7 +108,7 @@ class imageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'imageTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproShared.xsd', 60, 2)
     _Documentation = None
-imageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=imageTypeEnum)
+imageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=imageTypeEnum, enum_prefix=None)
 imageTypeEnum.PICTURE = imageTypeEnum._CF_enumeration.addEnumeration(unicode_value='PICTURE', tag='PICTURE')
 imageTypeEnum.PORTRAIT = imageTypeEnum._CF_enumeration.addEnumeration(unicode_value='PORTRAIT', tag='PORTRAIT')
 imageTypeEnum.STILL = imageTypeEnum._CF_enumeration.addEnumeration(unicode_value='STILL', tag='STILL')
@@ -129,7 +129,7 @@ class ownerTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'ownerTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproShared.xsd', 73, 2)
     _Documentation = None
-ownerTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=ownerTypeEnum)
+ownerTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=ownerTypeEnum, enum_prefix=None)
 ownerTypeEnum.BROADCASTER = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_value='BROADCASTER', tag='BROADCASTER')
 ownerTypeEnum.RADIOBOX = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_value='RADIOBOX', tag='RADIOBOX')
 ownerTypeEnum.NEBO = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_value='NEBO', tag='NEBO')
@@ -154,7 +154,7 @@ class subtitlesTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enume
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproShared.xsd', 91, 2)
     _Documentation = None
-subtitlesTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=subtitlesTypeEnum)
+subtitlesTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesTypeEnum, enum_prefix=None)
 subtitlesTypeEnum.CAPTION = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='CAPTION', tag='CAPTION')
 subtitlesTypeEnum.TRANSLATION = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='TRANSLATION', tag='TRANSLATION')
 subtitlesTypeEnum.TRANSCRIPT = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='TRANSCRIPT', tag='TRANSCRIPT')
@@ -170,7 +170,7 @@ class licenseEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'licenseEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproShared.xsd', 99, 2)
     _Documentation = None
-licenseEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=licenseEnum)
+licenseEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=licenseEnum, enum_prefix=None)
 licenseEnum.COPYRIGHTED = licenseEnum._CF_enumeration.addEnumeration(unicode_value='COPYRIGHTED', tag='COPYRIGHTED')
 licenseEnum.PUBLIC_DOMAIN = licenseEnum._CF_enumeration.addEnumeration(unicode_value='PUBLIC_DOMAIN', tag='PUBLIC_DOMAIN')
 licenseEnum.CC_BY = licenseEnum._CF_enumeration.addEnumeration(unicode_value='CC_BY', tag='CC_BY')

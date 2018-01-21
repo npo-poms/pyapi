@@ -1,7 +1,7 @@
 # ./npoapi/xml/mediaupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:2751238d63e5454a5dc65ff574f334ca7496c03f
-# Generated 2018-01-17 14:09:53.841434 by PyXB version 1.2.5 using Python 3.5.0.final.0
+# Generated 2018-01-21 15:19:15.776908 by PyXB version 1.2.6 using Python 3.5.2.final.0
 # Namespace urn:vpro:media:update:2009
 
 from __future__ import unicode_literals
@@ -14,10 +14,10 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:b40687d8-fb87-11e7-b18c-a860b637463b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0daa9cda-feb6-11e7-b006-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.5'
+_PyXBVersion = '1.2.6'
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 import pyxb.binding.datatypes
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:media:update:2009', create_if_missing=True)
@@ -126,7 +126,7 @@ class STD_ANON (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mi
     _ExpandedName = None
     _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 415, 8)
     _Documentation = None
-STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=STD_ANON)
+STD_ANON._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=STD_ANON, enum_prefix=None)
 STD_ANON.ASC = STD_ANON._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 STD_ANON.DESC = STD_ANON._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 STD_ANON._InitializeFacetMap(STD_ANON._CF_enumeration)
@@ -1340,14 +1340,6 @@ class geoRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap = {}
     # Base type is _ImportedBinding_npoapi_xml_media.geoRestrictionEnum
     
-    # Attribute platform uses Python identifier platform
-    __platform = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'platform'), 'platform', '__urnvpromediaupdate2009_geoRestrictionUpdateType_platform', _ImportedBinding_npoapi_xml_media.platformTypeEnum)
-    __platform._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 189, 8)
-    __platform._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 189, 8)
-    
-    platform = property(__platform.value, __platform.set, None, None)
-
-    
     # Attribute start uses Python identifier start
     __start = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'start'), 'start', '__urnvpromediaupdate2009_geoRestrictionUpdateType_start', pyxb.binding.datatypes.dateTime)
     __start._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 289, 4)
@@ -1363,13 +1355,21 @@ class geoRestrictionUpdateType (pyxb.binding.basis.complexTypeDefinition):
     
     stop = property(__stop.value, __stop.set, None, None)
 
+    
+    # Attribute platform uses Python identifier platform
+    __platform = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'platform'), 'platform', '__urnvpromediaupdate2009_geoRestrictionUpdateType_platform', _ImportedBinding_npoapi_xml_media.platformTypeEnum)
+    __platform._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 189, 8)
+    __platform._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/update/vproMediaUpdate.xsd', 189, 8)
+    
+    platform = property(__platform.value, __platform.set, None, None)
+
     _ElementMap.update({
         
     })
     _AttributeMap.update({
-        __platform.name() : __platform,
         __start.name() : __start,
-        __stop.name() : __stop
+        __stop.name() : __stop,
+        __platform.name() : __platform
     })
 _module_typeBindings.geoRestrictionUpdateType = geoRestrictionUpdateType
 Namespace.addCategoryObject('typeBinding', 'geoRestrictionUpdateType', geoRestrictionUpdateType)
