@@ -5,7 +5,7 @@ import pyxb
 from xml.dom import minidom
 
 from npoapi.media_backend import MediaBackend
-from npoapi.xml import media, mediaupdate, poms
+from npoapi.xml import media, mediaupdate, poms, shared
 
 
 class MediaBackendUtil(object):
@@ -136,7 +136,8 @@ class MediaBackendUtil(object):
         return loc
 
     @staticmethod
-    def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl:str, **kwargs) -> mediaupdate.locationUpdateType:
+    def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl: str,
+                               **kwargs) -> mediaupdate.locationUpdateType:
         loc = MediaBackendUtil.get_location(object, programUrl)
         if loc:
             logging.debug("Found existing %s for %s", loc, programUrl)
@@ -170,8 +171,9 @@ class MediaBackendUtil(object):
 
     @staticmethod
     def set_image_fields(image_object, image_type="PICTURE", title=None, description=None, highlighted=False, license="COPYRIGHTED", source=None, source_name=None, credits=None):
+        if image_type is None:
+            image_type = "PICTURE"
         image_object.type = image_type
-        #shared.imageTypeEnum.PICTURE
         image_object.highlighted = highlighted
         if title:
             image_object.title = MediaBackendUtil.strip_tags(title)
@@ -205,15 +207,7 @@ class MediaBackendUtil(object):
             return MediaBackendUtil.create_image_from_url(image, **kwargs)
 
 
-    @staticmethod
-    def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl: str,
-                               **kwargs) -> mediaupdate.locationUpdateType:
-        loc = MediaBackendUtil.get_location(object, programUrl)
-        if loc:
-            logging.debug("Found existing %s for %s", loc, programUrl)
-            return MediaBackendUtil.update_location(loc, **kwargs)
-        else:
-            return MediaBackendUtil.add_location(object, programUrl, **kwargs)
+
 
     @staticmethod
     def member_of(object: mediaupdate.mediaUpdateType, group:str, position:int=None):
