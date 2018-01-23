@@ -84,32 +84,34 @@ class BasicBackend(NpoApiBase):
         base64string = base64.encodebytes(('%s:%s' % (username, password)).encode()).decode()[:-1]
         return "Basic %s" % base64string
 
-    def creds(self):
-        if self.needs_login():
+    def _creds(self):
+        """Checks whether authentication information is present in self, and if not make sure it is."""
+        if not self._needs_login():
             self.logger.debug("Already authorized")
             return
         self.login()
 
-    def needs_login(self):
+    def _needs_login(self):
         return self.authorizationHeader
 
-    def post_to(self, path, xml, accept="application/xml", **kwargs):
-        self.creds()
+    def post_to(self, path, xml, accept="application/xml", **kwargs) -> str:
+        """Post to path on configured server. Add necessary authentication headers"""
+        self._creds()
         url = self.append_params(self.url + path, **kwargs)
         bytes = self.xml_to_bytes(xml)
         req = urllib.request.Request(url, data=bytes, method='POST')
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept)
 
-    def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs):
-        self.creds()
+    def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs) -> str:
+        self._creds()
         _url = self.append_params(self.url + path, include_errors=False, **kwargs)
         req = urllib.request.Request(_url)
         self.logger.debug("Getting from " + _url)
         return self._request(req, _url, accept=accept, ignore_not_found=ignore_not_found)
 
-    def delete_from(self, path: str, **kwargs):
-        self.creds()
+    def delete_from(self, path: str, **kwargs) -> str:
+        self._creds()
         url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, method="DELETE")
         self.logger.debug("Deleting " + url)
@@ -117,7 +119,7 @@ class BasicBackend(NpoApiBase):
 
     def _get_xml(self, url:str) -> bytearray:
         """Gets XML (as a byte array) from an URL. So this sets the accept header."""
-        self.creds()
+        self._creds()
         self.logger.debug("getting " + url)
         req = urllib.request.Request(url)
         req.add_header("Accept", "application/xml")

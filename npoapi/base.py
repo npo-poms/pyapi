@@ -48,6 +48,7 @@ class NpoApiBase:
         self.logger = logging.getLogger("Npo")
         self.debug(debug)
         self._env = env
+        self.actualenv = None
         self.env(env)
         self.accept(accept)
 
@@ -127,7 +128,7 @@ class NpoApiBase:
 
     def needs_create_config(self, settings, ):
         """Determin wether authentication information for this client is complete enough now.
-        If not, they will interactively requested.
+        If not, this will interactively requested.
         This will typically be overriden, because this default implementation only checks if the settings object is not empty.
         """
         return not(bool(settings))
@@ -219,6 +220,9 @@ class NpoApiBase:
         return
 
     def command_line_client(self, description=None, read_environment=True, create_config_file=True, exclude_arguments=None):
+        """Configure this api client as a command line client. I.e. create an argument parser with common arguments
+        and add support for reading config files (e.g. from ~/conf/creds.properties
+        """
         self.common_arguments(description=description, exclude_arguments=exclude_arguments)
         return self.configured_login(read_environment=read_environment, create_config_file=create_config_file)
 

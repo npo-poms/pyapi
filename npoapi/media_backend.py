@@ -112,7 +112,7 @@ class MediaBackend(BasicBackend):
     # private method to implement both members and episodes calls.
     def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
         """Returns a list of minidom objects"""
-        self.creds()
+        self._creds()
         self.logger.log(logging.INFO if log_progress else logging.DEBUG, "loading %s of %s", what, mid)
         result = []
         offset = 0
@@ -250,7 +250,7 @@ class MediaBackend(BasicBackend):
         return self.get_sub(mid, "images")
 
     def get_sub(self, mid:str, sub: str):
-        self.creds()
+        self._creds()
         url = self.url + "media/media/" + urllib.request.quote(mid) + "/" + sub
         return self._get_xml(url)
 

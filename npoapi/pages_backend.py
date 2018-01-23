@@ -66,11 +66,14 @@ class PagesBackend(BasicBackend):
     def post_person(self, new_person):
         import jwt
         import datetime
-        new_person.jws = jwt.encode({
-        'subject': 'GTAAPerson',
-        "usr": "",
-        "iat": datetime.datetime.now(),
-        "iss": self.thesaurusUser}, self.thesaurusSecret, algorithm='HS256').decode("utf-8")
+        new_person.jws = jwt.encode(
+            {'subject': 'GTAAPerson',
+            "usr": "",
+            "iat": datetime.datetime.now(),
+            "iss": self.thesaurusUser},
+            self.thesaurusSecret,
+            algorithm='HS256'
+        ).decode("utf-8")
         return self.post_to("api/thesaurus/person", new_person)
 
 
