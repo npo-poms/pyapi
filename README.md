@@ -23,7 +23,7 @@ pip3 install git+https://github.com/npo-poms/pyapi.git@5.5.0
 ```
 or if you dare install the latest, which may sometimes be a bit broken:
 ```
-pip3 install git+https://github.com/npo-poms/pyapi.git
+sudo pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git#egg=Package'
 ```
 
 
