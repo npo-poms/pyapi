@@ -122,9 +122,14 @@ class NpoApiBase:
 
         return self
 
-    def get_setting(self, name, description, write_settings = True):
+    def get_setting(self, name:str, description, write_settings = True):
         if not(name in self.settings):
-            value = input(description + "?: ")
+
+            if name.lower() in self.settings:
+                value = self.settings[name.lower()]
+                del self.setting[name.lower()]
+            else:
+                value = input(description + "?: ")
             self.settings[name] = value
             if write_settings:
                 self._write_settings()
