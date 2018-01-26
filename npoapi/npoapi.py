@@ -63,11 +63,11 @@ class NpoApi(NpoApiBase):
         settings["origin"] = input("Your NPO api origin?: ")
         return self
 
-    def read_settings(self, settings):
+    def read_settings(self):
         """
         """
 
-
+        settings = self.settings
         self.login(settings["apikey"], settings["secret"])
         if "origin" in settings:
             self.origin = settings["origin"]

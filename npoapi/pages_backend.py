@@ -3,6 +3,7 @@ from npoapi.basic_backend import BasicBackend
 
 class PagesBackend(BasicBackend):
     __author__ = "Michiel Meeuwissen"
+
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
         """
 
@@ -13,11 +14,11 @@ class PagesBackend(BasicBackend):
         self.thesaurusSecret = None
 
 
-    def create_config(self, settings, ):
+    def create_config(self):
         """
         """
-        super().create_config(settings)
-        self.create_thesaurus_config(settings)
+        super().create_config()
+        self.create_thesaurus_config()
         return self
 
     def create_thesaurus_config(self, settings, ):
@@ -25,14 +26,15 @@ class PagesBackend(BasicBackend):
         settings['thesaurus_secret'] = input("Your Thesaurus secret?: ")
 
 
-    def read_settings(self, settings):
+    def read_settings(self):
         """
         """
-        super().read_settings(settings)
+        super().read_settings()
+        settings = self.settings
         if not ('thesaurus_user' in settings):
             self.logger.info("No thesaurus accounts found in settings")
             self.create_thesaurus_config(settings)
-            self.write_settings(settings)
+            self._write_settings(settings)
         self.thesaurusUser = settings['thesaurus_user']
         self.thesaurusSecret = settings['thesaurus_secret']
         return

@@ -16,9 +16,10 @@ class MediaBackend(BasicBackend):
         """
         super().__init__(env, email, debug, accept)
 
-    def read_settings(self, settings: dict):
+    def read_settings(self):
         """
         """
+        settings = self.settings
         if "user" in settings:
             self.user = settings["user"]
             if ":" in self.user:

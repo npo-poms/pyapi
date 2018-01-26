@@ -19,7 +19,9 @@ class BasicBackend(NpoApiBase):
         """
         super().__init__(env, debug, accept)
         self.user = None
+        self.password = None
         self.email = email
+        self.url = None
         self.authorizationHeader = None
 
     def client(self, user=None, password=None, url=None, email=None):
@@ -33,22 +35,16 @@ class BasicBackend(NpoApiBase):
         return self
 
     def get_users(self):
+        """Settings keys used for authentication information"""
         return ["user"]
 
-    def create_config(self, settings, ):
-        """
-        """
-        user = input("Your NPO backend user?: ")
-        password = input("Your NPO backend password?: ")
-        settings[self.get_users()[0]] = user + ":" + password
-        return self
 
-    def read_settings(self, settings):
+    def read_settings(self):
         """
         """
         for user in self.get_users():
-            if user in settings and settings[user]:
-                self.user = settings[user]
+            if user in self.settings and self.settings[user]:
+                self.user = self.settings[user]
                 self.logger.debug("Found user in settings[%s]", user)
                 if ":" in self.user:
                     self.password = self.user.split(":", 2)[1]
@@ -65,16 +61,24 @@ class BasicBackend(NpoApiBase):
         self.email = email
 
     def login(self):
-        if not self.user:
-            #if self.create_config():
-            self.logger.error("Not yet authenticated")
+        """Authenticates if not yet authenticated."""
+        if self.authorizationHeader:
+            self.logger.debug("Aready authenticated")
         else:
-            self.logger.debug("Logging in " + self.user)
-            self.authorizationHeader = self.generate_authorization(self.user, self.password)
-        return self
+            user_key = self.get_users()[0]
+            if not(user_key in self.settings):
+                user = input("Your NPO backend user?: ")
+                password = input("Your NPO backend password?: ")
+                self.settings[user_key] = user + ":" + password
+                self._write_settings()
 
-    def needs_create_config(self, settings, ):
-        return super().needs_create_config(settings) or not "user" in settings
+            self.user = self.settings[user_key]
+            password = self.user.split(":", 2)[1]
+            user = self.user.split(":", 2)[0]
+            self.logger.debug("Logging in " + user)
+            self.authorizationHeader = \
+                self.generate_authorization(user, password)
+        return self
 
     def generate_authorization(self, username, password):
         password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
@@ -92,7 +96,7 @@ class BasicBackend(NpoApiBase):
         self.login()
 
     def _needs_login(self):
-        return self.authorizationHeader
+        return not self.authorizationHeader
 
     def post_to(self, path, xml, accept="application/xml", **kwargs) -> str:
         """Post to path on configured server. Add necessary authentication headers"""

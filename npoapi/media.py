@@ -5,13 +5,17 @@ import os
 
 class Media(NpoApi):
     def get(self, mid, sub="", sort=None, accept=None, properties=None, limit=None, profile=None):
-        return self.request("/api/media/" + urllib.request.quote(mid, safe='') + sub, params={"sort": sort, "properties": properties, "max": limit, "profile": profile}, accept=accept)
+        return self.request("/api/media/" + urllib.request.quote(mid, safe='') + sub,
+                            params={"sort": sort, "properties": properties, "max": limit, "profile": profile},
+                            accept=accept)
 
     def multiple(self, mids, accept=None, properties=None, profile=None):
         if os.path.isfile(mids):
-            return self.request("/api/media/multiple", data=mids, params={"properties": properties, "profile": profile}, accept=accept)
+            return self.request("/api/media/multiple", data=mids,
+                                params={"properties": properties, "profile": profile}, accept=accept)
         else:
-            return self.request("/api/media/multiple", params={"ids": mids, "properties": properties, "profile": profile}, accept=accept)
+            return self.request("/api/media/multiple",
+                                params={"ids": mids, "properties": properties, "profile": profile}, accept=accept)
 
     def list(self):
         return self.request("/api/media")
@@ -35,12 +39,25 @@ class Media(NpoApi):
             else:
                 sinceLong = since
         if stream:
-            return self.stream("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate, "properties": properties,
-                                                             "checkProfile": check_profile, "deletes": deletes })
+            return self.stream("/api/media/changes",
+                               params={
+                               "profile": profile, "order": order, "max": limit,
+                               "since": sinceLong, "publishedSince": sinceDate, "properties": properties,
+                               "checkProfile": check_profile, "deletes": deletes
+                               }
+                )
         else:
-            return self.request("/api/media/changes", params={"profile": profile, "order": order, "max": limit, "since": sinceLong, "publishedSince": sinceDate, "properties": properties,
-                                                              "checkProfile": check_profile, "deletes": deletes})
-
+            return self.request("/api/media/changes",
+                                params={
+                                    "profile": profile,
+                                    "order": order,
+                                    "max": limit,
+                                    "since": sinceLong,
+                                    "publishedSince": sinceDate,
+                                    "properties": properties,
+                                    "checkProfile": check_profile, "deletes": deletes
+                                }
+                )
 
     def redirects(self):
         return self.request("/api/media/redirects")
