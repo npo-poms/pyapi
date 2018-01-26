@@ -14,31 +14,6 @@ class PagesBackend(BasicBackend):
         self.thesaurusSecret = None
 
 
-    def create_config(self):
-        """
-        """
-        super().create_config()
-        self.create_thesaurus_config()
-        return self
-
-    def create_thesaurus_config(self, settings, ):
-        settings['thesaurus_user'] = input("Your Thesaurus user?: ")
-        settings['thesaurus_secret'] = input("Your Thesaurus secret?: ")
-
-
-    def read_settings(self):
-        """
-        """
-        super().read_settings()
-        settings = self.settings
-        if not ('thesaurus_user' in settings):
-            self.logger.info("No thesaurus accounts found in settings")
-            self.create_thesaurus_config(settings)
-            self._write_settings(settings)
-        self.thesaurusUser = settings['thesaurus_user']
-        self.thesaurusSecret = settings['thesaurus_secret']
-        return
-
     def env(self, e):
         super().env(e)
         if e == "prod":
@@ -72,8 +47,9 @@ class PagesBackend(BasicBackend):
             {'subject': 'GTAAPerson',
             "usr": "",
             "iat": datetime.datetime.now(),
-            "iss": self.thesaurusUser},
-            self.thesaurusSecret,
+            "iss": self.get_setting("thesaurus_user", "Your Thesaurus user")
+            },
+            self.get_setting("thesaurus_secret", "Your Thesaurus secret"),
             algorithm='HS256'
         ).decode("utf-8")
         return self.post_to("api/thesaurus/person", new_person)

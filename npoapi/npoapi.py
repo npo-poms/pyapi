@@ -20,7 +20,7 @@ class NpoApi(NpoApiBase):
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, key: str = None, secret: str = None, env: str = None, origin: str = None, email: str = None,
+    def __init__(self, key: str = None, secret: str = None, env: str = None, origin: str = None,
                  debug: bool = False, accept: str = None):
         """
         Instantiates a client to the NPO Frontend API
@@ -55,29 +55,19 @@ class NpoApi(NpoApiBase):
             self.url = e
         return self
 
-    def create_config(self, settings,):
-        """
-        """
-        settings["apikey"] = input("Your NPO api key?: ")
-        settings["secret"] = input("Your NPO api secret?: ")
-        settings["origin"] = input("Your NPO api origin?: ")
-        return self
-
-    def read_settings(self):
-        """
-        """
-
-        settings = self.settings
-        self.login(settings["apikey"], settings["secret"])
-        if "origin" in settings:
-            self.origin = settings["origin"]
 
     def info(self):
         return self.key + "@" + self.url
 
-    def authenticate(self, uri=None, now=utils.formatdate()):
+    def authenticate(self, uri="", now=utils.formatdate()):
         if self.origin is None:
-            raise Exception("No origin configured. Start with -c?")
+            self.origin = self.get_setting("origin", "Your NPO api origin")
+        if self.key is None:
+            self.key = self.get_setting("apiKey", "Your NPO api key")
+        if self.secret is None:
+            self.secret = self.get_setting("secret", "Your NPO api secret")
+
+
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         self.logger.debug("message: " + message)
         encoded = base64.b64encode(

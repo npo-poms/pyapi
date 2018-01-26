@@ -107,7 +107,7 @@ class NpoApiBase:
         if config_file:
             self.logger.debug("Reading " + str(config_file) + " for env " + self.actualenv)
             properties = self._read_properties_file(config_file)
-            self._read_settings_from_properties(properties,)
+            self._read_settings_from_properties(properties)
 
         if not config_file and create_config_file:
             print("No configuration file (%s) found. Now creating." % ",".join(config_files))
@@ -119,18 +119,16 @@ class NpoApiBase:
             self.logger.debug("settings" + str(settings_for_log))
 
         self.logger.debug("Reading settings")
-        self.read_settings()
 
         return self
 
     def get_setting(self, name, description, write_settings = True):
         if not(name in self.settings):
-            value = input(description)
-            self.settings.name = value
+            value = input(description + "?: ")
+            self.settings[name] = value
             if write_settings:
                 self._write_settings()
         return self.settings[name]
-
 
     def get_configfiles(self, config_dir = None):
         current_script_dir = os.path.dirname(sys.argv[0])
@@ -184,13 +182,13 @@ class NpoApiBase:
         for key, value in properties.items():
             split = key.split('.', 2)
             if len(split) == 1:
-                self.settings[key.strip().lower()] = value.strip('" \t')
+                self.settings[key.strip()] = value.strip('" \t')
         for key, value in properties.items():
             split = key.split('.', 2)
             if len(split) == 2:
                 usedkey, e = split[0], split[1]
                 if e == self.actualenv:
-                    self.settings[usedkey.strip().lower()] = value.strip('" \t')
+                    self.settings[usedkey.strip()] = value.strip('" \t')
                     self.logger.debug("%s %s %s %s", e, usedkey, key, value)
         return self.settings
 
@@ -201,12 +199,6 @@ class NpoApiBase:
             if key.endswith("secret"):
                 settings_for_log[key] = "xxx"
 
-
-    @abc.abstractmethod
-    def read_settings(self):
-        """
-        """
-        return
 
     def command_line_client(self, description=None, read_environment=True, create_config_file=True, exclude_arguments=None):
         """Configure this api client as a command line client. I.e. create an argument parser with common arguments

@@ -1,7 +1,7 @@
 # ./npoapi/xml/api_constraint.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:16fe21f7d82c570c380b0c8dc2a83f6f2249d3d1
-# Generated 2018-01-21 16:39:33.868727 by PyXB version 1.2.6 using Python 3.5.2.final.0
+# Generated 2018-01-26 13:43:50.029114 by PyXB version 1.2.6 using Python 3.5.0.final.0
 # Namespace urn:vpro:api:constraint:2014 [xmlns:constraint]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4587d22c-fec1-11e7-a537-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:8ae9fafe-0296-11e8-bd83-a860b637463b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -84,7 +84,7 @@ class operatorType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'operatorType')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:2014', 3, 2)
     _Documentation = None
-operatorType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=operatorType, enum_prefix=None)
+operatorType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=operatorType)
 operatorType.LT = operatorType._CF_enumeration.addEnumeration(unicode_value='LT', tag='LT')
 operatorType.GT = operatorType._CF_enumeration.addEnumeration(unicode_value='GT', tag='GT')
 operatorType.EQ = operatorType._CF_enumeration.addEnumeration(unicode_value='EQ', tag='EQ')

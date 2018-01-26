@@ -1,7 +1,7 @@
 # ./npoapi/xml/secondscreen.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:fe46ea2052bee47af12417922dca9d6562e4d308
-# Generated 2018-01-21 16:39:33.878335 by PyXB version 1.2.6 using Python 3.5.2.final.0
+# Generated 2018-01-26 13:43:50.031580 by PyXB version 1.2.6 using Python 3.5.0.final.0
 # Namespace urn:vpro:secondscreen:2015
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:4587d22c-fec1-11e7-a537-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:8ae9fafe-0296-11e8-bd83-a860b637463b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import pyxb.binding.datatypes
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
+import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:secondscreen:2015', create_if_missing=True)

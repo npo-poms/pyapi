@@ -38,21 +38,6 @@ class BasicBackend(NpoApiBase):
         """Settings keys used for authentication information"""
         return ["user"]
 
-
-    def read_settings(self):
-        """
-        """
-        for user in self.get_users():
-            if user in self.settings and self.settings[user]:
-                self.user = self.settings[user]
-                self.logger.debug("Found user in settings[%s]", user)
-                if ":" in self.user:
-                    self.password = self.user.split(":", 2)[1]
-                    self.user = self.user.split(":", 2)[0]
-                break
-
-        return
-
     def env(self, e):
         super().env(e)
         return self
@@ -63,24 +48,27 @@ class BasicBackend(NpoApiBase):
     def login(self):
         """Authenticates if not yet authenticated."""
         if self.authorizationHeader:
-            self.logger.debug("Aready authenticated")
+            self.logger.debug("Already authenticated")
         else:
             user_key = self.get_users()[0]
-            if not(user_key in self.settings):
-                user = input("Your NPO backend user?: ")
-                password = input("Your NPO backend password?: ")
-                self.settings[user_key] = user + ":" + password
-                self._write_settings()
-
-            self.user = self.settings[user_key]
-            password = self.user.split(":", 2)[1]
-            user = self.user.split(":", 2)[0]
-            self.logger.debug("Logging in " + user)
-            self.authorizationHeader = \
-                self.generate_authorization(user, password)
+            self.authorizationHeader = self._basic_authentication(user_key, "Your NPO backend")
         return self
 
-    def generate_authorization(self, username, password):
+    def _basic_authentication(self, settings_key, description):
+        if not (settings_key in self.settings):
+            user = input(description + " user?: ")
+            password = input(description + " password?: ")
+            self.settings[settings_key] = user + ":" + password
+            self._write_settings()
+
+        self.user = self.settings[settings_key]
+        password = self.user.split(":", 2)[1]
+        user = self.user.split(":", 2)[0]
+        self.logger.debug("Logging in " + user)
+        return self._generate_basic_authorization(user, password)
+
+
+    def _generate_basic_authorization(self, username, password):
         password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
         password_manager.add_password(None, self.url, username, password)
         urllib.request.install_opener(

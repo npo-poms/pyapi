@@ -10,30 +10,13 @@ import logging
 class MediaBackend(BasicBackend):
     """Client for NPO Backend API"""
     __author__ = "Michiel Meeuwissen"
+
     def __init__(self, env:str=None, email:str = None, debug:bool=False, accept:str=None):
         """
         Instantiates a client to the NPO Backend API
         """
         super().__init__(env, email, debug, accept)
-
-    def read_settings(self):
-        """
-        """
-        settings = self.settings
-        if "user" in settings:
-            self.user = settings["user"]
-            if ":" in self.user:
-                self.password = self.user.split(":", 2)[1]
-                self.user = self.user.split(":", 2)[0]
-        if "email" in settings:
-            self.email = settings["email"]
-        if "parkpost_user" in settings:
-            self.parkpost_user = settings["parkpost_user"]
-            if ":" in self.parkpost_user:
-                self.parkpost_password = self.parkpost_user.split(":", 2)[1]
-                self.parkpost_user = self.parkpost_user.split(":", 2)[0]
-                self.parkpost_authorization = self.generate_authorization(self.parkpost_user, self.parkpost_password)
-        return
+        self.parkpost_authorization = None
 
     def env(self, e:str):
         super().env(e)
@@ -49,11 +32,11 @@ class MediaBackend(BasicBackend):
             self.url = e
         return self
 
-    def get(self, mid: str, ignore_not_found=False) -> bytearray:
+    def get(self, mid: str, ignore_not_found=False) -> str:
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.request.quote(mid, safe=''), ignore_not_found=ignore_not_found)
 
-    def get_full(self, mid: str, ignore_not_found=False) -> bytearray:
+    def get_full(self, mid: str, ignore_not_found=False) -> str:
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.request.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found)
 
@@ -73,7 +56,13 @@ class MediaBackend(BasicBackend):
         """"""
         return self.delete_from("media/media/" + urllib.request.quote(mid, safe=''))
 
+
+    def _parkpost_authentication(self):
+        if not(self.parkpost_authorization):
+            self.parkpost_authorization = self._basic_authentication("parkpost_user", "Your NPO backend parkpost")
+
     def parkpost(self, xml):
+        self._parkpost_authentication()
         url = self.url + "parkpost/promo"
         req = urllib.request.Request(url, data=self.xml_to_bytes(xml))
         return self._request(req, url, accept="text/plain", authorization=self.parkpost_authorization)
