@@ -20,19 +20,6 @@ MID = "WO_VPRO_025057"
 CONFIG_DIR=os.path.dirname(os.path.dirname(__file__))
 DEBUG=False
 
-class Tests(unittest.TestCase):
-    def test_authentication(self):
-        client = NpoApi(origin="http://www.vpro.nl") \
-            .login(key="a", secret="b")
-        self.assertEqual("NPO a:CtHYR9a+nr17OIn5rYml6a+A9ujqe0IywWqr93/DAOk=",
-                         client.authenticate(uri="/media", now="Fri, 30 Oct 2015 08:43:31 -0000")[0])
-
-    def test_env(self):
-        properties={'a': 'A', 'a.prod': 'Aprod', 'b': 'B', 'b.test': 'Btest'}
-        client = NpoApiBase().env('test')
-        settings = client.read_settings_from_properties(properties)
-        self.assertEquals(settings['a'], "A")
-        self.assertEquals(settings['b'], "Btest")
 
 class MediaTests(unittest.TestCase):
     def test_get(self):
@@ -111,16 +98,14 @@ class MediaBackendTest(unittest.TestCase):
     def test_append_params(self):
         self.assertEqual("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", include_errors=False,  a="a", x="y"))
 
-
-
     def test_set_duration(self):
         existing = poms.CreateFromDocument(self.client.get(MID))
         existing.duration = "PT30M"
         self.client.post(existing)
 
     def test_get_locations(self):
-        bytes=self.client.get_locations(MID)
-        locations=poms.CreateFromDocument(bytes)
+        bs = self.client.get_locations(MID)
+        locations=poms.CreateFromDocument(bs)
         print(str(locations))
 
     def test_get_segments(self):
@@ -129,8 +114,7 @@ class MediaBackendTest(unittest.TestCase):
         self.assertTrue(type(existing) == mediaupdate.segmentUpdateType)
 
     def test_get_images(self):
-        mid = MID
-        media = poms.CreateFromDocument(self.client.get(mid))
+        media = poms.CreateFromDocument(self.client.get(MID))
         print(len(media.images.image))
         image = media.images.image[0]
         bytes = self.client.get_images(MID)
@@ -140,26 +124,18 @@ class MediaBackendTest(unittest.TestCase):
         #self.assertEquals(image2.title, "testte")
         print(image2.toxml())
 
-
     def test_set_location(self):
-        mid = MID
-        self.client.set_location(mid, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
-
+        self.client.set_location(MID, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
 
     def test_set_location_by_id(self):
-        mid = MID
         #id  = 14728807
-        self.client.set_location(mid, 14728813, publishStop="2012-01-11T17:16:01.287Z")
+        self.client.set_location(MID, 14728813, publishStop="2012-01-11T17:16:01.287Z")
 
     def test_set_location_by_id_as_string(self):
-        mid = MID
-        self.client.set_location(mid, "58758190", publishStop="2013-01-11T17:16:01.287Z")
+        self.client.set_location(MID, "58758190", publishStop="2013-01-11T17:16:01.287Z")
 
     def test_set_location_by_urn(self):
-        mid = MID
-        self.client.set_location(mid, "urn:vpro:media:location:58758190", publishStop="2014-01-11T17:16:01.287Z")
-
+        self.client.set_location(MID, "urn:vpro:media:location:58758190", publishStop="2014-01-11T17:16:01.287Z")
 
     def test_create_location(self):
-        mid = MID
-        self.client.set_location(mid, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
+        self.client.set_location(MID, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
