@@ -127,7 +127,7 @@ class NpoApiBase:
 
             if name.lower() in self.settings:
                 value = self.settings[name.lower()]
-                del self.setting[name.lower()]
+                del self.settings[name.lower()]
             else:
                 value = input(description + "?: ")
             self.settings[name] = value
