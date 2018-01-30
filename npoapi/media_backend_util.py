@@ -1,11 +1,12 @@
 import logging
 import os
-
-import pyxb
 from xml.dom import minidom
 
+import pyxb
+
 from npoapi.media_backend import MediaBackend
-from npoapi.xml import media, mediaupdate, poms, shared
+from npoapi.xml import media, mediaupdate, poms
+from npoapi.xml.mediaupdate import segmentUpdateType
 
 
 class MediaBackendUtil(object):
@@ -338,12 +339,18 @@ class MediaBackendUtil(object):
         else:
             return "P0DT%dH%dM%d.%03dS" % (hours, minutes, seconds, millis)
 
-
-
+    @staticmethod
     def strip_tags(html:str) -> str:
         s = MLStripper()
         s.feed("<html>" + html + "</html>")
         return s.get_data()
+
+    @staticmethod
+    def mediatype(update):
+        if type(update) == segmentUpdateType:
+            return "SEGMENT"
+        else:
+            return update.type
 
 
 from html.parser import HTMLParser
