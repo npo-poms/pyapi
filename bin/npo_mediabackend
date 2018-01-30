@@ -13,16 +13,15 @@ group.add_argument('xml', type=str, nargs='?', help='The xml to post')
 group.add_argument('mid', type=str, nargs='?', help='The mid to get or delete')
 
 client.add_argument('-S', '--search', action='store_true',
-                   help="""The xml is interpreted as a search""")
+                   help="""Force that the xml is interpreted as a search""")
 client.add_argument('-W', '--writable', action='store_true',
                     help="""Only writable items are searched""")
 client.add_argument('-D', '--delete', action='store_true',
                    help="""The mid will be deleted""")
 
-client.add_argument('--raw', action='store_true', help="""The XML will not be parsed first. Implies xml (no mid)""")
+client.add_argument('--raw', action='store_true', help="""The XML will not be parsed first. Implies that the argument is XML not a MID""")
 
-client.add_argument('--validate', action='store_true', help="""Use validateInput argument""")
-
+client.add_argument('--validate', action='store_true', help="""Use validateInput argument, when posting XML's.""")
 
 client.add_argument('-p', '--process', type=str,
                     help="""python code to postprocess. E.g. update.midRef ='POMS_S_VPRO_168360'""""")
