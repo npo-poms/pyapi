@@ -19,6 +19,11 @@ client.add_argument('-W', '--writable', action='store_true',
 client.add_argument('-D', '--delete', action='store_true',
                    help="""The mid will be deleted""")
 
+client.add_argument('--raw', action='store_true', help="""The XML will not be parsed first. Implies xml (no mid)""")
+
+client.add_argument('--validate', action='store_true', help="""Use validateInput argument""")
+
+
 client.add_argument('-p', '--process', type=str,
                     help="""python code to postprocess. E.g. update.midRef ='POMS_S_VPRO_168360'""""")
 
@@ -29,13 +34,16 @@ if args.search:
     print(client.find(args.xml[0], writeable=args.writable))
 else:
     xmlString = client.data_or_from_file(args.xml)
-    try:
-        xml = parseString(xmlString)
-    except Exception as e:
-        xml = None
-        mid = args.xml
+    if args.raw:
+        xml = args.xml
+    else :
+        try:
+            xml = parseString(xmlString)
+        except Exception as e:
+            xml = None
+            mid = args.xml
 
-    if xml and xml.childNodes[0].nodeName == "NPO_gfxwrp":
+    if xml and not type(xml) == str and xml.childNodes[0].nodeName == "NPO_gfxwrp":
         if args.delete or args.search:
             client.exit("cannot delete or search parkpost")
         print(client.parkpost(xml))
@@ -46,16 +54,16 @@ else:
                 update = client.to_object_or_none(xml, validate=True)
                 exec(args.process)
                 client.logger.debug("Execed " + args.process)
-            if xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
+            if not(type(update) == str) and xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
                 if args.delete:
                     client.exit("cannot delete with search")
-                print(client.find(update, writable=args.writable))
+                print(client.find(update, writable=args.writable, raw=args.raw, validate_input=args.validate))
             else:
                 if args.delete:
                     mid = update.mid
                     print(client.delete(mid))
                 else:
-                    print(client.post(update))
+                    print(client.post(update, raw=args.raw, validate_input=args.validate))
         elif mid:
             if args.delete:
                 print(client.delete(mid))
