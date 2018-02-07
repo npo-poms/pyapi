@@ -1,7 +1,7 @@
 # ./npoapi/xml/page.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:bae47b8c8a50fe304e6e9de618201baa8dfd97c5
-# Generated 2018-01-26 13:43:50.031123 by PyXB version 1.2.6 using Python 3.5.0.final.0
+# Generated 2018-02-07 21:23:46.333818 by PyXB version 1.2.6 using Python 3.5.2.final.0
 # Namespace urn:vpro:pages:2013 [xmlns:page]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:8ae9fafe-0296-11e8-bd83-a860b637463b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c6e76098-0c44-11e8-810c-6a0002581300')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
-import pyxb.binding.datatypes
-import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
+import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
+import pyxb.binding.datatypes
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:pages:2013', create_if_missing=True)
@@ -112,7 +112,7 @@ class linkTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'linkTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 145, 2)
     _Documentation = None
-linkTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=linkTypeEnum)
+linkTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=linkTypeEnum, enum_prefix=None)
 linkTypeEnum.TOP_STORY = linkTypeEnum._CF_enumeration.addEnumeration(unicode_value='TOP_STORY', tag='TOP_STORY')
 linkTypeEnum._InitializeFacetMap(linkTypeEnum._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'linkTypeEnum', linkTypeEnum)
@@ -126,7 +126,7 @@ class pageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeratio
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'pageTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 151, 2)
     _Documentation = None
-pageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=pageTypeEnum)
+pageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=pageTypeEnum, enum_prefix=None)
 pageTypeEnum.ARTICLE = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='ARTICLE', tag='ARTICLE')
 pageTypeEnum.SPECIAL = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='SPECIAL', tag='SPECIAL')
 pageTypeEnum.HOME = pageTypeEnum._CF_enumeration.addEnumeration(unicode_value='HOME', tag='HOME')

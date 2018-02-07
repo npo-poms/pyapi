@@ -1,7 +1,7 @@
 # ./npoapi/xml/thesaurus.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:ac54f34c9ade42f40dbd05d90aa328ecf2f4878b
-# Generated 2018-01-26 13:43:50.031975 by PyXB version 1.2.6 using Python 3.5.0.final.0
+# Generated 2018-02-07 21:23:46.332480 by PyXB version 1.2.6 using Python 3.5.2.final.0
 # Namespace urn:vpro:gtaa:2017
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:8ae9fafe-0296-11e8-bd83-a860b637463b')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c6e76098-0c44-11e8-810c-6a0002581300')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
