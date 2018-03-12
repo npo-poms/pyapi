@@ -24,7 +24,10 @@ client.add_argument('--raw', action='store_true', help="""The XML will not be pa
 client.add_argument('--validate', action='store_true', help="""Use validateInput argument, when posting XML's.""")
 
 client.add_argument('-p', '--process', type=str,
-                    help="""python code to postprocess. E.g. update.midRef ='POMS_S_VPRO_168360'""""")
+                    help="""python code to postprocess. E.g.: 
+                    update.midRef ='POMS_S_VPRO_168360'
+                    """
+                    )
 
 args = client.parse_args()
 mid = None
