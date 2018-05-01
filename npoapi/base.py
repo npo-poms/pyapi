@@ -364,6 +364,16 @@ class NpoApiBase:
     def exit(self):
         sys.exit(self.exit_code())
 
+    def pretty_xml(self, string: str):
+        from xml.dom.minidom import parseString
+        import xml.parsers.expat
+        try:
+            return parseString(string).toprettyxml(indent="  ")
+        except xml.parsers.expat.ExpatError as e:
+            self.logger.error(e)
+            return string
+
+
     @abc.abstractmethod
     def info(self):
         return "ABSTRACT"

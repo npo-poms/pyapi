@@ -42,8 +42,7 @@ if type(result) == list:
     print(strings)
 elif not result is None:
     if process is None:
-        from xml.dom.minidom import parseString
-        print(parseString(result).toprettyxml(indent="  "))
+        print(client.pretty_xml(result))
     else:
         from npoapi.xml import poms
         update = poms.CreateFromDocument(result)
