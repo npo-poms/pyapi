@@ -1,7 +1,7 @@
 # ./npoapi/xml/api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:f09e526a28f80bea89107059b7879e5a6ef7c1ce
-# Generated 2018-02-07 21:23:46.342100 by PyXB version 1.2.6 using Python 3.5.2.final.0
+# Generated 2018-04-30 09:29:51.124722 by PyXB version 1.2.6 using Python 3.5.0.final.0
 # Namespace urn:vpro:api:2013
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c6e76098-0c44-11e8-810c-6a0002581300')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:404ec5fa-4c48-11e8-9f84-a860b637463b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -27,10 +27,10 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
+import npoapi.xml.page as _ImportedBinding_npoapi_xml_page
+import pyxb.binding.datatypes
 import npoapi.xml.media as _ImportedBinding_npoapi_xml_media
 import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
-import pyxb.binding.datatypes
-import npoapi.xml.page as _ImportedBinding_npoapi_xml_page
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:api:2013', create_if_missing=True)
@@ -125,7 +125,7 @@ class simpleMatchType (pyxb.binding.datatypes.string, pyxb.binding.basis.enumera
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'simpleMatchType')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 818, 2)
     _Documentation = None
-simpleMatchType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=simpleMatchType, enum_prefix=None)
+simpleMatchType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=simpleMatchType)
 simpleMatchType.TEXT = simpleMatchType._CF_enumeration.addEnumeration(unicode_value='TEXT', tag='TEXT')
 simpleMatchType._InitializeFacetMap(simpleMatchType._CF_enumeration)
 Namespace.addCategoryObject('typeBinding', 'simpleMatchType', simpleMatchType)
@@ -139,7 +139,7 @@ class match (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_mixin
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'match')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 824, 2)
     _Documentation = None
-match._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=match, enum_prefix=None)
+match._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=match)
 match.MUST = match._CF_enumeration.addEnumeration(unicode_value='MUST', tag='MUST')
 match.SHOULD = match._CF_enumeration.addEnumeration(unicode_value='SHOULD', tag='SHOULD')
 match.NOT = match._CF_enumeration.addEnumeration(unicode_value='NOT', tag='NOT')
@@ -155,7 +155,7 @@ class standardMatchType (pyxb.binding.datatypes.string, pyxb.binding.basis.enume
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'standardMatchType')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 832, 2)
     _Documentation = None
-standardMatchType._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=standardMatchType, enum_prefix=None)
+standardMatchType._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=standardMatchType)
 standardMatchType.TEXT = standardMatchType._CF_enumeration.addEnumeration(unicode_value='TEXT', tag='TEXT')
 standardMatchType.REGEX = standardMatchType._CF_enumeration.addEnumeration(unicode_value='REGEX', tag='REGEX')
 standardMatchType.WILDCARD = standardMatchType._CF_enumeration.addEnumeration(unicode_value='WILDCARD', tag='WILDCARD')
@@ -171,7 +171,7 @@ class orderTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'orderTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 840, 2)
     _Documentation = None
-orderTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=orderTypeEnum, enum_prefix=None)
+orderTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=orderTypeEnum)
 orderTypeEnum.ASC = orderTypeEnum._CF_enumeration.addEnumeration(unicode_value='ASC', tag='ASC')
 orderTypeEnum.DESC = orderTypeEnum._CF_enumeration.addEnumeration(unicode_value='DESC', tag='DESC')
 orderTypeEnum._InitializeFacetMap(orderTypeEnum._CF_enumeration)
@@ -186,7 +186,7 @@ class pageSortTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumer
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'pageSortTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 847, 2)
     _Documentation = None
-pageSortTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=pageSortTypeEnum, enum_prefix=None)
+pageSortTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=pageSortTypeEnum)
 pageSortTypeEnum.sortDate = pageSortTypeEnum._CF_enumeration.addEnumeration(unicode_value='sortDate', tag='sortDate')
 pageSortTypeEnum.lastModified = pageSortTypeEnum._CF_enumeration.addEnumeration(unicode_value='lastModified', tag='lastModified')
 pageSortTypeEnum.lastPublished = pageSortTypeEnum._CF_enumeration.addEnumeration(unicode_value='lastPublished', tag='lastPublished')
@@ -203,7 +203,7 @@ class dateRangePresetTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'dateRangePresetTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 856, 2)
     _Documentation = None
-dateRangePresetTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=dateRangePresetTypeEnum, enum_prefix=None)
+dateRangePresetTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=dateRangePresetTypeEnum)
 dateRangePresetTypeEnum.BEFORE_LAST_YEAR = dateRangePresetTypeEnum._CF_enumeration.addEnumeration(unicode_value='BEFORE_LAST_YEAR', tag='BEFORE_LAST_YEAR')
 dateRangePresetTypeEnum.LAST_YEAR = dateRangePresetTypeEnum._CF_enumeration.addEnumeration(unicode_value='LAST_YEAR', tag='LAST_YEAR')
 dateRangePresetTypeEnum.LAST_MONTH = dateRangePresetTypeEnum._CF_enumeration.addEnumeration(unicode_value='LAST_MONTH', tag='LAST_MONTH')
@@ -224,7 +224,7 @@ class facetOrderTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enum
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'facetOrderTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 869, 2)
     _Documentation = None
-facetOrderTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=facetOrderTypeEnum, enum_prefix=None)
+facetOrderTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=facetOrderTypeEnum)
 facetOrderTypeEnum.VALUE_ASC = facetOrderTypeEnum._CF_enumeration.addEnumeration(unicode_value='VALUE_ASC', tag='VALUE_ASC')
 facetOrderTypeEnum.VALUE_DESC = facetOrderTypeEnum._CF_enumeration.addEnumeration(unicode_value='VALUE_DESC', tag='VALUE_DESC')
 facetOrderTypeEnum.COUNT_ASC = facetOrderTypeEnum._CF_enumeration.addEnumeration(unicode_value='COUNT_ASC', tag='COUNT_ASC')
@@ -245,7 +245,7 @@ class mediaSortTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enume
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'mediaSortTypeEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 882, 2)
     _Documentation = None
-mediaSortTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=mediaSortTypeEnum, enum_prefix=None)
+mediaSortTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=mediaSortTypeEnum)
 mediaSortTypeEnum.title = mediaSortTypeEnum._CF_enumeration.addEnumeration(unicode_value='title', tag='title')
 mediaSortTypeEnum.sortDate = mediaSortTypeEnum._CF_enumeration.addEnumeration(unicode_value='sortDate', tag='sortDate')
 mediaSortTypeEnum.publishDate = mediaSortTypeEnum._CF_enumeration.addEnumeration(unicode_value='publishDate', tag='publishDate')
@@ -1967,7 +1967,7 @@ Namespace.addCategoryObject('typeBinding', 'pageRelationSearchType', pageRelatio
 
 # Complex type {urn:vpro:api:2013}mediaSearchType with content type ELEMENT_ONLY
 class mediaSearchType (pyxb.binding.basis.complexTypeDefinition):
-    """Complex type {urn:vpro:api:2013}mediaSearchType with content type ELEMENT_ONLY"""
+    """Limits the search result to media with certain properties"""
     _TypeDefinition = None
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
@@ -1988,14 +1988,14 @@ class mediaSearchType (pyxb.binding.basis.complexTypeDefinition):
     __mediaIds = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'mediaIds'), 'mediaIds', '__urnvproapi2013_mediaSearchType_urnvproapi2013mediaIds', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 161, 6), )
 
     
-    mediaIds = property(__mediaIds.value, __mediaIds.set, None, None)
+    mediaIds = property(__mediaIds.value, __mediaIds.set, None, 'The MID must match one of the mediaIds')
 
     
     # Element {urn:vpro:api:2013}types uses Python identifier types
     __types = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'types'), 'types', '__urnvproapi2013_mediaSearchType_urnvproapi2013types', False, pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 162, 6), )
 
     
-    types = property(__types.value, __types.set, None, None)
+    types = property(__types.value, __types.set, None, 'The media type must match one of these.')
 
     
     # Element {urn:vpro:api:2013}avTypes uses Python identifier avTypes
@@ -6477,9 +6477,9 @@ pageRelationSearchType._Automaton = _BuildAutomaton_24()
 
 mediaSearchType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'text'), simpleMatcherType, scope=mediaSearchType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 160, 6)))
 
-mediaSearchType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'mediaIds'), textMatcherListType, scope=mediaSearchType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 161, 6)))
+mediaSearchType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'mediaIds'), textMatcherListType, scope=mediaSearchType, documentation='The MID must match one of the mediaIds', location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 161, 6)))
 
-mediaSearchType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'types'), textMatcherListType, scope=mediaSearchType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 162, 6)))
+mediaSearchType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'types'), textMatcherListType, scope=mediaSearchType, documentation='The media type must match one of these.', location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 162, 6)))
 
 mediaSearchType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'avTypes'), textMatcherListType, scope=mediaSearchType, location=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 163, 6)))
 
@@ -8931,88 +8931,88 @@ def _BuildAutomaton_55 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 619, 6))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 622, 6))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 620, 6))
+    cc_1 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 623, 6))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 621, 6))
+    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 624, 6))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 622, 6))
+    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 625, 6))
     counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 623, 6))
+    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 626, 6))
     counters.add(cc_4)
-    cc_5 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 624, 6))
+    cc_5 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 627, 6))
     counters.add(cc_5)
-    cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 625, 6))
+    cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 628, 6))
     counters.add(cc_6)
-    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 628, 6))
+    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 631, 6))
     counters.add(cc_7)
-    cc_8 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 630, 6))
+    cc_8 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 633, 6))
     counters.add(cc_8)
-    cc_9 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 631, 6))
+    cc_9 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 634, 6))
     counters.add(cc_9)
-    cc_10 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 632, 6))
+    cc_10 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 635, 6))
     counters.add(cc_10)
     cc_11 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:api:2013', 752, 10))
     counters.add(cc_11)
     states = []
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'title')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 619, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'title')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 622, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'description')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 620, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'description')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 623, 6))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'repeat')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 621, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'repeat')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 624, 6))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'memberOf')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 622, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'memberOf')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 625, 6))
     st_3 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_3)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'avAttributes')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 623, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'avAttributes')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 626, 6))
     st_4 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_4)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'textSubtitles')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 624, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'textSubtitles')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 627, 6))
     st_5 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_5)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'textPage')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 625, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'textPage')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 628, 6))
     st_6 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_6)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'guideDay')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 626, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'guideDay')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 629, 6))
     st_7 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_7)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'start')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 627, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'start')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 630, 6))
     st_8 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_8)
     final_update = None
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'offset')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 628, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'offset')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 631, 6))
     st_9 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_9)
     final_update = set()
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'duration')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 629, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'duration')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 632, 6))
     st_10 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_10)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_8, False))
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'poProgID')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 630, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'poProgID')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 633, 6))
     st_11 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_11)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_9, False))
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'primaryLifestyle')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 631, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'primaryLifestyle')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 634, 6))
     st_12 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_12)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_10, False))
-    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'secondaryLifestyle')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 632, 6))
+    symbol = pyxb.binding.content.ElementUse(scheduleEventApiType._UseForTag(pyxb.namespace.ExpandedName(_Namespace_media, 'secondaryLifestyle')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 635, 6))
     st_13 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_13)
     final_update = set()

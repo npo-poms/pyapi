@@ -1,7 +1,7 @@
 # ./npoapi/xml/subtitles.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:f5e9c7dba985d37f434a2bc6acd18425aef883c8
-# Generated 2018-02-07 21:23:46.336403 by PyXB version 1.2.6 using Python 3.5.2.final.0
+# Generated 2018-04-30 09:29:51.123961 by PyXB version 1.2.6 using Python 3.5.0.final.0
 # Namespace urn:vpro:media:subtitles:2009
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:c6e76098-0c44-11e8-810c-6a0002581300')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:404ec5fa-4c48-11e8-9f84-a860b637463b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -27,9 +27,9 @@ if pyxb.__version__ != _PyXBVersion:
 _module_typeBindings = pyxb.utils.utility.Object()
 
 # Import bindings for namespaces imported into schema
+import pyxb.binding.datatypes
 import pyxb.binding.xml_
 import npoapi.xml.shared as _ImportedBinding_npoapi_xml_shared
-import pyxb.binding.datatypes
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.NamespaceForURI('urn:vpro:media:subtitles:2009', create_if_missing=True)
@@ -86,7 +86,7 @@ class subtitlesFormatEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enu
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesFormatEnum')
     _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 31, 2)
     _Documentation = None
-subtitlesFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesFormatEnum, enum_prefix=None)
+subtitlesFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(enum_prefix=None, value_datatype=subtitlesFormatEnum)
 subtitlesFormatEnum.WEBVTT = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='WEBVTT', tag='WEBVTT')
 subtitlesFormatEnum.TT888 = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='TT888', tag='TT888')
 subtitlesFormatEnum.EBU = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='EBU', tag='EBU')

@@ -90,6 +90,8 @@ class BasicBackend(NpoApiBase):
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
+        if xml is None:
+            raise Exception("Cant post without xml")
         bytes = self.xml_to_bytes(xml)
         req = urllib.request.Request(url, data=bytes, method='POST')
         self.logger.debug("Posting " + str(bytes) + " to " + url)
@@ -186,6 +188,7 @@ class BasicBackend(NpoApiBase):
         """Accepts xml in several formats, and returns it as a byte array, ready for posting"""
         import xml.etree.ElementTree as ET
         import pyxb
+
         t = type(xml)
         if t == str:
             xml, content_type = self.data_to_bytes(xml)
