@@ -262,6 +262,8 @@ class NpoApiBase:
         self.debug(args.debug)
         if "accept" in args and args.accept:
             self.accept(self.accept_choices().get(args.accept))
+        else:
+            self.accept()
         return args
 
     def get_response(self, req, url, ignore_not_found=False, timeout=None):

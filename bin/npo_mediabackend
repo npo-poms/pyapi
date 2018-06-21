@@ -65,7 +65,10 @@ else:
                     mid = update.mid
                     print(client.delete(mid))
                 else:
-                    print(client.post(update, raw=args.raw, validate_input=args.validate))
+                    if update.childNodes[0].nodeName == "prediction":
+                        print(client.post(update, raw=args.raw, validate_input=args.validate))
+                    else :
+                        print(client.post(update, raw=args.raw, validate_input=args.validate))
         elif mid:
             if args.delete:
                 print(client.delete(mid))
