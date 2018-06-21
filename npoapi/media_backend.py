@@ -66,7 +66,7 @@ class MediaBackend(BasicBackend):
         self._parkpost_authentication()
         url = self.url + "parkpost/promo"
         req = urllib.request.Request(url, data=self.xml_to_bytes(xml))
-        return self._request(req, url, accept="text/plain", authorization=self.parkpost_authorization)
+        return self._request(req, url, accept="application/xml", authorization=self.parkpost_authorization)
 
     def find(self, form, writable=False, raw=False, validate_input=False):
         if not raw:
