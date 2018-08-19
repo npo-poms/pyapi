@@ -28,10 +28,11 @@ class NpoApi(NpoApiBase):
         super().__init__(env=env, debug=debug, accept=accept)
         self.key, self.secret, self.origin = key, secret, origin
 
-    def login(self, key, secret, origin):
+    def login(self, key, secret, origin = None):
         self.key = key
         self.secret = secret
-        self.origin = origin
+        if not origin is None:
+            self.origin = origin
         return self
 
     def env(self, e):
