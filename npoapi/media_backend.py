@@ -216,7 +216,7 @@ class MediaBackend(BasicBackend):
 </location>""")
             if programUrl is not None:
                 location_object.programUrl = programUrl
-            elif not location.isdigit():
+            elif not isinstance(location, int) and not location.isdigit():
                 location_object.programUrl = location
             else:
                 return None
