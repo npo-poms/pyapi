@@ -116,7 +116,7 @@ class MediaBackendTest(unittest.TestCase):
     def test_get_images(self):
         media = poms.CreateFromDocument(self.client.get(MID))
         print(len(media.images.image))
-        image = media.images.image[0]
+        image = media.images.image[0] if len(media.images.image > 0) else None
         bytes = self.client.get_images(MID)
         images = poms.CreateFromDocument(bytes)
         image2 = images.wildcardElements()[0]
