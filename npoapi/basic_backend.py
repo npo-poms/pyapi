@@ -45,6 +45,9 @@ class BasicBackend(NpoApiBase):
     def errors(self, email):
         self.email = email
 
+    def get_errors(self):
+        return self.email or self.settings['errors']
+
     def login(self):
         """Authenticates if not yet authenticated."""
         if self.authorizationHeader:
@@ -161,8 +164,10 @@ class BasicBackend(NpoApiBase):
         if not kwargs:
             kwargs = {}
 
-        if not "errors" in kwargs and self.email and include_errors:
-            kwargs["errors"] = self.email
+        if include_errors:
+            error_mail = self.get_errors()
+            if (not "errors" in kwargs or kwargs["errors"] is None) and error_mail:
+                kwargs["errors"] = error_mail
 
         sep = "?"
         for key, value in sorted(kwargs.items()):
