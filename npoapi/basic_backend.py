@@ -46,7 +46,7 @@ class BasicBackend(NpoApiBase):
         self.email = email
 
     def get_errors(self):
-        return self.email or self.settings['errors']
+        return self.email or self.settings.get('errors') or self.settings.get('email')
 
     def login(self):
         """Authenticates if not yet authenticated."""
