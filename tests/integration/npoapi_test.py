@@ -16,7 +16,7 @@ from npoapi.xml import mediaupdate
 import time
 
 ENV = "test"
-MID = "WO_VPRO_025057"
+MID = "WO_VPRO_783763"
 CONFIG_DIR=os.path.dirname(os.path.dirname(__file__))
 DEBUG=False
 
@@ -116,10 +116,10 @@ class MediaBackendTest(unittest.TestCase):
     def test_get_images(self):
         media = poms.CreateFromDocument(self.client.get(MID))
         print(len(media.images.image))
-        image = media.images.image[0]
+        image = media.images.image[0] if len(media.images.image) > 0 else None
         bytes = self.client.get_images(MID)
         images = poms.CreateFromDocument(bytes)
-        image2 = images.wildcardElements()[0]
+        image2 = images.wildcardElements()[0] if len(images.wildcardElements()) > 0 else None
         self.assertEquals(image.title, image2.title)
         #self.assertEquals(image2.title, "testte")
         print(image2.toxml())
