@@ -51,7 +51,7 @@ class MediaBackend(BasicBackend):
     def post(self, update, lookupcrid=True, raw=False, validate_input=False):
         if not raw:
             update = self.to_object(update, validate=True)
-        return self.post_to("media/media/", update, accept="text/plain", errors=self.email, lookupcrid=lookupcrid, validateInput=str(validate_input).lower())
+        return self.post_to("media/media/", update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid, validateInput=str(validate_input).lower())
 
     def delete(self, mid:str):
         """"""
