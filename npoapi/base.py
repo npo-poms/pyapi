@@ -50,7 +50,7 @@ class NpoApiBase:
         self._env = env
         self.actualenv = None
         self.env(env)
-        self._accept = "application/json"
+        self._accept = accept or "application/json"
         self.settings = {}
 
     @abc.abstractmethod

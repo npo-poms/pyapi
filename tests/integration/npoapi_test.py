@@ -7,6 +7,7 @@ import os
 from npoapi import Media
 from npoapi import Screens
 from npoapi import MediaBackend
+from npoapi import Subtitles
 from npoapi.npoapi import NpoApi
 from npoapi.npoapi import NpoApiBase
 
@@ -78,6 +79,15 @@ class ScreenTests(unittest.TestCase):
     def get_client(self):
         print(os.path.dirname(__file__))
         return Screens().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
+
+
+class SubtitlesTest(unittest.TestCase):
+
+    def test_get(self):
+        client_sub = Subtitles(env='test').configured_login(create_config_file=True)
+        client_sub.get(mid="POW_03689995", language='nl', subtitle_type='CAPTION')
+        client_sub = Subtitles(env='test').configured_login(create_config_file=True)
+        print(client_sub.get(mid="POW_03689995", language='nl', subtitle_type='CAPTION'))
 
 
 class MediaBackendTest(unittest.TestCase):
