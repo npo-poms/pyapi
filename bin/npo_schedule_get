@@ -6,7 +6,8 @@ from npoapi import Schedule
 
 client = Schedule().command_line_client("Get schedule from the NPO Frontend API")
 client.add_argument('guideDay', type=str, nargs='?', help='The day to get')
+client.add_argument('channel', type=str, nargs='?', help='For channel to get')
 args = client.parse_args()
 
-print(client.get(guideDay=args.guideDay))
+print(client.get(guideDay=args.guideDay, channel=args.channel))
 client.exit()
