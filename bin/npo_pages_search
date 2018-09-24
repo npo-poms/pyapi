@@ -13,6 +13,7 @@ client.add_argument('-s', "--sort", type=str, default=None, choices={"asc", "des
 client.add_argument('-m', "--max", type=int, default="240")
 client.add_argument('-o', "--offset", type=int, default=0)
 client.add_argument("--mids", action="store_true", help='Interpret the form argument as a list of mids. Search pages with these mids embedded')
+client.add_argument("--urlprefix", action="store_true", help='')
 client.add_argument('-P', "--profile", type=str, default=None,
                     help="profile filtering")
 

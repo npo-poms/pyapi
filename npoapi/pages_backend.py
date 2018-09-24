@@ -32,7 +32,7 @@ class PagesBackend(BasicBackend):
         return self.post_to("api/pages/updates", update, accept="text/plain")
 
     def delete(self, url):
-        return self.delete_from("api/pages/updates", url=url)
+        return self.delete_from("api/pages/updates", url=url, accept="application/json")
 
     def get(self, url):
         return self.get_from("api/pages/updates", url=url)
