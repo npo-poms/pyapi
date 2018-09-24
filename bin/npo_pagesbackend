@@ -39,7 +39,12 @@ if delete or get:
         url = args.xml[0]
 
 if delete:
-    client.delete(url)
+    result = client.delete(url)
+    if result.success:
+        print(result.count)
+    else:
+        print(str(result))
+        client.exit_code(1)
 elif get:
     string = client.get(url)
     print(string)

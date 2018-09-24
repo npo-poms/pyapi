@@ -1,5 +1,8 @@
 from npoapi.basic_backend import BasicBackend
 
+import json
+
+
 
 class PagesBackend(BasicBackend):
     __author__ = "Michiel Meeuwissen"
@@ -31,8 +34,8 @@ class PagesBackend(BasicBackend):
     def post(self, update):
         return self.post_to("api/pages/updates", update, accept="text/plain")
 
-    def delete(self, url):
-        return self.delete_from("api/pages/updates", url=url, accept="application/json")
+    def delete(self, url) -> dict:
+        return json.loads(self.delete_from("api/pages/updates", url=url, accept="application/json"))
 
     def get(self, url):
         return self.get_from("api/pages/updates", url=url)
