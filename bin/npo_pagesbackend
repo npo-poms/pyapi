@@ -40,11 +40,7 @@ if delete or get:
 
 if delete:
     result = client.delete(url)
-    if result.success:
-        print(result.count)
-    else:
-        print(str(result))
-        client.exit_code(1)
+    print(str(result))
 elif get:
     string = client.get(url)
     print(string)

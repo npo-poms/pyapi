@@ -267,7 +267,7 @@ class NpoApiBase:
             self.accept()
         return args
 
-    def get_response(self, req, url, ignore_not_found=False, timeout=None):
+    def get_response(self, req, url:str, ignore_not_found=False, timeout=None):
         """Error handling around urllib.request.urlopen"""
         summary = "%s %s" % (req.method if hasattr(req, "method") else "'GET'" if not req.data else "'POST'", url)
         try:
@@ -298,9 +298,9 @@ class NpoApiBase:
             self.logger.error("%s: %s %s: %s\n%s", url, summary, he.code, he.msg, he.read().decode("utf-8"))
             return None
 
-    def data_to_bytes(self, data, content_type=None):
+    def data_to_bytes(self, data:str, content_type:str = None) -> [str, str]:
         """
-        Given some object representing API data returns it as a string.
+        Given some object representing API data returns it as a string and a content type.
         Recognized are pyxb bindings, a files name, or else a string.
         """
         if data:
@@ -336,7 +336,7 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
+    def to_object(self, data:str, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
         """Converts a string to a pyxb object and optionally validates it"""
         if data is None:
             return None
@@ -351,7 +351,7 @@ class NpoApiBase:
             object.validateBinding()
         return object
 
-    def to_object_or_none(self, data, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
+    def to_object_or_none(self, data:str, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
         import xml
         try:
             return self.to_object(data, validate)
