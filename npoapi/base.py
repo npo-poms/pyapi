@@ -306,12 +306,16 @@ class NpoApiBase:
         if data:
             import pyxb
             import xml.dom.minidom
-            if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
+            if data is None:
+                self.logger.warning("Data is none!")
+            elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
                 content_type = "application/xml"
                 data = data.toxml()
+            elif isinstance(data, str):
+                content_type = None
             elif isinstance(data, xml.dom.minidom.Document):
                 data = data.toxml().encode("utf-8")
-            elif os.path.isfile(data):
+            elif self.isfile(data):
                 if content_type is None:
                     if data.endswith(".json"):
                         content_type = "application/json"
@@ -324,6 +328,12 @@ class NpoApiBase:
                     self.logger.debug("Found data " + data)
 
         return data, content_type
+
+    def isfile(self, string:str):
+        try:
+            return os.path.isfile(string)
+        except:
+            return False
 
     def data_or_from_file(self, data: str):
         """"""

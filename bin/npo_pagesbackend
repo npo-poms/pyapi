@@ -46,6 +46,8 @@ elif get:
     print(string)
     update = client.to_object_or_none(string)
 else:
+    if not update:
+        raise Exception("No xml found")
     client.post(update)
 
 if update:
