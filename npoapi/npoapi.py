@@ -102,7 +102,9 @@ class NpoApi(NpoApiBase):
 
     def _get_data(self, data:str = None, content_type:str =None) -> [bytearray, str]:
         """Automaticly determins the content_type if it is not set"""
-        if type(data) == str:
+        if data is None:
+            pass
+        elif type(data) == str:
             if content_type is not None:
                 return data.encode("UTF-8"), content_type
             try:
@@ -128,11 +130,17 @@ class NpoApi(NpoApiBase):
         else:
             return ""
 
-    def stream(self, path:str, params=None, accept=None, data=None, content_type=None, timeout=None):
+    def stream(self, path:str, params=None, accept=None, data=None, content_type:str=None, timeout=None):
+
         data, content_type = self.data_to_bytes(data, content_type)
+        if not data is None:
+            data_as_string = data.decode("utf-8")
+        else:
+            data_as_string = None
 
         url, path_for_authentication = self._get_url(path, params)
-        d, content_type = self._get_data(data.decode("utf-8"), content_type=content_type)
+
+        d, content_type = self._get_data(data_as_string, content_type=content_type)
         req = urllib.request.Request(url, data=d)
 
         if content_type:
