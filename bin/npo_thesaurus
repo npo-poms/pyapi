@@ -15,7 +15,7 @@ args = client.parse_args()
 
 data = None
 if args.xml:
-    date = client.data_to_bytes(args.xml[0])[0]
+    date = args.xml[0]
 update = None
 
 if data:

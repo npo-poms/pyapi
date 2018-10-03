@@ -100,7 +100,7 @@ class NpoApi(NpoApiBase):
 
         self.logger.debug("url: " + str(req.get_full_url()))
 
-    def _get_data(self, data=None, content_type=None):
+    def _get_data(self, data:str = None, content_type:str =None) -> [bytearray, str]:
         """Automaticly determins the content_type if it is not set"""
         if type(data) == str:
             if content_type is not None:
@@ -115,6 +115,8 @@ class NpoApi(NpoApiBase):
                 else:
                     self.logger.warn("Data %s could not be parsed as json. Leaving content type unspecified", data)
                     return data.encode("UTF-8"), None
+        else:
+            self.logger.warn("Input %s is not a string", data)
 
         return None,None
 
@@ -126,11 +128,11 @@ class NpoApi(NpoApiBase):
         else:
             return ""
 
-    def stream(self, path, params=None, accept=None, data=None, content_type=None, timeout=None):
+    def stream(self, path:str, params=None, accept=None, data=None, content_type=None, timeout=None):
         data, content_type = self.data_to_bytes(data, content_type)
 
         url, path_for_authentication = self._get_url(path, params)
-        d, content_type = self._get_data(data, content_type=content_type)
+        d, content_type = self._get_data(data.decode("utf-8"), content_type=content_type)
         req = urllib.request.Request(url, data=d)
 
         if content_type:

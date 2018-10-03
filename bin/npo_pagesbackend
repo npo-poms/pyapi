@@ -18,7 +18,7 @@ delete = args.delete
 get = args.get
 process = args.process
 
-data = client.data_to_bytes(args.xml[0])[0]
+data = args.xml[0]
 
 url = None
 update = None

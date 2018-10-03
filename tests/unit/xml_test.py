@@ -123,3 +123,20 @@ class Tests(unittest.TestCase):
         form.searches.lastModifiedDates.append(dateRange)
         self.assertEqual('<?xml version="1.0" ?><api:pagesForm xmlns="urn:vpro:media:update:2009" xmlns:api="urn:vpro:api:2013"><api:searches><api:lastModifiedDates><api:matcher><api:end>2017-06-19T00:00:00</api:end></api:matcher></api:lastModifiedDates></api:searches><api:sortFields><api:sort>lastModified</api:sort></api:sortFields></api:pagesForm>',
         form.toxml())
+
+    def test_page_update(self):
+        example = """
+        <page type="AUDIO" url="http://test.vpro.nl/article/1234"  xmlns="urn:vpro:pages:update:2013">
+  <crid>crid://bla/1234</crid>
+  <broadcaster>VPRO</broadcaster>
+  <title>Hoi &amp; Hallo foobar</title>
+  <paragraphs>
+    <paragraph>
+      <title>Title of &amp; paragraph</title>
+      <body>Foo &amp; Bar</body>
+    </paragraph>
+  </paragraphs>
+</page>
+        """
+        page_update = poms.CreateFromDocument(example.encode("UTF-8"))
+        self.assertEqual(page_update.title, "Hoi & Hallo foobar")

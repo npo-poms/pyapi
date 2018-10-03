@@ -298,10 +298,10 @@ class NpoApiBase:
             self.logger.error("%s: %s %s: %s\n%s", url, summary, he.code, he.msg, he.read().decode("utf-8"))
             return None
 
-    def data_to_bytes(self, data:str, content_type:str = None) -> [str, str]:
+    def data_to_bytes(self, data, content_type:str = None) -> [bytearray, str]:
         """
-        Given some object representing API data returns it as a string and a content type.
-        Recognized are pyxb bindings, a files name, or else a string.
+        Given some object representing API data returns it as a bytearray and a content type.
+        Recognized are pyxb bindings, a file name, or else a string.
         """
         if data:
             import pyxb
@@ -311,11 +311,9 @@ class NpoApiBase:
             elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
                 content_type = "application/xml"
                 data = data.toxml()
-            elif isinstance(data, str):
-                content_type = None
             elif isinstance(data, xml.dom.minidom.Document):
-                data = data.toxml().encode("utf-8")
-            elif self.isfile(data):
+                data = data.toxml(encoding="utf-8")
+            elif isinstance(data, str) and self.isfile(data):
                 if content_type is None:
                     if data.endswith(".json"):
                         content_type = "application/json"
@@ -326,10 +324,18 @@ class NpoApiBase:
                 with codecs.open(data, 'r', 'utf-8') as myfile:
                     data = myfile.read()
                     self.logger.debug("Found data " + data)
+            elif isinstance(data, str):
+                content_type = None
+                if data.startswith("{"):
+                    content_type = "application/json"
+                elif data.startswith("<"):
+                    content_type = "application/xml"
+                data = data.encode("utf-8")
 
         return data, content_type
 
-    def isfile(self, string:str):
+    @staticmethod
+    def isfile(string:str):
         try:
             return os.path.isfile(string)
         except:
@@ -350,16 +356,16 @@ class NpoApiBase:
         """Converts a string to a pyxb object and optionally validates it"""
         if data is None:
             return None
-        object = None
         if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-            object = data
+            result = data
         else:
             from npoapi.xml import poms
-            object = poms.CreateFromDocument(self.data_to_bytes(data)[0])
+            bytes, contenttype = self.data_to_bytes(data)
+            result = poms.CreateFromDocument(bytes)
 
         if validate:
-            object.validateBinding()
-        return object
+            result.validateBinding()
+        return result
 
     def to_object_or_none(self, data:str, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
         import xml
