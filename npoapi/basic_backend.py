@@ -198,7 +198,7 @@ class BasicBackend(NpoApiBase):
         t = type(xml)
         if t == str:
             xml, content_type = self.data_to_bytes(xml)
-            return xml.encode('utf-8')
+            return xml
         elif t == minidom.Element:
             # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
             # xml.setAttribute("xmlns:xsi",

@@ -311,7 +311,7 @@ class NpoApiBase:
                 self.logger.warning("Data is none!")
             elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
                 content_type = "application/xml"
-                data = data.toxml()
+                data = data.toxml("utf-8")
             elif isinstance(data, xml.dom.minidom.Document):
                 data = data.toxml(encoding="utf-8")
             elif isinstance(data, str) and self.isfile(data):
