@@ -126,6 +126,7 @@ class NpoApi(NpoApiBase):
         """Executes a request and return the result as a string"""
         response = self.stream(path, params, accept, data)
         if response:
+            self.logger.debug(response.headers)
             return response.read().decode('utf-8')
         else:
             return ""

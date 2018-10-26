@@ -274,12 +274,13 @@ class NpoApiBase:
             self.logger.debug("Executing %s", summary)
             response = urllib.request.urlopen(req, timeout=timeout)
             self.code = response.getcode()
+            self.logger.debug("headers: "  + str(response.headers))
             self.logger.debug("response code: " + str(response.getcode()))
             self.logger.debug("response headers: " + str(response.getheaders()))
             return response
         except urllib.error.URLError as ue:
             error_type = str(type(ue))
-
+            self.logger.debug("headers: " + str(ue.headers))
             if ignore_not_found and ue.code == 404:
                 self.logger.debug('%s: %s: %s (%s)', url,  summary, ue.reason, error_type)
                 self.code = 404

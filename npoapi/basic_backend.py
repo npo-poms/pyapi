@@ -141,6 +141,7 @@ class BasicBackend(NpoApiBase):
             if response:
                 result = response.read().decode()
                 self.logger.debug("Found: %s", result)
+
                 return result
             else:
                 return None
