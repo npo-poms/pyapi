@@ -280,7 +280,7 @@ class NpoApiBase:
             return response
         except urllib.error.URLError as ue:
             error_type = str(type(ue))
-            self.logger.debug("headers: " + str(ue.headers))
+            self.logger.debug("headers: %s" % (str(ue.headers) if hasattr(ue, "headers") else "NONE"))
             if ignore_not_found and ue.code == 404:
                 self.logger.debug('%s: %s: %s (%s)', url,  summary, ue.reason, error_type)
                 self.code = 404
