@@ -26,6 +26,20 @@ or if you dare install the latest, which may sometimes be a bit broken:
 sudo pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git#egg=Package'
 ```
 
+## Virtual environment
+It may also be a good idea to set up a virtual environment in stead, to avoid version conflicts with other python projects.
+
+E.g. like so:
+```bash
+mihxil@baleno:~$ python3 -m venv ~/venvs/pyapi-env
+mihxil@baleno:~$ source ~/venvs/pyapi-env/bin/activate
+(pyapi-env) mihxil@baleno:~$ pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git'
+(pyapi-env) mihxil@baleno:~$ which npo_media_get 
+/Users/mihxil/venvs/pyapi-env/bin/npo_media_get
+
+```
+
+## Examples
 
 Check [setup.py](https://github.com/npo-poms/pyapi/blob/master/setup.py) to see which command line clients it will make available. These also serve as examples on how to use the npoapi module.
 
