@@ -323,8 +323,8 @@ class NpoApiBase:
 
                 self.logger.debug("" + data + " is file, reading it in as " + content_type)
                 with codecs.open(data, 'r', 'utf-8') as myfile:
-                    data = myfile.read()
-                    self.logger.debug("Found data " + data)
+                    data = myfile.read().encode('utf-8')
+                    self.logger.debug("Found data " + data.decode("utf-8"))
             elif isinstance(data, str):
                 content_type = None
                 if data.startswith("{"):
