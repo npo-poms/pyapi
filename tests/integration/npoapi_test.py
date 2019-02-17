@@ -5,11 +5,8 @@ from xml.dom import minidom
 import os
 
 from npoapi import Media
-from npoapi import Screens
 from npoapi import MediaBackend
 from npoapi import Subtitles
-from npoapi.npoapi import NpoApi
-from npoapi.npoapi import NpoApiBase
 
 from npoapi.xml import poms
 from npoapi.xml import mediaupdate
@@ -68,17 +65,6 @@ class MediaTests(unittest.TestCase):
     def get_client(self):
         print(os.path.dirname(__file__))
         return Media().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
-
-
-class ScreenTests(unittest.TestCase):
-    def test_screens(self):
-        client = self.get_client()
-        result = json.JSONDecoder().decode(client.list(offset=3))
-        self.assertEqual(result["offset"], 3)
-
-    def get_client(self):
-        print(os.path.dirname(__file__))
-        return Screens().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
 
 
 class SubtitlesTest(unittest.TestCase):
