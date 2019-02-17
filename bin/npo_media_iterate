@@ -9,11 +9,11 @@ import sys
 import os
 
 client = Media()\
-    .command_line_client(description="Iterate the NPO Frontend API")
+    .command_line_client(description="Iterate the NPO Frontend API. This is the adviced way to download all data or all data relevant to you (via profile and/or form arguments).", exclude_arguments= {"accept"})
 client.add_argument('profile', type=str, nargs='?')
 client.add_argument('form', type=str, nargs='?',
                     help='The search form. This may be a json string, or the name of a file containing it')
-client.add_argument('-m', "--max", type=int, default="100")
+client.add_argument('-m', "--max", type=int, default="100", help="On default the size is maximized to 100, but unlike with other API calls you can set this max value arbitrary large.")
 
 args = client.parse_args()
 form = args.form
