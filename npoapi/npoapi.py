@@ -29,8 +29,8 @@ class NpoApi(NpoApiBase):
         self.key, self.secret, self.origin = key, secret, origin
 
     def login(self, key, secret, origin = None):
-        self.key = key
-        self.secret = secret
+        self.key = key.lstrip()
+        self.secret = secret.lstrip()
         if not origin is None:
             self.origin = origin
         return self
