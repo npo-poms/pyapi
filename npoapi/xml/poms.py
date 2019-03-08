@@ -1,7 +1,7 @@
 # ./npoapi/xml/poms.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:e92452c8d3e28a9e27abfc9994d2007779e7f4c9
-# Generated 2019-02-16 22:08:56.008318 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2019-03-08 21:59:20.601033 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0e6e6310-322f-11e9-b63a-6a0002581300')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0a6323d0-41e5-11e9-be22-6a0002581300')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -76,6 +76,19 @@ def CreateFromDOM (node, default_namespace=None):
     return pyxb.binding.basis.element.AnyCreateFromDOM(node, default_namespace)
 
 
+# Atomic simple type: [anonymous]
+class STD_ANON (pyxb.binding.datatypes.string):
+
+    """An atomic simple type."""
+
+    _ExpandedName = None
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/absentnamespace.xsd', 12, 6)
+    _Documentation = None
+STD_ANON._CF_pattern = pyxb.binding.facets.CF_pattern()
+STD_ANON._CF_pattern.addPattern(pattern='[0-9]+(\\.[0-9]+(\\.[0-9]+)?)?')
+STD_ANON._InitializeFacetMap(STD_ANON._CF_pattern)
+_module_typeBindings.STD_ANON = STD_ANON
+
 # Complex type collectionType with content type ELEMENT_ONLY
 class collectionType (pyxb.binding.basis.complexTypeDefinition):
     """Complex type collectionType with content type ELEMENT_ONLY"""
@@ -89,7 +102,7 @@ class collectionType (pyxb.binding.basis.complexTypeDefinition):
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute version uses Python identifier version
-    __version = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'version'), 'version', '__AbsentNamespace0_collectionType_version', pyxb.binding.datatypes.float)
+    __version = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'version'), 'version', '__AbsentNamespace0_collectionType_version', _module_typeBindings.STD_ANON)
     __version._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/absentnamespace.xsd', 11, 4)
     __version._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/absentnamespace.xsd', 11, 4)
     

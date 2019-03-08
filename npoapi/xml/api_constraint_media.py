@@ -1,7 +1,7 @@
 # ./npoapi/xml/api_constraint_media.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:c4e4314e58c54eb763331b986f51d7c6d2480f27
-# Generated 2019-02-16 22:08:56.007240 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2019-03-08 21:59:20.599588 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:api:constraint:media:2013 [xmlns:media]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0e6e6310-322f-11e9-b63a-6a0002581300')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0a6323d0-41e5-11e9-be22-6a0002581300')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
