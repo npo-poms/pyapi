@@ -1,7 +1,7 @@
 # ./npoapi/xml/thesaurus.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:ac54f34c9ade42f40dbd05d90aa328ecf2f4878b
-# Generated 2018-10-26 21:56:37.893238 by PyXB version 1.2.6 using Python 3.5.2.final.0
+# Generated 2019-02-16 22:08:56.007601 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:gtaa:2017
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:3df7c0e4-d959-11e8-8a82-6a0002581300')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0e6e6310-322f-11e9-b63a-6a0002581300')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -77,7 +77,7 @@ def CreateFromDOM (node, default_namespace=None):
 
 
 # Complex type {urn:vpro:gtaa:2017}gtaaNewPerson with content type ELEMENT_ONLY
-class gtaaNewPerson_ (pyxb.binding.basis.complexTypeDefinition):
+class gtaaNewPerson (pyxb.binding.basis.complexTypeDefinition):
     """Complex type {urn:vpro:gtaa:2017}gtaaNewPerson with content type ELEMENT_ONLY"""
     _TypeDefinition = None
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
@@ -89,21 +89,21 @@ class gtaaNewPerson_ (pyxb.binding.basis.complexTypeDefinition):
     # Base type is pyxb.binding.datatypes.anyType
     
     # Element {urn:vpro:gtaa:2017}familyName uses Python identifier familyName
-    __familyName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'familyName'), 'familyName', '__urnvprogtaa2017_gtaaNewPerson__urnvprogtaa2017familyName', False, pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 8, 6), )
+    __familyName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'familyName'), 'familyName', '__urnvprogtaa2017_gtaaNewPerson_urnvprogtaa2017familyName', False, pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 8, 6), )
 
     
     familyName = property(__familyName.value, __familyName.set, None, None)
 
     
     # Element {urn:vpro:gtaa:2017}givenName uses Python identifier givenName
-    __givenName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'givenName'), 'givenName', '__urnvprogtaa2017_gtaaNewPerson__urnvprogtaa2017givenName', False, pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 9, 6), )
+    __givenName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'givenName'), 'givenName', '__urnvprogtaa2017_gtaaNewPerson_urnvprogtaa2017givenName', False, pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 9, 6), )
 
     
     givenName = property(__givenName.value, __givenName.set, None, None)
 
     
     # Element {urn:vpro:gtaa:2017}note uses Python identifier note
-    __note = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'note'), 'note', '__urnvprogtaa2017_gtaaNewPerson__urnvprogtaa2017note', False, pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 10, 6), )
+    __note = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'note'), 'note', '__urnvprogtaa2017_gtaaNewPerson_urnvprogtaa2017note', False, pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 10, 6), )
 
     
     note = property(__note.value, __note.set, None, None)
@@ -116,20 +116,20 @@ class gtaaNewPerson_ (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         
     })
-_module_typeBindings.gtaaNewPerson_ = gtaaNewPerson_
-Namespace.addCategoryObject('typeBinding', 'gtaaNewPerson', gtaaNewPerson_)
+_module_typeBindings.gtaaNewPerson = gtaaNewPerson
+Namespace.addCategoryObject('typeBinding', 'gtaaNewPerson', gtaaNewPerson)
 
 
-gtaaNewPerson = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'gtaaNewPerson'), gtaaNewPerson_, location=pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 4, 2))
-Namespace.addCategoryObject('elementBinding', gtaaNewPerson.name().localName(), gtaaNewPerson)
+newPerson = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'newPerson'), gtaaNewPerson, location=pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 4, 2))
+Namespace.addCategoryObject('elementBinding', newPerson.name().localName(), newPerson)
 
 
 
-gtaaNewPerson_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'familyName'), pyxb.binding.datatypes.string, scope=gtaaNewPerson_, location=pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 8, 6)))
+gtaaNewPerson._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'familyName'), pyxb.binding.datatypes.string, scope=gtaaNewPerson, location=pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 8, 6)))
 
-gtaaNewPerson_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'givenName'), pyxb.binding.datatypes.string, scope=gtaaNewPerson_, location=pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 9, 6)))
+gtaaNewPerson._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'givenName'), pyxb.binding.datatypes.string, scope=gtaaNewPerson, location=pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 9, 6)))
 
-gtaaNewPerson_._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'note'), pyxb.binding.datatypes.string, scope=gtaaNewPerson_, location=pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 10, 6)))
+gtaaNewPerson._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'note'), pyxb.binding.datatypes.string, scope=gtaaNewPerson, location=pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 10, 6)))
 
 def _BuildAutomaton ():
     # Remove this helper function from the namespace after it is invoked
@@ -147,17 +147,17 @@ def _BuildAutomaton ():
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.ElementUse(gtaaNewPerson_._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'familyName')), pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 8, 6))
+    symbol = pyxb.binding.content.ElementUse(gtaaNewPerson._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'familyName')), pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 8, 6))
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_1, False))
-    symbol = pyxb.binding.content.ElementUse(gtaaNewPerson_._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'givenName')), pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 9, 6))
+    symbol = pyxb.binding.content.ElementUse(gtaaNewPerson._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'givenName')), pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 9, 6))
     st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_2, False))
-    symbol = pyxb.binding.content.ElementUse(gtaaNewPerson_._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'note')), pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 10, 6))
+    symbol = pyxb.binding.content.ElementUse(gtaaNewPerson._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'note')), pyxb.utils.utility.Location('https://publish-dev.pages.omroep.nl/schema/urn:vpro:gtaa:2017', 10, 6))
     st_2 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_2)
     transitions = []
@@ -179,5 +179,5 @@ def _BuildAutomaton ():
         fac.UpdateInstruction(cc_2, True) ]))
     st_2._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
-gtaaNewPerson_._Automaton = _BuildAutomaton()
+gtaaNewPerson._Automaton = _BuildAutomaton()
 
