@@ -6,10 +6,15 @@ import logging
 import os
 import sys
 import urllib.request
+import http
 
 import pyxb
 
 import npoapi
+from typing import Optional
+from typing import List
+from typing import Dict
+
 
 
 def declare_namespaces():
@@ -122,7 +127,7 @@ class NpoApiBase:
 
         return self
 
-    def get_setting(self, name:str, description, write_settings = True):
+    def get_setting(self, name:str, description, write_settings = True) -> str:
         if not(name in self.settings):
 
             if name.lower() in self.settings:
@@ -135,7 +140,7 @@ class NpoApiBase:
                 self._write_settings()
         return self.settings[name]
 
-    def get_configfiles(self, config_dir = None):
+    def get_configfiles(self, config_dir = None) -> List[str]:
         current_script_dir = os.path.dirname(sys.argv[0])
         config_files = [
             os.path.join(os.path.expanduser("~"), "conf", "creds.properties"),
@@ -172,7 +177,7 @@ class NpoApiBase:
         else:
             print("(Configuration could not be saved since no file of %s is writable" % str(config_files))
 
-    def _read_properties_file(self, config_file, properties=None):
+    def _read_properties_file(self, config_file, properties=None) -> Dict[str, str]:
         if properties is None:
             properties = {}
         with open(config_file, "r") as f:
@@ -215,7 +220,7 @@ class NpoApiBase:
     def add_argument(self, *args, **kwargs):
         self.argument_parser.add_argument(*args, **kwargs)
 
-    def accept_choices(self):
+    def accept_choices(self) -> Dict[str, str]:
         return {"json": "application/json", "xml": "application/xml"}
 
     def common_arguments(self, description=None, exclude_arguments=None):
@@ -267,8 +272,13 @@ class NpoApiBase:
             self.accept()
         return args
 
-    def get_response(self, req, url:str, ignore_not_found=False, timeout=None):
-        """Error handling around urllib.request.urlopen"""
+    def get_response(self, req, url:str, ignore_not_found:bool = False, timeout:int = None) -> Optional[http.client.HTTPResponse]:
+        """Error handling around urllib.request.urlopen
+
+        :param bool ignore_not_found Whether status 404 should be logged as an error
+        :param int timeout Timeout in seconds
+
+        """
         summary = "%s %s" % (req.method if hasattr(req, "method") else "'GET'" if not req.data else "'POST'", url)
         try:
             self.logger.debug("Executing %s", summary)
@@ -336,13 +346,13 @@ class NpoApiBase:
         return data, content_type
 
     @staticmethod
-    def isfile(string:str):
+    def isfile(string:str) -> bool:
         try:
             return os.path.isfile(string)
         except:
             return False
 
-    def data_or_from_file(self, data: str):
+    def data_or_from_file(self, data: str) -> str:
         """"""
         if os.path.isfile(data):
             self.logger.debug("" + data + " is file, reading it in")
@@ -353,7 +363,7 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data:str, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
+    def to_object(self, data:str, validate=False) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
         """Converts a string to a pyxb object and optionally validates it"""
         if data is None:
             return None
@@ -368,7 +378,7 @@ class NpoApiBase:
             result.validateBinding()
         return result
 
-    def to_object_or_none(self, data:str, validate=False) -> pyxb.binding.basis.complexTypeDefinition:
+    def to_object_or_none(self, data:str, validate=False) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
         import xml
         try:
             return self.to_object(data, validate)
@@ -376,7 +386,7 @@ class NpoApiBase:
             self.logger.debug("Not xml")
             return None
 
-    def exit_code(self):
+    def exit_code(self) -> int:
         if self.code is None or 200 <= self.code < 300:
             return 0
         return self.code // 100
@@ -384,7 +394,7 @@ class NpoApiBase:
     def exit(self):
         sys.exit(self.exit_code())
 
-    def pretty_xml(self, string: str):
+    def pretty_xml(self, string: str) -> str:
         from xml.dom.minidom import parseString
         import xml.parsers.expat
         try:

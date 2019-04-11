@@ -1,9 +1,11 @@
 import base64
 import hashlib
 import hmac
+import http
 import json
 import urllib.request
 from email import utils
+from typing import Optional
 
 from npoapi.base import NpoApiBase
 
@@ -57,11 +59,10 @@ class NpoApi(NpoApiBase):
             self.url = e
         return self
 
-
-    def info(self):
+    def info(self) -> str:
         return self.key + "@" + self.url
 
-    def authenticate(self, uri="", now=utils.formatdate()):
+    def authenticate(self, uri="", now=utils.formatdate()) -> [str, str]:
         if self.origin is None:
             self.origin = self.get_setting("origin", "Your NPO api origin")
         if self.key is None:
@@ -69,14 +70,13 @@ class NpoApi(NpoApiBase):
         if self.secret is None:
             self.secret = self.get_setting("secret", "Your NPO api secret")
 
-
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         self.logger.debug("message: " + message)
         encoded = base64.b64encode(
             hmac.new(self.secret.encode('utf-8'), msg=message.encode('utf-8'), digestmod=hashlib.sha256).digest())
         return "NPO " + self.key + ":" + encoded.decode('utf-8'), now
 
-    def _get_url(self, path, params=None):
+    def _get_url(self, path, params=None) -> [str, str]:
         if not params:
             params = {}
 
@@ -122,16 +122,17 @@ class NpoApi(NpoApiBase):
 
         return None,None
 
-    def request(self, path, params=None, accept=None, data=None) -> str:
-        """Executes a request and return the result as a string"""
-        response = self.stream(path, params, accept, data)
+    def request(self, path, params=None, accept=None, data=None, ignore_not_found=False) -> Optional[str]:
+        """Executes a request and return the result as a string, or None if not found"""
+        response = self.stream(path, params, accept, data, ignore_not_found=ignore_not_found)
         if response:
             self.logger.debug(response.headers)
             return response.read().decode('utf-8')
         else:
-            return ""
+            return None
 
-    def stream(self, path:str, params=None, accept=None, data=None, content_type:str=None, timeout=None):
+    def stream(self, path:str, params=None, accept=None, data=None, content_type:str=None, timeout=None,
+               ignore_not_found=False) -> Optional[http.client.HTTPResponse]:
 
         data, content_type = self.data_to_bytes(data, content_type)
         if not data is None:
@@ -150,5 +151,5 @@ class NpoApi(NpoApiBase):
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept if accept else self._accept)
         self.logger.debug("headers: " + str(req.headers))
-        return self.get_response(req, url, timeout)
+        return self.get_response(req, url, ignore_not_found=ignore_not_found, timeout = timeout)
 

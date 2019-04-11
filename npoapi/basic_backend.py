@@ -2,6 +2,8 @@ import base64
 import logging
 import urllib.request
 from xml.dom import minidom
+from typing import Optional
+from typing import Dict
 
 import pytz
 from npoapi.xml import mediaupdate
@@ -114,7 +116,7 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Deleting " + url)
         return self._request(req, url, accept=accept)
 
-    def _get_xml(self, url:str) -> bytearray:
+    def _get_xml(self, url:str) -> Optional[bytearray]:
         """Gets XML (as a byte array) from an URL. So this sets the accept header."""
         self._creds()
         self.logger.debug("getting " + url)
@@ -126,7 +128,7 @@ class BasicBackend(NpoApiBase):
         else:
             return None
 
-    def _request(self, req, url, accept="application/xml", needs_authentication=True, authorization=None, ignore_not_found=False) -> str:
+    def _request(self, req, url, accept="application/xml", needs_authentication=True, authorization=None, ignore_not_found=False) -> Optional[str]:
         if needs_authentication:
             if authorization:
                 req.add_header("Authorization", authorization)
