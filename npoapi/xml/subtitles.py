@@ -1,7 +1,7 @@
 # ./npoapi/xml/subtitles.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:f5e9c7dba985d37f434a2bc6acd18425aef883c8
-# Generated 2019-03-08 21:59:20.601709 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2019-12-13 16:26:24.575263 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:media:subtitles:2009
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0a6323d0-41e5-11e9-be22-6a0002581300')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ebc1dd04-1dbc-11ea-8b5f-989e63450ed4')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -84,7 +84,7 @@ class subtitlesFormatEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enu
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesFormatEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 31, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 33, 2)
     _Documentation = None
 subtitlesFormatEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesFormatEnum, enum_prefix=None)
 subtitlesFormatEnum.WEBVTT = subtitlesFormatEnum._CF_enumeration.addEnumeration(unicode_value='WEBVTT', tag='WEBVTT')
@@ -162,10 +162,26 @@ class subtitlesType (pyxb.binding.basis.complexTypeDefinition):
     type = property(__type.value, __type.set, None, None)
 
     
+    # Attribute owner uses Python identifier owner
+    __owner = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'owner'), 'owner', '__urnvpromediasubtitles2009_subtitlesType_owner', _ImportedBinding_npoapi_xml_shared.ownerTypeEnum)
+    __owner._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 19, 4)
+    __owner._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 19, 4)
+    
+    owner = property(__owner.value, __owner.set, None, None)
+
+    
+    # Attribute workflow uses Python identifier workflow
+    __workflow = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'workflow'), 'workflow', '__urnvpromediasubtitles2009_subtitlesType_workflow', _ImportedBinding_npoapi_xml_shared.subtitlesWorkflowEnum)
+    __workflow._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 20, 4)
+    __workflow._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 20, 4)
+    
+    workflow = property(__workflow.value, __workflow.set, None, None)
+
+    
     # Attribute cueCount uses Python identifier cueCount
     __cueCount = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'cueCount'), 'cueCount', '__urnvpromediasubtitles2009_subtitlesType_cueCount', pyxb.binding.datatypes.int)
-    __cueCount._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 19, 4)
-    __cueCount._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 19, 4)
+    __cueCount._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 21, 4)
+    __cueCount._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 21, 4)
     
     cueCount = property(__cueCount.value, __cueCount.set, None, None)
 
@@ -179,6 +195,8 @@ class subtitlesType (pyxb.binding.basis.complexTypeDefinition):
         __creationDate.name() : __creationDate,
         __lastModified.name() : __lastModified,
         __type.name() : __type,
+        __owner.name() : __owner,
+        __workflow.name() : __workflow,
         __cueCount.name() : __cueCount
     })
 _module_typeBindings.subtitlesType = subtitlesType
@@ -192,23 +210,23 @@ class subtitlesContentType (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_SIMPLE
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesContentType')
-    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 22, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 24, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.base64Binary
     
     # Attribute format uses Python identifier format
     __format = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'format'), 'format', '__urnvpromediasubtitles2009_subtitlesContentType_format', _module_typeBindings.subtitlesFormatEnum)
-    __format._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 25, 8)
-    __format._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 25, 8)
+    __format._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 27, 8)
+    __format._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 27, 8)
     
     format = property(__format.value, __format.set, None, None)
 
     
     # Attribute charset uses Python identifier charset
     __charset = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'charset'), 'charset', '__urnvpromediasubtitles2009_subtitlesContentType_charset', pyxb.binding.datatypes.string)
-    __charset._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 26, 8)
-    __charset._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 26, 8)
+    __charset._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 28, 8)
+    __charset._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009', 28, 8)
     
     charset = property(__charset.value, __charset.set, None, None)
 

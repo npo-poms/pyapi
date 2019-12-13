@@ -1,7 +1,7 @@
 # ./npoapi/xml/media_search.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:c9f1e5fb53f06c35ed1f8bfb94927ecdc3fc6078
-# Generated 2019-03-08 21:59:20.600692 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2019-12-13 16:26:24.573574 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:media:search:2012
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:0a6323d0-41e5-11e9-be22-6a0002581300')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ebc1dd04-1dbc-11ea-8b5f-989e63450ed4')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
