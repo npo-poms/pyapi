@@ -1,8 +1,8 @@
 
 POMS=https://poms-dev.omroep.nl/
 RS=https://rs-dev.poms.omroep.nl/v1/
-#PAGESPUB=https://publish-dev.pages.omroep.nl/
-PAGESPUB=http://localhost:8069/
+PAGESPUB=https://publish-dev.pages.omroep.nl/
+#PAGESPUB=http://localhost:8069/
 
 npoapi/xml/__init__.py: setup.py
 	pyxbgen \

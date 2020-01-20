@@ -1,7 +1,7 @@
 # ./npoapi/xml/page.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:bae47b8c8a50fe304e6e9de618201baa8dfd97c5
-# Generated 2019-12-13 16:26:24.572320 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2020-01-20 15:16:07.243213 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:pages:2013 [xmlns:page]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:ebc1dd04-1dbc-11ea-8b5f-989e63450ed4')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:650c35a2-3b8f-11ea-bd3d-a860b637463b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -627,68 +627,68 @@ class pageType (pyxb.binding.basis.complexTypeDefinition):
     type = property(__type.value, __type.set, None, None)
 
     
-    # Attribute workflow uses Python identifier workflow
-    __workflow = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'workflow'), 'workflow', '__urnvpropages2013_pageType_workflow', _module_typeBindings.pageWorkflow, required=True)
-    __workflow._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 43, 4)
-    __workflow._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 43, 4)
-    
-    workflow = property(__workflow.value, __workflow.set, None, None)
-
-    
     # Attribute creationDate uses Python identifier creationDate
     __creationDate = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'creationDate'), 'creationDate', '__urnvpropages2013_pageType_creationDate', pyxb.binding.datatypes.dateTime)
-    __creationDate._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 44, 4)
-    __creationDate._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 44, 4)
+    __creationDate._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 43, 4)
+    __creationDate._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 43, 4)
     
     creationDate = property(__creationDate.value, __creationDate.set, None, None)
 
     
     # Attribute lastModified uses Python identifier lastModified
     __lastModified = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'lastModified'), 'lastModified', '__urnvpropages2013_pageType_lastModified', pyxb.binding.datatypes.dateTime)
-    __lastModified._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 45, 4)
-    __lastModified._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 45, 4)
+    __lastModified._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 44, 4)
+    __lastModified._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 44, 4)
     
     lastModified = property(__lastModified.value, __lastModified.set, None, None)
 
     
     # Attribute lastPublished uses Python identifier lastPublished
     __lastPublished = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'lastPublished'), 'lastPublished', '__urnvpropages2013_pageType_lastPublished', pyxb.binding.datatypes.dateTime)
-    __lastPublished._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 46, 4)
-    __lastPublished._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 46, 4)
+    __lastPublished._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 45, 4)
+    __lastPublished._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 45, 4)
     
     lastPublished = property(__lastPublished.value, __lastPublished.set, None, None)
 
     
     # Attribute publishStart uses Python identifier publishStart
     __publishStart = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'publishStart'), 'publishStart', '__urnvpropages2013_pageType_publishStart', pyxb.binding.datatypes.dateTime)
-    __publishStart._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 47, 4)
-    __publishStart._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 47, 4)
+    __publishStart._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 46, 4)
+    __publishStart._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 46, 4)
     
     publishStart = property(__publishStart.value, __publishStart.set, None, None)
 
     
     # Attribute publishStop uses Python identifier publishStop
     __publishStop = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'publishStop'), 'publishStop', '__urnvpropages2013_pageType_publishStop', pyxb.binding.datatypes.dateTime)
-    __publishStop._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 48, 4)
-    __publishStop._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 48, 4)
+    __publishStop._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 47, 4)
+    __publishStop._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 47, 4)
     
     publishStop = property(__publishStop.value, __publishStop.set, None, None)
 
     
     # Attribute refCount uses Python identifier refCount
     __refCount = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'refCount'), 'refCount', '__urnvpropages2013_pageType_refCount', pyxb.binding.datatypes.int)
-    __refCount._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 49, 4)
-    __refCount._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 49, 4)
+    __refCount._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 48, 4)
+    __refCount._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 48, 4)
     
     refCount = property(__refCount.value, __refCount.set, None, None)
 
     
     # Attribute sortDate uses Python identifier sortDate
     __sortDate = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'sortDate'), 'sortDate', '__urnvpropages2013_pageType_sortDate', pyxb.binding.datatypes.dateTime)
-    __sortDate._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 50, 4)
-    __sortDate._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 50, 4)
+    __sortDate._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 49, 4)
+    __sortDate._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 49, 4)
     
     sortDate = property(__sortDate.value, __sortDate.set, None, None)
+
+    
+    # Attribute workflow uses Python identifier workflow
+    __workflow = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'workflow'), 'workflow', '__urnvpropages2013_pageType_workflow', _module_typeBindings.pageWorkflow)
+    __workflow._DeclarationLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 50, 4)
+    __workflow._UseLocation = pyxb.utils.utility.Location('https://rs-dev.poms.omroep.nl/v1/schema/urn:vpro:pages:2013', 50, 4)
+    
+    workflow = property(__workflow.value, __workflow.set, None, None)
 
     _ElementMap.update({
         __genre.name() : __genre,
@@ -712,14 +712,14 @@ class pageType (pyxb.binding.basis.complexTypeDefinition):
     _AttributeMap.update({
         __url.name() : __url,
         __type.name() : __type,
-        __workflow.name() : __workflow,
         __creationDate.name() : __creationDate,
         __lastModified.name() : __lastModified,
         __lastPublished.name() : __lastPublished,
         __publishStart.name() : __publishStart,
         __publishStop.name() : __publishStop,
         __refCount.name() : __refCount,
-        __sortDate.name() : __sortDate
+        __sortDate.name() : __sortDate,
+        __workflow.name() : __workflow
     })
 _module_typeBindings.pageType = pageType
 Namespace.addCategoryObject('typeBinding', 'pageType', pageType)
