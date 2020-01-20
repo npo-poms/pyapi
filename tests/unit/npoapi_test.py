@@ -24,3 +24,6 @@ class Tests(unittest.TestCase):
         self.assertEqual(settings['a'], "A")
         self.assertEqual(settings['b'], "Btest")
 
+
+
+
