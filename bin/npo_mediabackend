@@ -23,7 +23,7 @@ client.add_argument('--raw', action='store_true', help="""The XML will not be pa
 
 client.add_argument('--validate', action='store_true', help="""Use validateInput argument, when posting XML's.""")
 
-client.add_argument('--client_validate', action='store_false', help="""Make pyxb validate.""")
+client.add_argument('--client_validate', action='store_true', help="""Make pyxb validate.""")
 
 client.add_argument('--steal_crids', type=str, default='IF_DELETED', help="""""", choices=['YES', 'NO', 'IF_DELETED'])
 
