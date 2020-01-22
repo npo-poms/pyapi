@@ -142,6 +142,10 @@ class BasicBackend(NpoApiBase):
             response = self.get_response(req, url, ignore_not_found=ignore_not_found)
             if response:
                 result = response.read().decode()
+                warnings = response.headers.get_all('x-npo-validation-warning')
+                if warnings:
+                    for w in warnings:
+                        self.logger.warn("%s", str(w))
                 self.logger.debug("Found: %s", result)
 
                 return result
