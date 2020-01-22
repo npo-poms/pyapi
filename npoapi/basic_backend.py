@@ -146,6 +146,10 @@ class BasicBackend(NpoApiBase):
                 if warnings:
                     for w in warnings:
                         self.logger.warn("%s", str(w))
+                errors = response.headers.get_all('x-npo-validation-error')
+                if errors:
+                    for e in errors:
+                        self.logger.error("%s", str(e))
                 self.logger.debug("Found: %s", result)
 
                 return result

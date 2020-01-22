@@ -23,6 +23,8 @@ client.add_argument('--raw', action='store_true', help="""The XML will not be pa
 
 client.add_argument('--validate', action='store_true', help="""Use validateInput argument, when posting XML's.""")
 
+client.add_argument('--client_validate', action='store_false', help="""Make pyxb validate.""")
+
 client.add_argument('--steal_crids', type=str, default='IF_DELETED', help="""""", choices=['YES', 'NO', 'IF_DELETED'])
 
 client.add_argument('--lookup_crid', type=bool, help="""""", choices=[True, False])
@@ -36,12 +38,18 @@ client.add_argument('-p', '--process', type=str,
 args = client.parse_args()
 mid = None
 
+def is_prediction(update):
+    if type(update) == str:
+        return update.__contains__("<prediction")
+    else:
+        return update.childNodes[0].nodeName == "prediction"
+
 if args.search:
     print(client.find(args.xml[0], writeable=args.writable))
 else:
     xmlString = client.data_or_from_file(args.xml)
     if args.raw:
-        xml = args.xml
+        xml = xmlString
     else :
         try:
             xml = parseString(xmlString)
@@ -57,22 +65,22 @@ else:
         if xml:
             update = xml
             if args.process is not None:
-                update = client.to_object_or_none(xml, validate=True)
+                update = client.to_object_or_none(xml, validate=args.client_validate)
                 exec(args.process)
                 client.logger.debug("Execed " + args.process)
             if not(type(update) == str) and xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
                 if args.delete:
                     client.exit("cannot delete with search")
-                print(client.find(update, writable=args.writable, raw=args.raw, validate_input=args.validate))
+                print(client.find(update, writable=args.writable, raw=args.raw, validate_input=args.validate, client_validate=args.client_validate))
             else:
                 if args.delete:
                     mid = update.mid
                     print(client.delete(mid))
                 else:
-                    if update.childNodes[0].nodeName == "prediction":
-                        print(client.post(update, raw=args.raw, validate_input=args.validate, lookupcrid=args.lookup_crid))
+                    if is_prediction(update):
+                        print(client.post(update, raw=args.raw, validate_input=args.validate, client_validate=args.client_validate, lookupcrid=args.lookup_crid))
                     else :
-                        print(client.post(update, raw=args.raw, validate_input=args.validate, lookupcrid=args.lookup_crid, steal_crids=args.steal_crids))
+                        print(client.post(update, raw=args.raw, validate_input=args.validate, client_validate=args.client_validate, lookupcrid=args.lookup_crid, steal_crids=args.steal_crids))
         elif mid:
             if args.delete:
                 print(client.delete(mid))
@@ -80,3 +88,4 @@ else:
                 print(client.get(mid))
 
 client.exit()
+

@@ -48,10 +48,10 @@ class MediaBackend(BasicBackend):
         """Returns pyxb-representation of a mediaobject"""
         return self.to_object(self.get_full(mid, ignore_not_found), validate=False)
 
-    def post(self, update, lookupcrid=True, raw=False, steal_crids=False, validate_input=False):
+    def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False, client_validate=True):
         if not raw:
-            update = self.to_object(update, validate=True)
-        return self.post_to("media/media/", update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid, stealcrids="IF_DELETED", validateInput=str(validate_input).lower())
+            update = self.to_object(update, validate=client_validate)
+        return self.post_to("media/media/", update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid, stealcrids=steal_crids, validateInput=str(validate_input).lower())
 
     def delete(self, mid:str):
         """"""
@@ -68,9 +68,9 @@ class MediaBackend(BasicBackend):
         req = urllib.request.Request(url, data=self.xml_to_bytes(xml))
         return self._request(req, url, accept="application/xml", authorization=self.parkpost_authorization)
 
-    def find(self, form, writable=False, raw=False, validate_input=False):
+    def find(self, form, writable=False, raw=False, validate_input=False, client_validate=True):
         if not raw:
-            form = self.to_object(form, validate=True)
+            form = self.to_object(form, validate=client_validate)
         return self.post_to("media/find", form, accept="application/xml", writable=writable, validateInput=str(validate_input).lower())
 
     def subtitles(self, mid: str, language=None, type="CAPTION"):
