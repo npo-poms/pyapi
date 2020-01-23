@@ -5,6 +5,7 @@
 from npoapi import MediaBackend
 from npoapi.xml import media_search
 from xml.dom.minidom import parseString
+import re
 
 client = MediaBackend().command_line_client(description="Set an media object from the NPO Backend API")
 group = client.argument_parser.add_mutually_exclusive_group(required=True)
@@ -40,7 +41,7 @@ mid = None
 
 def is_prediction(update):
     if type(update) == str:
-        return update.__contains__("<prediction")
+        return re.match("(<\?xml.*?>\s*)?<prediction\s", update)
     else:
         return update.childNodes[0].nodeName == "prediction"
 
