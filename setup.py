@@ -13,7 +13,8 @@ setup(
         'ijson==2.5.1',
         'pyxb==1.2.6',
         'python-dateutil==2.8.1',
-        'jwt==0.6.1'
+        'jwt==0.6.1',
+        'typing==3.7.4.1'
     ],
     scripts=[
         'bin/npo_media_get',
