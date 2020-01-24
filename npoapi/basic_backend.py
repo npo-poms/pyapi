@@ -1,14 +1,14 @@
 import base64
 import logging
 import urllib.request
-from xml.dom import minidom
 from typing import Optional
-from typing import Dict
+from xml.dom import minidom
 
 import pytz
-from npoapi.xml import mediaupdate
+import pyxb
 
 from npoapi.base import NpoApiBase
+from npoapi.xml import mediaupdate
 
 
 class BasicBackend(NpoApiBase):
@@ -91,7 +91,7 @@ class BasicBackend(NpoApiBase):
     def _needs_login(self):
         return not self.authorizationHeader
 
-    def post_to(self, path, xml, accept="application/xml", **kwargs) -> str:
+    def post_to(self, path, xml, accept="application/xml", **kwargs) -> Optional[str]:
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
@@ -102,7 +102,7 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept)
 
-    def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs) -> str:
+    def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs) -> Optional[str]:
         self._creds()
         _url = self.append_params(self.url + path, include_errors=False, **kwargs)
         req = urllib.request.Request(_url)
@@ -171,7 +171,7 @@ class BasicBackend(NpoApiBase):
                 return aware.strftime("%Y-%m-%dT%H:%M:%SZ")
         return None
 
-    def append_params(self, _url, include_errors=True, **kwargs):
+    def append_params(self, _url: str, include_errors=True, **kwargs) -> str:
         if not kwargs:
             kwargs = {}
 
@@ -188,7 +188,7 @@ class BasicBackend(NpoApiBase):
         return _url
 
     @staticmethod
-    def toxml(update):
+    def toxml(update: pyxb.binding.basis.complexTypeDefinition) -> str:
         "xsi:- xml are not working out of the box.."
         t = type(update)
         if t == mediaupdate.programUpdateType:
@@ -219,7 +219,7 @@ class BasicBackend(NpoApiBase):
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
         elif isinstance(xml, pyxb.binding.basis.complexTypeDefinition):
-            return self.toxml(xml)
+            return bytearray(self.toxml(xml).encode('utf-8'))
         elif hasattr(xml, "toDOM"):
             return xml.toDOM().toxml('utf-8')
         else:

@@ -3,6 +3,7 @@ import os
 from xml.dom import minidom
 
 import pyxb
+from typing import Union
 
 from npoapi.media_backend import MediaBackend
 from npoapi.xml import media, mediaupdate, poms
@@ -18,58 +19,64 @@ class MediaBackendUtil(object):
 
 
     @staticmethod
-    def main_title(object: mediaupdate.mediaUpdateType, string: str = None):
+    def main_title(object: mediaupdate.mediaUpdateType, new_value: str = None) -> Union[str, mediaupdate.titleUpdateType, None]:
         """Gets/sets main title"""
-        return MediaBackendUtil.title(object, media.textualTypeEnum.MAIN, string)
+        return MediaBackendUtil.title(object, media.textualTypeEnum.MAIN, new_value)
 
     @staticmethod
-    def main_description(object: mediaupdate.mediaUpdateType, string: str = None):
+    def main_description(object: mediaupdate.mediaUpdateType, new_value: str = None):
         """Gets/set main description"""
         return \
-            MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, string)
-
+            MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, new_value)
 
     @staticmethod
-    def title(object: mediaupdate.mediaUpdateType, textualType, string: str = None):
+    def title(object: mediaupdate.mediaUpdateType, textual_type, new_value: str = None) -> Union[str, mediaupdate.titleUpdateType, None]:
         """Gets the title with certain textual type from media update type.
         Optionally, it can also be set
         """
-        if type(textualType) is str:
-            textualType  = getattr(media.textualTypeEnum, textualType)
+        if type(textual_type) is str:
+            textual_type = getattr(media.textualTypeEnum, textual_type)
 
-        if string:
-            title = mediaupdate.titleUpdateType(MediaBackendUtil.strip_tags(string))
-            title.type = textualType
+        title = None
+        if object.title:
+            for t in object.title:
+                if t.type == textual_type:
+                    title = t
+                    break
+        if new_value:
+            if title:
+                object.title.remove(title)
+            title = mediaupdate.titleUpdateType(MediaBackendUtil.strip_tags(new_value))
+            title.type = textual_type
             object.title.append(title)
             return title
         else:
-            MediaBackendUtil.logger.debug("Not appending title because it is empty")
-            if object.title:
-                for t in object.title:
-                    if t.type == textualType:
-                        return t.value()
-            return None
+            return title.value() if title else None
 
     @staticmethod
-    def description(object: mediaupdate.mediaUpdateType, textualType, string: str):
+    def description(object: mediaupdate.mediaUpdateType, textual_type, new_value: str) -> Union[str, mediaupdate.descriptionUpdateType, None]:
         """Gets the description with certain textual type from media update type.
       Optionally, it can also be set
       """
-        if type(textualType) is str:
-            textualType = getattr(media.textualTypeEnum, textualType)
-        if string:
-            description = mediaupdate.descriptionUpdateType(MediaBackendUtil.strip_tags(string))
-            description.type = textualType
+        if type(textual_type) is str:
+            textual_type = getattr(media.textualTypeEnum, textual_type)
+
+        description = None
+        if object.description:
+            for d in object.description:
+                if d.type == textual_type:
+                    description = d
+                    break
+        if new_value:
+            if description:
+                object.description.remove(description)
+
+            description = mediaupdate.descriptionUpdateType(MediaBackendUtil.strip_tags(new_value))
+            description.type = textual_type
             object.description.append(description)
             return description
         else:
-            MediaBackendUtil.logger.debug("Not appending description because it is empty")
-            if object.description:
-                for d in object.description:
-                    if d.type == textualType:
-                        return d.value()
-        return None
-
+            return description.value() if description else None
 
     @staticmethod
     def create_location(programUrl:str, **kwargs):
@@ -117,7 +124,6 @@ class MediaBackendUtil(object):
 
         return location_object
 
-
     @staticmethod
     def add_location(object: mediaupdate.mediaUpdateType, programUrl:str, **kwargs):
         if not object.locations:
@@ -128,13 +134,13 @@ class MediaBackendUtil(object):
         return location
 
     @staticmethod
-    def get_location(object: mediaupdate.mediaUpdateType, programUrl:str) -> mediaupdate.locationUpdateType:
+    def get_location(object: mediaupdate.mediaUpdateType, programUrl:str) -> Union[mediaupdate.locationUpdateType, None]:
         if not object.locations:
             return None
         for loc in object.locations.location:
             if str(loc.programUrl) is str(programUrl):
                 return loc
-        return loc
+        return None
 
     @staticmethod
     def add_or_update_location(object: mediaupdate.mediaUpdateType, programUrl: str,
@@ -145,7 +151,6 @@ class MediaBackendUtil(object):
             return MediaBackendUtil.update_location(loc, **kwargs)
         else:
             return MediaBackendUtil.add_location(object, programUrl, **kwargs)
-
 
     @staticmethod
     def create_image_from_file(image, **kwargs):
@@ -189,7 +194,6 @@ class MediaBackendUtil(object):
         if credits:
             image_object.credits = credits
 
-
     @staticmethod
     def add_image(object: mediaupdate.mediaUpdateType, image: str, **kwargs):
         if not object.images:
@@ -199,16 +203,12 @@ class MediaBackendUtil(object):
         object.images.append(new_image)
         return image
 
-
     @staticmethod
     def create_image(image: str, **kwargs):
         if type(image) == str and os.path.isfile(image):
             return MediaBackendUtil.create_image_from_file(image, **kwargs)
         else:
             return MediaBackendUtil.create_image_from_url(image, **kwargs)
-
-
-
 
     @staticmethod
     def member_of(object: mediaupdate.mediaUpdateType, group:str, position:int=None):
@@ -249,9 +249,6 @@ class MediaBackendUtil(object):
             else:
                 MediaBackendUtil.logger.info("%sNot a program but %s (%s)", log_indent, updateType, mid)
 
-
-
-
         target.extend(new_targets)
 
         if not limit or len(target) < int(limit):
@@ -280,7 +277,6 @@ class MediaBackendUtil(object):
 
         return target
 
-
     @staticmethod
     def segments_as_members(program) -> list:
         if type(program) == str:
@@ -297,7 +293,6 @@ class MediaBackendUtil(object):
             return item
 
         return list(map(segment_to_item, segments))
-
 
     @staticmethod
     def iterate_objects(members):

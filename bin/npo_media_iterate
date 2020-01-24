@@ -28,7 +28,7 @@ response = client.iterate(profile=args.profile, form=form, limit=args.max, timeo
 
 buffer_size = 1000
 buffer = bytearray("-" * buffer_size, "ascii")
-totalcount = 0
+total_count = 0
 while not response.closed:
     sys.stderr.write('.')
     sys.stderr.flush()
@@ -39,10 +39,10 @@ while not response.closed:
 
     os.write(sys.stdout.fileno(), buffer[0:number_of_bytes_read])
     sys.stdout.flush()
-    totalcount += number_of_bytes_read
+    total_count += number_of_bytes_read
     if number_of_bytes_read < buffer_size:
         response.close()
         break
 
-sys.stderr.write("\n%d byte written\n" % totalcount)
+sys.stderr.write("\n%d byte written\n" % total_count)
 client.exit()

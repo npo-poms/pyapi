@@ -3,8 +3,8 @@ from npoapi.basic_backend import BasicBackend
 import json
 
 
-
 class PagesBackend(BasicBackend):
+
     __author__ = "Michiel Meeuwissen"
 
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
@@ -16,12 +16,11 @@ class PagesBackend(BasicBackend):
         self.thesaurusUser = None
         self.thesaurusSecret = None
 
-
     def env(self, e):
         super().env(e)
         if e == "prod":
             self.url = "https://publish.pages.omroep.nl/"
-        elif e == None or e == "test":
+        elif e is None or e == "test":
             self.url = "https://publish-test.pages.omroep.nl/"
         elif e == "dev":
             self.url = "https://publish-dev.pages.omroep.nl/"

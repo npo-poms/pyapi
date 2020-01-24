@@ -9,10 +9,11 @@ setup(
     version=__version__,
     packages=['npoapi', 'npoapi.xml'],
     install_requires=[
-        'pytz==2018.9',
-        'ijson==2.3',
+        'pytz==2019.3',
+        'ijson==2.5.1',
         'pyxb==1.2.6',
-        'python-dateutil==2.8.0'
+        'python-dateutil==2.8.1',
+        'jwt==0.6.1'
     ],
     scripts=[
         'bin/npo_media_get',
