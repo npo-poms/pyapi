@@ -200,11 +200,12 @@ class MediaBackendUtil(object):
         E.g. the source of an image was allowed to be empty. Such objects cannot be posted back before correcting, which this function
         can do.
         """
-        for image in object.images:
-            if not image.source:
-                image.source = None
-            if not image.description:
-                image.description = None
+        if object.images:
+            for image in object.images.image:
+                if not image.source:
+                    image.source = None
+                if not image.description:
+                    image.description = None
 
 
     @staticmethod

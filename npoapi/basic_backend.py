@@ -188,7 +188,7 @@ class BasicBackend(NpoApiBase):
         return _url
 
     @staticmethod
-    def toxml(update: pyxb.binding.basis.complexTypeDefinition) -> str:
+    def toxml(update: pyxb.binding.basis.complexTypeDefinition) -> bytearray:
         "xsi:- xml are not working out of the box.."
         t = type(update)
         if t == mediaupdate.programUpdateType:
@@ -219,7 +219,7 @@ class BasicBackend(NpoApiBase):
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
         elif isinstance(xml, pyxb.binding.basis.complexTypeDefinition):
-            return bytearray(self.toxml(xml).encode('utf-8'))
+            return self.toxml(xml)
         elif hasattr(xml, "toDOM"):
             return xml.toDOM().toxml('utf-8')
         else:
