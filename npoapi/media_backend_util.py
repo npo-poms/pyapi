@@ -1,9 +1,9 @@
 import logging
 import os
+from typing import Union, Tuple, Optional
 from xml.dom import minidom
 
 import pyxb
-from typing import Union, List, Tuple, Optional
 
 from npoapi.media_backend import MediaBackend
 from npoapi.xml import media, mediaupdate, poms
@@ -16,7 +16,6 @@ class MediaBackendUtil(object):
     """
     __author__ = "Michiel Meeuwissen"
     logger = logging.getLogger("MediaBackendUtil")
-
 
     @staticmethod
     def main_title(object: mediaupdate.mediaUpdateType, new_value: str = None) -> Union[str, mediaupdate.titleUpdateType, None]:
@@ -333,7 +332,7 @@ class MediaBackendUtil(object):
         seconds -= int(hours * 3600)
         minutes = seconds // 60
         seconds -= minutes * 60
-        return (hours, minutes, seconds, millis)
+        return hours, minutes, seconds, millis
 
     @staticmethod
     def un_parse(hours: int, minutes: int, seconds:int, millis:int=0) -> int:
