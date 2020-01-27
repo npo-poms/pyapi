@@ -3,7 +3,7 @@ import os
 from xml.dom import minidom
 
 import pyxb
-from typing import Union, List, Tuple
+from typing import Union, List, Tuple, Optional
 
 from npoapi.media_backend import MediaBackend
 from npoapi.xml import media, mediaupdate, poms
@@ -24,7 +24,7 @@ class MediaBackendUtil(object):
         return MediaBackendUtil.title(object, media.textualTypeEnum.MAIN, new_value)
 
     @staticmethod
-    def main_description(object: mediaupdate.mediaUpdateType, new_value: str = None):
+    def main_description(object: mediaupdate.mediaUpdateType, new_value: str = None) -> Union[str, mediaupdate.descriptionUpdateType, None]:
         """Gets/set main description"""
         return \
             MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, new_value)
@@ -79,7 +79,7 @@ class MediaBackendUtil(object):
             return description.value() if description else None
 
     @staticmethod
-    def create_location(programUrl:str, **kwargs):
+    def create_location(programUrl:str, **kwargs) -> mediaupdate.locationUpdateType:
         # location_object = mediaupdate.locationUpdateType()
         location_object = mediaupdate.location()
         location_object.programUrl = programUrl
@@ -90,7 +90,7 @@ class MediaBackendUtil(object):
             location_object: mediaupdate.locationUpdateType,
             avFileFormat=None, bitrate=None, height=None, width=None, aspectratio=None,
             embargo=None
-            ):
+            ) -> mediaupdate.locationUpdateType:
         programUrl = location_object.programUrl
         avAttributes = location_object.avAttributes
         if avAttributes is None:
@@ -125,7 +125,7 @@ class MediaBackendUtil(object):
         return location_object
 
     @staticmethod
-    def add_location(object: mediaupdate.mediaUpdateType, programUrl:str, **kwargs):
+    def add_location(object: mediaupdate.mediaUpdateType, programUrl:str, **kwargs) -> mediaupdate.locationUpdateType:
         if not object.locations:
             object.locations = pyxb.BIND()
 
@@ -134,7 +134,7 @@ class MediaBackendUtil(object):
         return location
 
     @staticmethod
-    def get_location(object: mediaupdate.mediaUpdateType, programUrl:str) -> Union[mediaupdate.locationUpdateType, None]:
+    def get_location(object: mediaupdate.mediaUpdateType, programUrl:str) -> Optional[mediaupdate.locationUpdateType]:
         if not object.locations:
             return None
         for loc in object.locations.location:
@@ -153,7 +153,7 @@ class MediaBackendUtil(object):
             return MediaBackendUtil.add_location(object, programUrl, **kwargs)
 
     @staticmethod
-    def create_image_from_file(image, **kwargs):
+    def create_image_from_file(image, **kwargs) -> Optional[mediaupdate.imageUpdateType]:
         if os.path.isfile(image):
             with open(image, "rb") as image_file:
                 image_object = mediaupdate.image()
@@ -164,7 +164,7 @@ class MediaBackendUtil(object):
         return None
 
     @staticmethod
-    def create_image_from_url(imageUrl: str, **kwargs):
+    def create_image_from_url(imageUrl: str, **kwargs) -> mediaupdate.imageUpdateType:
         image_object = mediaupdate.image()
 
         if imageUrl.startswith("urn:"):
@@ -209,16 +209,16 @@ class MediaBackendUtil(object):
 
 
     @staticmethod
-    def add_image(object: mediaupdate.mediaUpdateType, image: str, **kwargs):
+    def add_image(object: mediaupdate.mediaUpdateType, image: str, **kwargs) -> mediaupdate.imageUpdateType:
         if not object.images:
             object.images = pyxb.BIND()
 
         new_image = MediaBackendUtil.create_image(image, **kwargs)
         object.images.append(new_image)
-        return image
+        return new_image
 
     @staticmethod
-    def create_image(image: str, **kwargs):
+    def create_image(image: str, **kwargs) -> mediaupdate.imageUpdateType:
         if type(image) == str and os.path.isfile(image):
             return MediaBackendUtil.create_image_from_file(image, **kwargs)
         else:
@@ -320,7 +320,7 @@ class MediaBackendUtil(object):
         return result
 
     @staticmethod
-    def toxml(update:  pyxb.binding.basis.complexTypeDefinition) -> str:
+    def toxml(update:  pyxb.binding.basis.complexTypeDefinition) -> bytearray:
         "xsi:- xml are not working out of the box.."
         return MediaBackend.toxml(update)
 
@@ -355,7 +355,7 @@ class MediaBackendUtil(object):
         return s.get_data()
 
     @staticmethod
-    def mediatype(update: Union[mediaupdate.segmentUpdateType, mediaupdate.groupUpdateType, mediaupdate.programUpdateType]):
+    def mediatype(update: Union[mediaupdate.segmentUpdateType, mediaupdate.groupUpdateType, mediaupdate.programUpdateType]) -> str:
         if type(update) == segmentUpdateType:
             return "SEGMENT"
         else:
