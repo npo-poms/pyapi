@@ -195,6 +195,15 @@ class MediaBackendUtil(object):
             image_object.credits = credits
 
     @staticmethod
+    def clear_invalid_image_fields(object: mediaupdate.mediaUpdateType):
+        for image in object.images:
+            if not image.source:
+                image.source = None
+            if not image.description:
+                image.description = None
+
+
+    @staticmethod
     def add_image(object: mediaupdate.mediaUpdateType, image: str, **kwargs):
         if not object.images:
             object.images = pyxb.BIND()
