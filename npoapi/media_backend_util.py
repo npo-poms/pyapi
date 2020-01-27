@@ -3,7 +3,7 @@ import os
 from xml.dom import minidom
 
 import pyxb
-from typing import Union
+from typing import Union, List, Tuple
 
 from npoapi.media_backend import MediaBackend
 from npoapi.xml import media, mediaupdate, poms
@@ -176,7 +176,7 @@ class MediaBackendUtil(object):
         return image_object
 
     @staticmethod
-    def set_image_fields(image_object, image_type="PICTURE", title=None, description=None, highlighted=False, license="COPYRIGHTED", source=None, source_name=None, credits=None):
+    def set_image_fields(image_object: mediaupdate.imageUpdateType , image_type="PICTURE", title=None, description=None, highlighted=False, license="COPYRIGHTED", source=None, source_name=None, credits=None):
         if image_type is None:
             image_type = "PICTURE"
         image_object.type = image_type
@@ -196,6 +196,10 @@ class MediaBackendUtil(object):
 
     @staticmethod
     def clear_invalid_image_fields(object: mediaupdate.mediaUpdateType):
+        """Sometimes in in the database there are some legacy fields which are currently invalid.
+        E.g. the source of an image was allowed to be empty. Such objects cannot be posted back before correcting, which this function
+        can do.
+        """
         for image in object.images:
             if not image.source:
                 image.source = None
@@ -287,7 +291,7 @@ class MediaBackendUtil(object):
         return target
 
     @staticmethod
-    def segments_as_members(program) -> list:
+    def segments_as_members(program: Union[str, minidom.Document]) -> list:
         if type(program) == str:
             program = minidom.parseString(program)
         segments = program.getElementsByTagName('segment')
@@ -304,7 +308,7 @@ class MediaBackendUtil(object):
         return list(map(segment_to_item, segments))
 
     @staticmethod
-    def iterate_objects(members):
+    def iterate_objects(members: Union[str, minidom.Document]) -> map:
         if type(members) == str:
             members = minidom.parseString(members)
         if type(members) == minidom.Document:
@@ -315,27 +319,27 @@ class MediaBackendUtil(object):
         return result
 
     @staticmethod
-    def toxml(update):
+    def toxml(update:  pyxb.binding.basis.complexTypeDefinition) -> str:
         "xsi:- xml are not working out of the box.."
         return MediaBackend.toxml(update)
 
     @staticmethod
-    def parse(duration_in_ms: int):
+    def parse(duration_in_ms: int) -> Tuple[int, int, int, int]:
         """Converts millis to hours, minutes, seconds, millis"""
         millis = duration_in_ms % 1000
-        seconds = duration_in_ms / 1000
+        seconds = duration_in_ms // 1000
         hours = seconds // 3600
-        seconds -= hours * 3600
+        seconds -= int(hours * 3600)
         minutes = seconds // 60
         seconds -= minutes * 60
         return (hours, minutes, seconds, millis)
 
     @staticmethod
-    def un_parse(hours, minutes, seconds, millis=0):
+    def un_parse(hours: int, minutes: int, seconds:int, millis:int=0) -> int:
         return ((hours * 60 + minutes) * 60 + seconds) * 1000 + millis
 
     @staticmethod
-    def format_duration(duration_in_ms: int):
+    def format_duration(duration_in_ms: int) -> str:
         """ Format duration as a ISO_8601"""
         (hours, minutes, seconds, millis) = MediaBackendUtil.parse(duration_in_ms)
         if hours == 0 and minutes == 0 and millis == 0:
@@ -350,7 +354,7 @@ class MediaBackendUtil(object):
         return s.get_data()
 
     @staticmethod
-    def mediatype(update):
+    def mediatype(update: Union[mediaupdate.segmentUpdateType, mediaupdate.groupUpdateType, mediaupdate.programUpdateType]):
         if type(update) == segmentUpdateType:
             return "SEGMENT"
         else:
