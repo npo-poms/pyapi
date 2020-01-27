@@ -43,12 +43,16 @@ class MediaBackendUtil(object):
                 if t.type == textual_type:
                     title = t
                     break
-        if new_value:
+        if new_value is not None:
             if title:
                 object.title.remove(title)
-            title = mediaupdate.titleUpdateType(MediaBackendUtil.strip_tags(new_value))
-            title.type = textual_type
-            object.title.append(title)
+            if new_value:
+                title = mediaupdate.titleUpdateType(MediaBackendUtil.strip_tags(new_value))
+                title.type = textual_type
+                object.title.append(title)
+            else:
+                # title is set to empty string, this means: remove the title
+                title = None
             return title
         else:
             return title.value() if title else None
@@ -206,6 +210,10 @@ class MediaBackendUtil(object):
                     image.source = None
                 if not image.description:
                     image.description = None
+                if image.height is not None and image.height <= 0:
+                    image.height = None
+                if image.width is not None and image.width <= 0:
+                    image.width = None
 
 
     @staticmethod
