@@ -38,8 +38,10 @@ if args.delete:
     client.delete(args.mid[0])
 
 if type(result) == list:
-    strings = map(lambda o: o.toxml(element_name = "item"), result)
-    print(strings)
+    strings = map(lambda o:
+                  o.toprettyxml(), result)
+    for s in strings:
+        print(s)
 elif not result is None:
     if process is None:
         print(client.pretty_xml(result))

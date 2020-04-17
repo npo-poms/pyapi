@@ -1,9 +1,9 @@
 import logging
 import os
+from typing import Union, Tuple, Optional
 from xml.dom import minidom
 
 import pyxb
-from typing import Union, List, Tuple, Optional
 
 from npoapi.media_backend import MediaBackend
 from npoapi.xml import media, mediaupdate, poms

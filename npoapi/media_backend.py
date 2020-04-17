@@ -101,7 +101,7 @@ class MediaBackend(BasicBackend):
         path = "media/media/" + urllib.request.quote(mid) + "/memberOf/"
         self.post_to(path, memberOf, accept="application/xml")
 
-    # private method to implement both members and episodes calls.
+    # method to implement both members and episodes calls.
     def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
         """Returns a list of minidom objects"""
         self._creds()
