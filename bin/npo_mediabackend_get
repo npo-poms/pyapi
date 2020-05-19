@@ -16,17 +16,22 @@ client.add_argument('-p', '--process',  type=str, help="""python code to postpro
 client.add_argument('-D', '--delete', action='store_true',
                     help="""The mid is deleted""")
 
+client.add_argument('-F', '--full', action='store_true', help="""full xml version""")
+
 args = client.parse_args()
 process = args.process
-sub = args.sub
+sub=args.sub
 mid = args.mid[0]
 
 def get():
+    global sub
     if sub == "subtitles":
         return client.subtitles(mid)
     elif sub == 'members' or sub == 'episodes':
-        return client.members_or_episodes(mid, sub)
+        return client.members_or_episodes(mid, sub, full=args.full)
     else:
+        if args.full and sub == "":
+            sub = "full"
         return client.get_sub(mid, sub)
 
 if not args.delete or process:

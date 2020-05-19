@@ -102,16 +102,19 @@ class MediaBackend(BasicBackend):
         self.post_to(path, memberOf, accept="application/xml")
 
     # method to implement both members and episodes calls.
-    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
+    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="", full=False) -> list:
         """Returns a list of minidom objects"""
         self._creds()
         self.logger.log(logging.INFO if log_progress else logging.DEBUG, "loading %s of %s", what, mid)
         result = []
         offset = 0
         b = min(batch, limit) if limit else batch
+        sub = "group" if what == "episodes" else "media"
+        w = what + "/full" if full else what
         while True:
-            sub = "group" if what == "episodes" else "media"
-            url = (self.url + 'media/' + sub + '/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
+
+
+            url = (self.url + 'media/' + sub + '/' + urllib.request.quote(mid, '') + "/" + w + "?max=" + str(b) +
                    "&offset=" + str(offset))
             bytes = self._get_xml(url)
             if bytes:
