@@ -57,6 +57,7 @@ class NpoApiBase:
         self.env(env)
         self._accept = accept or "application/json"
         self.settings = {}
+        self.response_headers = False
 
     @abc.abstractmethod
     def env(self, e):
@@ -234,11 +235,13 @@ class NpoApiBase:
         parent_args.add_argument('-u', "--url", type=str, default=None)
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
+        parent_args.add_argument('-H', "--headers", action='store_true', help="Show relevant response headers")
+
         filtered_argv = []
         i = 0
         while i < len(sys.argv):
             a = sys.argv[i]
-            if a in ["-d", "--debug", "-c", "--createconfig", "-v", "--version"]:
+            if a in ["-d", "--debug", "-c", "--createconfig", "-v", "--version", "-H", "--headers"]:
                 filtered_argv.append(a)
             if a in ["-e", "--env"]:
                 filtered_argv.append(a)
@@ -252,6 +255,8 @@ class NpoApiBase:
         pargs = parent_args.parse_args(filtered_argv)
         self.debug(pargs.debug)
         self.env(pargs.env)
+        self.response_headers = pargs.headers
+
         if pargs.url:
             self.env(pargs.url)
         if pargs.version:
@@ -285,6 +290,11 @@ class NpoApiBase:
             response = urllib.request.urlopen(req, timeout=timeout)
             self.code = response.getcode()
             self.logger.debug("headers: "  + str(response.headers))
+            if self.response_headers:
+                self.logger.info("selector: %s " % (req.selector))
+                for h in response.headers:
+                    if h.startswith("X-NPO-"):
+                        self.logger.info("%s: %s" % (h, response.headers[h]))
             self.logger.debug("response code: " + str(response.getcode()))
             self.logger.debug("response headers: " + str(response.getheaders()))
             return response
