@@ -16,15 +16,18 @@ client.add_argument("--mids", action="store_true", help='Interpret the form argu
 client.add_argument("--urlprefix", action="store_true", help='')
 client.add_argument('-P', "--profile", type=str, default=None,
                     help="profile filtering")
+client.add_argument('-p', "--properties", type=str, default=None,
+                    help="properties filtering")
 
 args = client.parse_args()
 
 form = args.form[0]
-if not os.path.isfile(form) and not form.startswith("{"):
+if not os.path.isfile(form) and not form.startswith("{") and not form.endswith(".json") and not form.endswith(".xml"):
     if args.mids:
         form = "{\"mediaForm\": { \"searches\": {\"mediaIds\": %s}}}" % (json.dumps(form.split(",")))
     else:
         form = "{\"searches\": {\"text\": %s}}" % json.dumps(form)
 
-print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, profile=args.profile))
+print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, profile=args.profile,
+                    properties=args.properties))
 client.exit()
