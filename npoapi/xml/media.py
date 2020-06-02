@@ -1,7 +1,7 @@
 # ./npoapi/xml/media.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aaac8a39e00bcd1804b49bf5b5b8b83fb686b430
-# Generated 2020-06-01 22:15:17.905403 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2020-06-02 08:50:55.187920 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:media:2009 [xmlns:media]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:83e765dc-a444-11ea-b7e3-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:653c1ade-a49d-11ea-a79a-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -4874,7 +4874,7 @@ def _BuildAutomaton_13 ():
     counters.add(cc_27)
     cc_28 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 310, 6))
     counters.add(cc_28)
-    cc_29 = fac.CounterCondition(min=0, max=2, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 311, 6))
+    cc_29 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 311, 6))
     counters.add(cc_29)
     cc_30 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 312, 6))
     counters.add(cc_30)
@@ -6912,7 +6912,7 @@ def _BuildAutomaton_28 ():
     counters.add(cc_27)
     cc_28 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 310, 6))
     counters.add(cc_28)
-    cc_29 = fac.CounterCondition(min=0, max=2, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 311, 6))
+    cc_29 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 311, 6))
     counters.add(cc_29)
     cc_30 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 312, 6))
     counters.add(cc_30)
@@ -8416,7 +8416,7 @@ def _BuildAutomaton_29 ():
     counters.add(cc_27)
     cc_28 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 310, 6))
     counters.add(cc_28)
-    cc_29 = fac.CounterCondition(min=0, max=2, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 311, 6))
+    cc_29 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 311, 6))
     counters.add(cc_29)
     cc_30 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 312, 6))
     counters.add(cc_30)
@@ -9744,7 +9744,7 @@ def _BuildAutomaton_30 ():
     counters.add(cc_27)
     cc_28 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 310, 6))
     counters.add(cc_28)
-    cc_29 = fac.CounterCondition(min=0, max=2, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 311, 6))
+    cc_29 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 311, 6))
     counters.add(cc_29)
     cc_30 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 312, 6))
     counters.add(cc_30)
