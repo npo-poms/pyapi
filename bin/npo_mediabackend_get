@@ -35,7 +35,7 @@ def get():
     else:
         if args.full and sub == "":
             sub = "full"
-        return client.get_sub(mid, sub)
+        return client.get_sub(mid, sub, follow_merges=not args.nofollowMerges, deletes=args.deletes)
 
 if not args.delete or process:
     result = get()
