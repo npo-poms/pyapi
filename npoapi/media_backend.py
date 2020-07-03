@@ -113,7 +113,6 @@ class MediaBackend(BasicBackend):
         w = what + "/full" if full else what
         while True:
 
-
             url = (self.url + 'media/' + sub + '/' + urllib.request.quote(mid, '') + "/" + w + "?max=" + str(b) +
                    "&offset=" + str(offset))
             if deletes:
@@ -125,7 +124,7 @@ class MediaBackend(BasicBackend):
             bytes = self._get_xml(url)
             if bytes:
                 xml = minidom.parseString(bytes)
-                items = xml.getElementsByTagName('item')
+                items = xml.getElementsByTagNameNS('*', 'item')
                 #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
                 result.extend(items)
                 total = xml.childNodes[0].getAttribute("totalCount")
@@ -250,9 +249,15 @@ class MediaBackend(BasicBackend):
     def get_images(self, mid:str):
         return self.get_sub(mid, "images")
 
-    def get_sub(self, mid:str, sub: str):
+    def get_sub(self, mid:str, sub: str, deletes=False, follow_merges=True):
         self._creds()
         url = self.url + "media/media/" + urllib.request.quote(mid) + "/" + sub
+        sep = '?'
+        if deletes:
+            url = url + sep +"deletes=true"
+            sep = '&'
+        if not follow_merges:
+            url = url + sep + "followMerges=false"
         return self._get_xml(url)
 
 
