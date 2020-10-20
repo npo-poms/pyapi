@@ -1,7 +1,7 @@
 # ./npoapi/xml/shared.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aa73b2ec19d0d50df44ac76274274e111838473b
-# Generated 2020-06-02 08:50:55.186955 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2020-10-20 09:07:11.801480 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:shared:2009 [xmlns:shared]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:653c1ade-a49d-11ea-a79a-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:d7b16146-12a2-11eb-a4bf-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'

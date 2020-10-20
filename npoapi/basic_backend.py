@@ -75,6 +75,8 @@ class BasicBackend(NpoApiBase):
 
     def _generate_basic_authorization(self, username, password):
         password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
+        if  self.url is None:
+            raise Exception("No url configured for " + str(self))
         password_manager.add_password(None, self.url, username, password)
         urllib.request.install_opener(
             urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager)))
@@ -109,7 +111,7 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Getting from " + _url)
         return self._request(req, _url, accept=accept, ignore_not_found=ignore_not_found)
 
-    def delete_from(self, path: str, accept="text/plain", **kwargs) -> str:
+    def delete_from(self, path: str, accept="text/plain", **kwargs) -> Optional[str]:
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, method="DELETE")

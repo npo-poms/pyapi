@@ -5,6 +5,8 @@ from xml.dom import minidom
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media, mediaupdate, poms
 import logging
+import time
+
 
 
 class MediaBackend(BasicBackend):
@@ -139,6 +141,8 @@ class MediaBackend(BasicBackend):
                 self.logger.debug(str(len(result)) + "/" + total + (("/" + str(limit)) if limit else ""))
             else:
                 self.logger.debug("None returned from %s", url)
+                time.sleep(2)
+
 
         return result
 

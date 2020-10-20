@@ -1,7 +1,7 @@
 # ./npoapi/xml/api.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:f09e526a28f80bea89107059b7879e5a6ef7c1ce
-# Generated 2020-06-02 08:50:55.192925 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2020-10-20 09:07:11.809176 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:api:2013
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:653c1ade-a49d-11ea-a79a-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:d7b16146-12a2-11eb-a4bf-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'

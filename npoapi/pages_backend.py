@@ -1,3 +1,5 @@
+from typing import Optional
+
 from npoapi.basic_backend import BasicBackend
 
 import json
@@ -12,6 +14,7 @@ class PagesBackend(BasicBackend):
 
         """
         super().__init__(env, email, debug, accept)
+        self.env(env)
         self.authorizationHeader = None
         self.thesaurusUser = None
         self.thesaurusSecret = None
@@ -27,14 +30,22 @@ class PagesBackend(BasicBackend):
         elif e == "localhost":
             self.url = "http://localhost:8069/"
         else:
-            self.url = e
+            if e is None:
+                self.logger("Using url for implicit environment % ", self.actualenv)
+                self.env(self.actualenv)
+            else:
+                self.url = e
         return self
 
     def post(self, update):
         return self.post_to("api/pages/updates", update, accept="text/plain")
 
-    def delete(self, url) -> dict:
-        return json.loads(self.delete_from("api/pages/updates", url=url, accept="application/json"))
+    def delete(self, url) -> Optional[dict]:
+        result = self.delete_from("api/pages/updates", url=url, accept="application/json")
+        if result is None:
+            return None
+        else:
+            return json.loads(result)
 
     def get(self, url):
         return self.get_from("api/pages/updates", url=url)
@@ -55,6 +66,9 @@ class PagesBackend(BasicBackend):
             algorithm='HS256'
         ).decode("utf-8")
         return self.post_to("api/thesaurus/person", new_person)
+
+    def __str__(self):
+        return "pages backend api for " + str(self.url)
 
 
 
