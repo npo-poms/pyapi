@@ -15,7 +15,7 @@ client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs
 client.add_argument('-p', '--process',  type=str, help="""python code to postprocess. E.g. "update.duration='PT5M'""""")
 
 client.add_argument('--nofollowMerges',   action='store_true',  help="""implicitely follow merges""")
-client.add_argument('--deletes',   action='store_true',  help="""find dleted objects too""")
+client.add_argument('--deletes',   action='store_true',  help="""find deleted objects too""")
 client.add_argument('-D', '--delete', action='store_true',
                     help="""The mid is deleted""")
 
