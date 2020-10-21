@@ -11,9 +11,9 @@ class PagesBackend(BasicBackend):
 
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
         """
-
+        Instantiates a client to the NPO Pages Publisher API
         """
-        super().__init__(env, email, debug, accept)
+        super().__init__("Pages Backend", env, email, debug, accept)
         self.env(env)
         self.authorizationHeader = None
         self.thesaurusUser = None

@@ -15,7 +15,7 @@ class BasicBackend(NpoApiBase):
     """Base class for backend apis. These use basic authentication. Normally communicate via XML."""
     __author__ = "Michiel Meeuwissen"
 
-    def __init__(self, env=None, email: str = None, debug=False, accept=None):
+    def __init__(self, description=None, env=None, email: str = None, debug=False, accept=None):
         """
         Instantiates a client to the NPO Backend API
         """
@@ -25,6 +25,8 @@ class BasicBackend(NpoApiBase):
         self.email = email
         self.url = None
         self.authorizationHeader = None
+        self.description = description
+
 
     def client(self, user=None, password=None, url=None, email=None):
         """
@@ -56,7 +58,7 @@ class BasicBackend(NpoApiBase):
             self.logger.debug("Already authenticated")
         else:
             user_key = self.get_users()[0]
-            self.authorizationHeader = self._basic_authentication(user_key, "Your NPO backend")
+            self.authorizationHeader = self._basic_authentication(user_key, "Your " + self.description)
         return self
 
     def _basic_authentication(self, settings_key, description):

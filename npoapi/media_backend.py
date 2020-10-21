@@ -17,7 +17,7 @@ class MediaBackend(BasicBackend):
         """
         Instantiates a client to the NPO Backend API
         """
-        super().__init__(env, email, debug, accept)
+        super().__init__("Media Backend",  env, email, debug, accept)
         self.parkpost_authorization = None
 
     def env(self, e:str):
