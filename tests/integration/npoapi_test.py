@@ -28,7 +28,7 @@ class MediaTests(unittest.TestCase):
     def test_get_quote(self):
         client = self.get_client()
         result = client.get(" Avro_1260864")
-        self.assertEqual("", result)
+        self.assertEqual(None, result)
         self.assertEqual(404, client.code)
 
     def test_get_space(self):
@@ -53,8 +53,11 @@ class MediaTests(unittest.TestCase):
         objects = ijson.items(client.changes(stream=True), 'changes.item')
         for o in objects:
             media = o["media"]
-            sortDate = datetime.fromtimestamp(media["sortDate"] / 1e3)
-            print(media["broadcasters"], sortDate)
+            if "sortDate" in media:
+                sort_date = datetime.fromtimestamp(media["sortDate"] / 1e3)
+                print(media["broadcasters"], sort_date)
+            else:
+                print(media["broadcasters"])
 
     def test(self):
         import datetime
@@ -116,7 +119,7 @@ class MediaBackendTest(unittest.TestCase):
         bytes = self.client.get_images(MID)
         images = poms.CreateFromDocument(bytes)
         image2 = images.wildcardElements()[0] if len(images.wildcardElements()) > 0 else None
-        self.assertEquals(image.title, image2.title)
+        self.assertEqual(image.title, image2.title)
         #self.assertEquals(image2.title, "testte")
         print(image2.toxml())
 

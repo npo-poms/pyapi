@@ -37,8 +37,10 @@ CLIP_CRID = "crid://pyapi/clip/1"
 
 time_str = str(time.time())
 
+
 def create_title():
     return "hoi " + time_str
+
 
 def create_clip():
     program = mediaupdate.program(type="CLIP", avType="MIXED")
@@ -50,11 +52,13 @@ def create_clip():
     program.segments.append(create_segment(1))
     program.images = pyxb.BIND()
     image = mediaupdate.image(type="PICTURE", title="Plaatje van clip " + time_str)
-    image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&w=120&h=120"
+    image.imageLocation = pyxb.BIND()
+    image.imageLocation.url = "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&w=120&h=120"
     program.images.append(image)
     program.credits = pyxb.BIND()
     program.credits.append(mediaupdate.personUpdateType(role="EDITOR", givenName="Pietje", familyName="PuK"))
     return program
+
 
 def create_segment(nr, ref=None):
     segment = mediaupdate.segment(avType="MIXED")
@@ -66,7 +70,8 @@ def create_segment(nr, ref=None):
     if ref:
         segment.midRef = ref
     image = mediaupdate.image(type="PICTURE", title="Plaatje van segment "  + time_str)
-    image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=17&txt=image2&w=120&h=120"
+    image.imageLocation = pyxb.BIND()
+    image.imageLocation.url = "https://placeholdit.imgix.net/~text?txtsize=17&txt=image2&w=120&h=120"
     segment.images.append(image)
     return segment
 
@@ -74,16 +79,14 @@ def create_segment(nr, ref=None):
 def post_clip():
     clip = create_clip()
     result = backend.post(clip)
-    print(result + " " + create_title())
+    print(str(result) + " " + str(create_title()))
     assert result == CLIP_CRID
-
 
 def post_segment():
     segment = create_segment(2, MID)
     result = backend.post(segment)
-    print(result)
+    print(str(result))
     assert result == "crid://pyapi/segment/2"
-
 
 def post_to_backend():
     post_clip()
