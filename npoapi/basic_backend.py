@@ -27,7 +27,6 @@ class BasicBackend(NpoApiBase):
         self.authorizationHeader = None
         self.description = description
 
-
     def client(self, user=None, password=None, url=None, email=None):
         """
         Explicitely sets some fields

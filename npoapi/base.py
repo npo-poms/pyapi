@@ -232,7 +232,7 @@ class NpoApiBase:
         if not "accept" in exclude_arguments:
             parent_args.add_argument('-a', "--accept", type=str, default=None, choices=self.accept_choices().keys())
         parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "testa", "testb", "prod", "proda", "prodb", "dev", "localhost"})
-        parent_args.add_argument('-u', "--url", type=str, default=None)
+        parent_args.add_argument('-u', "--url", type=str, default=None, help="The URL of the API which this client communicates with. This is an alternative to --env")
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
         parent_args.add_argument('-H', "--headers", action='store_true', help="Show relevant response headers")
