@@ -1,0 +1,20 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified"  >
+
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="https://www.w3.org/2009/01/xml.xsd"/>
+
+    <xs:import namespace="urn:vpro:shared:2009" schemaLocation="https://poms.omroep.nl/schema/vproShared.xsd"/>
+    <xs:import namespace="urn:vpro:media:2009" schemaLocation="https://poms.omroep.nl/schema/vproMedia.xsd"/>
+    <xs:import namespace="urn:vpro:media:update:2009" schemaLocation="https://poms.omroep.nl/schema/update/vproMediaUpdate.xsd"/>
+    <xs:import namespace="urn:vpro:media:search:2012" schemaLocation="https://poms.omroep.nl/schema/search/vproMediaSearch.xsd"/>
+
+
+    <xs:import namespace="urn:vpro:api:profile:2013" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:api:profile:2013"/>
+    <xs:import namespace="urn:vpro:api:2013" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:api:2013"/>
+    <xs:import namespace="urn:vpro:pages:2013" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:pages:2013"/>
+    <xs:import namespace="urn:vpro:pages:update:2013" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:pages:update:2013"/>
+    <xs:import namespace="urn:vpro:api:constraint:media:2013" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:media:2013"/>
+    <xs:import namespace="urn:vpro:api:constraint:page:2013" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:page:2013"/>
+    <xs:import namespace="urn:vpro:api:constraint:2014" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:api:constraint:2014"/>
+    <xs:import namespace="urn:vpro:media:subtitles:2009" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:media:subtitles:2009"/>
+    <xs:import namespace="urn:vpro:gtaa:2017" schemaLocation="https://rs.poms.omroep.nl/v1/schema/urn:vpro:gtaa:2017"/>
+</xs:schema>

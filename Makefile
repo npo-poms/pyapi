@@ -4,6 +4,28 @@ RS=https://rs-dev.poms.omroep.nl/v1/
 PAGESPUB=https://publish-dev.pages.omroep.nl/
 #PAGESPUB=http://localhost:8069/
 
+XSDATA=xsdata generate
+
+
+npoapi/model/__init__.py: setup.py
+    $(XSDATA) combined.xsd
+
+	$(XSDATA) $(POMS)schema/vproMedia.xsd
+	$(XSDATA) $(POMS)schema/vproShared.xsd
+	$(XSDATA) $(POMS)schema/update/vproMediaUpdate.xsd
+	$(XSDATA) $(POMS)schema/search/vproMediaSearch.xsd
+	$(XSDATA) "$(RS)schema/urn:vpro:api:constraint:page:2013"
+	$(XSDATA) "$(RS)schema/urn:vpro:pages:2013"
+	$(XSDATA) "$(RS)schema/urn:vpro:api:constraint:2014"
+	$(XSDATA) "$(RS)schema/urn:vpro:api:constraint:media:2013"
+	$(XSDATA) "$(RS)schema/urn:vpro:pages:update:2013"
+	$(XSDATA) "$(RS)schema/urn:vpro:api:2013"
+	$(XSDATA) "$(RS)schema/urn:vpro:api:profile:2013"
+	$(XSDATA) "$(RS)schema/urn:vpro:media:subtitles:2009"
+	$(XSDATA) "$(RS)schema/urn:vpro:gtaa:2017"
+
+
+
 npoapi/xml/__init__.py: setup.py
 	pyxbgen \
 	   --schema-location=$(POMS)schema/vproMedia.xsd --module media \
@@ -24,5 +46,9 @@ npoapi/xml/__init__.py: setup.py
 
 
 
+
+
+
 clean:
 	rm -rf npoapi/xml/*
+	rm -rf npoapi/model/*

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<Config xmlns="http://pypi.org/project/xsdata" version="20.10">
+  <Output wsdl="false">
+    <Package>npoapi.data</Package>
+    <Format>pydata</Format>
+    <Structure>namespaces</Structure>
+  </Output>
+  <Conventions>
+    <ClassName case="pascalCase" safePrefix="type"/>
+    <FieldName case="snakeCase" safePrefix="value"/>
+    <ModuleName case="snakeCase" safePrefix="mod"/>
+    <PackageName case="snakeCase" safePrefix="pkg"/>
+  </Conventions>
+  <Aliases>
+    <ModuleName source="urn:vpro:media:2009" target="media"/>
+    <ModuleName source="urn:vpro:media:update:2009" target="media_update"/>
+    <ModuleName source="urn:vpro:shared:2009" target="shared"/>
+    <ModuleName source="urn:vpro:api:2013" target="api"/>
+    <ModuleName source="urn:vpro:api:constraint:media:2013" target="api_constraint_media"/>
+    <ModuleName source="urn:vpro:api:constraint:2014" target="api_constraint"/>
+    <ModuleName source="urn:vpro:api:constraint:page:2013" target="api_constraint_page"/>
+    <ModuleName source="urn:vpro:pages:2013" target="page"/>
+    <ModuleName source="urn:vpro:pages:update:2013" target="page_update"/>
+    <ModuleName source="urn:vpro:media:subtitles:2009" target="subtitles"/>
+    <ModuleName source="urn:vpro:gtaa:2017" target="thesaurus"/>
+    <ModuleName source="urn:vpro:media:search:2012" target="media_search"/>
+    <ModuleName source="urn:vpro:api:profile:2013" target="profile"/>
+    <ModuleName source="" target="empty"/>
+  </Aliases>
+</Config>

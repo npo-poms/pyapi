@@ -14,7 +14,8 @@ setup(
         'pyxb==1.2.6',
         'python-dateutil==2.8.1',
         'jwt==1.0.0',
-        'typing==3.7.4.3'
+        'typing==3.7.4.3',
+        'xsdata==20.10'
     ],
     scripts=[
         'bin/npo_media_get',

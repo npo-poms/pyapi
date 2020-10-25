@@ -2,11 +2,16 @@
 import unittest
 
 import pyxb
+from xsdata.formats.dataclass.parsers import XmlParser
+from xsdata.formats.dataclass.serializers import XmlSerializer
 
 from npoapi import base
+from npoapi.data import AvTypeEnum, PageSearchResult
 from npoapi.xml import media
 from npoapi.xml import poms
 from npoapi.xml import mediaupdate
+
+from npoapi.data.media_update import *
 
 base.declare_namespaces()
 
@@ -177,4 +182,26 @@ class Tests(unittest.TestCase):
 </api:pageSearchResult>
 """
 
-        object = poms.CreateFromDocument(xml)
+        pyxb = poms.CreateFromDocument(xml)
+        self.assertEqual(self, pyxb.items.item[0].result.title, "Antibiotics")
+        xsdata = XmlParser().from_string(xml, PageSearchResult)
+        self.assertEqual(xsdata.items.item[0])
+
+        # it seems that xsdata doesn't support xsi:type=
+        self.assertEqual(self, xsdata.items.item[0].result.title, "Antibiotics")
+
+        print(xsdata)
+
+    def test_xsdata(self):
+        serializer = XmlSerializer()
+
+        media = Program()
+        media.av_type = AvTypeEnum.AUDIO
+        main = TitleUpdateType()
+        main.type = TextualTypeEnum.MAIN
+        main.value = "foo bar"
+        media.title.append(main)
+        xml = serializer.render(media, ns_map={"update": Program.Meta.namespace})
+        self.assertEqual(xml, """<?xml version='1.0' encoding='UTF-8'?>
+<update:program xmlns:update="urn:vpro:media:update:2009" avType="AUDIO" embeddable="true"><update:title type="MAIN">foo bar</update:title></update:program>""")
+
