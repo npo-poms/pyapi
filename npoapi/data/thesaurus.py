@@ -16,19 +16,19 @@ class Names:
 
     family_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="familyName",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "familyName",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     given_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="givenName",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "givenName",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 
@@ -66,50 +66,48 @@ class ClassificationType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     redirected_from: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="redirectedFrom",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "redirectedFrom",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     status: Optional[Status] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 
@@ -128,50 +126,48 @@ class GenreType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     redirected_from: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="redirectedFrom",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "redirectedFrom",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     status: Optional[Status] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 
@@ -190,50 +186,48 @@ class GeographicNameType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     redirected_from: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="redirectedFrom",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "redirectedFrom",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     status: Optional[Status] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 
@@ -252,50 +246,48 @@ class MakerType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     redirected_from: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="redirectedFrom",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "redirectedFrom",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     status: Optional[Status] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 
@@ -314,50 +306,48 @@ class NameType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     redirected_from: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="redirectedFrom",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "redirectedFrom",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     status: Optional[Status] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 
@@ -379,76 +369,72 @@ class PersonType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     given_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="givenName",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "givenName",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     family_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="familyName",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "familyName",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     known_as: List[Names] = field(
         default_factory=list,
-        metadata=dict(
-            name="knownAs",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "knownAs",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     redirected_from: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="redirectedFrom",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "redirectedFrom",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     status: Optional[Status] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 
@@ -467,50 +453,48 @@ class TopicType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     redirected_from: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="redirectedFrom",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "redirectedFrom",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     status: Optional[Status] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 
@@ -529,50 +513,48 @@ class TopicbandgType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     redirected_from: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="redirectedFrom",
-            type="Element",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "redirectedFrom",
+            "type": "Element",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     status: Optional[Status] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute",
-            namespace="urn:vpro:gtaa:2017"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+            "namespace": "urn:vpro:gtaa:2017",
+        }
     )
 
 

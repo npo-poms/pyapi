@@ -52,26 +52,26 @@ class AudioAttributesType:
 
     number_of_channels: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="numberOfChannels",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "numberOfChannels",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     audio_coding: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="audioCoding",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "audioCoding",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     language: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
 
 
@@ -136,15 +136,15 @@ class AvailableSubtitleType:
 
     language: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -791,10 +791,10 @@ class CountryType:
     )
     code: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            pattern=r"(\w){2,4}"
-        )
+        metadata={
+            "type": "Attribute",
+            "pattern": r"(\w){2,4}",
+        }
     )
 
 
@@ -818,20 +818,18 @@ class GenreType:
 
     term: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True,
-            pattern=r"3(\.[0-9]+)+"
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+            "pattern": r"3(\.[0-9]+)+",
+        }
     )
 
 
@@ -940,10 +938,10 @@ class LanguageType:
     )
     code: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            pattern=r"(\w){2,4}"
-        )
+        metadata={
+            "type": "Attribute",
+            "pattern": r"(\w){2,4}",
+        }
     )
 
 
@@ -1042,10 +1040,10 @@ class OrganizationType:
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            pattern=r"[A-Z0-9_-]{2,}"
-        )
+        metadata={
+            "type": "Attribute",
+            "pattern": r"[A-Z0-9_-]{2,}",
+        }
     )
 
 
@@ -1078,22 +1076,22 @@ class PortalRestrictionType:
     )
     portal_id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="portalId",
-            type="Attribute"
-        )
+        metadata={
+            "name": "portalId",
+            "type": "Attribute",
+        }
     )
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1150,31 +1148,31 @@ class RelationType:
     )
     type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True,
-            pattern=r"[A-Z0-9_-]{4,}"
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+            "pattern": r"[A-Z0-9_-]{4,}",
+        }
     )
     broadcaster: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     uri_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="uriRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "uriRef",
+            "type": "Attribute",
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1192,11 +1190,11 @@ class RepeatType:
     )
     is_rerun: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="isRerun",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "isRerun",
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -1282,10 +1280,10 @@ class TagType:
     )
     lang: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="http://www.w3.org/XML/1998/namespace"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "http://www.w3.org/XML/1998/namespace",
+        }
     )
 
 
@@ -1345,9 +1343,9 @@ class TwitterType:
     )
     type: Optional["TwitterType.Type"] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
     class Type(Enum):
@@ -1394,27 +1392,27 @@ class DescendantRefType:
 
     mid_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="midRef",
-            type="Attribute",
-            min_length=4,
-            max_length=255,
-            pattern=r"[ \.a-zA-Z0-9_-]+"
-        )
+        metadata={
+            "name": "midRef",
+            "type": "Attribute",
+            "min_length": 4,
+            "max_length": 255,
+            "pattern": r"[ \.a-zA-Z0-9_-]+",
+        }
     )
     urn_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="urnRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "urnRef",
+            "type": "Attribute",
+        }
     )
     type: Optional[MediaTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -1433,16 +1431,16 @@ class DescriptionType:
     )
     type: Optional[TextualTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -1460,42 +1458,40 @@ class GeoLocationType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     role: Optional[GeoRoleType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     gtaa_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="gtaaUri",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaUri",
+            "type": "Attribute",
+        }
     )
     gtaa_status: Optional[GtaaStatusType] = field(
         default=None,
-        metadata=dict(
-            name="gtaaStatus",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaStatus",
+            "type": "Attribute",
+        }
     )
 
 
@@ -1516,28 +1512,28 @@ class GeoRestrictionType:
     )
     region_id: Optional[GeoRestrictionEnum] = field(
         default=None,
-        metadata=dict(
-            name="regionId",
-            type="Attribute"
-        )
+        metadata={
+            "name": "regionId",
+            "type": "Attribute",
+        }
     )
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1551,12 +1547,10 @@ class ImagesType:
 
     image: List[Image] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
 
 
@@ -1571,18 +1565,16 @@ class IntentionType:
 
     intention: List[IntentionEnum] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1600,41 +1592,39 @@ class NameType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     role: Optional[RoleType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     gtaa_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="gtaaUri",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaUri",
+            "type": "Attribute",
+        }
     )
     gtaa_status: Optional[GtaaStatusType] = field(
         default=None,
-        metadata=dict(
-            name="gtaaStatus",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaStatus",
+            "type": "Attribute",
+        }
     )
 
 
@@ -1652,42 +1642,42 @@ class PersonType:
 
     given_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="givenName",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "name": "givenName",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     family_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="familyName",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "name": "familyName",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     role: Optional[RoleType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     gtaa_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="gtaaUri",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaUri",
+            "type": "Attribute",
+        }
     )
     gtaa_status: Optional[GtaaStatusType] = field(
         default=None,
-        metadata=dict(
-            name="gtaaStatus",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaStatus",
+            "type": "Attribute",
+        }
     )
 
 
@@ -1701,12 +1691,10 @@ class PortalsType:
 
     portal: List[OrganizationType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
 
 
@@ -1726,23 +1714,23 @@ class PredictionType:
     )
     state: Optional[PredictionStateEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
 
 
@@ -1762,56 +1750,52 @@ class RecursiveMemberRef:
 
     member_of: List["RecursiveMemberRef"] = field(
         default_factory=list,
-        metadata=dict(
-            name="memberOf",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "memberOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     episode_of: List["RecursiveMemberRef"] = field(
         default_factory=list,
-        metadata=dict(
-            name="episodeOf",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "episodeOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     segment_of: Optional["RecursiveMemberRef"] = field(
         default=None,
-        metadata=dict(
-            name="segmentOf",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "segmentOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     mid_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="midRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "midRef",
+            "type": "Attribute",
+        }
     )
     type: Optional[MediaTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     index: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     highlighted: bool = field(
         default=False,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1830,17 +1814,17 @@ class ScheduleEventDescription:
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     type: Optional[TextualTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -1859,17 +1843,17 @@ class ScheduleEventTitle:
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     type: Optional[TextualTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -1885,19 +1869,19 @@ class StreamingStatus:
 
     with_drm: Optional[StreamingStatusValue] = field(
         default=None,
-        metadata=dict(
-            name="withDrm",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "withDrm",
+            "type": "Attribute",
+            "required": True,
+        }
     )
     without_drm: Optional[StreamingStatusValue] = field(
         default=None,
-        metadata=dict(
-            name="withoutDrm",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "withoutDrm",
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -1912,19 +1896,17 @@ class TargetGroupsType:
 
     target_group: List[TargetGroupEnum] = field(
         default_factory=list,
-        metadata=dict(
-            name="targetGroup",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "targetGroup",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1943,16 +1925,16 @@ class TitleType:
     )
     type: Optional[TextualTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -1969,35 +1951,33 @@ class TopicType:
 
     name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     scope_note: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="scopeNote",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scopeNote",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     gtaa_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="gtaaUri",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaUri",
+            "type": "Attribute",
+        }
     )
     gtaa_status: Optional[GtaaStatusType] = field(
         default=None,
-        metadata=dict(
-            name="gtaaStatus",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaStatus",
+            "type": "Attribute",
+        }
     )
 
 
@@ -2016,44 +1996,44 @@ class VideoAttributesType:
 
     color: Optional[ColorType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     video_coding: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="videoCoding",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "videoCoding",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     aspect_ratio: Optional[AspectRatioEnum] = field(
         default=None,
-        metadata=dict(
-            name="aspectRatio",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "aspectRatio",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     height: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     heigth: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     width: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2071,42 +2051,42 @@ class AvAttributesType:
 
     bitrate: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     byte_size: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="byteSize",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "byteSize",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     av_file_format: Optional[AvFileFormatEnum] = field(
         default=None,
-        metadata=dict(
-            name="avFileFormat",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "avFileFormat",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     video_attributes: Optional[VideoAttributesType] = field(
         default=None,
-        metadata=dict(
-            name="videoAttributes",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "videoAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     audio_attributes: Optional[AudioAttributesType] = field(
         default=None,
-        metadata=dict(
-            name="audioAttributes",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "audioAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
 
 
@@ -2121,23 +2101,19 @@ class CreditsType:
 
     person: List[PersonType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "sequential": True,
+        }
     )
     name: List[NameType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "sequential": True,
+        }
     )
 
 
@@ -2152,19 +2128,17 @@ class GeoLocationsType:
 
     geo_location: List[GeoLocationType] = field(
         default_factory=list,
-        metadata=dict(
-            name="geoLocation",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "geoLocation",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2189,79 +2163,75 @@ class MemberRefType:
 
     episode_of: List[RecursiveMemberRef] = field(
         default_factory=list,
-        metadata=dict(
-            name="episodeOf",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "episodeOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     member_of: List[RecursiveMemberRef] = field(
         default_factory=list,
-        metadata=dict(
-            name="memberOf",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "memberOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     segment_of: Optional[RecursiveMemberRef] = field(
         default=None,
-        metadata=dict(
-            name="segmentOf",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "segmentOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     mid_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="midRef",
-            type="Attribute",
-            min_length=4,
-            max_length=255,
-            pattern=r"[ \.a-zA-Z0-9_-]+"
-        )
+        metadata={
+            "name": "midRef",
+            "type": "Attribute",
+            "min_length": 4,
+            "max_length": 255,
+            "pattern": r"[ \.a-zA-Z0-9_-]+",
+        }
     )
     urn_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="urnRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "urnRef",
+            "type": "Attribute",
+        }
     )
     crid_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="cridRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "cridRef",
+            "type": "Attribute",
+        }
     )
     type: Optional[MediaTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     index: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     highlighted: bool = field(
         default=False,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     added: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2276,18 +2246,16 @@ class TopicsType:
 
     topic: List[TopicType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2315,107 +2283,107 @@ class LocationType:
 
     program_url: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="programUrl",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "name": "programUrl",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     av_attributes: Optional[AvAttributesType] = field(
         default=None,
-        metadata=dict(
-            name="avAttributes",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "avAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     subtitles: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     offset: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     duration: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     type: Optional[LocationTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
     publish_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishDate",
+            "type": "Attribute",
+        }
     )
     creation_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="creationDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "creationDate",
+            "type": "Attribute",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+        }
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2449,166 +2417,162 @@ class ScheduleEventType:
 
     title: List[ScheduleEventTitle] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     description: List[ScheduleEventDescription] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     repeat: Optional[RepeatType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     member_of: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="memberOf",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "memberOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     av_attributes: Optional[AvAttributesType] = field(
         default=None,
-        metadata=dict(
-            name="avAttributes",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "avAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     text_subtitles: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="textSubtitles",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "textSubtitles",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     text_page: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="textPage",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "textPage",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     guide_day: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="guideDay",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "name": "guideDay",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     offset: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     duration: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     po_prog_id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="poProgID",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "poProgID",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     primary_lifestyle: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="primaryLifestyle",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "primaryLifestyle",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     secondary_lifestyle: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="secondaryLifestyle",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "secondaryLifestyle",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     imi: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     channel: Optional[ChannelEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     net: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     guide_day_attribute: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="guideDay",
-            type="Attribute"
-        )
+        metadata={
+            "name": "guideDay",
+            "type": "Attribute",
+        }
     )
     mid_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="midRef",
-            type="Attribute",
-            required=True,
-            min_length=4,
-            max_length=255,
-            pattern=r"[ \.a-zA-Z0-9_-]+"
-        )
+        metadata={
+            "name": "midRef",
+            "type": "Attribute",
+            "required": True,
+            "min_length": 4,
+            "max_length": 255,
+            "pattern": r"[ \.a-zA-Z0-9_-]+",
+        }
     )
     urn_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="urnRef",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "urnRef",
+            "type": "Attribute",
+            "required": True,
+        }
     )
     type: Optional[ScheduleEventTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2623,22 +2587,18 @@ class LocationTableType:
 
     location: List[LocationType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     schedule_event: List[ScheduleEventType] = field(
         default_factory=list,
-        metadata=dict(
-            name="scheduleEvent",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scheduleEvent",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
 
 
@@ -2652,12 +2612,10 @@ class LocationsType:
 
     location: List[LocationType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
 
 
@@ -2671,13 +2629,11 @@ class ScheduleEventsType:
 
     schedule_event: List[ScheduleEventType] = field(
         default_factory=list,
-        metadata=dict(
-            name="scheduleEvent",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scheduleEvent",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
 
 
@@ -2698,56 +2654,55 @@ class ScheduleType:
 
     schedule_event: List[ScheduleEventType] = field(
         default_factory=list,
-        metadata=dict(
-            name="scheduleEvent",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=1,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "scheduleEvent",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "min_occurs": 1,
+        }
     )
     channel: Optional[ChannelEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     net: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     release_version: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="releaseVersion",
-            type="Attribute"
-        )
+        metadata={
+            "name": "releaseVersion",
+            "type": "Attribute",
+        }
     )
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     reruns: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2823,404 +2778,356 @@ class BaseMediaType:
 
     crid: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     broadcaster: List[BroadcasterType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=1,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "min_occurs": 1,
+        }
     )
     portal: List[OrganizationType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     exclusive: List[PortalRestrictionType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     region: List[GeoRestrictionType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     title: List[TitleType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=1,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "min_occurs": 1,
+        }
     )
     description: List[DescriptionType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     genre: List[GenreType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     tag: List[TagType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     intentions: List[IntentionType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     target_groups: List[TargetGroupsType] = field(
         default_factory=list,
-        metadata=dict(
-            name="targetGroups",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "targetGroups",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     geo_locations: List[GeoLocationsType] = field(
         default_factory=list,
-        metadata=dict(
-            name="geoLocations",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "geoLocations",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     topics: List[TopicsType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     source: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     country: List[CountryType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     language: List[LanguageType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     is_dubbed: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="isDubbed",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "isDubbed",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     available_subtitles: List[AvailableSubtitleType] = field(
         default_factory=list,
-        metadata=dict(
-            name="availableSubtitles",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "availableSubtitles",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     av_attributes: Optional[AvAttributesType] = field(
         default=None,
-        metadata=dict(
-            name="avAttributes",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "avAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     release_year: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="releaseYear",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "releaseYear",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     duration: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     credits: Optional[CreditsType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     award: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     descendant_of: List[DescendantRefType] = field(
         default_factory=list,
-        metadata=dict(
-            name="descendantOf",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "descendantOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     member_of: List[MemberRefType] = field(
         default_factory=list,
-        metadata=dict(
-            name="memberOf",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "memberOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     age_rating: Optional[AgeRatingType] = field(
         default=None,
-        metadata=dict(
-            name="ageRating",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "ageRating",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     content_rating: List[ContentRatingType] = field(
         default_factory=list,
-        metadata=dict(
-            name="contentRating",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "contentRating",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     email: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     website: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     twitter: List[TwitterType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     teletext: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     prediction: List[PredictionType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     locations: Optional[LocationsType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     relation: List[RelationType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     images: Optional[ImagesType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     mid: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            min_length=4,
-            max_length=255,
-            pattern=r"[ \.a-zA-Z0-9_-]+"
-        )
+        metadata={
+            "type": "Attribute",
+            "min_length": 4,
+            "max_length": 255,
+            "pattern": r"[ \.a-zA-Z0-9_-]+",
+        }
     )
     av_type: Optional[AvTypeEnum] = field(
         default=None,
-        metadata=dict(
-            name="avType",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "avType",
+            "type": "Attribute",
+            "required": True,
+        }
     )
     sort_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="sortDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "sortDate",
+            "type": "Attribute",
+        }
     )
     embeddable: bool = field(
         default=True,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     has_subtitles: bool = field(
         default=False,
-        metadata=dict(
-            name="hasSubtitles",
-            type="Attribute"
-        )
+        metadata={
+            "name": "hasSubtitles",
+            "type": "Attribute",
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
     publish_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishDate",
+            "type": "Attribute",
+        }
     )
     creation_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="creationDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "creationDate",
+            "type": "Attribute",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+        }
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     merged_to: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="mergedTo",
-            type="Attribute",
-            min_length=4,
-            max_length=255,
-            pattern=r"[ \.a-zA-Z0-9_-]+"
-        )
+        metadata={
+            "name": "mergedTo",
+            "type": "Attribute",
+            "min_length": 4,
+            "max_length": 255,
+            "pattern": r"[ \.a-zA-Z0-9_-]+",
+        }
     )
 
 
@@ -3250,33 +3157,33 @@ class GroupType(BaseMediaType):
 
     po_series_id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="poSeriesID",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "poSeriesID",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     is_ordered: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="isOrdered",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "isOrdered",
+            "type": "Attribute",
+            "required": True,
+        }
     )
     type: Optional[GroupTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     default_element: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="defaultElement",
-            type="Attribute"
-        )
+        metadata={
+            "name": "defaultElement",
+            "type": "Attribute",
+        }
     )
 
 
@@ -3294,45 +3201,45 @@ class SegmentType(BaseMediaType):
 
     segment_of: Optional[RecursiveMemberRef] = field(
         default=None,
-        metadata=dict(
-            name="segmentOf",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "segmentOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "required": True,
+        }
     )
     mid_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="midRef",
-            type="Attribute",
-            required=True,
-            min_length=4,
-            max_length=255,
-            pattern=r"[ \.a-zA-Z0-9_-]+"
-        )
+        metadata={
+            "name": "midRef",
+            "type": "Attribute",
+            "required": True,
+            "min_length": 4,
+            "max_length": 255,
+            "pattern": r"[ \.a-zA-Z0-9_-]+",
+        }
     )
     urn_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="urnRef",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "urnRef",
+            "type": "Attribute",
+            "required": True,
+        }
     )
     type: Optional[SegmentTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -3368,12 +3275,10 @@ class SegmentsType:
 
     segment: List[SegmentType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
 
 
@@ -3387,12 +3292,11 @@ class GroupTableType:
 
     group: List[Group] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=1,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+            "min_occurs": 1,
+        }
     )
 
 
@@ -3409,35 +3313,33 @@ class ProgramType(BaseMediaType):
 
     schedule_events: Optional[ScheduleEventsType] = field(
         default=None,
-        metadata=dict(
-            name="scheduleEvents",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "scheduleEvents",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     episode_of: List[MemberRefType] = field(
         default_factory=list,
-        metadata=dict(
-            name="episodeOf",
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "episodeOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     segments: Optional[SegmentsType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     type: Optional[ProgramTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -3463,12 +3365,10 @@ class ProgramTableType:
 
     program: List[Program] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
 
 
@@ -3488,53 +3388,53 @@ class MediaTableType:
 
     program_table: Optional[ProgramTableType] = field(
         default=None,
-        metadata=dict(
-            name="programTable",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "programTable",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     group_table: Optional[GroupTableType] = field(
         default=None,
-        metadata=dict(
-            name="groupTable",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "groupTable",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     location_table: Optional[LocationTableType] = field(
         default=None,
-        metadata=dict(
-            name="locationTable",
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "name": "locationTable",
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     schedule: Optional[Schedule] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:2009",
+        }
     )
     publisher: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     publication_time: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publicationTime",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publicationTime",
+            "type": "Attribute",
+        }
     )
     version: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 

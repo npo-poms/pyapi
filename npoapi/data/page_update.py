@@ -26,24 +26,24 @@ class EmbedUpdateType:
 
     title: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     description: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     mid_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="midRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "midRef",
+            "type": "Attribute",
+        }
     )
 
 
@@ -57,10 +57,10 @@ class ImageLocationType:
 
     url: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
 
 
@@ -80,24 +80,24 @@ class RelationUpdateType:
     )
     type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     broadcaster: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     uri_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="uriRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "uriRef",
+            "type": "Attribute",
+        }
     )
 
 
@@ -118,61 +118,61 @@ class ImageUpdateType:
 
     title: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     description: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     source: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     source_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="sourceName",
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "name": "sourceName",
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     license: Optional[LicenseEnum] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     credits: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     image_location: Optional[ImageLocationType] = field(
         default=None,
-        metadata=dict(
-            name="imageLocation",
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "name": "imageLocation",
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     type: Optional[ImageTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -188,23 +188,23 @@ class LinkUpdateType:
 
     text: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     page_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="pageRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "pageRef",
+            "type": "Attribute",
+        }
     )
     type: Optional[LinkTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -220,24 +220,24 @@ class PortalUpdateType:
 
     section: Optional[SectionType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     url: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -260,24 +260,24 @@ class ParagraphUpdateType:
 
     title: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     body: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     image: Optional[Image] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
 
 
@@ -313,186 +313,167 @@ class PageUpdateType:
 
     crid: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     alternative_url: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="alternativeUrl",
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "alternativeUrl",
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     broadcaster: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=1,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+            "min_occurs": 1,
+        }
     )
     portal: Optional[PortalUpdateType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     title: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+            "required": True,
+        }
     )
     subtitle: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     keyword: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     summary: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     paragraphs: Optional["PageUpdateType.Paragraphs"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     tag: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     genre: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     link: List[LinkUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     embeds: Optional["PageUpdateType.Embeds"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     stat_ref: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="statRef",
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "statRef",
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     image: List[Image] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     relation: List[RelationUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:pages:update:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        }
     )
     type: Optional[PageTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     url: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     last_published: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastPublished",
-            type="Attribute"
-        )
+        metadata={
+            "name": "lastPublished",
+            "type": "Attribute",
+        }
     )
     creation_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="creationDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "creationDate",
+            "type": "Attribute",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+        }
     )
     workflow: Optional[PageWorkflow] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
     @dataclass
@@ -502,12 +483,10 @@ class PageUpdateType:
         """
         paragraph: List[ParagraphUpdateType] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:pages:update:2013",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:pages:update:2013",
+            }
         )
 
     @dataclass
@@ -517,12 +496,10 @@ class PageUpdateType:
         """
         embed: List[EmbedUpdateType] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:pages:update:2013",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:pages:update:2013",
+            }
         )
 
 

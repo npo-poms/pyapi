@@ -20,75 +20,61 @@ class OrType:
 
     and_value: List["AndType"] = field(
         default_factory=list,
-        metadata=dict(
-            name="and",
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "and",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     or_value: List["OrType"] = field(
         default_factory=list,
-        metadata=dict(
-            name="or",
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "or",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     broadcaster: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     type: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     portal: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     section: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     genre: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
 
 
@@ -108,75 +94,61 @@ class AndType:
 
     and_value: List["AndType"] = field(
         default_factory=list,
-        metadata=dict(
-            name="and",
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "and",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     or_value: List[OrType] = field(
         default_factory=list,
-        metadata=dict(
-            name="or",
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "or",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     broadcaster: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     type: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     portal: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     section: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
     genre: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:page:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:page:2013",
+            "sequential": True,
+        }
     )
 
 
@@ -197,45 +169,45 @@ class Filter:
 
     and_value: Optional[AndType] = field(
         default=None,
-        metadata=dict(
-            name="and",
-            type="Element"
-        )
+        metadata={
+            "name": "and",
+            "type": "Element",
+        }
     )
     or_value: Optional[OrType] = field(
         default=None,
-        metadata=dict(
-            name="or",
-            type="Element"
-        )
+        metadata={
+            "name": "or",
+            "type": "Element",
+        }
     )
     broadcaster: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
     type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
     portal: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
     section: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
     genre: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )

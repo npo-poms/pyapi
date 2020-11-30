@@ -34,9 +34,9 @@ class DateRangeValueType:
     )
     inclusive: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -54,10 +54,10 @@ class EditorSearch:
     )
     principal_id: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="principalId",
-            type="Attribute"
-        )
+        metadata={
+            "name": "principalId",
+            "type": "Attribute",
+        }
     )
 
 
@@ -75,9 +75,9 @@ class IntegerRangeValueType:
     )
     inclusive: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -132,23 +132,23 @@ class RelationFormType:
     )
     type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     broadcaster: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            pattern=r"[A-Z0-9_-]{2,}"
-        )
+        metadata={
+            "type": "Attribute",
+            "pattern": r"[A-Z0-9_-]{2,}",
+        }
     )
     uri_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="uriRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "uriRef",
+            "type": "Attribute",
+        }
     )
 
 
@@ -163,17 +163,17 @@ class DateRangeType:
 
     start: Optional[DateRangeValueType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     stop: Optional[DateRangeValueType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
 
 
@@ -188,17 +188,17 @@ class IntegerRangeType:
 
     start: Optional[IntegerRangeValueType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     stop: Optional[IntegerRangeValueType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
 
 
@@ -215,34 +215,34 @@ class MediaPagerType:
 
     offset: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_inclusive=0
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "min_inclusive": 0,
+        }
     )
     max: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            required=True,
-            min_inclusive=0
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "required": True,
+            "min_inclusive": 0,
+        }
     )
     sort: Optional[MediaSortField] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     order: Optional["MediaPagerType.Order"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
 
     class Order(Enum):
@@ -267,27 +267,27 @@ class PublishableListItem:
 
     id: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     deleted: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -345,321 +345,297 @@ class MediaFormType:
 
     pager: Optional[MediaPagerType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "required": True,
+        }
     )
     broadcaster: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     portal: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     organization: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            pattern=r"[A-Z0-9_-]{2,}"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "pattern": r"[A-Z0-9_-]{2,}",
+        }
     )
     text: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     title: List["MediaFormType.Title"] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     type: List[MediaTypeEnum] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     release_year: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="releaseYear",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "releaseYear",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     relation: Optional[RelationFormType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     no_broadcast: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="noBroadcast",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "noBroadcast",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     schedule_events_count: Optional[IntegerRangeType] = field(
         default=None,
-        metadata=dict(
-            name="scheduleEventsCount",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "scheduleEventsCount",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     has_locations: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="hasLocations",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "hasLocations",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     locations_count: Optional[IntegerRangeType] = field(
         default=None,
-        metadata=dict(
-            name="locationsCount",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "locationsCount",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     no_playlist: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="noPlaylist",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "noPlaylist",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     member_of_count: Optional[IntegerRangeType] = field(
         default=None,
-        metadata=dict(
-            name="memberOfCount",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "memberOfCount",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     sort_range: Optional[DateRangeType] = field(
         default=None,
-        metadata=dict(
-            name="sortRange",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "sortRange",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     event_range: Optional[DateRangeType] = field(
         default=None,
-        metadata=dict(
-            name="eventRange",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "eventRange",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     schedule_event_range: Optional[DateRangeType] = field(
         default=None,
-        metadata=dict(
-            name="scheduleEventRange",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "scheduleEventRange",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     channel: List[ChannelEnum] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     net: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     created_by: Optional[EditorSearch] = field(
         default=None,
-        metadata=dict(
-            name="createdBy",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "createdBy",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     creation_range: Optional[DateRangeType] = field(
         default=None,
-        metadata=dict(
-            name="creationRange",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "creationRange",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     last_modified_by: Optional[EditorSearch] = field(
         default=None,
-        metadata=dict(
-            name="lastModifiedBy",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "lastModifiedBy",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     last_modified_range: Optional[DateRangeType] = field(
         default=None,
-        metadata=dict(
-            name="lastModifiedRange",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "lastModifiedRange",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     last_published_range: Optional[DateRangeType] = field(
         default=None,
-        metadata=dict(
-            name="lastPublishedRange",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "lastPublishedRange",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     tag: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     av_type: Optional[AvTypeEnum] = field(
         default=None,
-        metadata=dict(
-            name="avType",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "avType",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     not_an_episode: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="notAnEpisode",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "notAnEpisode",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     episode_of_count: Optional[IntegerRangeType] = field(
         default=None,
-        metadata=dict(
-            name="episodeOfCount",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "episodeOfCount",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     no_members: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="noMembers",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "noMembers",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     no_credits: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="noCredits",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "noCredits",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     images_without_credits_count: Optional[IntegerRangeType] = field(
         default=None,
-        metadata=dict(
-            name="imagesWithoutCreditsCount",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "imagesWithoutCreditsCount",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     images_count: Optional[IntegerRangeType] = field(
         default=None,
-        metadata=dict(
-            name="imagesCount",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "imagesCount",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     find_deleted: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="findDeleted",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "findDeleted",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     excluded_mid: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="excludedMid",
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "excludedMid",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     ids: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     descendant_of: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="descendantOf",
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "descendantOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     streaming_platform_status: List[StreamingStatus] = field(
         default_factory=list,
-        metadata=dict(
-            name="streamingPlatformStatus",
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "streamingPlatformStatus",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
 
     @dataclass
@@ -675,21 +651,21 @@ class MediaFormType:
         )
         type: Optional[TextualTypeEnum] = field(
             default=None,
-            metadata=dict(
-                type="Attribute"
-            )
+            metadata={
+                "type": "Attribute",
+            }
         )
         owner: Optional[OwnerTypeEnum] = field(
             default=None,
-            metadata=dict(
-                type="Attribute"
-            )
+            metadata={
+                "type": "Attribute",
+            }
         )
         tokenized: bool = field(
             default=False,
-            metadata=dict(
-                type="Attribute"
-            )
+            metadata={
+                "type": "Attribute",
+            }
         )
 
 
@@ -732,186 +708,181 @@ class MediaListItem(PublishableListItem):
 
     broadcaster: List[OrganizationType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=1,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "min_occurs": 1,
+        }
     )
     title: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "required": True,
+        }
     )
     sub_title: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="subTitle",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "subTitle",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     description: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     creation_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="creationDate",
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            required=True
-        )
+        metadata={
+            "name": "creationDate",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "required": True,
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     created_by: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="createdBy",
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            required=True
-        )
+        metadata={
+            "name": "createdBy",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "required": True,
+        }
     )
     last_modified_by: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModifiedBy",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "lastModifiedBy",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     sort_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="sortDate",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "sortDate",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     type: Optional[MediaTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "required": True,
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     last_published: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastPublished",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "lastPublished",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     first_schedule_event: Optional[ScheduleEventType] = field(
         default=None,
-        metadata=dict(
-            name="firstScheduleEvent",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "firstScheduleEvent",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     locations: List[LocationType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            nillable=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+            "nillable": True,
+        }
     )
     number_of_locations: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="numberOfLocations",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "numberOfLocations",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     tag: List[TagType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     image: Optional[ImageListItem] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     streaming_platform_status: Optional[StreamingStatus] = field(
         default=None,
-        metadata=dict(
-            name="streamingPlatformStatus",
-            type="Element",
-            namespace="urn:vpro:media:search:2012"
-        )
+        metadata={
+            "name": "streamingPlatformStatus",
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     mid: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     av_type: Optional[AvTypeEnum] = field(
         default=None,
-        metadata=dict(
-            name="avType",
-            type="Attribute"
-        )
+        metadata={
+            "name": "avType",
+            "type": "Attribute",
+        }
     )
     media_type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="mediaType",
-            type="Attribute"
-        )
+        metadata={
+            "name": "mediaType",
+            "type": "Attribute",
+        }
     )
     episodes_locked: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="episodesLocked",
-            type="Attribute"
-        )
+        metadata={
+            "name": "episodesLocked",
+            "type": "Attribute",
+        }
     )
 
 
@@ -931,49 +902,47 @@ class MediaListResultType:
 
     item: List[MediaListItem] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:search:2012",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        }
     )
     total_count: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="totalCount",
-            type="Attribute"
-        )
+        metadata={
+            "name": "totalCount",
+            "type": "Attribute",
+        }
     )
     offset: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     max: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     size: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     sort: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     order: Optional["MediaListResultType.Order"] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
     class Order(Enum):

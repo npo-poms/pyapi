@@ -40,9 +40,9 @@ class HasLocationConstraintType:
 
     platform: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -73,9 +73,9 @@ class ProgramUrlConstraintType:
     )
     exact: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -93,9 +93,9 @@ class GeoRestrictionConstraintType:
     )
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -109,9 +109,9 @@ class HasPredictionConstraintType:
 
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -127,15 +127,15 @@ class ScheduleEventType:
 
     date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     operator: Optional[OperatorType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -174,205 +174,205 @@ class NotType:
 
     and_value: Optional["AndType"] = field(
         default=None,
-        metadata=dict(
-            name="and",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "and",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     or_value: Optional["OrType"] = field(
         default=None,
-        metadata=dict(
-            name="or",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "or",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     not_value: Optional["NotType"] = field(
         default=None,
-        metadata=dict(
-            name="not",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "not",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     av_type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="avType",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "avType",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     av_file_format: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="avFileFormat",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "avFileFormat",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     av_file_extension: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="avFileExtension",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "avFileExtension",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     program_url: Optional[ProgramUrlConstraintType] = field(
         default=None,
-        metadata=dict(
-            name="programUrl",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "programUrl",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     descendant_of: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="descendantOf",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "descendantOf",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     broadcaster: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
-    has_image: Optional[HasImageConstraintType] = field(
+    has_image: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasImage",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "hasImage",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     has_location: Optional[HasLocationConstraintType] = field(
         default=None,
-        metadata=dict(
-            name="hasLocation",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "hasLocation",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     has_prediction: Optional[HasPredictionConstraintType] = field(
         default=None,
-        metadata=dict(
-            name="hasPrediction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "hasPrediction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     channel: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     schedule_event: Optional[ScheduleEventType] = field(
         default=None,
-        metadata=dict(
-            name="scheduleEvent",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "scheduleEvent",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
-    has_portal: Optional[HasPortalConstraintType] = field(
+    has_portal: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasPortal",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "hasPortal",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     portal: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
-    is_exclusive: Optional[HasPortalRestrictionConstraintType] = field(
+    is_exclusive: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="isExclusive",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "isExclusive",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     exclusive: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
-    has_geo_restriction: Optional[HasGeoRestrictionConstraintType] = field(
+    has_geo_restriction: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasGeoRestriction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "hasGeoRestriction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     geo_restriction: Optional[GeoRestrictionConstraintType] = field(
         default=None,
-        metadata=dict(
-            name="geoRestriction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "geoRestriction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     age_rating: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="ageRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "ageRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
-    has_age_rating: Optional[HasAgeRatingConstraintType] = field(
+    has_age_rating: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasAgeRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "hasAgeRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     content_rating: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="contentRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "contentRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
-    has_content_rating: Optional[HasContentRatingConstraintType] = field(
+    has_content_rating: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasContentRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "name": "hasContentRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
     genre: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+        }
     )
 
 
@@ -411,283 +411,231 @@ class OrType:
 
     and_value: List["AndType"] = field(
         default_factory=list,
-        metadata=dict(
-            name="and",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "and",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     or_value: List["OrType"] = field(
         default_factory=list,
-        metadata=dict(
-            name="or",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "or",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     not_value: List[NotType] = field(
         default_factory=list,
-        metadata=dict(
-            name="not",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "not",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     av_type: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="avType",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "avType",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     av_file_format: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="avFileFormat",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "avFileFormat",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     av_file_extension: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="avFileExtension",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "avFileExtension",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     program_url: List[ProgramUrlConstraintType] = field(
         default_factory=list,
-        metadata=dict(
-            name="programUrl",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "programUrl",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     descendant_of: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="descendantOf",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "descendantOf",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     broadcaster: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_image: List[HasImageConstraintType] = field(
+    has_image: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasImage",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasImage",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     has_location: List[HasLocationConstraintType] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasLocation",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasLocation",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     has_prediction: List[HasPredictionConstraintType] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasPrediction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasPrediction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     type: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     channel: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     schedule_event: List[ScheduleEventType] = field(
         default_factory=list,
-        metadata=dict(
-            name="scheduleEvent",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "scheduleEvent",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_portal: List[HasPortalConstraintType] = field(
+    has_portal: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasPortal",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasPortal",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     portal: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    is_exclusive: List[HasPortalRestrictionConstraintType] = field(
+    is_exclusive: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="isExclusive",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "isExclusive",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     exclusive: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_geo_restriction: List[HasGeoRestrictionConstraintType] = field(
+    has_geo_restriction: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasGeoRestriction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasGeoRestriction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     geo_restriction: List[GeoRestrictionConstraintType] = field(
         default_factory=list,
-        metadata=dict(
-            name="geoRestriction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "geoRestriction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     age_rating: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="ageRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "ageRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_age_rating: List[HasAgeRatingConstraintType] = field(
+    has_age_rating: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasAgeRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasAgeRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     content_rating: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="contentRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "contentRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_content_rating: List[HasContentRatingConstraintType] = field(
+    has_content_rating: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasContentRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasContentRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     genre: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
 
 
@@ -726,283 +674,231 @@ class AndType:
 
     and_value: List["AndType"] = field(
         default_factory=list,
-        metadata=dict(
-            name="and",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "and",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     or_value: List[OrType] = field(
         default_factory=list,
-        metadata=dict(
-            name="or",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "or",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     not_value: List[NotType] = field(
         default_factory=list,
-        metadata=dict(
-            name="not",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "not",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     av_type: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="avType",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "avType",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     av_file_format: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="avFileFormat",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "avFileFormat",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     av_file_extension: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="avFileExtension",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "avFileExtension",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     program_url: List[ProgramUrlConstraintType] = field(
         default_factory=list,
-        metadata=dict(
-            name="programUrl",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "programUrl",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     descendant_of: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="descendantOf",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "descendantOf",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     broadcaster: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_image: List[HasImageConstraintType] = field(
+    has_image: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasImage",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasImage",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     has_location: List[HasLocationConstraintType] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasLocation",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasLocation",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     has_prediction: List[HasPredictionConstraintType] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasPrediction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasPrediction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     type: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     channel: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     schedule_event: List[ScheduleEventType] = field(
         default_factory=list,
-        metadata=dict(
-            name="scheduleEvent",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "scheduleEvent",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_portal: List[HasPortalConstraintType] = field(
+    has_portal: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasPortal",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasPortal",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     portal: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    is_exclusive: List[HasPortalRestrictionConstraintType] = field(
+    is_exclusive: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="isExclusive",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "isExclusive",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     exclusive: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_geo_restriction: List[HasGeoRestrictionConstraintType] = field(
+    has_geo_restriction: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasGeoRestriction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasGeoRestriction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     geo_restriction: List[GeoRestrictionConstraintType] = field(
         default_factory=list,
-        metadata=dict(
-            name="geoRestriction",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "geoRestriction",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     age_rating: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="ageRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "ageRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_age_rating: List[HasAgeRatingConstraintType] = field(
+    has_age_rating: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasAgeRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasAgeRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     content_rating: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="contentRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "contentRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
-    has_content_rating: List[HasContentRatingConstraintType] = field(
+    has_content_rating: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            name="hasContentRating",
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "name": "hasContentRating",
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
     genre: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:api:constraint:media:2013",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:constraint:media:2013",
+            "sequential": True,
+        }
     )
 
 
@@ -1042,177 +938,177 @@ class Filter:
 
     and_value: Optional[AndType] = field(
         default=None,
-        metadata=dict(
-            name="and",
-            type="Element"
-        )
+        metadata={
+            "name": "and",
+            "type": "Element",
+        }
     )
     or_value: Optional[OrType] = field(
         default=None,
-        metadata=dict(
-            name="or",
-            type="Element"
-        )
+        metadata={
+            "name": "or",
+            "type": "Element",
+        }
     )
     not_value: Optional[NotType] = field(
         default=None,
-        metadata=dict(
-            name="not",
-            type="Element"
-        )
+        metadata={
+            "name": "not",
+            "type": "Element",
+        }
     )
     av_type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="avType",
-            type="Element"
-        )
+        metadata={
+            "name": "avType",
+            "type": "Element",
+        }
     )
     av_file_format: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="avFileFormat",
-            type="Element"
-        )
+        metadata={
+            "name": "avFileFormat",
+            "type": "Element",
+        }
     )
     av_file_extension: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="avFileExtension",
-            type="Element"
-        )
+        metadata={
+            "name": "avFileExtension",
+            "type": "Element",
+        }
     )
     program_url: Optional[ProgramUrlConstraintType] = field(
         default=None,
-        metadata=dict(
-            name="programUrl",
-            type="Element"
-        )
+        metadata={
+            "name": "programUrl",
+            "type": "Element",
+        }
     )
     descendant_of: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="descendantOf",
-            type="Element"
-        )
+        metadata={
+            "name": "descendantOf",
+            "type": "Element",
+        }
     )
     broadcaster: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
-    has_image: Optional[HasImageConstraintType] = field(
+    has_image: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasImage",
-            type="Element"
-        )
+        metadata={
+            "name": "hasImage",
+            "type": "Element",
+        }
     )
     has_location: Optional[HasLocationConstraintType] = field(
         default=None,
-        metadata=dict(
-            name="hasLocation",
-            type="Element"
-        )
+        metadata={
+            "name": "hasLocation",
+            "type": "Element",
+        }
     )
     has_prediction: Optional[HasPredictionConstraintType] = field(
         default=None,
-        metadata=dict(
-            name="hasPrediction",
-            type="Element"
-        )
+        metadata={
+            "name": "hasPrediction",
+            "type": "Element",
+        }
     )
     type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
     channel: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
     schedule_event: Optional[ScheduleEventType] = field(
         default=None,
-        metadata=dict(
-            name="scheduleEvent",
-            type="Element"
-        )
+        metadata={
+            "name": "scheduleEvent",
+            "type": "Element",
+        }
     )
-    has_portal: Optional[HasPortalConstraintType] = field(
+    has_portal: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasPortal",
-            type="Element"
-        )
+        metadata={
+            "name": "hasPortal",
+            "type": "Element",
+        }
     )
     portal: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
-    is_exclusive: Optional[HasPortalRestrictionConstraintType] = field(
+    is_exclusive: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="isExclusive",
-            type="Element"
-        )
+        metadata={
+            "name": "isExclusive",
+            "type": "Element",
+        }
     )
     exclusive: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )
-    has_geo_restriction: Optional[HasGeoRestrictionConstraintType] = field(
+    has_geo_restriction: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasGeoRestriction",
-            type="Element"
-        )
+        metadata={
+            "name": "hasGeoRestriction",
+            "type": "Element",
+        }
     )
     geo_restriction: Optional[GeoRestrictionConstraintType] = field(
         default=None,
-        metadata=dict(
-            name="geoRestriction",
-            type="Element"
-        )
+        metadata={
+            "name": "geoRestriction",
+            "type": "Element",
+        }
     )
     age_rating: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="ageRating",
-            type="Element"
-        )
+        metadata={
+            "name": "ageRating",
+            "type": "Element",
+        }
     )
-    has_age_rating: Optional[HasAgeRatingConstraintType] = field(
+    has_age_rating: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasAgeRating",
-            type="Element"
-        )
+        metadata={
+            "name": "hasAgeRating",
+            "type": "Element",
+        }
     )
     content_rating: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="contentRating",
-            type="Element"
-        )
+        metadata={
+            "name": "contentRating",
+            "type": "Element",
+        }
     )
-    has_content_rating: Optional[HasContentRatingConstraintType] = field(
+    has_content_rating: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="hasContentRating",
-            type="Element"
-        )
+        metadata={
+            "name": "hasContentRating",
+            "type": "Element",
+        }
     )
     genre: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element"
-        )
+        metadata={
+            "type": "Element",
+        }
     )

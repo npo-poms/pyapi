@@ -38,15 +38,15 @@ class SubtitlesContentType:
     )
     format: Optional[SubtitlesFormatEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     charset: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -69,70 +69,70 @@ class SubtitlesType:
 
     content: Optional[SubtitlesContentType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:subtitles:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:subtitles:2009",
+            "required": True,
+        }
     )
     mid: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     offset: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     creation_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="creationDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "creationDate",
+            "type": "Attribute",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+        }
     )
     type: Optional[SubtitlesTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     lang: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            namespace="http://www.w3.org/XML/1998/namespace"
-        )
+        metadata={
+            "type": "Attribute",
+            "namespace": "http://www.w3.org/XML/1998/namespace",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     workflow: Optional[SubtitlesWorkflowEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     cue_count: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="cueCount",
-            type="Attribute"
-        )
+        metadata={
+            "name": "cueCount",
+            "type": "Attribute",
+        }
     )
 
 

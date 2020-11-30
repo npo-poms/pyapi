@@ -215,149 +215,149 @@ class ImageType:
 
     title: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+            "required": True,
+        }
     )
     description: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     image_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="imageUri",
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "name": "imageUri",
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     offset: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     height: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     width: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     credits: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     source: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     source_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="sourceName",
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "name": "sourceName",
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     license: Optional[LicenseEnum] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:shared:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:shared:2009",
+        }
     )
     type: Optional[ImageTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     highlighted: bool = field(
         default=False,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
     publish_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishDate",
+            "type": "Attribute",
+        }
     )
     creation_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="creationDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "creationDate",
+            "type": "Attribute",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+        }
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -377,50 +377,50 @@ class PublishableObjectType:
 
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
     publish_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishDate",
+            "type": "Attribute",
+        }
     )
     creation_date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="creationDate",
-            type="Attribute"
-        )
+        metadata={
+            "name": "creationDate",
+            "type": "Attribute",
+        }
     )
     last_modified: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="lastModified",
-            type="Attribute"
-        )
+        metadata={
+            "name": "lastModified",
+            "type": "Attribute",
+        }
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 

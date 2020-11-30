@@ -40,10 +40,10 @@ class AssetDataType:
 
     data: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
 
 
@@ -57,10 +57,10 @@ class AssetLocationType:
 
     url: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
 
 
@@ -75,19 +75,19 @@ class AudioAttributesUpdateType:
 
     channels: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     coding: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
 
 
@@ -101,10 +101,10 @@ class ImageDataType:
 
     data: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
 
 
@@ -119,20 +119,20 @@ class ImageLocationType:
 
     mime_type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="mimeType",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "mimeType",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     url: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            max_length=1024,
-            pattern=r"[a-z][a-z]+:.*"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "max_length": 1024,
+            "pattern": r"[a-z][a-z]+:.*",
+        }
     )
 
 
@@ -148,24 +148,24 @@ class ItemizeType:
 
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
     mid: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -185,42 +185,42 @@ class ListType:
 
     any_element: Optional[object] = field(
         default=None,
-        metadata=dict(
-            type="Wildcard",
-            namespace="##any",
-            required=True
-        )
+        metadata={
+            "type": "Wildcard",
+            "namespace": "##any",
+            "required": True,
+        }
     )
     offset: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     total_count: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="totalCount",
-            type="Attribute"
-        )
+        metadata={
+            "name": "totalCount",
+            "type": "Attribute",
+        }
     )
     max: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     size: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     order: Optional["ListType.Order"] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
     class Order(Enum):
@@ -244,23 +244,23 @@ class LiveItemize1:
 
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     stream: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -276,21 +276,21 @@ class MemberRefUpdateType:
 
     value: Optional[str] = field(
         default=None,
-        metadata=dict(
-            min_length=4
-        )
+        metadata={
+            "min_length": 4,
+        }
     )
     position: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     highlighted: bool = field(
         default=False,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -306,23 +306,23 @@ class MemberUpdateType:
 
     any_element: Optional[object] = field(
         default=None,
-        metadata=dict(
-            type="Wildcard",
-            namespace="##any",
-            required=True
-        )
+        metadata={
+            "type": "Wildcard",
+            "namespace": "##any",
+            "required": True,
+        }
     )
     position: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     highlighted: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -337,20 +337,20 @@ class MoveActionType:
 
     from_value: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="from",
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "name": "from",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
     to: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
 
 
@@ -369,15 +369,15 @@ class PortalRestrictionUpdateType:
     )
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -411,33 +411,33 @@ class RelationUpdateType:
     )
     type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True,
-            pattern=r"[A-Z0-9_-]{4,}"
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+            "pattern": r"[A-Z0-9_-]{4,}",
+        }
     )
     broadcaster: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True,
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     uri_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="uriRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "uriRef",
+            "type": "Attribute",
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -451,11 +451,11 @@ class TopicUpdateType:
 
     gtaa_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="gtaaUri",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "gtaaUri",
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -489,33 +489,33 @@ class AssetType:
 
     asset_data: Optional[AssetDataType] = field(
         default=None,
-        metadata=dict(
-            name="assetData",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "assetData",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     asset_location: Optional[AssetLocationType] = field(
         default=None,
-        metadata=dict(
-            name="assetLocation",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "assetLocation",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
 
 
@@ -530,16 +530,16 @@ class DescriptionUpdateType:
 
     value: Optional[str] = field(
         default=None,
-        metadata=dict(
-            min_length=1
-        )
+        metadata={
+            "min_length": 1,
+        }
     )
     type: Optional[TextualTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -554,16 +554,16 @@ class GeoLocationUpdateType:
 
     gtaa_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="gtaaUri",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaUri",
+            "type": "Attribute",
+        }
     )
     role: Optional[GeoRoleType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -583,21 +583,21 @@ class GeoRestrictionUpdateType:
     )
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -628,135 +628,135 @@ class ImageUpdateType:
 
     title: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True,
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     description: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     source: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     source_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="sourceName",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "sourceName",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     license: Optional[LicenseEnum] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     width: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     height: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     credits: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     date: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     offset: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     image_data: Optional[ImageDataType] = field(
         default=None,
-        metadata=dict(
-            name="imageData",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "imageData",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     image_location: Optional[ImageLocationType] = field(
         default=None,
-        metadata=dict(
-            name="imageLocation",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "imageLocation",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            pattern=r"urn:vpro[\.:]image:[0-9]+"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "pattern": r"urn:vpro[\.:]image:[0-9]+",
+        }
     )
     type: Optional[ImageTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     urn_attribute: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="urn",
-            type="Attribute"
-        )
+        metadata={
+            "name": "urn",
+            "type": "Attribute",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
     highlighted: bool = field(
         default=False,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -781,40 +781,38 @@ class ItemizeResponseType:
 
     request: Optional[ItemizeType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     liverequest: Optional[LiveItemize1] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     result: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     success: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -852,31 +850,29 @@ class MidAndTypeType:
 
     crid: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            pattern=r"(c|C)(r|R)(i|I)(d|D)://.*/.*"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "pattern": r"(c|C)(r|R)(i|I)(d|D)://.*/.*",
+        }
     )
     mid: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     id: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     type: Optional[MediaTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -898,18 +894,18 @@ class NameUpdateType:
 
     gtaa_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="gtaaUri",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "gtaaUri",
+            "type": "Attribute",
+            "required": True,
+        }
     )
     role: Optional[RoleType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -926,33 +922,33 @@ class PersonUpdateType:
 
     given_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="givenName",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "givenName",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     family_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="familyName",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "familyName",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     gtaa_uri: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="gtaaUri",
-            type="Attribute"
-        )
+        metadata={
+            "name": "gtaaUri",
+            "type": "Attribute",
+        }
     )
     role: Optional[RoleType] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -972,23 +968,23 @@ class PredictionUpdateType:
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
     encryption: Optional[Encryption] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1003,17 +999,17 @@ class TitleUpdateType:
 
     value: Optional[str] = field(
         default=None,
-        metadata=dict(
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     type: Optional[TextualTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
 
 
@@ -1027,12 +1023,10 @@ class TopicsUpdateType:
 
     topic: List[TopicUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
 
 
@@ -1056,86 +1050,86 @@ class TranscodeStatusType:
 
     file_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="fileName",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "fileName",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     status: Optional[TranscodeStatusEnum] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     status_message: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="statusMessage",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "statusMessage",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     workflow_type: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="workflowType",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "workflowType",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     workflow_id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="workflowId",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "workflowId",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     start_time: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="startTime",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "startTime",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     update_time: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="updateTime",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "updateTime",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     end_time: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="endTime",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "endTime",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     broadcasters: Optional["TranscodeStatusType.Broadcasters"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     mid: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     missing_media: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            name="missingMedia",
-            type="Attribute"
-        )
+        metadata={
+            "name": "missingMedia",
+            "type": "Attribute",
+        }
     )
 
     @dataclass
@@ -1145,12 +1139,10 @@ class TranscodeStatusType:
         """
         broadcaster: List[str] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
 
@@ -1167,31 +1159,31 @@ class TranscodeType:
 
     file_name: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="fileName",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "fileName",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     encryption: Optional[Encryption] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     priority: Optional[PriorityType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     mid: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1209,39 +1201,39 @@ class VideoAttributesUpdateType:
 
     aspect_ratio: Optional[AspectRatioEnum] = field(
         default=None,
-        metadata=dict(
-            name="aspectRatio",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "aspectRatio",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     color: Optional[ColorType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     coding: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     width: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     height: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1259,42 +1251,42 @@ class AvAtributeUpdateType:
 
     bitrate: Optional[int] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     byte_size: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="byteSize",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "byteSize",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     av_file_format: Optional[AvFileFormatEnum] = field(
         default=None,
-        metadata=dict(
-            name="avFileFormat",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "avFileFormat",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     video_attributes: Optional[VideoAttributesUpdateType] = field(
         default=None,
-        metadata=dict(
-            name="videoAttributes",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "videoAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     audio_attributes: Optional[AudioAttributesUpdateType] = field(
         default=None,
-        metadata=dict(
-            name="audioAttributes",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "audioAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
 
 
@@ -1309,19 +1301,19 @@ class BulkUpdateType:
 
     titles: Optional[TitleUpdateType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
     descriptions: Optional[DescriptionUpdateType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
 
 
@@ -1336,23 +1328,19 @@ class CreditsUpdateType:
 
     person: List[PersonUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "sequential": True,
+        }
     )
     name: List[NameUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            sequential=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "sequential": True,
+        }
     )
 
 
@@ -1366,13 +1354,11 @@ class GeoLocationsUpdateType:
 
     geo_location: List[GeoLocationUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            name="geoLocation",
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "geoLocation",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
 
 
@@ -1420,54 +1406,54 @@ class ScheduleEventUpdateType:
 
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
     guide_day: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="guideDay",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "guideDay",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     duration: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
     titles: Optional["ScheduleEventUpdateType.Titles"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     descriptions: Optional["ScheduleEventUpdateType.Descriptions"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     channel: Optional[ChannelEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
     )
     net: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
     @dataclass
@@ -1477,12 +1463,10 @@ class ScheduleEventUpdateType:
         """
         title: List[TitleUpdateType] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
     @dataclass
@@ -1492,12 +1476,10 @@ class ScheduleEventUpdateType:
         """
         description: List[DescriptionUpdateType] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
 
@@ -1531,55 +1513,55 @@ class LocationUpdateType:
 
     program_url: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="programUrl",
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "name": "programUrl",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
     av_attributes: Optional[AvAtributeUpdateType] = field(
         default=None,
-        metadata=dict(
-            name="avAttributes",
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "name": "avAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
     offset: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     duration: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -1644,339 +1626,305 @@ class MediaUpdateType:
 
     crid: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            pattern=r"(c|C)(r|R)(i|I)(d|D)://.*/.*"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "pattern": r"(c|C)(r|R)(i|I)(d|D)://.*/.*",
+        }
     )
     broadcaster: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=1,
-            max_occurs=9223372036854775807,
-            pattern=r"[A-Z0-9_-]{2,}"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_occurs": 1,
+            "pattern": r"[A-Z0-9_-]{2,}",
+        }
     )
     portal: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            pattern=r"[A-Z0-9_-]{2,}"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "pattern": r"[A-Z0-9_-]{2,}",
+        }
     )
     exclusive: List[PortalRestrictionUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     region: List[GeoRestrictionUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     title: List[TitleUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=1,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_occurs": 1,
+        }
     )
     description: List[DescriptionUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     tag: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     country: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     language: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     genre: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            pattern=r"3(\.[0-9]+)+"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "pattern": r"3(\.[0-9]+)+",
+        }
     )
     intentions: Optional["MediaUpdateType.Intentions"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     target_groups: Optional["MediaUpdateType.TargetGroups"] = field(
         default=None,
-        metadata=dict(
-            name="targetGroups",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "targetGroups",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     geo_locations: Optional[GeoLocationsUpdateType] = field(
         default=None,
-        metadata=dict(
-            name="geoLocations",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "geoLocations",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     topics: Optional[TopicsUpdateType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     av_attributes: Optional[AvAtributeUpdateType] = field(
         default=None,
-        metadata=dict(
-            name="avAttributes",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "avAttributes",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     release_year: Optional[int] = field(
         default=None,
-        metadata=dict(
-            name="releaseYear",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "releaseYear",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     duration: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     credits: Optional[CreditsUpdateType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     member_of: List[MemberRefUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            name="memberOf",
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "memberOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     age_rating: Optional[AgeRatingType] = field(
         default=None,
-        metadata=dict(
-            name="ageRating",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "ageRating",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     content_rating: List[ContentRatingType] = field(
         default_factory=list,
-        metadata=dict(
-            name="contentRating",
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "contentRating",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     email: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     website: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     twitterref: List[str] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807,
-            min_length=2,
-            max_length=16,
-            pattern=r"[@#][A-Za-z0-9_]{1,139}"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_length": 2,
+            "max_length": 16,
+            "pattern": r"[@#][A-Za-z0-9_]{1,139}",
+        }
     )
     prediction: List[PredictionUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     locations: Optional["MediaUpdateType.Locations"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     schedule_events: Optional["MediaUpdateType.ScheduleEvents"] = field(
         default=None,
-        metadata=dict(
-            name="scheduleEvents",
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "name": "scheduleEvents",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     relation: List[RelationUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     images: Optional["MediaUpdateType.Images"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     asset: Optional[AssetType] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     av_type: Optional[AvTypeEnum] = field(
         default=None,
-        metadata=dict(
-            name="avType",
-            type="Attribute",
-            required=True
-        )
+        metadata={
+            "name": "avType",
+            "type": "Attribute",
+            "required": True,
+        }
     )
     deleted: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     embeddable: bool = field(
         default=True,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     publish_start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStart",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStart",
+            "type": "Attribute",
+        }
     )
     publish_stop: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="publishStop",
-            type="Attribute"
-        )
+        metadata={
+            "name": "publishStop",
+            "type": "Attribute",
+        }
     )
     mid: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            min_length=4,
-            max_length=255,
-            pattern=r"[ \.a-zA-Z0-9_-]+"
-        )
+        metadata={
+            "type": "Attribute",
+            "min_length": 4,
+            "max_length": 255,
+            "pattern": r"[ \.a-zA-Z0-9_-]+",
+        }
     )
     urn: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     ordered: Optional[bool] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
     version: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Attribute",
-            pattern=r"[0-9]+(\.[0-9]+(\.[0-9]+)?)?"
-        )
+        metadata={
+            "type": "Attribute",
+            "pattern": r"[0-9]+(\.[0-9]+(\.[0-9]+)?)?",
+        }
     )
 
     @dataclass
@@ -1986,12 +1934,10 @@ class MediaUpdateType:
         """
         intention: List[IntentionEnum] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
     @dataclass
@@ -2001,13 +1947,11 @@ class MediaUpdateType:
         """
         target_group: List[TargetGroupEnum] = field(
             default_factory=list,
-            metadata=dict(
-                name="targetGroup",
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "name": "targetGroup",
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
     @dataclass
@@ -2017,12 +1961,10 @@ class MediaUpdateType:
         """
         location: List[LocationUpdateType] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
     @dataclass
@@ -2032,13 +1974,11 @@ class MediaUpdateType:
         """
         schedule_event: List[ScheduleEventUpdateType] = field(
             default_factory=list,
-            metadata=dict(
-                name="scheduleEvent",
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "name": "scheduleEvent",
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
     @dataclass
@@ -2048,12 +1988,10 @@ class MediaUpdateType:
         """
         image: List[ImageUpdateType] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
 
@@ -2068,19 +2006,19 @@ class GroupUpdateType(MediaUpdateType):
 
     po_series_id: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="poSeriesID",
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_length=1,
-            max_length=255
-        )
+        metadata={
+            "name": "poSeriesID",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "min_length": 1,
+            "max_length": 255,
+        }
     )
     type: Optional[GroupTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2096,24 +2034,24 @@ class SegmentUpdateType(MediaUpdateType):
 
     start: Optional[str] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            required=True
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        }
     )
     mid_ref: Optional[str] = field(
         default=None,
-        metadata=dict(
-            name="midRef",
-            type="Attribute"
-        )
+        metadata={
+            "name": "midRef",
+            "type": "Attribute",
+        }
     )
     type: Optional[SegmentTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
 
@@ -2157,26 +2095,24 @@ class ProgramUpdateType(MediaUpdateType):
 
     episode_of: List[MemberRefUpdateType] = field(
         default_factory=list,
-        metadata=dict(
-            name="episodeOf",
-            type="Element",
-            namespace="urn:vpro:media:update:2009",
-            min_occurs=0,
-            max_occurs=9223372036854775807
-        )
+        metadata={
+            "name": "episodeOf",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     segments: Optional["ProgramUpdateType.Segments"] = field(
         default=None,
-        metadata=dict(
-            type="Element",
-            namespace="urn:vpro:media:update:2009"
-        )
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
     )
     type: Optional[ProgramTypeEnum] = field(
         default=None,
-        metadata=dict(
-            type="Attribute"
-        )
+        metadata={
+            "type": "Attribute",
+        }
     )
 
     @dataclass
@@ -2186,12 +2122,10 @@ class ProgramUpdateType(MediaUpdateType):
         """
         segment: List[Segment] = field(
             default_factory=list,
-            metadata=dict(
-                type="Element",
-                namespace="urn:vpro:media:update:2009",
-                min_occurs=0,
-                max_occurs=9223372036854775807
-            )
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            }
         )
 
 
