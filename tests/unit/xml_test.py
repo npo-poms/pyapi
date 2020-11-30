@@ -2,16 +2,17 @@
 import unittest
 
 import pyxb
+from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
+from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata.formats.dataclass.serializers import XmlSerializer
 
 from npoapi import base
-from npoapi.data import AvTypeEnum, PageSearchResult
-from npoapi.xml import media
-from npoapi.xml import poms
-from npoapi.xml import mediaupdate
-
+from npoapi.data import PageSearchResult, SearchResultItem, Page
 from npoapi.data.media_update import *
+from npoapi.xml import media
+from npoapi.xml import mediaupdate
+from npoapi.xml import poms
 
 base.declare_namespaces()
 
@@ -183,12 +184,10 @@ class Tests(unittest.TestCase):
 """
 
         pyxb = poms.CreateFromDocument(xml)
-        self.assertEqual(self, pyxb.items.item[0].result.title, "Antibiotics")
-        xsdata = XmlParser().from_string(xml, PageSearchResult)
-        self.assertEqual(xsdata.items.item[0])
+        self.assertEqual(pyxb.items.item[0].result.title, "Antibiotics")
 
-        # it seems that xsdata doesn't support xsi:type=
-        self.assertEqual(self, xsdata.items.item[0].result.title, "Antibiotics")
+        xsdata = XmlParser().from_string(xml, PageSearchResult)
+        self.assertEqual(xsdata.items.item[0].result.title, "Antibiotics")
 
         print(xsdata)
 

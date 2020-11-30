@@ -7,6 +7,7 @@ exec(open('npoapi/_version.py', "rt").read())
 setup(
     name='NPO API',
     version=__version__,
+    python_requires='>3.6.0',
     packages=['npoapi', 'npoapi.xml'],
     install_requires=[
         'pytz==2020.1',
@@ -15,7 +16,7 @@ setup(
         'python-dateutil==2.8.1',
         'jwt==1.0.0',
         'typing==3.7.4.3',
-        'xsdata==20.10'
+        'xsdata==20.11.1'
     ],
     scripts=[
         'bin/npo_media_get',
