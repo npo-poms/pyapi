@@ -2,13 +2,11 @@
 import unittest
 
 import pyxb
-from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
-from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata.formats.dataclass.serializers import XmlSerializer
 
 from npoapi import base
-from npoapi.data import PageSearchResult, SearchResultItem, Page
+from npoapi.data import PageSearchResult
 from npoapi.data.media_update import *
 from npoapi.xml import media
 from npoapi.xml import mediaupdate
@@ -191,16 +189,31 @@ class Tests(unittest.TestCase):
 
         print(xsdata)
 
-    def test_xsdata(self):
-        serializer = XmlSerializer()
-
+    def test_render_xsdata(self):
         media = Program()
         media.av_type = AvTypeEnum.AUDIO
         main = TitleUpdateType()
         main.type = TextualTypeEnum.MAIN
         main.value = "foo bar"
         media.title.append(main)
-        xml = serializer.render(media, ns_map={"update": Program.Meta.namespace})
-        self.assertEqual(xml, """<?xml version='1.0' encoding='UTF-8'?>
-<update:program xmlns:update="urn:vpro:media:update:2009" avType="AUDIO" embeddable="true"><update:title type="MAIN">foo bar</update:title></update:program>""")
+
+        b = base.NpoApiBase()
+        self.assertEqual("""<?xml version='1.0' encoding='UTF-8'?>
+<update:program xmlns:update="urn:vpro:media:update:2009" xmlns:pu="urn:vpro:pages:update:2013" xmlns:pages="urn:vpro:pages:2013" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009" xmlns:api="urn:vpro:api:2013" xmlns:gtaa="urn:vpro:gtaa:2017" avType="AUDIO" embeddable="true">
+  <update:title type="MAIN">foo bar</update:title>
+</update:program>
+""", b.data_to_bytes(media)[0].decode("utf-8"))
+
+    def test_parse_xsdata(self):
+        b = base.NpoApiBase(presentation=base.ObjectPresentation.XSDATA)
+        o = b.to_object_or_none("""<?xml version='1.0' encoding='UTF-8'?>
+<update:program xmlns:update="urn:vpro:media:update:2009" xmlns:pu="urn:vpro:pages:update:2013" xmlns:pages="urn:vpro:pages:2013" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009" xmlns:api="urn:vpro:api:2013" xmlns:gtaa="urn:vpro:gtaa:2017" avType="AUDIO" embeddable="true">
+  <update:title type="MAIN">foo bar</update:title>
+</update:program>
+""")
+
+
+
+
+
 

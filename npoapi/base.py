@@ -7,13 +7,23 @@ import os
 import sys
 import urllib.request
 import http
+import enum
 
 import pyxb
+from xsdata.formats.dataclass.parsers.xml import XmlParser
+from xsdata.formats.dataclass.serializers.xml import XmlSerializer
+from npoapi.data import *
+
 
 import npoapi
 from typing import Optional
 from typing import List
 from typing import Dict
+
+
+class ObjectPresentation(enum.Enum):
+    PYXB = 1
+    XSDATA = 2
 
 
 
@@ -29,6 +39,10 @@ def declare_namespaces():
     pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(api.Namespace, 'api')
     pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(thesaurus.Namespace, 'gtaa')
 
+    ns_map={
+
+    }
+
 
 declare_namespaces()
 
@@ -42,7 +56,18 @@ class NpoApiBase:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, env: str = None, debug: bool = False, accept: str = None):
+    XSDATA_NS_MAP = {
+    "update": media_update.__NAMESPACE__,
+    "pu": page_update.__NAMESPACE__,
+    "pages": page.__NAMESPACE__,
+    "media": media.__NAMESPACE__,
+    "shared": shared.__NAMESPACE__,
+    "api": api.__NAMESPACE__,
+    "gtaa": thesaurus.__NAMESPACE__
+    }
+
+
+    def __init__(self, env: str = None, debug: bool = False, accept: str = None, presentation: ObjectPresentation = ObjectPresentation.PYXB):
         """
         Initializes logging, env-settings, and default accept headers.
         """
@@ -58,6 +83,7 @@ class NpoApiBase:
         self._accept = accept or "application/json"
         self.settings = {}
         self.response_headers = False
+        self.object_presentation = presentation
 
     @abc.abstractmethod
     def env(self, e):
@@ -345,6 +371,11 @@ class NpoApiBase:
                 with codecs.open(data, 'r', 'utf-8') as myfile:
                     data = myfile.read().encode('utf-8')
                     self.logger.debug("Found data " + data.decode("utf-8"))
+            elif data.Meta:
+                # xsdata
+                serializer = XmlSerializer(pretty_print=True)
+                data = serializer.render(data, ns_map = NpoApiBase.XSDATA_NS_MAP).encode("utf-8")
+                content_type = "application/xml"
             elif isinstance(data, str):
                 content_type = None
                 if data.startswith("{"):
@@ -373,7 +404,18 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data:str, validate=False) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
+    def to_object(self, data:str, validate=False) -> Optional:
+        """Converts a string to a pyxb object and optionally validates it"""
+        if data is None:
+            return None
+        if self.object_presentation == ObjectPresentation.PYXB:
+            return self._to_pyxb_object(data, validate)
+        else:
+            return self._to_xsdata_object(data)
+
+
+
+    def _to_pyxb_object(self, data:str, validate=False) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
         """Converts a string to a pyxb object and optionally validates it"""
         if data is None:
             return None
@@ -387,6 +429,14 @@ class NpoApiBase:
         if validate:
             result.validateBinding()
         return result
+
+    def _to_xsdata_object(self, data:str) -> Optional:
+        """Converts a string to a xsdata object and optionally validates it"""
+        if hasattr(data, "Meta"):
+            return data
+        else:
+            xsdata = XmlParser().from_string(data)
+            return xsdata
 
     def to_object_or_none(self, data:str, validate=False) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
         import xml
