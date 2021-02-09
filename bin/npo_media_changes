@@ -5,6 +5,7 @@
 from npoapi import Media
 from io import TextIOWrapper
 from sys import stdout
+import time
 
 client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
 client.add_argument('profile', type=str, nargs='?', help='Profile')
@@ -28,9 +29,15 @@ response = TextIOWrapper(client.changes(
     stream=True), encoding="UTF-8")
 
 buffer = response.read(1024)
+count = 0
 while len(buffer) > 0:
     stdout.write(buffer)
     buffer = response.read(1024)
+    count += 1
+    if count > 10:
+        break
+
 response.close()
 stdout.flush()
 client.exit()
+#time.sleep(300)

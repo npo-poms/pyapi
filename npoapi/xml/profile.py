@@ -1,7 +1,7 @@
 # ./npoapi/xml/profile.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:84b11206e77e35c14fdc92e4365d89906a1f1817
-# Generated 2020-10-20 09:07:11.806881 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2021-02-09 10:49:40.073811 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:api:profile:2013
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:d7b16146-12a2-11eb-a4bf-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:193144a8-6abc-11eb-8fb1-9801a7ae4ad1')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
