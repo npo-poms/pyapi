@@ -66,13 +66,13 @@ class Media(NpoApi):
     def redirects(self) -> str:
         return self.request("/api/media/redirects")
 
-    def iterate(self, form=None, profile=None, stream=True, limit=100, timeout=None) -> Union[None, http.client.HTTPResponse, str]:
+    def iterate(self, form=None, profile=None, stream=True, limit=100, timeout=None, properties=None) -> Union[None, http.client.HTTPResponse, str]:
         if not form:
             form = "{}"
         if stream:
             return self.stream("/api/media/iterate", data=form,
-                               params={"profile": profile, "max": limit}, timeout=timeout)
+                               params={"profile": profile, "max": limit, "properties": properties}, timeout=timeout)
         else:
 
             return self.request("/api/media/iterate", data=form,
-                                params={"profile": profile, "max": limit})
+                                params={"profile": profile, "max": limit, "properties": properties})
