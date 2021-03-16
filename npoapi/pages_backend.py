@@ -44,8 +44,8 @@ class PagesBackend(BasicBackend):
     def post(self, update):
         return self.post_to("api/pages/updates", update, accept="text/plain", include_errors=False)
 
-    def delete(self, url) -> Optional[dict]:
-        result = self.delete_from("api/pages/updates", url=url, accept="application/json", include_errors=False)
+    def delete(self, url, batch: bool = False) -> Optional[dict]:
+        result = self.delete_from("api/pages/updates", url=url, batch=batch, accept="application/json", include_errors=False)
         if result is None:
             return None
         else:
