@@ -185,8 +185,11 @@ class NpoApiBase:
             for line in f:
                 l = line.strip()
                 if l and not l.startswith("#"):
-                    key, value = l.split("=", 2)
-                    properties[key] = value.strip('" \t')
+                    try:
+                        key, value = l.split("=", 2)
+                        properties[key] = value.strip('" \t')
+                    except Exception as e:
+                        self.logger.error(l + ":" + str(e))
         return properties
 
     def _read_settings_from_properties(self, properties):
