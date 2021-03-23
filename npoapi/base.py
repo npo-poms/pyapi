@@ -248,6 +248,7 @@ class NpoApiBase:
         self.argument_parser = argparse.ArgumentParser(description=description,
                                                        parents=[parent_args],
                                                        epilog=NpoApiBase.EPILOG)
+        return self
 
     def parse_args(self):
         args = self.argument_parser.parse_args()
