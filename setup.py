@@ -8,7 +8,14 @@ setup(
     name='NPO API',
     version=__version__,
     packages=['npoapi', 'npoapi.xml'],
-    install_requires=['pytz', 'pyxb==1.2.5'],
+    install_requires=[
+        'pytz==2020.1',
+        'ijson==3.1.2.post0',
+        'pyxb==1.2.6',
+        'python-dateutil==2.8.1',
+        'jwt==1.0.0',
+        'typing==3.7.4.3'
+    ],
     scripts=[
         'bin/npo_media_get',
         'bin/npo_media_search',
@@ -22,6 +29,7 @@ setup(
         'bin/npo_mediabackend_get',
         'bin/npo_mediabackend',
         'bin/npo_pagesbackend',
+        'bin/npo_thesaurus',
         'bin/npo_subtitles',
         'bin/npo_integration_tests'
     ],

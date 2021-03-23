@@ -33,7 +33,7 @@ class Tests(unittest.TestCase):
                    'Audio Channels': '2', 'Balance': '0', 'Image Width': '480', 'Preview Time': '0 s',
                    'File Size': '79 MB', 'Image Size': '480x270', 'File Access Date/Time': '2016:08:19 15:35:33+02:00'}
         duration = TU.exiftool_duration(exifinfo)
-        self.assertEquals(1222000, duration)
+        self.assertEqual(1222000, duration)
 
 
     def test_parse_duration_s(self):
@@ -62,4 +62,4 @@ class Tests(unittest.TestCase):
                 'Audio Channels': '2', 'Balance': '0', 'Image Width': '480', 'Preview Time': '0 s',
                 'File Size': '79 MB', 'Image Size': '480x270', 'File Access Date/Time': '2016:08:19 15:35:33+02:00'}
         duration = TU.exiftool_duration(exifinfo)
-        self.assertEquals(1000, duration)
+        self.assertEqual(1000, duration)

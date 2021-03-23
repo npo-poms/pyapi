@@ -2,11 +2,10 @@
 """
 
 """
-from npoapi.npoapi import Media
+from npoapi import Media
 
-#env = input("environment")
 client = Media().configured_login(read_environment=True, create_config_file=True)
+defaultMid  = "POMS_NTR_388772"
+mid = input("MID (%s) ? " % defaultMid) or defaultMid
 
-mid = "POMS_NTR_388772"
-#input("MID? ")
 print(client.get(mid))

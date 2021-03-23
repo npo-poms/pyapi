@@ -5,10 +5,8 @@ from xml.dom import minidom
 import os
 
 from npoapi import Media
-from npoapi import Screens
 from npoapi import MediaBackend
-from npoapi.npoapi import NpoApi
-from npoapi.npoapi import NpoApiBase
+from npoapi import Subtitles
 
 from npoapi.xml import poms
 from npoapi.xml import mediaupdate
@@ -16,21 +14,10 @@ from npoapi.xml import mediaupdate
 import time
 
 ENV = "test"
+MID = "WO_VPRO_783763"
+CONFIG_DIR=os.path.dirname(os.path.dirname(__file__))
+DEBUG=False
 
-
-class Tests(unittest.TestCase):
-    def test_authentication(self):
-        client = NpoApi(origin="http://www.vpro.nl") \
-            .login(key="a", secret="b")
-        self.assertEqual("NPO a:CtHYR9a+nr17OIn5rYml6a+A9ujqe0IywWqr93/DAOk=",
-                         client.authenticate(uri="/media", now="Fri, 30 Oct 2015 08:43:31 -0000")[0])
-
-    def test_env(self):
-        properties={'a': 'A', 'a.prod': 'Aprod', 'b': 'B', 'b.test': 'Btest'}
-        client = NpoApiBase().env('test')
-        settings = client.read_settings_from_properties(properties)
-        self.assertEquals(settings['a'], "A")
-        self.assertEquals(settings['b'], "Btest")
 
 class MediaTests(unittest.TestCase):
     def test_get(self):
@@ -41,7 +28,7 @@ class MediaTests(unittest.TestCase):
     def test_get_quote(self):
         client = self.get_client()
         result = client.get(" Avro_1260864")
-        self.assertEqual("", result)
+        self.assertEqual(None, result)
         self.assertEqual(404, client.code)
 
     def test_get_space(self):
@@ -66,8 +53,11 @@ class MediaTests(unittest.TestCase):
         objects = ijson.items(client.changes(stream=True), 'changes.item')
         for o in objects:
             media = o["media"]
-            sortDate = datetime.fromtimestamp(media["sortDate"] / 1e3)
-            print(media["broadcasters"], sortDate)
+            if "sortDate" in media:
+                sort_date = datetime.fromtimestamp(media["sortDate"] / 1e3)
+                print(media["broadcasters"], sort_date)
+            else:
+                print(media["broadcasters"])
 
     def test(self):
         import datetime
@@ -77,24 +67,22 @@ class MediaTests(unittest.TestCase):
 
     def get_client(self):
         print(os.path.dirname(__file__))
-        return Media().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
+        return Media().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
 
 
-class ScreenTests(unittest.TestCase):
-    def test_screens(self):
-        client = self.get_client()
-        result = json.JSONDecoder().decode(client.list(offset=3))
-        self.assertEqual(result["offset"], 3)
+class SubtitlesTest(unittest.TestCase):
 
-    def get_client(self):
-        print(os.path.dirname(__file__))
-        return Screens().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
+    def test_get(self):
+        client_sub = Subtitles(env='test').configured_login(create_config_file=True)
+        client_sub.get(mid="POW_03689995", language='nl', subtitle_type='CAPTION')
+        client_sub = Subtitles(env='test').configured_login(create_config_file=True)
+        print(client_sub.get(mid="POW_03689995", language='nl', subtitle_type='CAPTION'))
 
 
 class MediaBackendTest(unittest.TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.client = MediaBackend().configured_login(config_dir=os.path.dirname(__file__)).env(ENV).debug()
+        self.client = MediaBackend().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
 
     def test_xml_to_bytes_string(self):
         self.assertEquals("<a xmlns='urn:vpro:media:update:2009' />",
@@ -107,18 +95,16 @@ class MediaBackendTest(unittest.TestCase):
                               "utf-8"))
 
     def test_append_params(self):
-        self.assertEquals("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", include_errors=False,  a="a", x="y"))
-
-
+        self.assertEqual("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", include_errors=False,  a="a", x="y"))
 
     def test_set_duration(self):
-        existing = poms.CreateFromDocument(self.client.get("WO_VPRO_1422026"))
+        existing = poms.CreateFromDocument(self.client.get(MID))
         existing.duration = "PT30M"
         self.client.post(existing)
 
     def test_get_locations(self):
-        bytes=self.client.get_locations("POMS_VPRO_1421796")
-        locations=poms.CreateFromDocument(bytes)
+        bs = self.client.get_locations(MID)
+        locations=poms.CreateFromDocument(bs)
         print(str(locations))
 
     def test_get_segments(self):
@@ -126,38 +112,29 @@ class MediaBackendTest(unittest.TestCase):
         existing = mediaupdate.CreateFromDocument(bytes)
         self.assertTrue(type(existing) == mediaupdate.segmentUpdateType)
 
-
     def test_get_images(self):
-        mid="POMS_VPRO_1421796"
-        media=poms.CreateFromDocument(self.client.get(mid))
+        media = poms.CreateFromDocument(self.client.get(MID))
         print(len(media.images.image))
-        image=media.images.image[0]
-        bytes = self.client.get_images("POMS_VPRO_1421796")
-        images= poms.CreateFromDocument(bytes)
-        image2=images.wildcardElements()[0]
-        self.assertEquals(image.title, image2.title)
-        self.assertEquals(image2.title, "sdf")
+        image = media.images.image[0] if len(media.images.image) > 0 else None
+        bytes = self.client.get_images(MID)
+        images = poms.CreateFromDocument(bytes)
+        image2 = images.wildcardElements()[0] if len(images.wildcardElements()) > 0 else None
+        self.assertEqual(image.title, image2.title)
+        #self.assertEquals(image2.title, "testte")
         print(image2.toxml())
 
-
     def test_set_location(self):
-        mid = "POMS_VPRO_1421796"
-        self.client.set_location(mid, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
-
+        self.client.set_location(MID, "http://www.vpro.nl/123", publishStop="2012-01-11T17:16:01.287Z")
 
     def test_set_location_by_id(self):
-        mid = "POMS_VPRO_1421796"
-        self.client.set_location(mid, 58758190, publishStop="2012-01-11T17:16:01.287Z")
+        #id  = 14728807
+        self.client.set_location(MID, 14728813, publishStop="2012-01-11T17:16:01.287Z")
 
     def test_set_location_by_id_as_string(self):
-        mid = "POMS_VPRO_1421796"
-        self.client.set_location(mid, "58758190", publishStop="2013-01-11T17:16:01.287Z")
+        self.client.set_location(MID, "58758190", publishStop="2013-01-11T17:16:01.287Z")
 
     def test_set_location_by_urn(self):
-        mid = "POMS_VPRO_1421796"
-        self.client.set_location(mid, "urn:vpro:media:location:58758190", publishStop="2014-01-11T17:16:01.287Z")
-
+        self.client.set_location(MID, "urn:vpro:media:location:58758190", publishStop="2014-01-11T17:16:01.287Z")
 
     def test_create_location(self):
-        mid = "POMS_VPRO_1421796"
-        self.client.set_location(mid, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
+        self.client.set_location(MID, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")

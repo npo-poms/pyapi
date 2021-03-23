@@ -1,6 +1,7 @@
 import urllib.request
 
 from npoapi.npoapi import NpoApi
+from typing import Optional
 
 
 class Subtitles(NpoApi):
@@ -12,12 +13,17 @@ class Subtitles(NpoApi):
         self.key, self.secret, self.origin = key, secret, origin
 
     def accept_choices(self):
-        return {"vtt": "text/vtt", "srt": "text/srt", "ebu": "text/ebu-tt", "json": "application/json", "xml": "application/xml"}
+        return {"vtt": "text/vtt", "srt": "text/srt", "ebu": "application/ebu-stl", "tt888": "text/tt888"}
 
-
-    def get(self, mid, language, subtitle_type='CAPTION'):
+    def get(self, mid, language, subtitle_type='CAPTION', ignore_not_found=True) -> Optional[str]:
+        """Returns subtitles for giving mid, or None of not found"""
         return self.request("/api/subtitles/" + urllib.request.quote(mid, safe='') + "/"
-                            + urllib.request.quote(language, safe='') + "/" + subtitle_type) 
+                            + urllib.request.quote(language, safe='') + "/" + subtitle_type, ignore_not_found=ignore_not_found)
 
     def search(self, form="{}", sort="asc", offset=0, limit=240, accept="application/json"):
         return self.request("/api/subtitles", data=form, accept=accept, params={"sort": sort, "offset": offset, "max": limit})
+
+    def accept(self, arg="text/vtt"):
+        super().accept(arg)
+        return self
+

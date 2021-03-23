@@ -1,6 +1,8 @@
 
-POMS=http://poms-dev.omroep.nl/
+POMS=https://poms-dev.omroep.nl/
 RS=https://rs-dev.poms.omroep.nl/v1/
+PAGESPUB=https://publish-dev.pages.omroep.nl/
+#PAGESPUB=http://localhost:8069/
 
 npoapi/xml/__init__.py: setup.py
 	pyxbgen \
@@ -12,11 +14,11 @@ npoapi/xml/__init__.py: setup.py
 	   --schema-location=$(RS)schema/urn:vpro:pages:2013 --module page \
 	   --schema-location=$(RS)schema/urn:vpro:api:constraint:2014 --module api_constraint \
 	   --schema-location=$(RS)schema/urn:vpro:api:constraint:media:2013 --module api_constraint_media \
-	   --schema-location=$(RS)schema/urn:vpro:secondscreen:2015 --module secondscreen \
 	   --schema-location=$(RS)schema/urn:vpro:pages:update:2013 --module pageupdate \
 	   --schema-location=$(RS)schema/urn:vpro:api:2013 --module api \
 	   --schema-location=$(RS)schema/urn:vpro:api:profile:2013 --module profile \
 	   --schema-location=$(RS)schema/urn:vpro:media:subtitles:2009 --module subtitles \
+	   --schema-location=$(RS)schema/urn:vpro:gtaa:2017 --module thesaurus \
 	   --schema-location=$(RS)schema/combined.xsd --module poms \
 	   --module-prefix=npoapi.xml
 

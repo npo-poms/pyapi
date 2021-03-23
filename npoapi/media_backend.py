@@ -5,34 +5,20 @@ from xml.dom import minidom
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media, mediaupdate, poms
 import logging
+import time
+
 
 
 class MediaBackend(BasicBackend):
     """Client for NPO Backend API"""
     __author__ = "Michiel Meeuwissen"
+
     def __init__(self, env:str=None, email:str = None, debug:bool=False, accept:str=None):
         """
         Instantiates a client to the NPO Backend API
         """
-        super().__init__(env, email, debug, accept)
-
-    def read_settings(self, settings: dict):
-        """
-        """
-        if "user" in settings:
-            self.user = settings["user"]
-            if ":" in self.user:
-                self.password = self.user.split(":", 2)[1]
-                self.user = self.user.split(":", 2)[0]
-        if "email" in settings:
-            self.email = settings["email"]
-        if "parkpost_user" in settings:
-            self.parkpost_user = settings["parkpost_user"]
-            if ":" in self.parkpost_user:
-                self.parkpost_password = self.parkpost_user.split(":", 2)[1]
-                self.parkpost_user = self.parkpost_user.split(":", 2)[0]
-                self.parkpost_authorization = self.generate_authorization(self.parkpost_user, self.parkpost_password)
-        return
+        super().__init__("Media Backend",  env, email, debug, accept)
+        self.parkpost_authorization = None
 
     def env(self, e:str):
         super().env(e)
@@ -40,6 +26,10 @@ class MediaBackend(BasicBackend):
             self.url = "https://api.poms.omroep.nl/"
         elif e == None or e == "test":
             self.url = "https://api-test.poms.omroep.nl/"
+        elif  e == "test_new":
+            self.url = "https://api-test-os.poms.omroep.nl/"
+        elif  e == "acc_new":
+            self.url = "https://api-acc-os.poms.omroep.nl/"
         elif e == "dev":
             self.url = "https://api-dev.poms.omroep.nl/"
         elif e == "localhost":
@@ -48,11 +38,11 @@ class MediaBackend(BasicBackend):
             self.url = e
         return self
 
-    def get(self, mid: str, ignore_not_found=False) -> bytearray:
+    def get(self, mid: str, ignore_not_found=False) -> str:
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.request.quote(mid, safe=''), ignore_not_found=ignore_not_found)
 
-    def get_full(self, mid: str, ignore_not_found=False) -> bytearray:
+    def get_full(self, mid: str, ignore_not_found=False) -> str:
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.request.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found)
 
@@ -64,22 +54,30 @@ class MediaBackend(BasicBackend):
         """Returns pyxb-representation of a mediaobject"""
         return self.to_object(self.get_full(mid, ignore_not_found), validate=False)
 
-    def post(self, update, lookupcrid=True):
-        update = self.to_object(update, validate=True)
-        return self.post_to("media/media/", update, accept="text/plain", errors=self.email, lookupcrid=lookupcrid)
+    def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False, client_validate=True):
+        if not raw:
+            update = self.to_object(update, validate=client_validate)
+        return self.post_to("media/media/", update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid, stealcrids=steal_crids, validateInput=str(validate_input).lower())
 
     def delete(self, mid:str):
         """"""
         return self.delete_from("media/media/" + urllib.request.quote(mid, safe=''))
 
+
+    def _parkpost_authentication(self):
+        if not(self.parkpost_authorization):
+            self.parkpost_authorization = self._basic_authentication("parkpost_user", "Your NPO backend parkpost")
+
     def parkpost(self, xml):
+        self._parkpost_authentication()
         url = self.url + "parkpost/promo"
         req = urllib.request.Request(url, data=self.xml_to_bytes(xml))
-        return self._request(req, url, accept="text/plain", authorization=self.parkpost_authorization)
+        return self._request(req, url, accept="application/xml", authorization=self.parkpost_authorization)
 
-    def find(self, form, writable=False):
-        form = self.to_object(form, validate=True)
-        return self.post_to("media/find", form, accept="application/xml", writable=writable)
+    def find(self, form, writable=False, raw=False, validate_input=False, client_validate=True):
+        if not raw:
+            form = self.to_object(form, validate=client_validate)
+        return self.post_to("media/find", form, accept="application/xml", writable=writable, validateInput=str(validate_input).lower())
 
     def subtitles(self, mid: str, language=None, type="CAPTION"):
         path = mid
@@ -109,22 +107,30 @@ class MediaBackend(BasicBackend):
         path = "media/media/" + urllib.request.quote(mid) + "/memberOf/"
         self.post_to(path, memberOf, accept="application/xml")
 
-    # private method to implement both members and episodes calls.
-    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="") -> list:
+    # method to implement both members and episodes calls.
+    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="", full=False, follow_merges=True, deletes=False) -> list:
         """Returns a list of minidom objects"""
-        self.creds()
+        self._creds()
         self.logger.log(logging.INFO if log_progress else logging.DEBUG, "loading %s of %s", what, mid)
         result = []
         offset = 0
         b = min(batch, limit) if limit else batch
+        sub = "group" if what == "episodes" else "media"
+        w = what + "/full" if full else what
         while True:
-            sub = "group" if what == "episodes" else "media"
-            url = (self.url + 'media/' + sub + '/' + urllib.request.quote(mid, '') + "/" + what + "?max=" + str(b) +
+
+            url = (self.url + 'media/' + sub + '/' + urllib.request.quote(mid, '') + "/" + w + "?max=" + str(b) +
                    "&offset=" + str(offset))
+            if deletes:
+                url = url + "&deletes=true"
+            if not follow_merges:
+                url = url + "&followMerges=false"
+
+
             bytes = self._get_xml(url)
             if bytes:
                 xml = minidom.parseString(bytes)
-                items = xml.getElementsByTagName('item')
+                items = xml.getElementsByTagNameNS('*', 'item')
                 #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
                 result.extend(items)
                 total = xml.childNodes[0].getAttribute("totalCount")
@@ -139,6 +145,8 @@ class MediaBackend(BasicBackend):
                 self.logger.debug(str(len(result)) + "/" + total + (("/" + str(limit)) if limit else ""))
             else:
                 self.logger.debug("None returned from %s", url)
+                time.sleep(2)
+
 
         return result
 
@@ -224,7 +232,7 @@ class MediaBackend(BasicBackend):
 </location>""")
             if programUrl is not None:
                 location_object.programUrl = programUrl
-            elif not location.isdigit():
+            elif not isinstance(location, int) and not location.isdigit():
                 location_object.programUrl = location
             else:
                 return None
@@ -249,9 +257,15 @@ class MediaBackend(BasicBackend):
     def get_images(self, mid:str):
         return self.get_sub(mid, "images")
 
-    def get_sub(self, mid:str, sub: str):
-        self.creds()
+    def get_sub(self, mid:str, sub: str, deletes=False, follow_merges=True):
+        self._creds()
         url = self.url + "media/media/" + urllib.request.quote(mid) + "/" + sub
+        sep = '?'
+        if deletes:
+            url = url + sep +"deletes=true"
+            sep = '&'
+        if not follow_merges:
+            url = url + sep + "followMerges=false"
         return self._get_xml(url)
 
 

@@ -1,0 +1,3 @@
+- update version in npoapi/_version
+- git tag 5.8.0
+- git push --tags

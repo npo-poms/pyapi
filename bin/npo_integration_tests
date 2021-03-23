@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 """
  Integrations test
- See http://poms-test.omroep.nl/#/edit/WO_VPRO_1425989
+ See http://poms-test.omroep.nl/#/edit/<MID>
+
+ These tests are done much more extensively with that java client.
 
 """
 import argparse
@@ -17,31 +19,46 @@ from npoapi.xml import poms
 
 latency = 60 * 60 # one hour
 
-aparser = argparse.ArgumentParser(add_help=False)
-aparser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "dev", "localhost"})
-aparser.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
-args= aparser.parse_args()
+argument_parser = argparse.ArgumentParser(add_help=True, description="Runs integration test for the NPO backend and frontend API's")
+argument_parser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "proda", "prodb", "dev", "localhost"})
+argument_parser.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
+argument_parser.add_argument('-c', "--config_dir", type=str, default= None, help="Configuration directory")
+args = argument_parser.parse_args()
 
-backend = MediaBackend().env(args.env).debug(args.debug).configured_login(read_environment=True)
-mediaapi = Media().env(args.env).debug(args.debug).configured_login(read_environment=True)
+backend = MediaBackend().env(args.env).debug(args.debug)\
+    .configured_login(read_environment=True, create_config_file=True, config_dir=args.config_dir)
+mediaapi = Media().env(args.env).debug(args.debug)\
+    .configured_login(read_environment=True, create_config_file=True, config_dir=args.config_dir)
 
+logger = mediaapi.logger
+
+MID = "WO_VPRO_025057"
+CLIP_CRID = "crid://pyapi/clip/1"
 
 time_str = str(time.time())
 
+
+def create_title():
+    return "hoi " + time_str
+
+
 def create_clip():
     program = mediaupdate.program(type="CLIP", avType="MIXED")
-    program.title.append(mediaupdate.titleUpdateType("hoi " + time_str, type="MAIN"))
-    program.crid.append("crid://pyapi/clip/1")
+    title = create_title()
+    program.title.append(mediaupdate.titleUpdateType(title, type="MAIN"))
+    program.crid.append(CLIP_CRID)
     program.broadcaster.append("VPRO")
     program.segments = pyxb.BIND()
     program.segments.append(create_segment(1))
     program.images = pyxb.BIND()
     image = mediaupdate.image(type="PICTURE", title="Plaatje van clip " + time_str)
-    image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&w=120&h=120"
+    image.imageLocation = pyxb.BIND()
+    image.imageLocation.url = "https://placeholdit.imgix.net/~text?txtsize=15&txt=image2&w=120&h=120"
     program.images.append(image)
     program.credits = pyxb.BIND()
     program.credits.append(mediaupdate.personUpdateType(role="EDITOR", givenName="Pietje", familyName="PuK"))
     return program
+
 
 def create_segment(nr, ref=None):
     segment = mediaupdate.segment(avType="MIXED")
@@ -53,7 +70,8 @@ def create_segment(nr, ref=None):
     if ref:
         segment.midRef = ref
     image = mediaupdate.image(type="PICTURE", title="Plaatje van segment "  + time_str)
-    image.imageLocation = "https://placeholdit.imgix.net/~text?txtsize=17&txt=image2&w=120&h=120"
+    image.imageLocation = pyxb.BIND()
+    image.imageLocation.url = "https://placeholdit.imgix.net/~text?txtsize=17&txt=image2&w=120&h=120"
     segment.images.append(image)
     return segment
 
@@ -61,41 +79,67 @@ def create_segment(nr, ref=None):
 def post_clip():
     clip = create_clip()
     result = backend.post(clip)
-    print(result)
-    assert result == "crid://pyapi/clip/1"
-
+    print(str(result) + " " + str(create_title()))
+    assert result == CLIP_CRID
 
 def post_segment():
-    segment = create_segment(2, "WO_VPRO_1425989")
+    segment = create_segment(2, MID)
     result = backend.post(segment)
-    print(result)
+    print(str(result))
     assert result == "crid://pyapi/segment/2"
-
 
 def post_to_backend():
     post_clip()
     post_segment()
 
 
-def check_on_backend():
-    clip = backend.get("crid://pyapi/clip/1")
-    assert clip
-    clip = mediaupdate.CreateFromDocument(clip)
-    # assert clip.mid == "WO_VPRO_1425989"
-    print(clip.title[0].value())
-    assert clip.title[0].value().endswith(time_str)
+def check_on_backend(max_time = 70):
+    start_time = time.time()
+    title = None
+    clip = None
+    while True:
+        clip = backend.get(CLIP_CRID)
+        if clip:
+            clip = mediaupdate.CreateFromDocument(clip)
+            title = clip.title[0].value()
+            # assert clip.mid == "WO_VPRO_1425989"
+            if title.endswith(time_str):
+                break
+            else:
+                logger.info("Clip %s found but title %s not yet ends in %s" % (clip.mid, title, time_str))
+        else:
+            logger.info("Not found %s " % CLIP_CRID)
+
+        if time.time() - start_time > max_time:
+            logger.warn("Took too long, now breaking")
+            break
+        logger.info("Retrying in 10 seconds")
+        time.sleep(10)
+    assert clip, "no clip assigned"
+    assert title.endswith(time_str), "actual title %s doesn't end in %s" % (title, time_str)
 
 
-def check_frontend_media():
-    form = api.mediaForm()
-    form.searches = pyxb.BIND()
-    form.searches.mediaIds = "crid://pyapi/clip/1"
-    s = mediaapi.search(form, accept="application/xml")
-    result = poms.CreateFromDocument(s)
-    title = result.items.item[0].result.title[0].value()
-    t = float(title.split()[-1])
+def check_frontend_media(max_time=600):
+    start_time = time.time()
+    while True:
+        form = api.mediaForm()
+        form.searches = pyxb.BIND()
+        form.searches.mediaIds = "crid://pyapi/clip/1"
+        s = mediaapi.search(form, accept="application/xml")
+        result = poms.CreateFromDocument(s)
+        title = result.items.item[0].result.title[0].value()
+        t = float(title.split()[-1])
+        if title.endswith(time_str):
+            logger.info("Seems to be found %s", title)
+            break
+        if t < (time.time() - latency):
+            logger.info("Not found but sufficiently recent: %s (probably for previous run?)", title)
+            break
+        if time.time() - start_time > max_time:
+            logger.warn("Took too long, now breaking")
+            break
 
-    assert t > (time.time() - latency), "should be published in 10 minutes " + title + " < " + str(time.time())
+    assert title.endswith(time_str) or t < (time.time() - latency), "should be published in 10 minutes " + title + " < " + str(time.time())
 
 
 
@@ -109,10 +153,11 @@ def remove_segment():
 
 post_to_backend()
 
+print("Posted to backend %s,  now waiting before checking on backend api" % (backend.actualenv))
+check_on_backend(max_time = 70)
+print("Checking on frontend API")
 
-time.sleep(70)
-check_on_backend()
-check_frontend_media()
+check_frontend_media(max_time= 600)
 
 # This doesn't work without the right credentials. How do we solve this for integration tests?
 # MM: Credentials can be stored in ~/conf/creds.properties. So, the server running the tests just needs that file.
