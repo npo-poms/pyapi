@@ -31,7 +31,7 @@ or if you dare install the latest, which may sometimes be a bit broken:
 sudo pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git#egg=Package'
 ----
 
-== Virtual environment
+=== Virtual environment
 
 It may also be a good idea to set up a virtual environment in stead, to avoid version conflicts with other python projects.
 
@@ -47,9 +47,9 @@ mihxil@baleno:~$ source ~/venvs/pyapi-env/bin/activate
 
 ----
 
-== Docker
+=== Docker
 
-If you don't feel like installing anything at all, but have a docker environment running (amd64), then I've prepared a docker image:
+If you don't feel like installing anything at all, but have a docker environment running (amd64), then I've https://hub.docker.com/repository/docker/mihxil/npo-pyapi[published] a docker image for you:
 
 [source, bash]
 ----
