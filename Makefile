@@ -1,4 +1,4 @@
-
+.PHONY: docker docker-push
 POMS=https://poms-dev.omroep.nl/
 RS=https://rs-dev.poms.omroep.nl/v1/
 PAGESPUB=https://publish-dev.pages.omroep.nl/
@@ -22,7 +22,11 @@ npoapi/xml/__init__.py: setup.py
 	   --schema-location=$(RS)schema/combined.xsd --module poms \
 	   --module-prefix=npoapi.xml
 
+docker:
+	docker build -t mihxil/npo-pyapi:latest  docker
 
+docker-push:
+	docker push mihxil/npo-pyapi:latest
 
 clean:
 	rm -rf npoapi/xml/*

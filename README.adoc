@@ -47,6 +47,16 @@ mihxil@baleno:~$ source ~/venvs/pyapi-env/bin/activate
 
 ----
 
+== Docker
+
+If you don't feel like installing anything at all, but have a docker environment running (amd64), then I've prepared a docker image:
+
+[source, bash]
+----
+docker run -it  -v ~/conf2:/root/conf mihxil/npo-pyapi npo_mediabackend POMS_VPRO_729992
+----
+Nothing more needed then.
+
 == Examples
 
 Check https://github.com/npo-poms/pyapi/blob/master/setup.py[setup.py] to see which command line clients it will make available. These also serve as examples on how to use the npoapi module.

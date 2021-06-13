@@ -1,7 +1,7 @@
 # ./npoapi/xml/media.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aaac8a39e00bcd1804b49bf5b5b8b83fb686b430
-# Generated 2021-02-09 10:49:40.072406 by PyXB version 1.2.6 using Python 3.7.2.final.0
+# Generated 2021-06-13 22:15:50.850058 by PyXB version 1.2.6 using Python 3.8.2.final.0
 # Namespace urn:vpro:media:2009 [xmlns:media]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:193144a8-6abc-11eb-8fb1-9801a7ae4ad1')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:23e5b8be-cc84-11eb-bb79-823829a95c05')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -984,6 +984,7 @@ channelEnum.R5ST = channelEnum._CF_enumeration.addEnumeration(unicode_value='R5S
 channelEnum.RAD6 = channelEnum._CF_enumeration.addEnumeration(unicode_value='RAD6', tag='RAD6')
 channelEnum.REGR = channelEnum._CF_enumeration.addEnumeration(unicode_value='REGR', tag='REGR')
 channelEnum.RFRY = channelEnum._CF_enumeration.addEnumeration(unicode_value='RFRY', tag='RFRY')
+channelEnum.DRRD = channelEnum._CF_enumeration.addEnumeration(unicode_value='DRRD', tag='DRRD')
 channelEnum.RNOO = channelEnum._CF_enumeration.addEnumeration(unicode_value='RNOO', tag='RNOO')
 channelEnum.ROST = channelEnum._CF_enumeration.addEnumeration(unicode_value='ROST', tag='ROST')
 channelEnum.RGEL = channelEnum._CF_enumeration.addEnumeration(unicode_value='RGEL', tag='RGEL')
@@ -1017,6 +1018,7 @@ channelEnum.FUNH = channelEnum._CF_enumeration.addEnumeration(unicode_value='FUN
 channelEnum.FUNL = channelEnum._CF_enumeration.addEnumeration(unicode_value='FUNL', tag='FUNL')
 channelEnum.FUNJ = channelEnum._CF_enumeration.addEnumeration(unicode_value='FUNJ', tag='FUNJ')
 channelEnum.FUNS = channelEnum._CF_enumeration.addEnumeration(unicode_value='FUNS', tag='FUNS')
+channelEnum.FUNF = channelEnum._CF_enumeration.addEnumeration(unicode_value='FUNF', tag='FUNF')
 channelEnum.CLAS = channelEnum._CF_enumeration.addEnumeration(unicode_value='CLAS', tag='CLAS')
 channelEnum.BEL1 = channelEnum._CF_enumeration.addEnumeration(unicode_value='BEL1', tag='BEL1')
 channelEnum.BEL2 = channelEnum._CF_enumeration.addEnumeration(unicode_value='BEL2', tag='BEL2')
@@ -1060,7 +1062,7 @@ class streamingStatusValue (pyxb.binding.datatypes.string, pyxb.binding.basis.en
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'streamingStatusValue')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3232, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3246, 2)
     _Documentation = None
 streamingStatusValue._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=streamingStatusValue, enum_prefix=None)
 streamingStatusValue.OFFLINE = streamingStatusValue._CF_enumeration.addEnumeration(unicode_value='OFFLINE', tag='OFFLINE')
@@ -1076,7 +1078,7 @@ class encryption (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration_
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'encryption')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3240, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3254, 2)
     _Documentation = None
 encryption._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=encryption, enum_prefix=None)
 encryption.NONE = encryption._CF_enumeration.addEnumeration(unicode_value='NONE', tag='NONE')
@@ -3684,23 +3686,23 @@ class streamingStatus_ (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'streamingStatus')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3225, 3)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3239, 3)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute withDrm uses Python identifier withDrm
     __withDrm = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'withDrm'), 'withDrm', '__urnvpromedia2009_streamingStatus__withDrm', _module_typeBindings.streamingStatusValue)
-    __withDrm._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3227, 4)
-    __withDrm._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3227, 4)
+    __withDrm._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3241, 4)
+    __withDrm._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3241, 4)
     
     withDrm = property(__withDrm.value, __withDrm.set, None, None)
 
     
     # Attribute withoutDrm uses Python identifier withoutDrm
     __withoutDrm = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'withoutDrm'), 'withoutDrm', '__urnvpromedia2009_streamingStatus__withoutDrm', _module_typeBindings.streamingStatusValue)
-    __withoutDrm._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3228, 4)
-    __withoutDrm._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3228, 4)
+    __withoutDrm._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3242, 4)
+    __withoutDrm._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/vproMedia.xsd', 3242, 4)
     
     withoutDrm = property(__withoutDrm.value, __withoutDrm.set, None, None)
 
