@@ -7,6 +7,13 @@ Python libraries and scripts to talk to the NPO api's. Currently classes are ava
 
 == How to install
 
+There are several ways to use this.
+
+- You can install it directly in your python3 environment or, recommendedly, install it in a dedicated virtualenv. If you want it as a library, this is probably the way.
+- The provided command line utilities can also be called from a ready made docker container. It required docker and a few hundred Mb's but for the rest this should be simple.
+
+=== Direct install
+
 You need a https://www.python.org/downloads/[python3] installation. Also you need the 'setuptools' module:
 
 ----
