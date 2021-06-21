@@ -45,6 +45,8 @@ class NpoApi(NpoApiBase):
             self.url = "https://rs-a.poms.omroep.nl/v1"
         elif e == "prodb":
             self.url = "https://rs-b.poms.omroep.nl/v1"
+        elif e == "prod_new":
+            self.url = "https://rs-os.poms.omroep.nl/v1"
         elif e == "testa":
             self.url = "https://rs-a-test.poms.omroep.nl/v1"
         elif e == "testb":
