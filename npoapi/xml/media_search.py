@@ -1,7 +1,7 @@
 # ./npoapi/xml/media_search.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:c9f1e5fb53f06c35ed1f8bfb94927ecdc3fc6078
-# Generated 2021-06-13 22:15:50.853664 by PyXB version 1.2.6 using Python 3.8.2.final.0
+# Generated 2021-07-12 12:48:19.449047 by PyXB version 1.2.6 using Python 3.7.2.final.0
 # Namespace urn:vpro:media:search:2012
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:23e5b8be-cc84-11eb-bb79-823829a95c05')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:aaab0bf2-e2fe-11eb-95b4-a860b637463b')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -674,15 +674,15 @@ class editorSearch (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_SIMPLE
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'editorSearch')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 255, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 260, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.string
     
     # Attribute principalId uses Python identifier principalId
     __principalId = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'principalId'), 'principalId', '__urnvpromediasearch2012_editorSearch_principalId', pyxb.binding.datatypes.boolean)
-    __principalId._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 258, 8)
-    __principalId._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 258, 8)
+    __principalId._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 263, 8)
+    __principalId._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 263, 8)
     
     principalId = property(__principalId.value, __principalId.set, None, None)
 
@@ -877,39 +877,39 @@ class publishableListItem (pyxb.binding.basis.complexTypeDefinition):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = True
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'publishableListItem')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 239, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 244, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
     
     # Attribute id uses Python identifier id
     __id = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'id'), 'id', '__urnvpromediasearch2012_publishableListItem_id', pyxb.binding.datatypes.long)
-    __id._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 241, 4)
-    __id._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 241, 4)
+    __id._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 246, 4)
+    __id._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 246, 4)
     
     id = property(__id.value, __id.set, None, None)
 
     
     # Attribute urn uses Python identifier urn
     __urn = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'urn'), 'urn', '__urnvpromediasearch2012_publishableListItem_urn', pyxb.binding.datatypes.string)
-    __urn._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 242, 4)
-    __urn._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 242, 4)
+    __urn._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 247, 4)
+    __urn._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 247, 4)
     
     urn = property(__urn.value, __urn.set, None, None)
 
     
     # Attribute workflow uses Python identifier workflow
     __workflow = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'workflow'), 'workflow', '__urnvpromediasearch2012_publishableListItem_workflow', _ImportedBinding_npoapi_xml_shared.workflowEnumType)
-    __workflow._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 243, 4)
-    __workflow._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 243, 4)
+    __workflow._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 248, 4)
+    __workflow._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 248, 4)
     
     workflow = property(__workflow.value, __workflow.set, None, None)
 
     
     # Attribute deleted uses Python identifier deleted
     __deleted = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'deleted'), 'deleted', '__urnvpromediasearch2012_publishableListItem_deleted', pyxb.binding.datatypes.boolean)
-    __deleted._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 244, 4)
-    __deleted._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 244, 4)
+    __deleted._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 249, 4)
+    __deleted._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 249, 4)
     
     deleted = property(__deleted.value, __deleted.set, None, None)
 
@@ -1036,36 +1036,64 @@ class mediaListItem (publishableListItem):
     firstScheduleEvent = property(__firstScheduleEvent.value, __firstScheduleEvent.set, None, None)
 
     
+    # Element {urn:vpro:media:search:2012}firstScheduleEventNoRerun uses Python identifier firstScheduleEventNoRerun
+    __firstScheduleEventNoRerun = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'firstScheduleEventNoRerun'), 'firstScheduleEventNoRerun', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012firstScheduleEventNoRerun', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 225, 10), )
+
+    
+    firstScheduleEventNoRerun = property(__firstScheduleEventNoRerun.value, __firstScheduleEventNoRerun.set, None, None)
+
+    
+    # Element {urn:vpro:media:search:2012}lastScheduleEvent uses Python identifier lastScheduleEvent
+    __lastScheduleEvent = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'lastScheduleEvent'), 'lastScheduleEvent', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012lastScheduleEvent', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 226, 10), )
+
+    
+    lastScheduleEvent = property(__lastScheduleEvent.value, __lastScheduleEvent.set, None, None)
+
+    
+    # Element {urn:vpro:media:search:2012}lastScheduleEventNoRerun uses Python identifier lastScheduleEventNoRerun
+    __lastScheduleEventNoRerun = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'lastScheduleEventNoRerun'), 'lastScheduleEventNoRerun', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012lastScheduleEventNoRerun', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 227, 10), )
+
+    
+    lastScheduleEventNoRerun = property(__lastScheduleEventNoRerun.value, __lastScheduleEventNoRerun.set, None, None)
+
+    
+    # Element {urn:vpro:media:search:2012}sortDateScheduleEvent uses Python identifier sortDateScheduleEvent
+    __sortDateScheduleEvent = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'sortDateScheduleEvent'), 'sortDateScheduleEvent', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012sortDateScheduleEvent', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 228, 10), )
+
+    
+    sortDateScheduleEvent = property(__sortDateScheduleEvent.value, __sortDateScheduleEvent.set, None, None)
+
+    
     # Element {urn:vpro:media:search:2012}locations uses Python identifier locations
-    __locations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'locations'), 'locations', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012locations', True, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 225, 10), )
+    __locations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'locations'), 'locations', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012locations', True, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 230, 10), )
 
     
     locations = property(__locations.value, __locations.set, None, None)
 
     
     # Element {urn:vpro:media:search:2012}numberOfLocations uses Python identifier numberOfLocations
-    __numberOfLocations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'numberOfLocations'), 'numberOfLocations', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012numberOfLocations', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 226, 10), )
+    __numberOfLocations = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'numberOfLocations'), 'numberOfLocations', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012numberOfLocations', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 231, 10), )
 
     
     numberOfLocations = property(__numberOfLocations.value, __numberOfLocations.set, None, None)
 
     
     # Element {urn:vpro:media:search:2012}tag uses Python identifier tag
-    __tag = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'tag'), 'tag', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012tag', True, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 227, 10), )
+    __tag = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'tag'), 'tag', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012tag', True, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 232, 10), )
 
     
     tag = property(__tag.value, __tag.set, None, None)
 
     
     # Element {urn:vpro:media:search:2012}image uses Python identifier image
-    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'image'), 'image', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012image', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 228, 10), )
+    __image = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'image'), 'image', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012image', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 233, 10), )
 
     
     image = property(__image.value, __image.set, None, None)
 
     
     # Element {urn:vpro:media:search:2012}streamingPlatformStatus uses Python identifier streamingPlatformStatus
-    __streamingPlatformStatus = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'streamingPlatformStatus'), 'streamingPlatformStatus', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012streamingPlatformStatus', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 229, 10), )
+    __streamingPlatformStatus = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'streamingPlatformStatus'), 'streamingPlatformStatus', '__urnvpromediasearch2012_mediaListItem_urnvpromediasearch2012streamingPlatformStatus', False, pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 234, 10), )
 
     
     streamingPlatformStatus = property(__streamingPlatformStatus.value, __streamingPlatformStatus.set, None, None)
@@ -1073,32 +1101,32 @@ class mediaListItem (publishableListItem):
     
     # Attribute mid uses Python identifier mid
     __mid = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'mid'), 'mid', '__urnvpromediasearch2012_mediaListItem_mid', pyxb.binding.datatypes.string)
-    __mid._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 231, 8)
-    __mid._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 231, 8)
+    __mid._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 236, 8)
+    __mid._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 236, 8)
     
     mid = property(__mid.value, __mid.set, None, None)
 
     
     # Attribute avType uses Python identifier avType
     __avType = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'avType'), 'avType', '__urnvpromediasearch2012_mediaListItem_avType', _ImportedBinding_npoapi_xml_media.avTypeEnum)
-    __avType._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 232, 8)
-    __avType._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 232, 8)
+    __avType._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 237, 8)
+    __avType._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 237, 8)
     
     avType = property(__avType.value, __avType.set, None, None)
 
     
     # Attribute mediaType uses Python identifier mediaType
     __mediaType = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'mediaType'), 'mediaType', '__urnvpromediasearch2012_mediaListItem_mediaType', pyxb.binding.datatypes.string)
-    __mediaType._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 233, 8)
-    __mediaType._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 233, 8)
+    __mediaType._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 238, 8)
+    __mediaType._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 238, 8)
     
     mediaType = property(__mediaType.value, __mediaType.set, None, None)
 
     
     # Attribute episodesLocked uses Python identifier episodesLocked
     __episodesLocked = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'episodesLocked'), 'episodesLocked', '__urnvpromediasearch2012_mediaListItem_episodesLocked', pyxb.binding.datatypes.boolean)
-    __episodesLocked._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 234, 8)
-    __episodesLocked._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 234, 8)
+    __episodesLocked._DeclarationLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 239, 8)
+    __episodesLocked._UseLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 239, 8)
     
     episodesLocked = property(__episodesLocked.value, __episodesLocked.set, None, None)
 
@@ -1125,6 +1153,10 @@ class mediaListItem (publishableListItem):
         __publishStop.name() : __publishStop,
         __lastPublished.name() : __lastPublished,
         __firstScheduleEvent.name() : __firstScheduleEvent,
+        __firstScheduleEventNoRerun.name() : __firstScheduleEventNoRerun,
+        __lastScheduleEvent.name() : __lastScheduleEvent,
+        __lastScheduleEventNoRerun.name() : __lastScheduleEventNoRerun,
+        __sortDateScheduleEvent.name() : __sortDateScheduleEvent,
         __locations.name() : __locations,
         __numberOfLocations.name() : __numberOfLocations,
         __tag.name() : __tag,
@@ -1148,7 +1180,7 @@ class imageListItem (publishableListItem):
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_EMPTY
     _Abstract = False
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'imageListItem')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 247, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 252, 2)
     _ElementMap = publishableListItem._ElementMap.copy()
     _AttributeMap = publishableListItem._AttributeMap.copy()
     # Base type is publishableListItem
@@ -3294,15 +3326,23 @@ mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName
 
 mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'firstScheduleEvent'), _ImportedBinding_npoapi_xml_media.scheduleEventType, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 224, 10)))
 
-mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'locations'), _ImportedBinding_npoapi_xml_media.locationType, nillable=pyxb.binding.datatypes.boolean(1), scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 225, 10)))
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'firstScheduleEventNoRerun'), _ImportedBinding_npoapi_xml_media.scheduleEventType, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 225, 10)))
 
-mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'numberOfLocations'), pyxb.binding.datatypes.int, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 226, 10)))
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'lastScheduleEvent'), _ImportedBinding_npoapi_xml_media.scheduleEventType, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 226, 10)))
 
-mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'tag'), _ImportedBinding_npoapi_xml_media.tagType, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 227, 10)))
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'lastScheduleEventNoRerun'), _ImportedBinding_npoapi_xml_media.scheduleEventType, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 227, 10)))
 
-mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'image'), imageListItem, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 228, 10)))
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'sortDateScheduleEvent'), _ImportedBinding_npoapi_xml_media.scheduleEventType, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 228, 10)))
 
-mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'streamingPlatformStatus'), _ImportedBinding_npoapi_xml_media.streamingStatus_, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 229, 10)))
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'locations'), _ImportedBinding_npoapi_xml_media.locationType, nillable=pyxb.binding.datatypes.boolean(1), scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 230, 10)))
+
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'numberOfLocations'), pyxb.binding.datatypes.int, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 231, 10)))
+
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'tag'), _ImportedBinding_npoapi_xml_media.tagType, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 232, 10)))
+
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'image'), imageListItem, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 233, 10)))
+
+mediaListItem._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'streamingPlatformStatus'), _ImportedBinding_npoapi_xml_media.streamingStatus_, scope=mediaListItem, location=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 234, 10)))
 
 def _BuildAutomaton_5 ():
     # Remove this helper function from the namespace after it is invoked
@@ -3311,34 +3351,44 @@ def _BuildAutomaton_5 ():
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 213, 10))
+    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 211, 10))
     counters.add(cc_0)
-    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 214, 10))
+    cc_1 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 213, 10))
     counters.add(cc_1)
-    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 216, 10))
+    cc_2 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 214, 10))
     counters.add(cc_2)
-    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 218, 10))
+    cc_3 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 216, 10))
     counters.add(cc_3)
-    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 219, 10))
+    cc_4 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 218, 10))
     counters.add(cc_4)
-    cc_5 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 221, 10))
+    cc_5 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 219, 10))
     counters.add(cc_5)
-    cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 222, 10))
+    cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 221, 10))
     counters.add(cc_6)
-    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 223, 10))
+    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 222, 10))
     counters.add(cc_7)
-    cc_8 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 224, 10))
+    cc_8 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 223, 10))
     counters.add(cc_8)
-    cc_9 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 225, 10))
+    cc_9 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 224, 10))
     counters.add(cc_9)
-    cc_10 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 226, 10))
+    cc_10 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 225, 10))
     counters.add(cc_10)
-    cc_11 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 227, 10))
+    cc_11 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 226, 10))
     counters.add(cc_11)
-    cc_12 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 228, 10))
+    cc_12 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 227, 10))
     counters.add(cc_12)
-    cc_13 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 229, 10))
+    cc_13 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 228, 10))
     counters.add(cc_13)
+    cc_14 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 230, 10))
+    counters.add(cc_14)
+    cc_15 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 231, 10))
+    counters.add(cc_15)
+    cc_16 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 232, 10))
+    counters.add(cc_16)
+    cc_17 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 233, 10))
+    counters.add(cc_17)
+    cc_18 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 234, 10))
+    counters.add(cc_18)
     states = []
     final_update = None
     symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'broadcaster')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 211, 10))
@@ -3346,7 +3396,7 @@ def _BuildAutomaton_5 ():
     states.append(st_0)
     final_update = None
     symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'title')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 212, 10))
-    st_1 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
+    st_1 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_1)
     final_update = None
     symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'subTitle')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 213, 10))
@@ -3381,55 +3431,75 @@ def _BuildAutomaton_5 ():
     st_9 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_9)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_5, False))
+    final_update.add(fac.UpdateInstruction(cc_6, False))
     symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'publishStart')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 221, 10))
     st_10 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_10)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_6, False))
+    final_update.add(fac.UpdateInstruction(cc_7, False))
     symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'publishStop')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 222, 10))
     st_11 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_11)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_7, False))
+    final_update.add(fac.UpdateInstruction(cc_8, False))
     symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'lastPublished')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 223, 10))
     st_12 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_12)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_8, False))
+    final_update.add(fac.UpdateInstruction(cc_9, False))
     symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'firstScheduleEvent')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 224, 10))
     st_13 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_13)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_9, False))
-    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'locations')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 225, 10))
+    final_update.add(fac.UpdateInstruction(cc_10, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'firstScheduleEventNoRerun')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 225, 10))
     st_14 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_14)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_10, False))
-    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'numberOfLocations')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 226, 10))
+    final_update.add(fac.UpdateInstruction(cc_11, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'lastScheduleEvent')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 226, 10))
     st_15 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_15)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_11, False))
-    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'tag')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 227, 10))
+    final_update.add(fac.UpdateInstruction(cc_12, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'lastScheduleEventNoRerun')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 227, 10))
     st_16 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_16)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_12, False))
-    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'image')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 228, 10))
+    final_update.add(fac.UpdateInstruction(cc_13, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'sortDateScheduleEvent')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 228, 10))
     st_17 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_17)
     final_update = set()
-    final_update.add(fac.UpdateInstruction(cc_13, False))
-    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'streamingPlatformStatus')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 229, 10))
+    final_update.add(fac.UpdateInstruction(cc_14, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'locations')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 230, 10))
     st_18 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_18)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_15, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'numberOfLocations')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 231, 10))
+    st_19 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_19)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_16, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'tag')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 232, 10))
+    st_20 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_20)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_17, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'image')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 233, 10))
+    st_21 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_21)
+    final_update = set()
+    final_update.add(fac.UpdateInstruction(cc_18, False))
+    symbol = pyxb.binding.content.ElementUse(mediaListItem._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'streamingPlatformStatus')), pyxb.utils.utility.Location('https://poms-dev.omroep.nl/schema/search/vproMediaSearch.xsd', 234, 10))
+    st_22 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
+    states.append(st_22)
     transitions = []
     transitions.append(fac.Transition(st_0, [
-         ]))
+        fac.UpdateInstruction(cc_0, True) ]))
     transitions.append(fac.Transition(st_1, [
-         ]))
+        fac.UpdateInstruction(cc_0, False) ]))
     st_0._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_2, [
@@ -3441,17 +3511,17 @@ def _BuildAutomaton_5 ():
     st_1._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_2, [
-        fac.UpdateInstruction(cc_0, True) ]))
+        fac.UpdateInstruction(cc_1, True) ]))
     transitions.append(fac.Transition(st_3, [
-        fac.UpdateInstruction(cc_0, False) ]))
+        fac.UpdateInstruction(cc_1, False) ]))
     transitions.append(fac.Transition(st_4, [
-        fac.UpdateInstruction(cc_0, False) ]))
+        fac.UpdateInstruction(cc_1, False) ]))
     st_2._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_3, [
-        fac.UpdateInstruction(cc_1, True) ]))
+        fac.UpdateInstruction(cc_2, True) ]))
     transitions.append(fac.Transition(st_4, [
-        fac.UpdateInstruction(cc_1, False) ]))
+        fac.UpdateInstruction(cc_2, False) ]))
     st_3._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_5, [
@@ -3461,9 +3531,9 @@ def _BuildAutomaton_5 ():
     st_4._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_5, [
-        fac.UpdateInstruction(cc_2, True) ]))
+        fac.UpdateInstruction(cc_3, True) ]))
     transitions.append(fac.Transition(st_6, [
-        fac.UpdateInstruction(cc_2, False) ]))
+        fac.UpdateInstruction(cc_3, False) ]))
     st_5._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_7, [
@@ -3475,17 +3545,17 @@ def _BuildAutomaton_5 ():
     st_6._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_7, [
-        fac.UpdateInstruction(cc_3, True) ]))
+        fac.UpdateInstruction(cc_4, True) ]))
     transitions.append(fac.Transition(st_8, [
-        fac.UpdateInstruction(cc_3, False) ]))
+        fac.UpdateInstruction(cc_4, False) ]))
     transitions.append(fac.Transition(st_9, [
-        fac.UpdateInstruction(cc_3, False) ]))
+        fac.UpdateInstruction(cc_4, False) ]))
     st_7._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_8, [
-        fac.UpdateInstruction(cc_4, True) ]))
+        fac.UpdateInstruction(cc_5, True) ]))
     transitions.append(fac.Transition(st_9, [
-        fac.UpdateInstruction(cc_4, False) ]))
+        fac.UpdateInstruction(cc_5, False) ]))
     st_8._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_10, [
@@ -3506,115 +3576,223 @@ def _BuildAutomaton_5 ():
          ]))
     transitions.append(fac.Transition(st_18, [
          ]))
+    transitions.append(fac.Transition(st_19, [
+         ]))
+    transitions.append(fac.Transition(st_20, [
+         ]))
+    transitions.append(fac.Transition(st_21, [
+         ]))
+    transitions.append(fac.Transition(st_22, [
+         ]))
     st_9._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_10, [
-        fac.UpdateInstruction(cc_5, True) ]))
+        fac.UpdateInstruction(cc_6, True) ]))
     transitions.append(fac.Transition(st_11, [
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_12, [
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_13, [
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_14, [
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_15, [
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_16, [
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_17, [
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_6, False) ]))
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_5, False) ]))
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_6, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_6, False) ]))
     st_10._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_11, [
-        fac.UpdateInstruction(cc_6, True) ]))
+        fac.UpdateInstruction(cc_7, True) ]))
     transitions.append(fac.Transition(st_12, [
-        fac.UpdateInstruction(cc_6, False) ]))
+        fac.UpdateInstruction(cc_7, False) ]))
     transitions.append(fac.Transition(st_13, [
-        fac.UpdateInstruction(cc_6, False) ]))
+        fac.UpdateInstruction(cc_7, False) ]))
     transitions.append(fac.Transition(st_14, [
-        fac.UpdateInstruction(cc_6, False) ]))
+        fac.UpdateInstruction(cc_7, False) ]))
     transitions.append(fac.Transition(st_15, [
-        fac.UpdateInstruction(cc_6, False) ]))
+        fac.UpdateInstruction(cc_7, False) ]))
     transitions.append(fac.Transition(st_16, [
-        fac.UpdateInstruction(cc_6, False) ]))
+        fac.UpdateInstruction(cc_7, False) ]))
     transitions.append(fac.Transition(st_17, [
-        fac.UpdateInstruction(cc_6, False) ]))
+        fac.UpdateInstruction(cc_7, False) ]))
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_6, False) ]))
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_7, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_7, False) ]))
     st_11._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_12, [
-        fac.UpdateInstruction(cc_7, True) ]))
+        fac.UpdateInstruction(cc_8, True) ]))
     transitions.append(fac.Transition(st_13, [
-        fac.UpdateInstruction(cc_7, False) ]))
+        fac.UpdateInstruction(cc_8, False) ]))
     transitions.append(fac.Transition(st_14, [
-        fac.UpdateInstruction(cc_7, False) ]))
+        fac.UpdateInstruction(cc_8, False) ]))
     transitions.append(fac.Transition(st_15, [
-        fac.UpdateInstruction(cc_7, False) ]))
+        fac.UpdateInstruction(cc_8, False) ]))
     transitions.append(fac.Transition(st_16, [
-        fac.UpdateInstruction(cc_7, False) ]))
+        fac.UpdateInstruction(cc_8, False) ]))
     transitions.append(fac.Transition(st_17, [
-        fac.UpdateInstruction(cc_7, False) ]))
+        fac.UpdateInstruction(cc_8, False) ]))
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_7, False) ]))
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_8, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_8, False) ]))
     st_12._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_13, [
-        fac.UpdateInstruction(cc_8, True) ]))
+        fac.UpdateInstruction(cc_9, True) ]))
     transitions.append(fac.Transition(st_14, [
-        fac.UpdateInstruction(cc_8, False) ]))
+        fac.UpdateInstruction(cc_9, False) ]))
     transitions.append(fac.Transition(st_15, [
-        fac.UpdateInstruction(cc_8, False) ]))
+        fac.UpdateInstruction(cc_9, False) ]))
     transitions.append(fac.Transition(st_16, [
-        fac.UpdateInstruction(cc_8, False) ]))
+        fac.UpdateInstruction(cc_9, False) ]))
     transitions.append(fac.Transition(st_17, [
-        fac.UpdateInstruction(cc_8, False) ]))
+        fac.UpdateInstruction(cc_9, False) ]))
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_8, False) ]))
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_9, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_9, False) ]))
     st_13._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_14, [
-        fac.UpdateInstruction(cc_9, True) ]))
+        fac.UpdateInstruction(cc_10, True) ]))
     transitions.append(fac.Transition(st_15, [
-        fac.UpdateInstruction(cc_9, False) ]))
+        fac.UpdateInstruction(cc_10, False) ]))
     transitions.append(fac.Transition(st_16, [
-        fac.UpdateInstruction(cc_9, False) ]))
+        fac.UpdateInstruction(cc_10, False) ]))
     transitions.append(fac.Transition(st_17, [
-        fac.UpdateInstruction(cc_9, False) ]))
+        fac.UpdateInstruction(cc_10, False) ]))
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_9, False) ]))
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_10, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_10, False) ]))
     st_14._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_15, [
-        fac.UpdateInstruction(cc_10, True) ]))
+        fac.UpdateInstruction(cc_11, True) ]))
     transitions.append(fac.Transition(st_16, [
-        fac.UpdateInstruction(cc_10, False) ]))
+        fac.UpdateInstruction(cc_11, False) ]))
     transitions.append(fac.Transition(st_17, [
-        fac.UpdateInstruction(cc_10, False) ]))
+        fac.UpdateInstruction(cc_11, False) ]))
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_10, False) ]))
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_11, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_11, False) ]))
     st_15._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_16, [
-        fac.UpdateInstruction(cc_11, True) ]))
+        fac.UpdateInstruction(cc_12, True) ]))
     transitions.append(fac.Transition(st_17, [
-        fac.UpdateInstruction(cc_11, False) ]))
+        fac.UpdateInstruction(cc_12, False) ]))
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_11, False) ]))
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_12, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_12, False) ]))
     st_16._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_17, [
-        fac.UpdateInstruction(cc_12, True) ]))
+        fac.UpdateInstruction(cc_13, True) ]))
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_12, False) ]))
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_13, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_13, False) ]))
     st_17._set_transitionSet(transitions)
     transitions = []
     transitions.append(fac.Transition(st_18, [
-        fac.UpdateInstruction(cc_13, True) ]))
+        fac.UpdateInstruction(cc_14, True) ]))
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_14, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_14, False) ]))
     st_18._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_19, [
+        fac.UpdateInstruction(cc_15, True) ]))
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_15, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_15, False) ]))
+    st_19._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_20, [
+        fac.UpdateInstruction(cc_16, True) ]))
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_16, False) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_16, False) ]))
+    st_20._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_21, [
+        fac.UpdateInstruction(cc_17, True) ]))
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_17, False) ]))
+    st_21._set_transitionSet(transitions)
+    transitions = []
+    transitions.append(fac.Transition(st_22, [
+        fac.UpdateInstruction(cc_18, True) ]))
+    st_22._set_transitionSet(transitions)
     return fac.Automaton(states, counters, False, containing_state=None)
 mediaListItem._Automaton = _BuildAutomaton_5()
 
