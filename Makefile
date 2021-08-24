@@ -1,7 +1,7 @@
 .PHONY: docker docker-push
-POMS=https://poms-dev.omroep.nl/
-RS=https://rs-dev.poms.omroep.nl/v1/
-PAGESPUB=https://publish-dev.pages.omroep.nl/
+POMS=https://poms-test-os.omroep.nl/
+RS=https://rs-test-os.poms.omroep.nl/v1/
+PAGESPUB=https://publish-test-os.pages.omroep.nl/
 #PAGESPUB=http://localhost:8069/
 
 npoapi/xml/__init__.py: setup.py
