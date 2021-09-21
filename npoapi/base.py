@@ -355,6 +355,9 @@ class NpoApiBase:
                     data = myfile.read().encode('utf-8')
                     self.logger.debug("Found data " + data.decode("utf-8"))
             elif isinstance(data, str):
+                if data == "-":
+                    data = sys.stdin.read()
+                    self.logger.debug("Slurping data from stdin -> " + data)
                 content_type = None
                 if data.startswith("{"):
                     content_type = "application/json"
@@ -379,6 +382,8 @@ class NpoApiBase:
                 data = myfile.read()
                 self.logger.debug("Found data " + data)
         else:
+            if data == "-":
+                data = sys.stdin.read()
             self.logger.debug("" + data + " is not a file")
         return data
 

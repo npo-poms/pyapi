@@ -34,7 +34,7 @@ class Media(NpoApi):
             return self.request("/api/media/" + urllib.request.quote(mid) + "/" + sub, data=form, accept=accept,
                                 params={"profile": profile, "sort": sort, "offset": offset, "max": limit, "properties": properties})
 
-    def changes(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False, properties=None, check_profile=True, deletes="ID_ONLY") -> Union[None, http.client.HTTPResponse, str]:
+    def changes(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False, properties=None, check_profile=True, deletes="ID_ONLY", tail=None) -> Union[None, http.client.HTTPResponse, str]:
         sinceLong = None
         sinceDate = None
         if not since is None:
@@ -42,26 +42,15 @@ class Media(NpoApi):
                 sinceDate = since
             else:
                 sinceLong = since
+
+        params = { "profile": profile, "order": order, "max": limit,
+                   "since": sinceLong, "publishedSince": sinceDate, "properties": properties,
+                   "checkProfile": check_profile, "deletes": deletes, "tail": tail }
         if stream:
-            return self.stream("/api/media/changes",
-                               params={
-                               "profile": profile, "order": order, "max": limit,
-                               "since": sinceLong, "publishedSince": sinceDate, "properties": properties,
-                               "checkProfile": check_profile, "deletes": deletes
-                               }
-                )
+            return self.stream("/api/media/changes", params=params)
         else:
-            return self.request("/api/media/changes",
-                                params={
-                                    "profile": profile,
-                                    "order": order,
-                                    "max": limit,
-                                    "since": sinceLong,
-                                    "publishedSince": sinceDate,
-                                    "properties": properties,
-                                    "checkProfile": check_profile, "deletes": deletes
-                                }
-                )
+            return self.request("/api/media/changes", params=params)
+
 
     def redirects(self) -> str:
         return self.request("/api/media/redirects")

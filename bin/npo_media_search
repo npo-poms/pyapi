@@ -2,6 +2,8 @@
 """
   Simple client to search media in the  NPO Frontend API
 """
+import sys
+
 from npoapi import Media
 import os
 import json
@@ -9,7 +11,7 @@ import json
 client = Media()\
     .command_line_client(description="Search from the NPO Frontend API")
 list_of_subs = ["descendants", "members", "episodes", "related", ""]
-client.add_argument('form', type=str, nargs=1, help='The search form. This may be a json string, or the name of a file containing it')
+client.add_argument('form', type=str, nargs=1, help='The search form. This may be a json string, or the name of a file containing it. If -, read from stdin')
 client.add_argument('mid', type=str, nargs='?', default=None,
                     help="Mid for use with 'sub'")
 client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
@@ -28,7 +30,8 @@ mid = args.mid
 sub = args.sub
 form = args.form[0]
 
-if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<") and not form.endswith(".json") and not form.endswith(".xml"):
+
+if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<") and not form.endswith(".json") and not form.endswith(".xml") and not form == "-":
     form = "{\"searches\": {\"text\": {\"value\": %s, \"fuzziness\": \"%s\" }}}" % (json.dumps(form), "AUTO" if args.fuzzy else "")
     client.logger.debug("Posting " + form)
 
