@@ -2,11 +2,11 @@
 """
   Simple client to search media in the  NPO Frontend API
 """
-import sys
+
+import json
 
 from npoapi import Media
-import os
-import json
+from npoapi.utils import looks_like_form
 
 client = Media()\
     .command_line_client(description="Search from the NPO Frontend API")
@@ -31,7 +31,7 @@ sub = args.sub
 form = args.form[0]
 
 
-if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<") and not form.endswith(".json") and not form.endswith(".xml") and not form == "-":
+if not looks_like_form(form):
     form = "{\"searches\": {\"text\": {\"value\": %s, \"fuzziness\": \"%s\" }}}" % (json.dumps(form), "AUTO" if args.fuzzy else "")
     client.logger.debug("Posting " + form)
 
