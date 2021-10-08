@@ -68,7 +68,7 @@ class NpoApi(NpoApiBase):
     def info(self) -> str:
         return self.key + "@" + self.url
 
-    def authenticate(self, uri="", now=utils.formatdate()) -> [str, str]:
+    def authenticate(self, uri="", now=utils.formatdate(usegmt=True)) -> [str, str]:
         if self.origin is None:
             self.origin = self.get_setting("origin", "Your NPO api origin")
         if self.key is None:
