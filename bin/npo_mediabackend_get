@@ -37,6 +37,7 @@ def get():
             sub = "full"
         return client.get_sub(mid, sub, follow_merges=not args.nofollowMerges, deletes=args.deletes)
 
+
 if not args.delete or process:
     result = get()
 else:
@@ -50,7 +51,7 @@ if type(result) == list:
                   o.toprettyxml(), result)
     for s in strings:
         print(s)
-elif not result is None:
+elif result is not None:
     if process is None:
         print(client.pretty_xml(result))
     else:

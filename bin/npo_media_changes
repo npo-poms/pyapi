@@ -2,10 +2,10 @@
 """
   Simple client to get the changes feed from the NPO Frontend API
 """
-from npoapi import Media
 from io import TextIOWrapper
 from sys import stdout
-import time
+
+from npoapi import Media
 
 client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
 client.add_argument('profile', type=str, nargs='?', help='Profile')
