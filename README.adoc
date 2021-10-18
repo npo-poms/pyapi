@@ -60,9 +60,41 @@ If you don't feel like installing anything at all, but have a docker environment
 
 [source, bash]
 ----
-docker run -it  -v ~/conf2:/root/conf mihxil/npo-pyapi npo_mediabackend POMS_VPRO_729992
+docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi npo_mediabackend POMS_VPRO_729992
 ----
 Nothing more needed then.
+
+You can also e.g. define an alias to help you remember
+[source, bash]
+..bash_profile
+-----
+alias pydocker="docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi"
+-----
+And then all tools are available like so:
+[source, bash]
+----
+# frontend
+pydocker npo_media_get  --help
+pydocker npo_media_changes  --help
+pydocker npo_media_follow_changes  --help
+pydocker npo_media_iterate  --help
+pydocker npo_media_search  --help
+pydocker npo_pages_get  --help
+pydocker npo_pages_search  --help
+pydocker npo_schedule_get  --help
+pydocker npo_schedule_search  --help
+pydocker npo_check_credentials  --help
+
+#backend
+pydocker npo_mediabackend  --help
+pydocker npo_mediabackend_get  --help
+pydocker npo_pagesbackend  --help
+
+
+
+
+----
+
 
 == Examples
 
