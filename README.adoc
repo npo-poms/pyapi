@@ -89,10 +89,6 @@ pydocker npo_check_credentials  --help
 pydocker npo_mediabackend  --help
 pydocker npo_mediabackend_get  --help
 pydocker npo_pagesbackend  --help
-
-
-
-
 ----
 
 
