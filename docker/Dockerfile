@@ -1,7 +1,7 @@
-FROM debian:bullseye-slim
-RUN apt-get -y update && \
-    apt-get -y upgrade && \
-    apt-get install -y git python3 python3-pip && apt-get clean && apt-get auto-remove
+FROM alpine:3.14
 
-SHELL ["/bin/bash", "-c"]
-RUN pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git'
+RUN apk add --no-cache --upgrade --virtual .build-deps build-base git python3-dev cargo libffi-dev openssl-dev py3-pip  && \
+    apk add --no-cache  python3  && \
+    pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git' && \
+    apk del .build-deps
+
