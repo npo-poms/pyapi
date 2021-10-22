@@ -5,3 +5,6 @@ RUN apk add --no-cache --upgrade --virtual .build-deps build-base git python3-de
     pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git' && \
     apk del .build-deps
 
+COPY entrypoint.sh /
+
+ENTRYPOINT ["/entrypoint.sh"]
