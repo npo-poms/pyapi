@@ -68,27 +68,27 @@ You can also e.g. define an alias to help you remember
 [source, bash]
 ..bash_profile
 -----
-alias pydocker="docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi:alpine-latest"
+alias npoapi="docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi:alpine-latest"
 -----
 And then all tools are available like so:
 [source, bash]
 ----
 # frontend
-pydocker media_get  --help
-pydocker media_changes  --help
-pydocker media_follow_changes  --help
-pydocker media_iterate  --help
-pydocker media_search  --help
-pydocker pages_get  --help
-pydocker pages_search  --help
-pydocker schedule_get  --help
-pydocker schedule_search  --help
-pydocker check_credentials  --help
+npoapi media_get  --help
+npoapi media_changes  --help
+npoapi media_follow_changes  --help
+npoapi media_iterate  --help
+npoapi media_search  --help
+npoapi pages_get  --help
+npoapi pages_search  --help
+npoapi schedule_get  --help
+npoapi schedule_search  --help
+npoapi check_credentials  --help
 
 #backend
-pydocker mediabackend  --help
-pydocker mediabackend_get  --help
-pydocker pagesbackend  --help
+npoapi mediabackend  --help
+npoapi mediabackend_get  --help
+npoapi pagesbackend  --help
 ----
 (The 'npo_' prefixes are made optional in this docker image, and left away here)
 
