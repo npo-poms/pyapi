@@ -60,7 +60,7 @@ If you don't feel like installing anything at all, but have a docker environment
 
 [source, bash]
 ----
-docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi npo_mediabackend POMS_VPRO_729992
+docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi:alpine-latest npo_mediabackend POMS_VPRO_729992
 ----
 Nothing more needed then.
 
@@ -68,29 +68,29 @@ You can also e.g. define an alias to help you remember
 [source, bash]
 ..bash_profile
 -----
-alias pydocker="docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi"
+alias pydocker="docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi:alpine-latest"
 -----
 And then all tools are available like so:
 [source, bash]
 ----
 # frontend
-pydocker npo_media_get  --help
-pydocker npo_media_changes  --help
-pydocker npo_media_follow_changes  --help
-pydocker npo_media_iterate  --help
-pydocker npo_media_search  --help
-pydocker npo_pages_get  --help
-pydocker npo_pages_search  --help
-pydocker npo_schedule_get  --help
-pydocker npo_schedule_search  --help
-pydocker npo_check_credentials  --help
+pydocker media_get  --help
+pydocker media_changes  --help
+pydocker media_follow_changes  --help
+pydocker media_iterate  --help
+pydocker media_search  --help
+pydocker pages_get  --help
+pydocker pages_search  --help
+pydocker schedule_get  --help
+pydocker schedule_search  --help
+pydocker check_credentials  --help
 
 #backend
-pydocker npo_mediabackend  --help
-pydocker npo_mediabackend_get  --help
-pydocker npo_pagesbackend  --help
+pydocker mediabackend  --help
+pydocker mediabackend_get  --help
+pydocker pagesbackend  --help
 ----
-
+(The 'npo_' prefixes are made optional in this docker image, and left away here)
 
 == Examples
 
