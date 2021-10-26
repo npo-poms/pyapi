@@ -2,7 +2,7 @@ name: docker push
 
 on:
   push:
-    branches: [main]
+    branches: [main, alpine]
 
 jobs:
   docker:
