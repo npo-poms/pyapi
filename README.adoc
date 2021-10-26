@@ -68,7 +68,7 @@ You can also e.g. define an alias to help you remember
 [source, bash]
 ..bash_profile
 -----
-alias npoapi="docker run -it  -v ~/conf:/root/conf -v .:/workdir mihxil/npo-pyapi:alpine-latest"
+alias npoapi="docker run -it  -v ~/conf:/root/conf -v  $(pwd):/workdir mihxil/npo-pyapi:alpine-latest"
 -----
 And then all tools are available like so:
 [source, bash]
