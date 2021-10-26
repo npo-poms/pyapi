@@ -22,5 +22,5 @@ form = args.form[0]
 if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<"):
     form = "{\"searches\": {\"text\": %s}}" % json.dumps(form)
 
-print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties, profile=args.profile))
+print(client.search(form, sort='asc', limit=args.max, offset=args.offset, properties=args.properties, profile=args.profile))
 client.exit()
