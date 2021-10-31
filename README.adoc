@@ -60,7 +60,7 @@ If you don't feel like installing anything at all, but have a docker environment
 
 [source, bash]
 ----
-docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi:alpine-latest npo_mediabackend POMS_VPRO_729992
+docker run -it  -v ~/conf:/root/conf mihxil/npo-pyapi npo_mediabackend POMS_VPRO_729992
 ----
 Nothing more needed then.
 
@@ -68,7 +68,7 @@ You can also e.g. define an alias to help you remember
 [source, bash]
 ..bash_profile
 -----
-alias npoapi="docker run -it  -v ~/conf:/root/conf -v  $(pwd):/workdir mihxil/npo-pyapi:alpine-latest"
+alias npoapi="docker run -it  -v ~/conf:/root/conf -v  $(pwd):/workdir mihxil/npo-pyapi"
 -----
 And then all tools are available like so:
 [source, bash]
