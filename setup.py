@@ -35,4 +35,7 @@ setup(
         'bin/npo_integration_tests'
     ],
     long_description=open('README.txt').read(),
+
+    test_suite="nose.collector"
+
 )

@@ -3,4 +3,4 @@
 import subprocess
 import os
 
-subprocess.call(["npo_integration_tests", "-e", "dev", "-c", os.path.dirname(os.path.dirname(os.path.realpath(__file__)))])
+subprocess.call(["npo_integration_tests", "-e", "test", "-c", os.path.dirname(os.path.dirname(os.path.realpath(__file__)))])

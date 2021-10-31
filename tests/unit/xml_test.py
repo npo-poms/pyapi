@@ -7,11 +7,20 @@ from npoapi import base
 from npoapi.xml import media
 from npoapi.xml import poms
 from npoapi.xml import mediaupdate
+from xmldiff import main
+
 
 base.declare_namespaces()
 
 
 class Tests(unittest.TestCase):
+
+    def xmlAssert(self, expected: str, real: object):
+       if not isinstance(real, str):
+          real = real.toxml()
+
+       self.assertEquals([],main.diff_texts(expected.strip(), real))
+
 
     def setUp(self):
         pyxb.RequireValidWhenGenerating(True)
@@ -38,7 +47,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(update.title[0].value(), "Main title")
         update.duration = "PT5M"
         print(update.toxml())
-        self.assertEqual(update.toxml(), """<?xml version="1.0" ?><program avType="VIDEO" embeddable="true" publishStart="2012-01-11T15:16:01.287Z" publishStop="2012-01-11T17:16:01.287Z" type="CLIP" xmlns="urn:vpro:media:update:2009"><broadcaster>VPRO</broadcaster><title type="MAIN">Main title</title><duration>PT5M</duration><memberOf position="34">urn:vpro:media:group:2981744</memberOf><memberOf>POMS_S_VPRO_159096</memberOf><images><image highlighted="false" type="PICTURE"><title>bla</title><urn>urn:vpro:image:496158</urn></image></images></program>""")
+        self.xmlAssert("""<?xml version="1.0" ?><program avType="VIDEO" embeddable="true" publishStart="2012-01-11T15:16:01.287Z" publishStop="2012-01-11T17:16:01.287Z" type="CLIP" xmlns="urn:vpro:media:update:2009"><broadcaster>VPRO</broadcaster><title type="MAIN">Main title</title><duration>PT5M</duration><memberOf position="34">urn:vpro:media:group:2981744</memberOf><memberOf>POMS_S_VPRO_159096</memberOf><images><image highlighted="false" type="PICTURE"><title>bla</title><urn>urn:vpro:image:496158</urn></image></images></program>""", update)
         print(len(update.images.image))
 
     def test_segment(self):
