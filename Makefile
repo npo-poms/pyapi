@@ -23,7 +23,7 @@ npoapi/xml/__init__.py: setup.py
 	   --module-prefix=npoapi.xml
 
 docker:
-	docker build -t mihxil/npo-pyapi:latest  docker
+	docker build --no-cache -t mihxil/npo-pyapi:latest  docker
 
 docker-flask:
 	docker build -t mihxil/npo-pyapi-flask:latest  flask
