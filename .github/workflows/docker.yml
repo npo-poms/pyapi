@@ -25,6 +25,14 @@ jobs:
         with:
           push: true
           tags: mihxil/npo-pyapi:latest
-          context: docker
+          context: .
+          file: docker/Dockerfile
+      - name: Build and push flask
+        id: docker_build_flask
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: mihxil/npo-pyapi-flask:latest
+          context: flask
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
