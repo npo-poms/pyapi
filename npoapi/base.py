@@ -89,17 +89,19 @@ class NpoApiBase:
 
         return self
 
-    def configured_login(self, read_environment=False, create_config_file=False, config_dir=None):
+    def configured_login(self, read_environment=False, create_config_file=False, config_dir=None, default_config_dirs=True):
         """
         Logs in using configuration file. Considered using json (no comments-> unusable) or configparser (nearly properties, but headings are required..)
         So, now it simply parses the file itself.
         :param create_config_file: If there is no existing config file, offer to create one
         :param read_environment: If this is set to true, shel environment variables like DEBUG and ENV will be recognized
+        :param config_dir: Directory to search config file in
+        :param default_config_dirs: Whether to use the default config dir location
         """
         if read_environment:
             self.read_environmental_variables()
 
-        config_files = self.get_configfiles(config_dir = config_dir)
+        config_files = self.get_configfiles(config_dir = config_dir, default_config_dirs = default_config_dirs)
 
         config_file = None
         for file in config_files:
@@ -141,14 +143,16 @@ class NpoApiBase:
                 self._write_settings()
         return self.settings[name]
 
-    def get_configfiles(self, config_dir = None) -> List[str]:
+    def get_configfiles(self, config_dir = None, default_config_dirs = True) -> List[str]:
         current_script_dir = os.path.dirname(sys.argv[0])
-        config_files = [
-            os.path.join(os.path.expanduser("~"), "conf", "creds.properties"),
-            os.path.join(current_script_dir, "..", "..", "..", "creds.properties"),
-            os.path.join(current_script_dir, "..", "..", "..", "creds.sh"),
-            os.path.join(current_script_dir, "creds.properties")
-        ]
+        config_files = []
+        if default_config_dirs:
+            config_files = [
+               os.path.join(os.path.expanduser("~"), "conf", "creds.properties"),
+               os.path.join(current_script_dir, "..", "..", "..", "creds.properties"),
+               os.path.join(current_script_dir, "..", "..", "..", "creds.sh"),
+               os.path.join(current_script_dir, "creds.properties")
+            ]
 
         if not config_dir is None:
             config_files.insert(0, os.path.join(config_dir, "creds.properties"))
@@ -186,10 +190,10 @@ class NpoApiBase:
                 l = line.strip()
                 if l and not l.startswith("#"):
                     try:
-                        key, value = l.split("=", 2)
+                        key, value = l.split("=", 1)
                         value = value.strip('" \t')
                         if value.startswith("system:"):
-                            split = value[len("system:"):].split(":", 2)
+                            split = value[len("system:"):].split(":", 1)
                             value = os.getenv(split[0])
                             if value is None:
                                 value = split[1]
