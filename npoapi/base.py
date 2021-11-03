@@ -42,7 +42,7 @@ class NpoApiBase:
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, env: str = None, debug: bool = False, accept: str = None):
+    def __init__(self, env: str = None, debug: bool = False, accept: str = None, interactive: bool = True):
         """
         Initializes logging, env-settings, and default accept headers.
         """
@@ -56,8 +56,10 @@ class NpoApiBase:
         self.actualenv = None
         self.env(env)
         self._accept = accept or "application/json"
+        self.interactive = interactive
         self.settings = {}
         self.response_headers = False
+
 
     @abc.abstractmethod
     def env(self, e):
@@ -137,7 +139,10 @@ class NpoApiBase:
                 value = self.settings[name.lower()]
                 del self.settings[name.lower()]
             else:
-                value = input(description + "?: ")
+                if self.interactive:
+                    value = input(description + "?: ")
+                else:
+                    raise ValueError("No setting found " + name.lower())
             self.settings[name] = value
             if write_settings:
                 self._write_settings()

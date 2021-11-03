@@ -23,11 +23,11 @@ class NpoApi(NpoApiBase):
     """
 
     def __init__(self, key: str = None, secret: str = None, env: str = None, origin: str = None,
-                 debug: bool = False, accept: str = None):
+                 debug: bool = False, accept: str = None, interactive: bool = True):
         """
         Instantiates a client to the NPO Frontend API
         """
-        super().__init__(env=env, debug=debug, accept=accept)
+        super().__init__(env=env, debug=debug, accept=accept, interactive=interactive)
         self.key, self.secret, self.origin = key, secret, origin
 
     def login(self, key, secret, origin = None):
@@ -68,13 +68,13 @@ class NpoApi(NpoApiBase):
     def info(self) -> str:
         return self.key + "@" + self.url
 
-    def authenticate(self, uri="", now=utils.formatdate(usegmt=True)) -> [str, str]:
+    def authenticate(self, uri="", now=utils.formatdate(usegmt=True), interactive=True) -> [str, str]:
         if self.origin is None:
-            self.origin = self.get_setting("origin", "Your NPO api origin")
+            self.origin = self.get_setting("origin", "Your NPO api origin", interactive)
         if self.key is None:
-            self.key = self.get_setting("apiKey", "Your NPO api key")
+            self.key = self.get_setting("apiKey", "Your NPO api key", interactive)
         if self.secret is None:
-            self.secret = self.get_setting("secret", "Your NPO api secret")
+            self.secret = self.get_setting("secret", "Your NPO api secret", interactive)
 
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         self.logger.debug("message: " + message)
@@ -99,7 +99,7 @@ class NpoApi(NpoApiBase):
         return url, path_for_authentication
 
     def _authentication_headers(self, req, path_for_authentication):
-        authorization, date = self.authenticate(path_for_authentication)
+        authorization, date = self.authenticate(path_for_authentication, interactive=self.interactive)
         req.add_header("Authorization", authorization)
         req.add_header("X-NPO-Date", date)
         req.add_header("Origin", self.origin)

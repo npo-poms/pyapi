@@ -4,12 +4,10 @@ from flask import Flask, render_template, send_from_directory, Response
 from npoapi import Media
 
 app = Flask(__name__)
-if __name__ == '__main__':
-    app.run(host='0.0.0.0')
 
-
-client = Media().configured_login(config_dir=os.getenv("configdir"), default_config_dirs=False)
-client.debug(os.getenv("debug", default=False))
+client = Media(interactive=False,
+               debug=os.getenv("debug", default=False)
+               ).configured_login(config_dir=os.getenv("configdir"), default_config_dirs=False)
 client.env("prod")
 
 @app.route('/')
