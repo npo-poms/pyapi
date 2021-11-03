@@ -187,7 +187,13 @@ class NpoApiBase:
                 if l and not l.startswith("#"):
                     try:
                         key, value = l.split("=", 2)
-                        properties[key] = value.strip('" \t')
+                        value = value.strip('" \t')
+                        if value.startswith("system:"):
+                            split = value[len("system:"):].split(":", 2)
+                            value = os.getenv(split[0])
+                            if value is None:
+                                value = split[1]
+                        properties[key] = value
                     except Exception as e:
                         self.logger.error(l + ":" + str(e))
         return properties

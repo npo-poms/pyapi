@@ -23,10 +23,16 @@ npoapi/xml/__init__.py: setup.py
 	   --module-prefix=npoapi.xml
 
 docker:
-	docker build -t mihxil/npo-pyapi:alpine-latest  docker
+	docker build -t mihxil/npo-pyapi:latest  docker
+
+docker-flask:
+	docker build -t mihxil/npo-pyapi-flask:latest  flask
 
 docker-push:
-	docker push mihxil/npo-pyapi:alpine-latest
+	docker push mihxil/npo-pyapi:latest
+
+docker-flask-push: docker-flask
+	docker push mihxil/npo-pyapi-flask:latest
 
 clean:
 	rm -rf npoapi/xml/*
