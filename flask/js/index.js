@@ -1,4 +1,5 @@
 const mediaobjects = nl_vpro_domain_media_MediaObjects;
+const POMS_LOOKUP_URL = 'https://pomslookup.eo.nl';
 
 function load(m) {
     head = $("head meta[name=mid]");
@@ -21,22 +22,20 @@ function load(m) {
 $(function() {
     load();
     $("#select").click(function () {
-        document.getElementById('select').onclick = function () {
-            media.select(
-                function (value) {
-                    load(value.mid);
-                }, {
-                    mediaType: "BROADCAST",
-                    returnValue: "data"
-                }
-            );
-        };
+        media.select(
+            function (value) {
+                load(value.mid);
+            }, {
+                mediaType: "BROADCAST",
+                returnValue: "data"
+            }
+        );
     });
-    var POMS_LOOKUP_URL = 'https://pomslookup.eo.nl';
     var popup;
     $("#eoselect").click(function () {
         popup = window.open(POMS_LOOKUP_URL + '/?types=BROADCAST&limit=1', 'POMS_Lookup');
     });
+
     window.addEventListener( 'message', onMessage, false );
 
     function onMessage(event) {
