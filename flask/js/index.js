@@ -33,7 +33,7 @@ $(function() {
     });
     var popup;
     $("#eoselect").click(function () {
-        popup = window.open(POMS_LOOKUP_URL + '/?types=BROADCAST&limit=1', 'POMS_Lookup');
+        popup = window.open(POMS_LOOKUP_URL + '/?types=BROADCAST&limit=1', '', 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no');
     });
 
     window.addEventListener( 'message', onMessage, false );
