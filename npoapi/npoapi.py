@@ -128,16 +128,24 @@ class NpoApi(NpoApiBase):
 
         return None,None
 
-    def request(self, path, params=None, accept=None, data=None, ignore_not_found=False) -> Optional[str]:
+    def request_or_stream(self, path:str, params=None, accept=None, data=None, content_type:str=None, timeout=None,
+               ignore_not_found=False, stream:bool=False):
+        if stream:
+            return self.stream(path = path, params = params, accept = accept, data = data, content_type = content_type,
+                               timeout = timeout, ignore_not_found = ignore_not_found)
+        else:
+            return self.request(path = path, params = params, accept = accept, data = data, content_type = content_type, ignore_not_found = ignore_not_found)
+
+    def request(self, path, params=None, accept=None, data=None, content_type : str = None, ignore_not_found=False) -> Optional[str]:
         """Executes a request and return the result as a string, or None if not found"""
-        response = self.stream(path, params, accept, data, ignore_not_found=ignore_not_found)
+        response = self.stream(path, params, accept, data, content_type, ignore_not_found=ignore_not_found)
         if response:
             self.logger.debug(response.headers)
             return response.read().decode('utf-8')
         else:
             return None
 
-    def stream(self, path:str, params=None, accept=None, data=None, content_type:str=None, timeout=None,
+    def stream(self, path:str, params=None, accept=None, data=None, content_type : str = None, timeout=None,
                ignore_not_found=False) -> Optional[http.client.HTTPResponse]:
 
         data, content_type = self.data_to_bytes(data, content_type)

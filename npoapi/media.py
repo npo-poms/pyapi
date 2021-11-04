@@ -7,10 +7,10 @@ import os
 
 
 class Media(NpoApi):
-    def get(self, mid, sub="", sort=None, accept=None, properties=None, limit=None, profile=None) -> Optional[str]:
-        return self.request("/api/media/" + urllib.request.quote(mid, safe='') + sub,
+    def get(self, mid, sub="", sort=None, accept=None, properties=None, limit=None, profile=None, stream=False) -> Union[None, http.client.HTTPResponse, str]:
+        return self.request_or_stream("/api/media/" + urllib.request.quote(mid, safe='') + sub,
                             params={"sort": sort, "properties": properties, "max": limit, "profile": profile},
-                            accept=accept)
+                            accept=accept, stream=stream)
 
     def multiple(self, mids, accept=None, properties=None, profile=None) -> str:
         if os.path.isfile(mids):

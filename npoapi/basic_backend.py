@@ -62,10 +62,13 @@ class BasicBackend(NpoApiBase):
 
     def _basic_authentication(self, settings_key, description):
         if not (settings_key in self.settings):
-            user = input(description + " user?: ")
-            password = input(description + " password?: ")
-            self.settings[settings_key] = user + ":" + password
-            self._write_settings()
+            if self.interactive:
+                user = input(description + " user?: ")
+                password = input(description + " password?: ")
+                self.settings[settings_key] = user + ":" + password
+                self._write_settings()
+            else:
+                raise ValueError("No setting found " + settings_key)
 
         self.user = self.settings[settings_key]
         password = self.user.split(":", 2)[1]
