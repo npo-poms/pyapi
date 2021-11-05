@@ -22,8 +22,12 @@ def send_js(path):
 
 @app.route('/mediaobject/<path:mid>')
 def send_mediaobject(mid):
-    proxied_response = client.get(mid, accept="application/json", stream=True)
+    proxied_response = client.get(mid, accept="application/json", stream=True, properties=["titles", "locations", "predictions"])
     response = Response(proxied_response, mimetype='application/json')
     return response
 
+
+@app.route('/authenticate/<path:uri>')
+def authenticate(uri):
+    return client.authenticate(uri, interactive=False)
 
