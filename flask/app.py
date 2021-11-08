@@ -26,7 +26,10 @@ def send_js(path):
 
 @app.route('/mediaobject/<path:mid>')
 def send_mediaobject(mid):
-    proxied_response = client.get(mid, accept="application/json", stream=True, properties=["title", "locations", "predictionsForXml", "predictions"])
+    proxied_response = client.get(mid, accept="application/json", stream=True, properties=
+          ["title", "locations", "predictionsForXml", # NPA-602
+           "predictions"]
+          )
     response = Response(proxied_response, mimetype='application/json')
     return response
 
