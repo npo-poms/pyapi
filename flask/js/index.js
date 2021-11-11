@@ -1,8 +1,8 @@
 const mediaobjects = nl_vpro_domain_media_MediaObjects;
 const POMS_LOOKUP_URL = 'https://pomslookup.eo.nl';
 const POPUP_FEATURES = 'width=1024,height=800,titlebar=no,toolbar=no,statusbar=no,directories=no,location=no';
-const TYPES = ["PROGRAM","SEGMENT"]
-const TYPES_F = ["BROADCAST", "MOVIE", "CLIP", "SEGMENT"]
+const TYPES = ["PROGRAM","SEGMENTTYPE"]
+const TYPES_F = ["BROADCAST", "STRAND", "MOVIE", "CLIP", "SEGMENT", "VISUALSEGMENT"]
 
 
 function load(m) {
