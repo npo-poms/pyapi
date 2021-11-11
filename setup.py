@@ -23,6 +23,7 @@ setup(
         'bin/npo_media_iterate',
         'bin/npo_pages_get',
         'bin/npo_pages_search',
+        'bin/npo_pages_iterate',
         'bin/npo_media_changes',
         'bin/npo_schedule_get',
         'bin/npo_schedule_search',

@@ -1,3 +1,6 @@
+import http
+from typing import Union
+
 from npoapi.npoapi import NpoApi
 
 
@@ -14,13 +17,15 @@ class Pages(NpoApi):
         """
         return self.request("/api/pages", data=form, accept=accept, params={"sort": sort, "offset": offset, "max": limit, "profile": profile, "properties": properties})
 
-    def iterate(self, form="{}", profile=None, offset=0, limit=None) -> str:
-        """
 
-        """
-        import ijson
-        stream = self.stream("/api/pages/iterate", data=form, accept="application/json", params={"profile": profile, "offset": offset, "max": limit})
-        if not stream is None:
-            return ijson.items(stream, "pages.item")
+    def iterate(self, form="{}", profile=None, limit=1000, stream=True, timeout=None, properties=None) -> Union[None, http.client.HTTPResponse, str]:
+        if not form:
+            form = "{}"
+        if isinstance(properties, list):
+            properties = ",".join(properties)
+        if stream:
+            return self.stream("/api/pages/iterate", data=form,
+                               params={"profile": profile, "max": limit, "properties": properties}, timeout=timeout)
         else:
-            return None
+            return self.request("/api/pages/iterate", data=form,
+                                params={"profile": profile, "max": limit, "properties": properties})
