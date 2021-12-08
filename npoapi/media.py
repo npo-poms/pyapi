@@ -1,9 +1,11 @@
 import http
-from typing import Optional, Union
+import os
+import urllib.request
+from typing import Union
+
+import ijson
 
 from npoapi.npoapi import NpoApi
-import urllib.request
-import os
 
 
 class Media(NpoApi):
@@ -40,7 +42,10 @@ class Media(NpoApi):
             return self.request("/api/media/" + urllib.request.quote(mid) + "/" + sub, data=form, accept=accept,
                                 params={"profile": profile, "sort": sort, "offset": offset, "max": limit, "properties": properties})
 
-    def changes(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False, properties=None, check_profile=True, deletes="ID_ONLY", tail=None) -> Union[None, http.client.HTTPResponse, str]:
+    def changes(self, profile=None, limit=10, since=None, properties=None, deletes="ID_ONLY", tail=None) -> Union[None, ijson.items]:
+        return ijson.items(self.changes_raw(stream=True, profile=profile, limit=limit, since=since, properties=properties, deletes=deletes, tail=tail), 'changes.item')
+
+    def changes_raw(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False, properties=None, check_profile=True, deletes="ID_ONLY", tail=None) -> Union[None, http.client.HTTPResponse, str]:
         if isinstance(properties, list):
             properties = ",".join(properties)
         sinceLong = None
@@ -63,7 +68,7 @@ class Media(NpoApi):
     def redirects(self) -> str:
         return self.request("/api/media/redirects")
 
-    def iterate(self, form=None, profile=None, stream=True, limit=1000, timeout=None, properties=None) -> Union[None, http.client.HTTPResponse, str]:
+    def iterate_raw(self, form=None, profile=None, stream=True, limit=1000, timeout=None, properties=None) -> Union[None, http.client.HTTPResponse, str]:
         if not form:
             form = "{}"
         if isinstance(properties, list):

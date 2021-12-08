@@ -27,7 +27,7 @@ if not form:
     }}
     """
 
-response = client.iterate(profile=args.profile, form=form, limit=args.max, properties=args.properties, timeout=100)
+response = client.iterate_raw(form=form, profile=args.profile, limit=args.max, timeout=100, properties=args.properties)
 
 buffer_size = 1000
 buffer = bytearray("-" * buffer_size, "ascii")

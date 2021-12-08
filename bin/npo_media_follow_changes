@@ -18,7 +18,7 @@ args = client.parse_args()
 
 since=""
 while True:
-    response = TextIOWrapper(client.changes(
+    response = TextIOWrapper(client.changes_raw(
            profile=args.profile,
            since=args.since,
            limit=args.max,

@@ -1,17 +1,17 @@
 #!/usr/bin/env python3
 import json
+import os
+import time
 import unittest
 from xml.dom import minidom
-import os
+
+from ijson import items
 
 from npoapi import Media
 from npoapi import MediaBackend
 from npoapi import Subtitles
-
-from npoapi.xml import poms
 from npoapi.xml import mediaupdate
-
-import time
+from npoapi.xml import poms
 
 ENV = "test"
 MID = "WO_VPRO_783763"
@@ -47,10 +47,9 @@ class MediaTests(unittest.TestCase):
         ""
 
     def test_stream(self):
-        import ijson
         from datetime import datetime
         client = self.get_client()
-        objects = ijson.items(client.changes(stream=True), 'changes.item')
+        objects:items = client.changes()
         for o in objects:
             media = o["media"]
             if "sortDate" in media:
