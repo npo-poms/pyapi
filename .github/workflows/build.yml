@@ -63,6 +63,15 @@ jobs:
           context: flask
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
+      - name: Build and push make
+        id: docker_build_make
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: mihxil/npo-pyapi-make:latest
+          context: docker/make
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Image digest
         run: echo ${{ steps.docker_build.outputs.digest }}
         # This ugly bit is necessary if you don't want your cache to grow forever

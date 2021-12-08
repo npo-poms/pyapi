@@ -25,6 +25,9 @@ npoapi/xml/__init__.py: setup.py
 docker:
 	docker build -t mihxil/npo-pyapi:latest  -f docker/Dockerfile .
 
+docker-make:
+	docker build -t mihxil/npo-pyapi-make:latest  docker/make
+
 docker-flask:
 	docker build -t mihxil/npo-pyapi-flask:latest  flask
 
@@ -32,7 +35,7 @@ docker-push:
 	docker push mihxil/npo-pyapi:latest
 
 docker-flask-push: docker-flask
-	docker push mihxil/npo-pyapi-flask:latest
+	docker image push docker.vpro.nl/mihxil/npo-pyapi-flask:latest
 
 clean:
 	rm -rf npoapi/xml/*

@@ -4,6 +4,8 @@ command=$1
 shift
 if case $command in  "npo_"*) true;; *) false;; esac; then
   $command "$@"
-else
+elif [ $(which "npo_$command" > /dev/null ; echo $?)  = 0 ]; then
   npo_$command "$@"
+else
+  $command "$@"
 fi
