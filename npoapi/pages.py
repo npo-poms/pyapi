@@ -18,7 +18,21 @@ class Pages(NpoApi):
         return self.request("/api/pages", data=form, accept=accept, params={"sort": sort, "offset": offset, "max": limit, "profile": profile, "properties": properties})
 
 
-    def iterate(self, form="{}", profile=None, limit=1000, stream=True, timeout=None, properties=None) -> Union[None, http.client.HTTPResponse, str]:
+
+
+    def iterate(self, form="{}", profile=None, limit=None):
+        """
+           Returns a stream of ijson pages
+        """
+        import ijson
+        stream = self.iterate_raw(form=form, profile = profile, limit = limit)
+        if not stream is None:
+            return ijson.items(stream, "pages.item")
+        else:
+            return None
+
+
+    def iterate_raw(self, form="{}", profile=None, limit=1000, stream=True, timeout=None, properties=None) -> Union[None, http.client.HTTPResponse, str]:
         if not form:
             form = "{}"
         if isinstance(properties, list):
@@ -29,3 +43,4 @@ class Pages(NpoApi):
         else:
             return self.request("/api/pages/iterate", data=form,
                                 params={"profile": profile, "max": limit, "properties": properties})
+
