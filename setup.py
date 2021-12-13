@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from setuptools import setup
+from setuptools import setup, find_packages
 
 __version__ = None
 exec(open('npoapi/_version.py', "rt").read())
@@ -7,7 +7,7 @@ exec(open('npoapi/_version.py', "rt").read())
 setup(
     name='NPO API',
     version=__version__,
-    packages=['npoapi', 'npoapi.xml'],
+    packages=find_packages(),
     install_requires=[
         'pytz==2021.3',
         'ijson==3.1.4',
