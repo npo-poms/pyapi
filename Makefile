@@ -4,6 +4,9 @@ RS=https://rs-test.poms.omroep.nl/v1/
 PAGESPUB=https://publish-test.pages.omroep.nl/
 #PAGESPUB=http://localhost:8069/
 
+XSDATA=xsdata generate
+
+
 npoapi/xml/__init__.py: setup.py
 	pyxbgen \
 	   --schema-location=$(POMS)schema/vproMedia.xsd --module media \
@@ -22,6 +25,12 @@ npoapi/xml/__init__.py: setup.py
 	   --schema-location=$(RS)schema/combined.xsd --module poms \
 	   --module-prefix=npoapi.xml
 
+.PHONY: xsdata
+
+xsdata: npoapi/model/__init__.py
+npoapi/model/__init__.py: setup.py
+	$(XSDATA) $(RS)schema/combined.xsd
+
 docker:
 	docker build -t mihxil/npo-pyapi:latest  -f docker/Dockerfile .
 
@@ -37,5 +46,9 @@ docker-push:
 docker-flask-push: docker-flask
 	docker image push docker.vpro.nl/mihxil/npo-pyapi-flask:latest
 
-clean:
+
+clean.data:
+	rm -rf npoapi/data/*
+
+clean: clean.model
 	rm -rf npoapi/xml/*
