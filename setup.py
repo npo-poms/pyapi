@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from setuptools import setup
+from setuptools import setup, find_packages
 
 __version__ = None
 exec(open('npoapi/_version.py', "rt").read())
@@ -7,7 +7,7 @@ exec(open('npoapi/_version.py', "rt").read())
 setup(
     name='NPO API',
     version=__version__,
-    packages=['npoapi', 'npoapi.xml'],
+    packages=find_packages(),
     install_requires=[
         'pytz==2021.3',
         'ijson==3.1.4',
@@ -15,7 +15,8 @@ setup(
         'python-dateutil==2.8.2',
         'jwt==1.3.1',
         'typing==3.7.4.3',
-        'requests==2.26.0'
+        'requests==2.26.0',
+        'xsdata[cli]==21.12'
     ],
     scripts=[
         'bin/npo_media_get',

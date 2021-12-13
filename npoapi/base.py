@@ -9,6 +9,8 @@ import urllib.request
 import http
 
 import pyxb
+from xsdata.formats.dataclass.serializers import XmlSerializer
+from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
 import npoapi
 from typing import Optional
@@ -348,9 +350,15 @@ class NpoApiBase:
         if data:
             import pyxb
             import xml.dom.minidom
+            import dataclasses
             if data is None:
                 self.logger.warning("Data is none!")
+            elif dataclasses.is_dataclass(data):
+                serializer = XmlSerializer(config=SerializerConfig(pretty_print = False))
+                content_type = "application/xml"
+                data = serializer.render(data, ns_map={"api": 'urn:vpro:api:2013'}).encode("utf-8")
             elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
+                self.logger.warning("pyxb is deprecated!")
                 content_type = "application/xml"
                 data = data.toxml("utf-8")
             elif isinstance(data, xml.dom.minidom.Document):
