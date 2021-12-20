@@ -5,9 +5,9 @@ __NAMESPACE__ = "urn:vpro:api:2013"
 
 
 @dataclass
-class HightlightType:
+class HighlightType:
     class Meta:
-        name = "hightlightType"
+        name = "highlightType"
 
     body: List[str] = field(
         default_factory=list,
