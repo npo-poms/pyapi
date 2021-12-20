@@ -30,10 +30,9 @@ class GeoLocationSearchType:
             "type": "Attribute",
         }
     )
-    gtaa_uri: Optional[str] = field(
+    gtaaUri: Optional[str] = field(
         default=None,
         metadata={
-            "name": "gtaaUri",
             "type": "Attribute",
         }
     )

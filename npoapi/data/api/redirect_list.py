@@ -18,10 +18,9 @@ class RedirectList:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    last_update: Optional[XmlDateTime] = field(
+    lastUpdate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastUpdate",
             "type": "Attribute",
         }
     )

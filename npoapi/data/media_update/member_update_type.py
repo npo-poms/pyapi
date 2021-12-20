@@ -9,7 +9,7 @@ class MemberUpdateType:
     class Meta:
         name = "memberUpdateType"
 
-    any_element: Optional[object] = field(
+    anyElement: Optional[object] = field(
         default=None,
         metadata={
             "type": "Wildcard",

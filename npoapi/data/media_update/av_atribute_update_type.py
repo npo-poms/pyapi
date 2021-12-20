@@ -19,34 +19,30 @@ class AvAtributeUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    byte_size: Optional[int] = field(
+    byteSize: Optional[int] = field(
         default=None,
         metadata={
-            "name": "byteSize",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    av_file_format: Optional[AvFileFormatEnum] = field(
+    avFileFormat: Optional[AvFileFormatEnum] = field(
         default=None,
         metadata={
-            "name": "avFileFormat",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    video_attributes: Optional[VideoAttributesUpdateType] = field(
+    videoAttributes: Optional[VideoAttributesUpdateType] = field(
         default=None,
         metadata={
-            "name": "videoAttributes",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    audio_attributes: Optional[AudioAttributesUpdateType] = field(
+    audioAttributes: Optional[AudioAttributesUpdateType] = field(
         default=None,
         metadata={
-            "name": "audioAttributes",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }

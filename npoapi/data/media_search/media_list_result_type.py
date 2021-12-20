@@ -18,10 +18,9 @@ class MediaListResultType:
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    total_count: Optional[int] = field(
+    totalCount: Optional[int] = field(
         default=None,
         metadata={
-            "name": "totalCount",
             "type": "Attribute",
         }
     )

@@ -20,27 +20,27 @@ class MediaSearchType:
     Limits the search result to media with certain properties.
 
     :ivar text:
-    :ivar media_ids: The MID must match one of the mediaIds
+    :ivar mediaIds: The MID must match one of the mediaIds
     :ivar types: The media type must match one of these.
-    :ivar av_types:
-    :ivar sort_dates:
-    :ivar publish_dates:
-    :ivar creation_dates:
-    :ivar last_modified_dates:
+    :ivar avTypes:
+    :ivar sortDates:
+    :ivar publishDates:
+    :ivar creationDates:
+    :ivar lastModifiedDates:
     :ivar broadcasters:
     :ivar locations:
     :ivar tags:
     :ivar genres:
     :ivar durations:
-    :ivar descendant_of:
-    :ivar episode_of:
-    :ivar member_of:
+    :ivar descendantOf:
+    :ivar episodeOf:
+    :ivar memberOf:
     :ivar relations:
-    :ivar schedule_events:
-    :ivar age_ratings:
-    :ivar content_ratings:
+    :ivar scheduleEvents:
+    :ivar ageRatings:
+    :ivar contentRatings:
     :ivar titles:
-    :ivar geo_locations:
+    :ivar geoLocations:
     :ivar match:
     """
     class Meta:
@@ -53,10 +53,9 @@ class MediaSearchType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    media_ids: Optional[TextMatcherListType] = field(
+    mediaIds: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "mediaIds",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
@@ -68,42 +67,37 @@ class MediaSearchType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    av_types: Optional[TextMatcherListType] = field(
+    avTypes: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "avTypes",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    sort_dates: Optional[DateRangeMatcherListType] = field(
+    sortDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
-            "name": "sortDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    publish_dates: Optional[DateRangeMatcherListType] = field(
+    publishDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
-            "name": "publishDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    creation_dates: Optional[DateRangeMatcherListType] = field(
+    creationDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
-            "name": "creationDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    last_modified_dates: Optional[DateRangeMatcherListType] = field(
+    lastModifiedDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
-            "name": "lastModifiedDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
@@ -143,26 +137,23 @@ class MediaSearchType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    descendant_of: Optional[TextMatcherListType] = field(
+    descendantOf: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "descendantOf",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    episode_of: Optional[TextMatcherListType] = field(
+    episodeOf: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "episodeOf",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    member_of: Optional[TextMatcherListType] = field(
+    memberOf: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "memberOf",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
@@ -174,27 +165,24 @@ class MediaSearchType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    schedule_events: List[ScheduleEventSearchType] = field(
+    scheduleEvents: List[ScheduleEventSearchType] = field(
         default_factory=list,
         metadata={
-            "name": "scheduleEvents",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
         }
     )
-    age_ratings: Optional[TextMatcherListType] = field(
+    ageRatings: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "ageRatings",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    content_ratings: Optional[TextMatcherListType] = field(
+    contentRatings: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "contentRatings",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
@@ -207,10 +195,9 @@ class MediaSearchType:
             "nillable": True,
         }
     )
-    geo_locations: List[GeoLocationSearchType] = field(
+    geoLocations: List[GeoLocationSearchType] = field(
         default_factory=list,
         metadata={
-            "name": "geoLocations",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,

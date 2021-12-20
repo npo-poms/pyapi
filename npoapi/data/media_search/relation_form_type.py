@@ -28,10 +28,9 @@ class RelationFormType:
             "pattern": r"[A-Z0-9_-]{2,}",
         }
     )
-    uri_ref: Optional[str] = field(
+    uriRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "uriRef",
             "type": "Attribute",
         }
     )

@@ -28,10 +28,9 @@ class PageType:
             "namespace": "urn:vpro:pages:2013",
         }
     )
-    alternative_url: List[str] = field(
+    alternativeUrl: List[str] = field(
         default_factory=list,
         metadata={
-            "name": "alternativeUrl",
             "type": "Element",
             "namespace": "urn:vpro:pages:2013",
         }
@@ -59,10 +58,9 @@ class PageType:
             "required": True,
         }
     )
-    sub_title: Optional[str] = field(
+    subTitle: Optional[str] = field(
         default=None,
         metadata={
-            "name": "subTitle",
             "type": "Element",
             "namespace": "urn:vpro:pages:2013",
         }
@@ -123,10 +121,9 @@ class PageType:
             "namespace": "urn:vpro:pages:2013",
         }
     )
-    stat_ref: List[str] = field(
+    statRef: List[str] = field(
         default_factory=list,
         metadata={
-            "name": "statRef",
             "type": "Element",
             "namespace": "urn:vpro:pages:2013",
         }
@@ -159,52 +156,45 @@ class PageType:
             "required": True,
         }
     )
-    creation_date: Optional[XmlDateTime] = field(
+    creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "creationDate",
             "type": "Attribute",
         }
     )
-    last_modified: Optional[XmlDateTime] = field(
+    lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastModified",
             "type": "Attribute",
         }
     )
-    last_published: Optional[XmlDateTime] = field(
+    lastPublished: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastPublished",
             "type": "Attribute",
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Attribute",
         }
     )
-    ref_count: Optional[int] = field(
+    refCount: Optional[int] = field(
         default=None,
         metadata={
-            "name": "refCount",
             "type": "Attribute",
         }
     )
-    sort_date: Optional[XmlDateTime] = field(
+    sortDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "sortDate",
             "type": "Attribute",
         }
     )

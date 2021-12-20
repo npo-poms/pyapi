@@ -35,17 +35,15 @@ class SubtitlesType:
             "type": "Attribute",
         }
     )
-    creation_date: Optional[XmlDateTime] = field(
+    creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "creationDate",
             "type": "Attribute",
         }
     )
-    last_modified: Optional[XmlDateTime] = field(
+    lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastModified",
             "type": "Attribute",
         }
     )
@@ -74,10 +72,9 @@ class SubtitlesType:
             "type": "Attribute",
         }
     )
-    cue_count: Optional[int] = field(
+    cueCount: Optional[int] = field(
         default=None,
         metadata={
-            "name": "cueCount",
             "type": "Attribute",
         }
     )

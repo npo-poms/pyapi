@@ -10,10 +10,9 @@ class MediaRelationSearchListType:
     class Meta:
         name = "mediaRelationSearchListType"
 
-    relation_search: List[MediaRelationSearchType] = field(
+    relationSearch: List[MediaRelationSearchType] = field(
         default_factory=list,
         metadata={
-            "name": "relationSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

@@ -10,7 +10,7 @@ class RedirectEntry:
         name = "redirectEntry"
         namespace = "urn:vpro:api:2013"
 
-    from_value: Optional[str] = field(
+    fromValue: Optional[str] = field(
         default=None,
         metadata={
             "name": "from",

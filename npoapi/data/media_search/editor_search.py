@@ -15,10 +15,9 @@ class EditorSearch:
             "required": True,
         }
     )
-    principal_id: Optional[bool] = field(
+    principalId: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "principalId",
             "type": "Attribute",
         }
     )

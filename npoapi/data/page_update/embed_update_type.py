@@ -23,10 +23,9 @@ class EmbedUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         }
     )
-    mid_ref: Optional[str] = field(
+    midRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "midRef",
             "type": "Attribute",
         }
     )

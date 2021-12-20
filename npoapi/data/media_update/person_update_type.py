@@ -10,26 +10,23 @@ class PersonUpdateType:
     class Meta:
         name = "personUpdateType"
 
-    given_name: Optional[str] = field(
+    givenName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "givenName",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    family_name: Optional[str] = field(
+    familyName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "familyName",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    gtaa_uri: Optional[str] = field(
+    gtaaUri: Optional[str] = field(
         default=None,
         metadata={
-            "name": "gtaaUri",
             "type": "Attribute",
         }
     )

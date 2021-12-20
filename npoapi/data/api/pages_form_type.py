@@ -20,10 +20,9 @@ class PagesFormType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    sort_fields: Optional[PageSortListType] = field(
+    sortFields: Optional[PageSortListType] = field(
         default=None,
         metadata={
-            "name": "sortFields",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
@@ -35,10 +34,9 @@ class PagesFormType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    media_form: Optional[MediaForm] = field(
+    mediaForm: Optional[MediaForm] = field(
         default=None,
         metadata={
-            "name": "mediaForm",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

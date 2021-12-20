@@ -14,14 +14,14 @@ class Filter:
         name = "filter"
         namespace = "urn:vpro:api:constraint:page:2013"
 
-    and_value: Optional[And] = field(
+    andValue: Optional[And] = field(
         default=None,
         metadata={
             "name": "and",
             "type": "Element",
         }
     )
-    or_value: Optional[Or] = field(
+    orValue: Optional[Or] = field(
         default=None,
         metadata={
             "name": "or",

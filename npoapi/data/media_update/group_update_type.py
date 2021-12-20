@@ -11,7 +11,7 @@ class GroupUpdateType(MediaUpdateType):
     class Meta:
         name = "groupUpdateType"
 
-    po_series_id: Optional[str] = field(
+    poSeriesId: Optional[str] = field(
         default=None,
         metadata={
             "name": "poSeriesID",

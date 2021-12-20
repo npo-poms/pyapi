@@ -16,10 +16,9 @@ class PortalRestrictionType:
             "required": True,
         }
     )
-    portal_id: Optional[str] = field(
+    portalId: Optional[str] = field(
         default=None,
         metadata={
-            "name": "portalId",
             "type": "Attribute",
         }
     )

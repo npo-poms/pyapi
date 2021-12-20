@@ -39,10 +39,9 @@ class ImageType:
             "namespace": "urn:vpro:pages:2013",
         }
     )
-    source_name: Optional[str] = field(
+    sourceName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "sourceName",
             "type": "Element",
             "namespace": "urn:vpro:pages:2013",
         }

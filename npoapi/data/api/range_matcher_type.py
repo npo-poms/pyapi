@@ -10,10 +10,9 @@ class RangeMatcherType:
     class Meta:
         name = "rangeMatcherType"
 
-    inclusive_end: Optional[bool] = field(
+    inclusiveEnd: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "inclusiveEnd",
             "type": "Attribute",
         }
     )

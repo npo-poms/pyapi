@@ -16,10 +16,9 @@ class GenreType:
             "namespace": "urn:vpro:pages:2013",
         }
     )
-    display_name: Optional[str] = field(
+    displayName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "displayName",
             "type": "Attribute",
         }
     )

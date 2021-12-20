@@ -18,17 +18,15 @@ class PredictionUpdateType:
             "required": True,
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Attribute",
         }
     )

@@ -11,7 +11,7 @@ __NAMESPACE__ = "urn:vpro:media:update:2009"
 @dataclass
 class ProgramUpdateType(MediaUpdateType):
     """
-    :ivar episode_of: episodeOf works similar to memberOf. Important differences: only programs of type CLIP or
+    :ivar episodeOf: episodeOf works similar to memberOf. Important differences: only programs of type CLIP or
         BROADCAST can be an episode of a group and the group can only be of type SERIES or SEASON.
     :ivar segments: Optional list of program segments. A segment is a part of a program that can be visually
         shown on the timeline of a player. A segment always has a start time indicating the start of the segment
@@ -27,10 +27,9 @@ class ProgramUpdateType(MediaUpdateType):
     class Meta:
         name = "programUpdateType"
 
-    episode_of: List[MemberRefUpdateType] = field(
+    episodeOf: List[MemberRefUpdateType] = field(
         default_factory=list,
         metadata={
-            "name": "episodeOf",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }

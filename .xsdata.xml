@@ -10,7 +10,7 @@
   </Output>
   <Conventions>
     <ClassName case="pascalCase" safePrefix="type"/>
-    <FieldName case="snakeCase" safePrefix="value"/>
+    <FieldName case="camelCase" safePrefix="value"/>
     <ConstantName case="screamingSnakeCase" safePrefix="value"/>
     <ModuleName case="snakeCase" safePrefix="mod"/>
     <PackageName case="snakeCase" safePrefix="pkg"/>

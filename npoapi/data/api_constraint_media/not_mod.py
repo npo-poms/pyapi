@@ -20,7 +20,7 @@ class Not:
     class Meta:
         name = "not"
 
-    and_value: Optional["And"] = field(
+    andValue: Optional["And"] = field(
         default=None,
         metadata={
             "name": "and",
@@ -28,7 +28,7 @@ class Not:
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    or_value: Optional["Or"] = field(
+    orValue: Optional["Or"] = field(
         default=None,
         metadata={
             "name": "or",
@@ -36,7 +36,7 @@ class Not:
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    not_value: Optional["Not"] = field(
+    notValue: Optional["Not"] = field(
         default=None,
         metadata={
             "name": "not",
@@ -44,42 +44,37 @@ class Not:
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    av_type: Optional[str] = field(
+    avType: Optional[str] = field(
         default=None,
         metadata={
-            "name": "avType",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    av_file_format: Optional[str] = field(
+    avFileFormat: Optional[str] = field(
         default=None,
         metadata={
-            "name": "avFileFormat",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    av_file_extension: Optional[str] = field(
+    avFileExtension: Optional[str] = field(
         default=None,
         metadata={
-            "name": "avFileExtension",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    program_url: Optional[ProgramUrlConstraintType] = field(
+    programUrl: Optional[ProgramUrlConstraintType] = field(
         default=None,
         metadata={
-            "name": "programUrl",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    descendant_of: Optional[str] = field(
+    descendantOf: Optional[str] = field(
         default=None,
         metadata={
-            "name": "descendantOf",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
@@ -91,26 +86,23 @@ class Not:
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    has_image: Optional[HasImageConstraintType] = field(
+    hasImage: Optional[HasImageConstraintType] = field(
         default=None,
         metadata={
-            "name": "hasImage",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    has_location: Optional[HasLocationConstraintType] = field(
+    hasLocation: Optional[HasLocationConstraintType] = field(
         default=None,
         metadata={
-            "name": "hasLocation",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    has_prediction: Optional[HasPredictionConstraintType] = field(
+    hasPrediction: Optional[HasPredictionConstraintType] = field(
         default=None,
         metadata={
-            "name": "hasPrediction",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
@@ -129,18 +121,16 @@ class Not:
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    schedule_event: Optional[ScheduleEventType] = field(
+    scheduleEvent: Optional[ScheduleEventType] = field(
         default=None,
         metadata={
-            "name": "scheduleEvent",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    has_portal: Optional[HasPortalConstraintType] = field(
+    hasPortal: Optional[HasPortalConstraintType] = field(
         default=None,
         metadata={
-            "name": "hasPortal",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
@@ -152,10 +142,9 @@ class Not:
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    is_exclusive: Optional[HasPortalRestrictionConstraintType] = field(
+    isExclusive: Optional[HasPortalRestrictionConstraintType] = field(
         default=None,
         metadata={
-            "name": "isExclusive",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
@@ -167,50 +156,44 @@ class Not:
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    has_geo_restriction: Optional[HasGeoRestrictionConstraintType] = field(
+    hasGeoRestriction: Optional[HasGeoRestrictionConstraintType] = field(
         default=None,
         metadata={
-            "name": "hasGeoRestriction",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    geo_restriction: Optional[GeoRestrictionConstraintType] = field(
+    geoRestriction: Optional[GeoRestrictionConstraintType] = field(
         default=None,
         metadata={
-            "name": "geoRestriction",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    age_rating: Optional[str] = field(
+    ageRating: Optional[str] = field(
         default=None,
         metadata={
-            "name": "ageRating",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    has_age_rating: Optional[HasAgeRatingConstraintType] = field(
+    hasAgeRating: Optional[HasAgeRatingConstraintType] = field(
         default=None,
         metadata={
-            "name": "hasAgeRating",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    content_rating: Optional[str] = field(
+    contentRating: Optional[str] = field(
         default=None,
         metadata={
-            "name": "contentRating",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    has_content_rating: Optional[HasContentRatingConstraintType] = field(
+    hasContentRating: Optional[HasContentRatingConstraintType] = field(
         default=None,
         metadata={
-            "name": "hasContentRating",
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:media:2013",
         }

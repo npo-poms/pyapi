@@ -11,10 +11,9 @@ class MediaTitleFacetType(TextFacetType):
     class Meta:
         name = "mediaTitleFacetType"
 
-    sub_search: Optional[TitleSearchType] = field(
+    subSearch: Optional[TitleSearchType] = field(
         default=None,
         metadata={
-            "name": "subSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

@@ -11,7 +11,7 @@ class CreditsType:
     class Meta:
         name = "creditsType"
 
-    person_or_name: List[object] = field(
+    personOrName: List[object] = field(
         default_factory=list,
         metadata={
             "type": "Elements",

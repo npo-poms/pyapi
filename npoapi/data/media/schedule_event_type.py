@@ -37,42 +37,37 @@ class ScheduleEventType:
             "namespace": "urn:vpro:media:2009",
         }
     )
-    member_of: Optional[str] = field(
+    memberOf: Optional[str] = field(
         default=None,
         metadata={
-            "name": "memberOf",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    av_attributes: Optional[AvAttributesType] = field(
+    avAttributes: Optional[AvAttributesType] = field(
         default=None,
         metadata={
-            "name": "avAttributes",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    text_subtitles: Optional[str] = field(
+    textSubtitles: Optional[str] = field(
         default=None,
         metadata={
-            "name": "textSubtitles",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    text_page: Optional[str] = field(
+    textPage: Optional[str] = field(
         default=None,
         metadata={
-            "name": "textPage",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    guide_day: Optional[XmlDate] = field(
+    guideDay: Optional[XmlDate] = field(
         default=None,
         metadata={
-            "name": "guideDay",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
@@ -101,7 +96,7 @@ class ScheduleEventType:
             "required": True,
         }
     )
-    po_prog_id: Optional[str] = field(
+    poProgId: Optional[str] = field(
         default=None,
         metadata={
             "name": "poProgID",
@@ -109,18 +104,16 @@ class ScheduleEventType:
             "namespace": "urn:vpro:media:2009",
         }
     )
-    primary_lifestyle: Optional[str] = field(
+    primaryLifestyle: Optional[str] = field(
         default=None,
         metadata={
-            "name": "primaryLifestyle",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    secondary_lifestyle: Optional[str] = field(
+    secondaryLifestyle: Optional[str] = field(
         default=None,
         metadata={
-            "name": "secondaryLifestyle",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
@@ -143,17 +136,16 @@ class ScheduleEventType:
             "type": "Attribute",
         }
     )
-    guide_day_attribute: Optional[XmlDate] = field(
+    guideDayAttribute: Optional[XmlDate] = field(
         default=None,
         metadata={
             "name": "guideDay",
             "type": "Attribute",
         }
     )
-    mid_ref: Optional[str] = field(
+    midRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "midRef",
             "type": "Attribute",
             "required": True,
             "min_length": 4,
@@ -161,10 +153,9 @@ class ScheduleEventType:
             "pattern": r"[ \.a-zA-Z0-9_-]+",
         }
     )
-    urn_ref: Optional[str] = field(
+    urnRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "urnRef",
             "type": "Attribute",
             "required": True,
         }

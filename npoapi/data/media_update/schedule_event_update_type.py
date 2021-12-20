@@ -21,10 +21,9 @@ class ScheduleEventUpdateType:
             "required": True,
         }
     )
-    guide_day: Optional[XmlDate] = field(
+    guideDay: Optional[XmlDate] = field(
         default=None,
         metadata={
-            "name": "guideDay",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }

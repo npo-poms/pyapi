@@ -11,10 +11,9 @@ class TargetGroupsType:
     class Meta:
         name = "targetGroupsType"
 
-    target_group: List[TargetGroupEnum] = field(
+    targetGroup: List[TargetGroupEnum] = field(
         default_factory=list,
         metadata={
-            "name": "targetGroup",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }

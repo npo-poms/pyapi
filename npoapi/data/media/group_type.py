@@ -11,7 +11,7 @@ class GroupType(BaseMediaType):
     class Meta:
         name = "groupType"
 
-    po_series_id: Optional[str] = field(
+    poSeriesId: Optional[str] = field(
         default=None,
         metadata={
             "name": "poSeriesID",
@@ -19,10 +19,9 @@ class GroupType(BaseMediaType):
             "namespace": "urn:vpro:media:2009",
         }
     )
-    is_ordered: Optional[bool] = field(
+    isOrdered: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "isOrdered",
             "type": "Attribute",
             "required": True,
         }
@@ -34,10 +33,9 @@ class GroupType(BaseMediaType):
             "required": True,
         }
     )
-    default_element: Optional[int] = field(
+    defaultElement: Optional[int] = field(
         default=None,
         metadata={
-            "name": "defaultElement",
             "type": "Attribute",
         }
     )

@@ -20,10 +20,9 @@ class SegmentUpdateType(MediaUpdateType):
             "required": True,
         }
     )
-    mid_ref: Optional[str] = field(
+    midRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "midRef",
             "type": "Attribute",
         }
     )

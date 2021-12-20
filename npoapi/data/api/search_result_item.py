@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from .hightlight_type import HightlightType
+from .highlight_type import HighlightType
 
 __NAMESPACE__ = "urn:vpro:api:2013"
 
@@ -17,7 +17,7 @@ class SearchResultItem:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    highlight: List[HightlightType] = field(
+    highlight: List[HighlightType] = field(
         default_factory=list,
         metadata={
             "type": "Element",

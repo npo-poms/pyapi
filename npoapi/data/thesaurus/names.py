@@ -9,18 +9,16 @@ class Names:
     class Meta:
         name = "names"
 
-    family_name: Optional[str] = field(
+    familyName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "familyName",
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
         }
     )
-    given_name: Optional[str] = field(
+    givenName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "givenName",
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
         }

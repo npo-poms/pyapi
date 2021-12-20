@@ -67,23 +67,23 @@ class BaseMediaType:
     :ivar genre:
     :ivar tag:
     :ivar intentions:
-    :ivar target_groups:
-    :ivar geo_locations:
+    :ivar targetGroups:
+    :ivar geoLocations:
     :ivar topics:
     :ivar source:
     :ivar country:
     :ivar language:
-    :ivar is_dubbed:
-    :ivar available_subtitles:
-    :ivar av_attributes:
-    :ivar release_year:
+    :ivar isDubbed:
+    :ivar availableSubtitles:
+    :ivar avAttributes:
+    :ivar releaseYear:
     :ivar duration:
     :ivar credits:
     :ivar award:
-    :ivar descendant_of:
-    :ivar member_of:
-    :ivar age_rating:
-    :ivar content_rating:
+    :ivar descendantOf:
+    :ivar memberOf:
+    :ivar ageRating:
+    :ivar contentRating:
     :ivar email:
     :ivar website:
     :ivar twitter:
@@ -93,18 +93,18 @@ class BaseMediaType:
     :ivar relation:
     :ivar images:
     :ivar mid:
-    :ivar av_type:
-    :ivar sort_date:
+    :ivar avType:
+    :ivar sortDate:
     :ivar embeddable:
-    :ivar has_subtitles:
+    :ivar hasSubtitles:
     :ivar urn:
-    :ivar publish_start:
-    :ivar publish_stop:
-    :ivar publish_date:
-    :ivar creation_date:
-    :ivar last_modified:
+    :ivar publishStart:
+    :ivar publishStop:
+    :ivar publishDate:
+    :ivar creationDate:
+    :ivar lastModified:
     :ivar workflow:
-    :ivar merged_to:
+    :ivar mergedTo:
     """
     class Meta:
         name = "baseMediaType"
@@ -181,18 +181,16 @@ class BaseMediaType:
             "namespace": "urn:vpro:media:2009",
         }
     )
-    target_groups: List[TargetGroupsType] = field(
+    targetGroups: List[TargetGroupsType] = field(
         default_factory=list,
         metadata={
-            "name": "targetGroups",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    geo_locations: List[GeoLocationsType] = field(
+    geoLocations: List[GeoLocationsType] = field(
         default_factory=list,
         metadata={
-            "name": "geoLocations",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
@@ -225,34 +223,30 @@ class BaseMediaType:
             "namespace": "urn:vpro:media:2009",
         }
     )
-    is_dubbed: Optional[bool] = field(
+    isDubbed: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "isDubbed",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    available_subtitles: List[AvailableSubtitleType] = field(
+    availableSubtitles: List[AvailableSubtitleType] = field(
         default_factory=list,
         metadata={
-            "name": "availableSubtitles",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    av_attributes: Optional[AvAttributesType] = field(
+    avAttributes: Optional[AvAttributesType] = field(
         default=None,
         metadata={
-            "name": "avAttributes",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    release_year: Optional[int] = field(
+    releaseYear: Optional[int] = field(
         default=None,
         metadata={
-            "name": "releaseYear",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
@@ -278,34 +272,30 @@ class BaseMediaType:
             "namespace": "urn:vpro:media:2009",
         }
     )
-    descendant_of: List[DescendantRefType] = field(
+    descendantOf: List[DescendantRefType] = field(
         default_factory=list,
         metadata={
-            "name": "descendantOf",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    member_of: List[MemberRefType] = field(
+    memberOf: List[MemberRefType] = field(
         default_factory=list,
         metadata={
-            "name": "memberOf",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    age_rating: Optional[AgeRatingType] = field(
+    ageRating: Optional[AgeRatingType] = field(
         default=None,
         metadata={
-            "name": "ageRating",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    content_rating: List[ContentRatingType] = field(
+    contentRating: List[ContentRatingType] = field(
         default_factory=list,
         metadata={
-            "name": "contentRating",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
@@ -377,18 +367,16 @@ class BaseMediaType:
             "pattern": r"[ \.a-zA-Z0-9_-]+",
         }
     )
-    av_type: Optional[AvTypeEnum] = field(
+    avType: Optional[AvTypeEnum] = field(
         default=None,
         metadata={
-            "name": "avType",
             "type": "Attribute",
             "required": True,
         }
     )
-    sort_date: Optional[XmlDateTime] = field(
+    sortDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "sortDate",
             "type": "Attribute",
         }
     )
@@ -398,10 +386,9 @@ class BaseMediaType:
             "type": "Attribute",
         }
     )
-    has_subtitles: bool = field(
+    hasSubtitles: bool = field(
         default=False,
         metadata={
-            "name": "hasSubtitles",
             "type": "Attribute",
         }
     )
@@ -411,38 +398,33 @@ class BaseMediaType:
             "type": "Attribute",
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Attribute",
         }
     )
-    publish_date: Optional[XmlDateTime] = field(
+    publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishDate",
             "type": "Attribute",
         }
     )
-    creation_date: Optional[XmlDateTime] = field(
+    creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "creationDate",
             "type": "Attribute",
         }
     )
-    last_modified: Optional[XmlDateTime] = field(
+    lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastModified",
             "type": "Attribute",
         }
     )
@@ -452,10 +434,9 @@ class BaseMediaType:
             "type": "Attribute",
         }
     )
-    merged_to: Optional[str] = field(
+    mergedTo: Optional[str] = field(
         default=None,
         metadata={
-            "name": "mergedTo",
             "type": "Attribute",
             "min_length": 4,
             "max_length": 255,

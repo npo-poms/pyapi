@@ -15,10 +15,9 @@ class PagesFacetsType:
     class Meta:
         name = "pagesFacetsType"
 
-    sort_dates: Optional[DateRangeFacetsType] = field(
+    sortDates: Optional[DateRangeFacetsType] = field(
         default=None,
         metadata={
-            "name": "sortDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

@@ -25,39 +25,39 @@ class MediaFormType:
     :ivar text:
     :ivar title:
     :ivar type:
-    :ivar release_year:
+    :ivar releaseYear:
     :ivar relation:
-    :ivar no_broadcast:
-    :ivar schedule_events_count:
-    :ivar has_locations: Whether it should only return media object which does have location. Note that the same
+    :ivar noBroadcast:
+    :ivar scheduleEventsCount:
+    :ivar hasLocations: Whether it should only return media object which does have location. Note that the same
         can be accomplished with 'locationsCount', and this element is considered deprecated.
-    :ivar locations_count: Constraint the number of locations.
-    :ivar no_playlist: Whether it should only return media object which are not a a member of any other object.
+    :ivar locationsCount: Constraint the number of locations.
+    :ivar noPlaylist: Whether it should only return media object which are not a a member of any other object.
         Note that the same can be accomplished with 'memberOfCount', and this element is considered deprecated.
-    :ivar member_of_count:
-    :ivar sort_range:
-    :ivar event_range:
-    :ivar schedule_event_range:
+    :ivar memberOfCount:
+    :ivar sortRange:
+    :ivar eventRange:
+    :ivar scheduleEventRange:
     :ivar channel:
     :ivar net:
-    :ivar created_by:
-    :ivar creation_range:
-    :ivar last_modified_by:
-    :ivar last_modified_range:
-    :ivar last_published_range:
+    :ivar createdBy:
+    :ivar creationRange:
+    :ivar lastModifiedBy:
+    :ivar lastModifiedRange:
+    :ivar lastPublishedRange:
     :ivar tag:
-    :ivar av_type:
-    :ivar not_an_episode:
-    :ivar episode_of_count:
-    :ivar no_members:
-    :ivar no_credits:
-    :ivar images_without_credits_count:
-    :ivar images_count:
-    :ivar find_deleted:
-    :ivar excluded_mid:
+    :ivar avType:
+    :ivar notAnEpisode:
+    :ivar episodeOfCount:
+    :ivar noMembers:
+    :ivar noCredits:
+    :ivar imagesWithoutCreditsCount:
+    :ivar imagesCount:
+    :ivar findDeleted:
+    :ivar excludedMid:
     :ivar ids:
-    :ivar descendant_of:
-    :ivar streaming_platform_status:
+    :ivar descendantOf:
+    :ivar streamingPlatformStatus:
     """
     class Meta:
         name = "mediaFormType"
@@ -113,10 +113,9 @@ class MediaFormType:
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    release_year: Optional[int] = field(
+    releaseYear: Optional[int] = field(
         default=None,
         metadata={
-            "name": "releaseYear",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -128,74 +127,65 @@ class MediaFormType:
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    no_broadcast: Optional[bool] = field(
+    noBroadcast: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "noBroadcast",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    schedule_events_count: Optional[IntegerRangeType] = field(
+    scheduleEventsCount: Optional[IntegerRangeType] = field(
         default=None,
         metadata={
-            "name": "scheduleEventsCount",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    has_locations: Optional[bool] = field(
+    hasLocations: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "hasLocations",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    locations_count: Optional[IntegerRangeType] = field(
+    locationsCount: Optional[IntegerRangeType] = field(
         default=None,
         metadata={
-            "name": "locationsCount",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    no_playlist: Optional[bool] = field(
+    noPlaylist: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "noPlaylist",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    member_of_count: Optional[IntegerRangeType] = field(
+    memberOfCount: Optional[IntegerRangeType] = field(
         default=None,
         metadata={
-            "name": "memberOfCount",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    sort_range: Optional[DateRangeType] = field(
+    sortRange: Optional[DateRangeType] = field(
         default=None,
         metadata={
-            "name": "sortRange",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    event_range: Optional[DateRangeType] = field(
+    eventRange: Optional[DateRangeType] = field(
         default=None,
         metadata={
-            "name": "eventRange",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    schedule_event_range: Optional[DateRangeType] = field(
+    scheduleEventRange: Optional[DateRangeType] = field(
         default=None,
         metadata={
-            "name": "scheduleEventRange",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -214,42 +204,37 @@ class MediaFormType:
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    created_by: Optional[EditorSearch] = field(
+    createdBy: Optional[EditorSearch] = field(
         default=None,
         metadata={
-            "name": "createdBy",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    creation_range: Optional[DateRangeType] = field(
+    creationRange: Optional[DateRangeType] = field(
         default=None,
         metadata={
-            "name": "creationRange",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    last_modified_by: Optional[EditorSearch] = field(
+    lastModifiedBy: Optional[EditorSearch] = field(
         default=None,
         metadata={
-            "name": "lastModifiedBy",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    last_modified_range: Optional[DateRangeType] = field(
+    lastModifiedRange: Optional[DateRangeType] = field(
         default=None,
         metadata={
-            "name": "lastModifiedRange",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    last_published_range: Optional[DateRangeType] = field(
+    lastPublishedRange: Optional[DateRangeType] = field(
         default=None,
         metadata={
-            "name": "lastPublishedRange",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -261,74 +246,65 @@ class MediaFormType:
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    av_type: Optional[AvTypeEnum] = field(
+    avType: Optional[AvTypeEnum] = field(
         default=None,
         metadata={
-            "name": "avType",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    not_an_episode: Optional[bool] = field(
+    notAnEpisode: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "notAnEpisode",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    episode_of_count: Optional[IntegerRangeType] = field(
+    episodeOfCount: Optional[IntegerRangeType] = field(
         default=None,
         metadata={
-            "name": "episodeOfCount",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    no_members: Optional[bool] = field(
+    noMembers: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "noMembers",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    no_credits: Optional[bool] = field(
+    noCredits: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "noCredits",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    images_without_credits_count: Optional[IntegerRangeType] = field(
+    imagesWithoutCreditsCount: Optional[IntegerRangeType] = field(
         default=None,
         metadata={
-            "name": "imagesWithoutCreditsCount",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    images_count: Optional[IntegerRangeType] = field(
+    imagesCount: Optional[IntegerRangeType] = field(
         default=None,
         metadata={
-            "name": "imagesCount",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    find_deleted: Optional[bool] = field(
+    findDeleted: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "findDeleted",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    excluded_mid: List[str] = field(
+    excludedMid: List[str] = field(
         default_factory=list,
         metadata={
-            "name": "excludedMid",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -340,18 +316,16 @@ class MediaFormType:
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    descendant_of: List[str] = field(
+    descendantOf: List[str] = field(
         default_factory=list,
         metadata={
-            "name": "descendantOf",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    streaming_platform_status: List[StreamingStatus] = field(
+    streamingPlatformStatus: List[StreamingStatus] = field(
         default_factory=list,
         metadata={
-            "name": "streamingPlatformStatus",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }

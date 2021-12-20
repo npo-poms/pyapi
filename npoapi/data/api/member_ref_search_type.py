@@ -11,10 +11,9 @@ class MemberRefSearchType:
     class Meta:
         name = "memberRefSearchType"
 
-    media_ids: Optional[TextMatcherListType] = field(
+    mediaIds: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "mediaIds",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

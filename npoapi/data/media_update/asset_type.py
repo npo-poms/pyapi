@@ -12,33 +12,29 @@ class AssetType:
     class Meta:
         name = "assetType"
 
-    asset_data: Optional[AssetDataType] = field(
+    assetData: Optional[AssetDataType] = field(
         default=None,
         metadata={
-            "name": "assetData",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    asset_location: Optional[AssetLocationType] = field(
+    assetLocation: Optional[AssetLocationType] = field(
         default=None,
         metadata={
-            "name": "assetLocation",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Attribute",
         }
     )

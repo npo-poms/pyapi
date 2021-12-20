@@ -72,34 +72,30 @@ class PagesSearchType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    sort_dates: Optional[DateRangeMatcherListType] = field(
+    sortDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
-            "name": "sortDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    last_modified_dates: Optional[DateRangeMatcherListType] = field(
+    lastModifiedDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
-            "name": "lastModifiedDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    creation_dates: Optional[DateRangeMatcherListType] = field(
+    creationDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
-            "name": "creationDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    publish_dates: Optional[DateRangeMatcherListType] = field(
+    publishDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
-            "name": "publishDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

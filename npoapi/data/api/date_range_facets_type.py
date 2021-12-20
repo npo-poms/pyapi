@@ -12,7 +12,7 @@ class DateRangeFacetsType(AbstractFacetType):
     class Meta:
         name = "dateRangeFacetsType"
 
-    interval_or_preset_or_range: List[object] = field(
+    intervalOrPresetOrRange: List[object] = field(
         default_factory=list,
         metadata={
             "type": "Elements",

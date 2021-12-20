@@ -23,17 +23,15 @@ class ExtendedMatcherType:
             "type": "Attribute",
         }
     )
-    match_type: Optional[StandardMatchType] = field(
+    matchType: Optional[StandardMatchType] = field(
         default=None,
         metadata={
-            "name": "matchType",
             "type": "Attribute",
         }
     )
-    case_sensitive: Optional[bool] = field(
+    caseSensitive: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "caseSensitive",
             "type": "Attribute",
         }
     )

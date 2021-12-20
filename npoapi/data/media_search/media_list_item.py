@@ -34,10 +34,9 @@ class MediaListItem(PublishableListItem):
             "required": True,
         }
     )
-    sub_title: Optional[str] = field(
+    subTitle: Optional[str] = field(
         default=None,
         metadata={
-            "name": "subTitle",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -49,44 +48,39 @@ class MediaListItem(PublishableListItem):
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    creation_date: Optional[XmlDateTime] = field(
+    creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "creationDate",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
             "required": True,
         }
     )
-    last_modified: Optional[XmlDateTime] = field(
+    lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastModified",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    created_by: Optional[str] = field(
+    createdBy: Optional[str] = field(
         default=None,
         metadata={
-            "name": "createdBy",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
             "required": True,
         }
     )
-    last_modified_by: Optional[str] = field(
+    lastModifiedBy: Optional[str] = field(
         default=None,
         metadata={
-            "name": "lastModifiedBy",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    sort_date: Optional[XmlDateTime] = field(
+    sortDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "sortDate",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -99,66 +93,58 @@ class MediaListItem(PublishableListItem):
             "required": True,
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    last_published: Optional[XmlDateTime] = field(
+    lastPublished: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastPublished",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    first_schedule_event: Optional[ScheduleEventType] = field(
+    firstScheduleEvent: Optional[ScheduleEventType] = field(
         default=None,
         metadata={
-            "name": "firstScheduleEvent",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    first_schedule_event_no_rerun: Optional[ScheduleEventType] = field(
+    firstScheduleEventNoRerun: Optional[ScheduleEventType] = field(
         default=None,
         metadata={
-            "name": "firstScheduleEventNoRerun",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    last_schedule_event: Optional[ScheduleEventType] = field(
+    lastScheduleEvent: Optional[ScheduleEventType] = field(
         default=None,
         metadata={
-            "name": "lastScheduleEvent",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    last_schedule_event_no_rerun: Optional[ScheduleEventType] = field(
+    lastScheduleEventNoRerun: Optional[ScheduleEventType] = field(
         default=None,
         metadata={
-            "name": "lastScheduleEventNoRerun",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    sort_date_schedule_event: Optional[ScheduleEventType] = field(
+    sortDateScheduleEvent: Optional[ScheduleEventType] = field(
         default=None,
         metadata={
-            "name": "sortDateScheduleEvent",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -171,10 +157,9 @@ class MediaListItem(PublishableListItem):
             "nillable": True,
         }
     )
-    number_of_locations: Optional[int] = field(
+    numberOfLocations: Optional[int] = field(
         default=None,
         metadata={
-            "name": "numberOfLocations",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -193,10 +178,9 @@ class MediaListItem(PublishableListItem):
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    streaming_platform_status: Optional[StreamingStatus] = field(
+    streamingPlatformStatus: Optional[StreamingStatus] = field(
         default=None,
         metadata={
-            "name": "streamingPlatformStatus",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -207,24 +191,21 @@ class MediaListItem(PublishableListItem):
             "type": "Attribute",
         }
     )
-    av_type: Optional[AvTypeEnum] = field(
+    avType: Optional[AvTypeEnum] = field(
         default=None,
         metadata={
-            "name": "avType",
             "type": "Attribute",
         }
     )
-    media_type: Optional[str] = field(
+    mediaType: Optional[str] = field(
         default=None,
         metadata={
-            "name": "mediaType",
             "type": "Attribute",
         }
     )
-    episodes_locked: Optional[bool] = field(
+    episodesLocked: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "episodesLocked",
             "type": "Attribute",
         }
     )

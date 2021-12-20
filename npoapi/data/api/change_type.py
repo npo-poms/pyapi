@@ -18,10 +18,9 @@ class ChangeType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    publish_date: Optional[XmlDateTime] = field(
+    publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishDate",
             "type": "Attribute",
         }
     )
@@ -55,17 +54,15 @@ class ChangeType:
             "type": "Attribute",
         }
     )
-    merged_to: Optional[str] = field(
+    mergedTo: Optional[str] = field(
         default=None,
         metadata={
-            "name": "mergedTo",
             "type": "Attribute",
         }
     )
-    real_publish_date: Optional[XmlDateTime] = field(
+    realPublishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "realPublishDate",
             "type": "Attribute",
         }
     )

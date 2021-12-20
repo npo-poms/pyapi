@@ -33,10 +33,9 @@ class MediaRelationSearchType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    uri_refs: Optional[TextMatcherListType] = field(
+    uriRefs: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
-            "name": "uriRefs",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

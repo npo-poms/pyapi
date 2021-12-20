@@ -10,10 +10,9 @@ class PageRelationSearchListType:
     class Meta:
         name = "pageRelationSearchListType"
 
-    relation_search: List[PageRelationSearchType] = field(
+    relationSearch: List[PageRelationSearchType] = field(
         default_factory=list,
         metadata={
-            "name": "relationSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

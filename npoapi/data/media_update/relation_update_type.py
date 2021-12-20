@@ -32,10 +32,9 @@ class RelationUpdateType:
             "max_length": 255,
         }
     )
-    uri_ref: Optional[str] = field(
+    uriRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "uriRef",
             "type": "Attribute",
         }
     )

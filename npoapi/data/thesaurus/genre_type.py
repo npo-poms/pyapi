@@ -16,18 +16,16 @@ class GenreType:
             "namespace": "urn:vpro:gtaa:2017",
         }
     )
-    scope_note: List[str] = field(
+    scopeNote: List[str] = field(
         default_factory=list,
         metadata={
-            "name": "scopeNote",
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
         }
     )
-    redirected_from: Optional[str] = field(
+    redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
-            "name": "redirectedFrom",
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
         }
@@ -46,10 +44,9 @@ class GenreType:
             "namespace": "urn:vpro:gtaa:2017",
         }
     )
-    last_modified: Optional[str] = field(
+    lastModified: Optional[str] = field(
         default=None,
         metadata={
-            "name": "lastModified",
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
         }

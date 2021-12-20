@@ -11,7 +11,7 @@ class DurationRangeFacetsType(AbstractFacetType):
     class Meta:
         name = "durationRangeFacetsType"
 
-    interval_or_range: List[object] = field(
+    intervalOrRange: List[object] = field(
         default_factory=list,
         metadata={
             "type": "Elements",

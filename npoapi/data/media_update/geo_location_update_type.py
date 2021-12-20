@@ -10,10 +10,9 @@ class GeoLocationUpdateType:
     class Meta:
         name = "geoLocationUpdateType"
 
-    gtaa_uri: Optional[str] = field(
+    gtaaUri: Optional[str] = field(
         default=None,
         metadata={
-            "name": "gtaaUri",
             "type": "Attribute",
         }
     )

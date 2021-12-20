@@ -42,16 +42,16 @@ class MediaUpdateType:
         meta fields of this object. They should be in dutch. Only supported if version &gt;= 5.0.
     :ivar genre:
     :ivar intentions:
-    :ivar target_groups:
-    :ivar geo_locations:
+    :ivar targetGroups:
+    :ivar geoLocations:
     :ivar topics:
-    :ivar av_attributes:
-    :ivar release_year:
+    :ivar avAttributes:
+    :ivar releaseYear:
     :ivar duration:
     :ivar credits:
-    :ivar member_of:
-    :ivar age_rating:
-    :ivar content_rating:
+    :ivar memberOf:
+    :ivar ageRating:
+    :ivar contentRating:
     :ivar email:
     :ivar website:
     :ivar twitterref: Only supported if version &gt;= 5.10.
@@ -60,15 +60,15 @@ class MediaUpdateType:
         platform, then there will be no associated location for that certain platform. If the streaming platform
         status changes, then according to these 'prediction' records the locations will be changed.
     :ivar locations:
-    :ivar schedule_events: Please note that this is only available for program upates (since 5.11)
+    :ivar scheduleEvents: Please note that this is only available for program upates (since 5.11)
     :ivar relation:
     :ivar images:
     :ivar asset:
-    :ivar av_type:
+    :ivar avType:
     :ivar deleted:
     :ivar embeddable:
-    :ivar publish_start:
-    :ivar publish_stop:
+    :ivar publishStart:
+    :ivar publishStop:
     :ivar mid:
     :ivar urn:
     :ivar ordered:
@@ -170,18 +170,16 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    target_groups: Optional["MediaUpdateType.TargetGroups"] = field(
+    targetGroups: Optional["MediaUpdateType.TargetGroups"] = field(
         default=None,
         metadata={
-            "name": "targetGroups",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    geo_locations: Optional[GeoLocationsUpdateType] = field(
+    geoLocations: Optional[GeoLocationsUpdateType] = field(
         default=None,
         metadata={
-            "name": "geoLocations",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
@@ -193,18 +191,16 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    av_attributes: Optional[AvAtributeUpdateType] = field(
+    avAttributes: Optional[AvAtributeUpdateType] = field(
         default=None,
         metadata={
-            "name": "avAttributes",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    release_year: Optional[int] = field(
+    releaseYear: Optional[int] = field(
         default=None,
         metadata={
-            "name": "releaseYear",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
@@ -223,26 +219,23 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    member_of: List[MemberRefUpdateType] = field(
+    memberOf: List[MemberRefUpdateType] = field(
         default_factory=list,
         metadata={
-            "name": "memberOf",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    age_rating: Optional[AgeRatingType] = field(
+    ageRating: Optional[AgeRatingType] = field(
         default=None,
         metadata={
-            "name": "ageRating",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    content_rating: List[ContentRatingType] = field(
+    contentRating: List[ContentRatingType] = field(
         default_factory=list,
         metadata={
-            "name": "contentRating",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
@@ -289,10 +282,9 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    schedule_events: Optional["MediaUpdateType.ScheduleEvents"] = field(
+    scheduleEvents: Optional["MediaUpdateType.ScheduleEvents"] = field(
         default=None,
         metadata={
-            "name": "scheduleEvents",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
@@ -318,10 +310,9 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    av_type: Optional[AvTypeEnum] = field(
+    avType: Optional[AvTypeEnum] = field(
         default=None,
         metadata={
-            "name": "avType",
             "type": "Attribute",
             "required": True,
         }
@@ -338,17 +329,15 @@ class MediaUpdateType:
             "type": "Attribute",
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Attribute",
         }
     )
@@ -393,10 +382,9 @@ class MediaUpdateType:
 
     @dataclass
     class TargetGroups:
-        target_group: List[TargetGroupEnum] = field(
+        targetGroup: List[TargetGroupEnum] = field(
             default_factory=list,
             metadata={
-                "name": "targetGroup",
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
             }
@@ -414,10 +402,9 @@ class MediaUpdateType:
 
     @dataclass
     class ScheduleEvents:
-        schedule_event: List[ScheduleEventUpdateType] = field(
+        scheduleEvent: List[ScheduleEventUpdateType] = field(
             default_factory=list,
             metadata={
-                "name": "scheduleEvent",
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
             }

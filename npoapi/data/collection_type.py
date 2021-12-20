@@ -7,7 +7,7 @@ class CollectionType:
     class Meta:
         name = "collectionType"
 
-    other_element: List[object] = field(
+    otherElement: List[object] = field(
         default_factory=list,
         metadata={
             "type": "Wildcard",

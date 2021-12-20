@@ -11,18 +11,16 @@ class ProfileType:
     class Meta:
         name = "profileType"
 
-    page_profile: Optional[ProfileDefinitionType] = field(
+    pageProfile: Optional[ProfileDefinitionType] = field(
         default=None,
         metadata={
-            "name": "pageProfile",
             "type": "Element",
             "namespace": "urn:vpro:api:profile:2013",
         }
     )
-    media_profile: Optional[ProfileDefinitionType] = field(
+    mediaProfile: Optional[ProfileDefinitionType] = field(
         default=None,
         metadata={
-            "name": "mediaProfile",
             "type": "Element",
             "namespace": "urn:vpro:api:profile:2013",
         }

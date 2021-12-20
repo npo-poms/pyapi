@@ -11,10 +11,9 @@ class MemberRefFacetType(MediaFacetType):
     class Meta:
         name = "memberRefFacetType"
 
-    sub_search: Optional[MemberRefSearchType] = field(
+    subSearch: Optional[MemberRefSearchType] = field(
         default=None,
         metadata={
-            "name": "subSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

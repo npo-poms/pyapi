@@ -18,25 +18,22 @@ class TopicType:
             "required": True,
         }
     )
-    scope_note: List[str] = field(
+    scopeNote: List[str] = field(
         default_factory=list,
         metadata={
-            "name": "scopeNote",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    gtaa_uri: Optional[str] = field(
+    gtaaUri: Optional[str] = field(
         default=None,
         metadata={
-            "name": "gtaaUri",
             "type": "Attribute",
         }
     )
-    gtaa_status: Optional[GtaaStatusType] = field(
+    gtaaStatus: Optional[GtaaStatusType] = field(
         default=None,
         metadata={
-            "name": "gtaaStatus",
             "type": "Attribute",
         }
     )

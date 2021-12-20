@@ -11,10 +11,9 @@ class MediaRelationFacetType(ExtendedMediaFacetType):
     class Meta:
         name = "mediaRelationFacetType"
 
-    sub_search: Optional[MediaRelationSearchType] = field(
+    subSearch: Optional[MediaRelationSearchType] = field(
         default=None,
         metadata={
-            "name": "subSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

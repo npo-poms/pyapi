@@ -13,7 +13,7 @@ class SimpleMatcherType:
     :ivar fuzziness:
     :ivar semantic: Whether the search must happen via the semantic vectorization. This is beta feature, which
         may not be enabled.
-    :ivar match_type:
+    :ivar matchType:
     :ivar match:
     """
     class Meta:
@@ -37,10 +37,9 @@ class SimpleMatcherType:
             "type": "Attribute",
         }
     )
-    match_type: Optional[SimpleMatchType] = field(
+    matchType: Optional[SimpleMatchType] = field(
         default=None,
         metadata={
-            "name": "matchType",
             "type": "Attribute",
         }
     )

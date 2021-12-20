@@ -32,19 +32,17 @@ class MediaFacetsResultType:
             "nillable": True,
         }
     )
-    av_types: List[TermFacetResultItemType] = field(
+    avTypes: List[TermFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "avTypes",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
         }
     )
-    sort_dates: List[DateFacetResultItemType] = field(
+    sortDates: List[DateFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "sortDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
@@ -66,10 +64,9 @@ class MediaFacetsResultType:
             "nillable": True,
         }
     )
-    geo_locations: List[MediaGeoLocationFacetResultItemType] = field(
+    geoLocations: List[MediaGeoLocationFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "geoLocations",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
@@ -91,28 +88,25 @@ class MediaFacetsResultType:
             "nillable": True,
         }
     )
-    descendant_of: List[MemberRefFacetResultItemType] = field(
+    descendantOf: List[MemberRefFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "descendantOf",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
         }
     )
-    episode_of: List[MemberRefFacetResultItemType] = field(
+    episodeOf: List[MemberRefFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "episodeOf",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
         }
     )
-    member_of: List[MemberRefFacetResultItemType] = field(
+    memberOf: List[MemberRefFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "memberOf",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
@@ -126,19 +120,17 @@ class MediaFacetsResultType:
             "nillable": True,
         }
     )
-    age_ratings: List[TermFacetResultItemType] = field(
+    ageRatings: List[TermFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "ageRatings",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
         }
     )
-    content_ratings: List[TermFacetResultItemType] = field(
+    contentRatings: List[TermFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "contentRatings",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,

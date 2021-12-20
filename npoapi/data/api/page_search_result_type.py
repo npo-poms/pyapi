@@ -19,26 +19,23 @@ class PageSearchResultType(SearchResultType):
             "namespace": "urn:vpro:api:2013",
         }
     )
-    selected_facets: Optional[PageFacetsResultType] = field(
+    selectedFacets: Optional[PageFacetsResultType] = field(
         default=None,
         metadata={
-            "name": "selectedFacets",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    media_facets: Optional[MediaFacetsResultType] = field(
+    mediaFacets: Optional[MediaFacetsResultType] = field(
         default=None,
         metadata={
-            "name": "mediaFacets",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
     )
-    media_selected_facets: Optional[MediaFacetsResultType] = field(
+    mediaSelectedFacets: Optional[MediaFacetsResultType] = field(
         default=None,
         metadata={
-            "name": "mediaSelectedFacets",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

@@ -17,10 +17,9 @@ class LinkType:
             "namespace": "urn:vpro:pages:2013",
         }
     )
-    page_ref: Optional[str] = field(
+    pageRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "pageRef",
             "type": "Attribute",
         }
     )

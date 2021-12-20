@@ -10,34 +10,30 @@ class RecursiveMemberRef:
     class Meta:
         name = "recursiveMemberRef"
 
-    member_of: List["RecursiveMemberRef"] = field(
+    memberOf: List["RecursiveMemberRef"] = field(
         default_factory=list,
         metadata={
-            "name": "memberOf",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    episode_of: List["RecursiveMemberRef"] = field(
+    episodeOf: List["RecursiveMemberRef"] = field(
         default_factory=list,
         metadata={
-            "name": "episodeOf",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    segment_of: Optional["RecursiveMemberRef"] = field(
+    segmentOf: Optional["RecursiveMemberRef"] = field(
         default=None,
         metadata={
-            "name": "segmentOf",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    mid_ref: Optional[str] = field(
+    midRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "midRef",
             "type": "Attribute",
         }
     )

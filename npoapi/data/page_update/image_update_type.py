@@ -33,10 +33,9 @@ class ImageUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         }
     )
-    source_name: Optional[str] = field(
+    sourceName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "sourceName",
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
         }
@@ -55,10 +54,9 @@ class ImageUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         }
     )
-    image_location: Optional[ImageLocationType] = field(
+    imageLocation: Optional[ImageLocationType] = field(
         default=None,
         metadata={
-            "name": "imageLocation",
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
         }

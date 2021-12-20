@@ -18,10 +18,9 @@ class GeoRestrictionType:
             "required": True,
         }
     )
-    region_id: Optional[GeoRestrictionEnum] = field(
+    regionId: Optional[GeoRestrictionEnum] = field(
         default=None,
         metadata={
-            "name": "regionId",
             "type": "Attribute",
         }
     )

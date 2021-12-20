@@ -13,10 +13,9 @@ class SegmentType(BaseMediaType):
     class Meta:
         name = "segmentType"
 
-    segment_of: Optional[RecursiveMemberRef] = field(
+    segmentOf: Optional[RecursiveMemberRef] = field(
         default=None,
         metadata={
-            "name": "segmentOf",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
@@ -29,10 +28,9 @@ class SegmentType(BaseMediaType):
             "required": True,
         }
     )
-    mid_ref: Optional[str] = field(
+    midRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "midRef",
             "type": "Attribute",
             "required": True,
             "min_length": 4,
@@ -40,10 +38,9 @@ class SegmentType(BaseMediaType):
             "pattern": r"[ \.a-zA-Z0-9_-]+",
         }
     )
-    urn_ref: Optional[str] = field(
+    urnRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "urnRef",
             "type": "Attribute",
             "required": True,
         }

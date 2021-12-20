@@ -29,10 +29,9 @@ class ImageType:
             "namespace": "urn:vpro:shared:2009",
         }
     )
-    image_uri: Optional[str] = field(
+    imageUri: Optional[str] = field(
         default=None,
         metadata={
-            "name": "imageUri",
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
         }
@@ -72,10 +71,9 @@ class ImageType:
             "namespace": "urn:vpro:shared:2009",
         }
     )
-    source_name: Optional[str] = field(
+    sourceName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "sourceName",
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
         }
@@ -126,38 +124,33 @@ class ImageType:
             "type": "Attribute",
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Attribute",
         }
     )
-    publish_date: Optional[XmlDateTime] = field(
+    publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishDate",
             "type": "Attribute",
         }
     )
-    creation_date: Optional[XmlDateTime] = field(
+    creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "creationDate",
             "type": "Attribute",
         }
     )
-    last_modified: Optional[XmlDateTime] = field(
+    lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastModified",
             "type": "Attribute",
         }
     )

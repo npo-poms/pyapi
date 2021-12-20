@@ -20,10 +20,9 @@ class PageRelationFacetListType(AbstractFacetType):
             "namespace": "urn:vpro:api:2013",
         }
     )
-    sub_search: Optional[PageRelationSearchType] = field(
+    subSearch: Optional[PageRelationSearchType] = field(
         default=None,
         metadata={
-            "name": "subSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

@@ -11,10 +11,9 @@ class TranscodeStatusType:
     class Meta:
         name = "transcodeStatusType"
 
-    file_name: Optional[str] = field(
+    fileName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "fileName",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
@@ -26,50 +25,44 @@ class TranscodeStatusType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    status_message: Optional[str] = field(
+    statusMessage: Optional[str] = field(
         default=None,
         metadata={
-            "name": "statusMessage",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    workflow_type: Optional[str] = field(
+    workflowType: Optional[str] = field(
         default=None,
         metadata={
-            "name": "workflowType",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    workflow_id: Optional[str] = field(
+    workflowId: Optional[str] = field(
         default=None,
         metadata={
-            "name": "workflowId",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    start_time: Optional[XmlDateTime] = field(
+    startTime: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "startTime",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    update_time: Optional[XmlDateTime] = field(
+    updateTime: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "updateTime",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    end_time: Optional[XmlDateTime] = field(
+    endTime: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "endTime",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
@@ -87,10 +80,9 @@ class TranscodeStatusType:
             "type": "Attribute",
         }
     )
-    missing_media: Optional[bool] = field(
+    missingMedia: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "missingMedia",
             "type": "Attribute",
         }
     )

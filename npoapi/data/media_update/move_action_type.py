@@ -9,7 +9,7 @@ class MoveActionType:
     class Meta:
         name = "moveActionType"
 
-    from_value: Optional[int] = field(
+    fromValue: Optional[int] = field(
         default=None,
         metadata={
             "name": "from",

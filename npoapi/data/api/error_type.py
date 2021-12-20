@@ -16,7 +16,7 @@ class ErrorType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    class_value: List[str] = field(
+    classValue: List[str] = field(
         default_factory=list,
         metadata={
             "name": "class",
@@ -31,17 +31,16 @@ class ErrorType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    other_element: List[object] = field(
+    otherElement: List[object] = field(
         default_factory=list,
         metadata={
             "type": "Wildcard",
             "namespace": "##other",
         }
     )
-    test_result: Optional[object] = field(
+    testResult: Optional[object] = field(
         default=None,
         metadata={
-            "name": "testResult",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

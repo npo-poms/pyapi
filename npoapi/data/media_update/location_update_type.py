@@ -11,19 +11,17 @@ class LocationUpdateType:
     class Meta:
         name = "locationUpdateType"
 
-    program_url: Optional[str] = field(
+    programUrl: Optional[str] = field(
         default=None,
         metadata={
-            "name": "programUrl",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
         }
     )
-    av_attributes: Optional[AvAtributeUpdateType] = field(
+    avAttributes: Optional[AvAtributeUpdateType] = field(
         default=None,
         metadata={
-            "name": "avAttributes",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
@@ -43,17 +41,15 @@ class LocationUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Attribute",
         }
     )

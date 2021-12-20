@@ -11,10 +11,9 @@ class PageSearchableTermFacetType(PageFacetType):
     class Meta:
         name = "pageSearchableTermFacetType"
 
-    sub_search: Optional[TermSearchType] = field(
+    subSearch: Optional[TermSearchType] = field(
         default=None,
         metadata={
-            "name": "subSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

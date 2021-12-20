@@ -10,8 +10,8 @@ __NAMESPACE__ = "urn:vpro:media:2009"
 class VideoAttributesType:
     """
     :ivar color:
-    :ivar video_coding:
-    :ivar aspect_ratio:
+    :ivar videoCoding:
+    :ivar aspectRatio:
     :ivar height:
     :ivar heigth: This obviously is a typo.
     :ivar width:
@@ -26,18 +26,16 @@ class VideoAttributesType:
             "namespace": "urn:vpro:media:2009",
         }
     )
-    video_coding: Optional[str] = field(
+    videoCoding: Optional[str] = field(
         default=None,
         metadata={
-            "name": "videoCoding",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    aspect_ratio: Optional[AspectRatioEnum] = field(
+    aspectRatio: Optional[AspectRatioEnum] = field(
         default=None,
         metadata={
-            "name": "aspectRatio",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }

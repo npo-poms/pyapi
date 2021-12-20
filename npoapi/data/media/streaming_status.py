@@ -11,17 +11,15 @@ class StreamingStatus:
         name = "streamingStatus"
         namespace = "urn:vpro:media:2009"
 
-    with_drm: Optional[StreamingStatusValue] = field(
+    withDrm: Optional[StreamingStatusValue] = field(
         default=None,
         metadata={
-            "name": "withDrm",
             "type": "Attribute",
         }
     )
-    without_drm: Optional[StreamingStatusValue] = field(
+    withoutDrm: Optional[StreamingStatusValue] = field(
         default=None,
         metadata={
-            "name": "withoutDrm",
             "type": "Attribute",
         }
     )

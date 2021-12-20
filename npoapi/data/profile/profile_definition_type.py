@@ -19,7 +19,7 @@ class ProfileDefinitionType:
             "namespace": "urn:vpro:api:constraint:media:2013",
         }
     )
-    vpro_api_constraint_page_2013_filter: Optional[FilterFilter] = field(
+    vproApiConstraintPage2013Filter: Optional[FilterFilter] = field(
         default=None,
         metadata={
             "name": "filter",

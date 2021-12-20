@@ -11,7 +11,7 @@ class ListType:
         name = "list"
         namespace = "urn:vpro:media:update:2009"
 
-    any_element: Optional[object] = field(
+    anyElement: Optional[object] = field(
         default=None,
         metadata={
             "type": "Wildcard",
@@ -24,10 +24,9 @@ class ListType:
             "type": "Attribute",
         }
     )
-    total_count: Optional[int] = field(
+    totalCount: Optional[int] = field(
         default=None,
         metadata={
-            "name": "totalCount",
             "type": "Attribute",
         }
     )

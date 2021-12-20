@@ -11,10 +11,9 @@ class VideoAttributesUpdateType:
     class Meta:
         name = "videoAttributesUpdateType"
 
-    aspect_ratio: Optional[AspectRatioEnum] = field(
+    aspectRatio: Optional[AspectRatioEnum] = field(
         default=None,
         metadata={
-            "name": "aspectRatio",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }

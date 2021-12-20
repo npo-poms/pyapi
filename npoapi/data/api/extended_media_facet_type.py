@@ -18,10 +18,9 @@ class ExtendedMediaFacetType(TextFacetType):
             "namespace": "urn:vpro:api:2013",
         }
     )
-    case_sensitive: Optional[bool] = field(
+    caseSensitive: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "caseSensitive",
             "type": "Attribute",
         }
     )

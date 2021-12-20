@@ -12,10 +12,9 @@ class ScheduleType:
     class Meta:
         name = "scheduleType"
 
-    schedule_event: List[ScheduleEventType] = field(
+    scheduleEvent: List[ScheduleEventType] = field(
         default_factory=list,
         metadata={
-            "name": "scheduleEvent",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "min_occurs": 1,
@@ -39,10 +38,9 @@ class ScheduleType:
             "type": "Attribute",
         }
     )
-    release_version: Optional[int] = field(
+    releaseVersion: Optional[int] = field(
         default=None,
         metadata={
-            "name": "releaseVersion",
             "type": "Attribute",
         }
     )

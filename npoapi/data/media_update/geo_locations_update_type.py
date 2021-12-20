@@ -10,10 +10,9 @@ class GeoLocationsUpdateType:
     class Meta:
         name = "geoLocationsUpdateType"
 
-    geo_location: List[GeoLocationUpdateType] = field(
+    geoLocation: List[GeoLocationUpdateType] = field(
         default_factory=list,
         metadata={
-            "name": "geoLocation",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }

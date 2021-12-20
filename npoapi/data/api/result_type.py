@@ -23,10 +23,9 @@ class ResultType:
             "type": "Attribute",
         }
     )
-    total_qualifier: Optional[TotalQualifier] = field(
+    totalQualifier: Optional[TotalQualifier] = field(
         default=None,
         metadata={
-            "name": "totalQualifier",
             "type": "Attribute",
         }
     )

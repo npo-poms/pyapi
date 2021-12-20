@@ -12,27 +12,25 @@ __NAMESPACE__ = "urn:vpro:media:2009"
 @dataclass
 class ProgramType(BaseMediaType):
     """
-    :ivar schedule_events:
-    :ivar episode_of: A program (only if its type is 'BROADCAST') can be an episode of a group of type 'SERIES'
-        or 'SEASON'.
+    :ivar scheduleEvents:
+    :ivar episodeOf: A program (only if its type is 'BROADCAST') can be an episode of a group of type 'SERIES' or
+        'SEASON'.
     :ivar segments:
     :ivar type: The type of this program (e.g. BROADCAST, TRACK, CLIP)
     """
     class Meta:
         name = "programType"
 
-    schedule_events: Optional[ScheduleEventsType] = field(
+    scheduleEvents: Optional[ScheduleEventsType] = field(
         default=None,
         metadata={
-            "name": "scheduleEvents",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    episode_of: List[MemberRefType] = field(
+    episodeOf: List[MemberRefType] = field(
         default_factory=list,
         metadata={
-            "name": "episodeOf",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }

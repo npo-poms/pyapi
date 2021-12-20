@@ -7,17 +7,16 @@ __NAMESPACE__ = "urn:vpro:media:update:2009"
 @dataclass
 class ImageLocationType:
     """
-    :ivar mime_type: Sometimes it may be usefull to explicitely specify the mimetype of the given location. (E.g.
+    :ivar mimeType: Sometimes it may be usefull to explicitely specify the mimetype of the given location. (E.g.
         if there are no or no correct http content type headers).
     :ivar url:
     """
     class Meta:
         name = "imageLocationType"
 
-    mime_type: Optional[str] = field(
+    mimeType: Optional[str] = field(
         default=None,
         metadata={
-            "name": "mimeType",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }

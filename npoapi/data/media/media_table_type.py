@@ -12,37 +12,34 @@ __NAMESPACE__ = "urn:vpro:media:2009"
 @dataclass
 class MediaTableType:
     """
-    :ivar program_table: A table with all program objects in this container
-    :ivar group_table: A table with all group objects in this container
-    :ivar location_table:
+    :ivar programTable: A table with all program objects in this container
+    :ivar groupTable: A table with all group objects in this container
+    :ivar locationTable:
     :ivar schedule: A table with all schedule information in this container
     :ivar publisher:
-    :ivar publication_time:
+    :ivar publicationTime:
     :ivar version:
     """
     class Meta:
         name = "mediaTableType"
 
-    program_table: Optional[ProgramTableType] = field(
+    programTable: Optional[ProgramTableType] = field(
         default=None,
         metadata={
-            "name": "programTable",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    group_table: Optional[GroupTableType] = field(
+    groupTable: Optional[GroupTableType] = field(
         default=None,
         metadata={
-            "name": "groupTable",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
     )
-    location_table: Optional[LocationTableType] = field(
+    locationTable: Optional[LocationTableType] = field(
         default=None,
         metadata={
-            "name": "locationTable",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
         }
@@ -60,10 +57,9 @@ class MediaTableType:
             "type": "Attribute",
         }
     )
-    publication_time: Optional[XmlDateTime] = field(
+    publicationTime: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publicationTime",
             "type": "Attribute",
         }
     )

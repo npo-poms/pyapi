@@ -17,10 +17,9 @@ class TextMatcherType:
             "required": True,
         }
     )
-    match_type: Optional[StandardMatchType] = field(
+    matchType: Optional[StandardMatchType] = field(
         default=None,
         metadata={
-            "name": "matchType",
             "type": "Attribute",
         }
     )

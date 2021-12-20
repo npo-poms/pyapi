@@ -12,10 +12,9 @@ class MediaTitleFacetListType(MediaFacetType):
     class Meta:
         name = "mediaTitleFacetListType"
 
-    sub_search: Optional[TitleSearchType] = field(
+    subSearch: Optional[TitleSearchType] = field(
         default=None,
         metadata={
-            "name": "subSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

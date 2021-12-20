@@ -11,10 +11,9 @@ class PageRelationFacetType(ExtendedPageFacetType):
     class Meta:
         name = "pageRelationFacetType"
 
-    sub_search: Optional[PageRelationSearchType] = field(
+    subSearch: Optional[PageRelationSearchType] = field(
         default=None,
         metadata={
-            "name": "subSearch",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

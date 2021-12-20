@@ -16,20 +16,20 @@ class ImageUpdateType:
     :ivar description:
     :ivar source: The source of the image. This is only metadata. It must be URL from where the image was
         originally acquired.
-    :ivar source_name: A simple string representing the source of the image. E.g. 'flickr'.
+    :ivar sourceName: A simple string representing the source of the image. E.g. 'flickr'.
     :ivar license:
     :ivar width:
     :ivar height:
     :ivar credits:
     :ivar date:
     :ivar offset:
-    :ivar image_data: The image as a base-64 encoded blob.
-    :ivar image_location: An URL from where the image can be downloaded from.
+    :ivar imageData: The image as a base-64 encoded blob.
+    :ivar imageLocation: An URL from where the image can be downloaded from.
     :ivar urn: The URN of an already existing image inside the POMS image server.
     :ivar type:
-    :ivar urn_attribute:
-    :ivar publish_start:
-    :ivar publish_stop:
+    :ivar urnAttribute:
+    :ivar publishStart:
+    :ivar publishStop:
     :ivar highlighted:
     """
     class Meta:
@@ -59,10 +59,9 @@ class ImageUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    source_name: Optional[str] = field(
+    sourceName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "sourceName",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
@@ -109,18 +108,16 @@ class ImageUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    image_data: Optional[ImageDataType] = field(
+    imageData: Optional[ImageDataType] = field(
         default=None,
         metadata={
-            "name": "imageData",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    image_location: Optional[ImageLocationType] = field(
+    imageLocation: Optional[ImageLocationType] = field(
         default=None,
         metadata={
-            "name": "imageLocation",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }
@@ -140,24 +137,22 @@ class ImageUpdateType:
             "required": True,
         }
     )
-    urn_attribute: Optional[str] = field(
+    urnAttribute: Optional[str] = field(
         default=None,
         metadata={
             "name": "urn",
             "type": "Attribute",
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    publish_stop: Optional[XmlDateTime] = field(
+    publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStop",
             "type": "Attribute",
         }
     )

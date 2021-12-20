@@ -17,7 +17,7 @@ __NAMESPACE__ = "urn:vpro:pages:update:2013"
 class PageUpdateType:
     """
     :ivar crid:
-    :ivar alternative_url:
+    :ivar alternativeUrl:
     :ivar broadcaster:
     :ivar portal:
     :ivar title:
@@ -29,15 +29,15 @@ class PageUpdateType:
     :ivar genre: Genres, as specified in https://publish.pages.omroep.nl/schema/classification
     :ivar link:
     :ivar embeds:
-    :ivar stat_ref:
+    :ivar statRef:
     :ivar image:
     :ivar relation:
     :ivar type:
     :ivar url:
-    :ivar publish_start:
-    :ivar last_published:
-    :ivar creation_date:
-    :ivar last_modified:
+    :ivar publishStart:
+    :ivar lastPublished:
+    :ivar creationDate:
+    :ivar lastModified:
     :ivar workflow:
     """
     class Meta:
@@ -50,10 +50,9 @@ class PageUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         }
     )
-    alternative_url: List[str] = field(
+    alternativeUrl: List[str] = field(
         default_factory=list,
         metadata={
-            "name": "alternativeUrl",
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
         }
@@ -137,10 +136,9 @@ class PageUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         }
     )
-    stat_ref: List[str] = field(
+    statRef: List[str] = field(
         default_factory=list,
         metadata={
-            "name": "statRef",
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
         }
@@ -173,31 +171,27 @@ class PageUpdateType:
             "required": True,
         }
     )
-    publish_start: Optional[XmlDateTime] = field(
+    publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "publishStart",
             "type": "Attribute",
         }
     )
-    last_published: Optional[XmlDateTime] = field(
+    lastPublished: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastPublished",
             "type": "Attribute",
         }
     )
-    creation_date: Optional[XmlDateTime] = field(
+    creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "creationDate",
             "type": "Attribute",
         }
     )
-    last_modified: Optional[XmlDateTime] = field(
+    lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
-            "name": "lastModified",
             "type": "Attribute",
         }
     )

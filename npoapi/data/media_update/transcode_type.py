@@ -11,10 +11,9 @@ class TranscodeType:
     class Meta:
         name = "transcodeType"
 
-    file_name: Optional[str] = field(
+    fileName: Optional[str] = field(
         default=None,
         metadata={
-            "name": "fileName",
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         }

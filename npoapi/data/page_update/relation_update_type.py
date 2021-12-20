@@ -29,10 +29,9 @@ class RelationUpdateType:
             "required": True,
         }
     )
-    uri_ref: Optional[str] = field(
+    uriRef: Optional[str] = field(
         default=None,
         metadata={
-            "name": "uriRef",
             "type": "Attribute",
         }
     )

@@ -13,10 +13,9 @@ class PageFacetsResultType:
     class Meta:
         name = "pageFacetsResultType"
 
-    sort_dates: List[DateFacetResultItemType] = field(
+    sortDates: List[DateFacetResultItemType] = field(
         default_factory=list,
         metadata={
-            "name": "sortDates",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,

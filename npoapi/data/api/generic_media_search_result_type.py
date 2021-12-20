@@ -18,10 +18,9 @@ class GenericMediaSearchResultType(SearchResultType):
             "namespace": "urn:vpro:api:2013",
         }
     )
-    selected_facets: Optional[MediaFacetsResultType] = field(
+    selectedFacets: Optional[MediaFacetsResultType] = field(
         default=None,
         metadata={
-            "name": "selectedFacets",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }

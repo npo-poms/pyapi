@@ -23,7 +23,7 @@ from .facet_order_type_enum import FacetOrderTypeEnum
 from .facet_result_item import FacetResultItem
 from .generic_media_search_result_type import GenericMediaSearchResultType
 from .geo_location_search_type import GeoLocationSearchType
-from .hightlight_type import HightlightType
+from .highlight_type import HighlightType
 from .match import Match
 from .matcher_list import MatcherList
 from .media_facet_type import MediaFacetType
@@ -129,7 +129,7 @@ __all__ = [
     "FacetResultItem",
     "GenericMediaSearchResultType",
     "GeoLocationSearchType",
-    "HightlightType",
+    "HighlightType",
     "Match",
     "MatcherList",
     "MediaFacetType",

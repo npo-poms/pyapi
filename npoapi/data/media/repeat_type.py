@@ -15,10 +15,9 @@ class RepeatType:
             "required": True,
         }
     )
-    is_rerun: Optional[bool] = field(
+    isRerun: Optional[bool] = field(
         default=None,
         metadata={
-            "name": "isRerun",
             "type": "Attribute",
             "required": True,
         }

@@ -20,10 +20,9 @@ class MediaFormType:
             "namespace": "urn:vpro:api:2013",
         }
     )
-    sort_fields: Optional["MediaFormType.SortFields"] = field(
+    sortFields: Optional["MediaFormType.SortFields"] = field(
         default=None,
         metadata={
-            "name": "sortFields",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
@@ -44,7 +43,7 @@ class MediaFormType:
 
     @dataclass
     class SortFields:
-        sort_or_title_sort: List[object] = field(
+        sortOrTitleSort: List[object] = field(
             default_factory=list,
             metadata={
                 "type": "Elements",
