@@ -3,6 +3,7 @@
   Simple client publish to and delete pages from the NPO pages api. Using the rest interfaces at http://publish.pages.omroep.nl/api/pages/updates/
 """
 from npoapi import PagesBackend
+from npoapi.base import Binding
 
 client = PagesBackend().command_line_client(description="Set an page object into  NPO API")
 client.add_argument('xml', type=str, nargs=1, help='The xml to post')
@@ -27,7 +28,7 @@ url = None
 update = None
 
 if data:
-    update = client.to_object_or_none(data)
+    update = client.to_object_or_none(data, binding=Binding.XSDATA)
 
 if update:
     if process is not None:

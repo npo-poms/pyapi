@@ -1,4 +1,5 @@
 import base64
+import dataclasses
 import logging
 import urllib.request
 from typing import Optional
@@ -6,8 +7,10 @@ from xml.dom import minidom
 
 import pytz
 import pyxb
+from xsdata.formats.dataclass.serializers import XmlSerializer
+from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from npoapi.base import NpoApiBase
+from npoapi.base import NpoApiBase, NS_MAP
 from npoapi.xml import mediaupdate
 
 
@@ -215,6 +218,10 @@ class BasicBackend(NpoApiBase):
         if t == str:
             xml, content_type = self.data_to_bytes(xml)
             return xml
+        elif dataclasses.is_dataclass(xml):
+            serializer = XmlSerializer(config=SerializerConfig(pretty_print = False))
+            content_type = "application/xml"
+            return serializer.render(xml, ns_map=NS_MAP).encode("utf-8")
         elif t == minidom.Element:
             # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
             # xml.setAttribute("xmlns:xsi",

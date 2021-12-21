@@ -9,6 +9,9 @@ import urllib.request
 import http
 
 import pyxb
+import dataclasses
+
+from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
@@ -16,6 +19,7 @@ import npoapi
 from typing import Optional
 from typing import List
 from typing import Dict
+from enum import Enum
 
 
 
@@ -32,8 +36,16 @@ def declare_namespaces():
     pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(thesaurus.Namespace, 'gtaa')
 
 
+
+NS_MAP={"api": 'urn:vpro:api:2013'}
+
+
+
 declare_namespaces()
 
+class Binding(Enum):
+    PYXB = 1
+    XSDATA = 2
 
 class NpoApiBase:
     """Base class for all api client (both backend and frontend)"""
@@ -350,13 +362,12 @@ class NpoApiBase:
         if data:
             import pyxb
             import xml.dom.minidom
-            import dataclasses
             if data is None:
                 self.logger.warning("Data is none!")
             elif dataclasses.is_dataclass(data):
                 serializer = XmlSerializer(config=SerializerConfig(pretty_print = False))
                 content_type = "application/xml"
-                data = serializer.render(data, ns_map={"api": 'urn:vpro:api:2013'}).encode("utf-8")
+                data = serializer.render(data, ns_map=NS_MAP).encode("utf-8")
             elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
                 self.logger.warning("pyxb is deprecated!")
                 content_type = "application/xml"
@@ -407,25 +418,39 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data:str, validate=False) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
+    def to_object(self, data:str, validate=False, binding=Binding.PYXB) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
         """Converts a string to a pyxb object and optionally validates it"""
         if data is None:
             return None
-        if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-            result = data
+        if binding == binding.PYXB:
+            self.logger.warning("pyxb is deprecated")
+            if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
+                result = data
+            else:
+                from npoapi.xml import poms
+                bytes, contenttype = self.data_to_bytes(data)
+                result = poms.CreateFromDocument(bytes)
+
+            if validate:
+                result.validateBinding()
+            return result
         else:
-            from npoapi.xml import poms
-            bytes, contenttype = self.data_to_bytes(data)
-            result = poms.CreateFromDocument(bytes)
+            if dataclasses.is_dataclass(data):
+                result = data
+            else:
+                from npoapi.data import page
+                from npoapi.data.page_update import Page
+                bytes, contenttype = self.data_to_bytes(data)
+                result = XmlParser().from_bytes(bytes, Page)
+            if validate:
+                self.logger.warning("Found out how to do that")
+            return result
 
-        if validate:
-            result.validateBinding()
-        return result
 
-    def to_object_or_none(self, data:str, validate=False) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
+    def to_object_or_none(self, data:str, validate=False, binding=Binding.PYXB) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
         import xml
         try:
-            return self.to_object(data, validate)
+            return self.to_object(data, validate, binding=binding)
         except xml.sax._exceptions.SAXParseException as e:
             self.logger.debug("Not xml")
             return None

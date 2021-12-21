@@ -30,5 +30,9 @@
     <Substitution type="package" search="^urn:vpro:media:search:2012$" replace="media_search"/>
     <Substitution type="package" search="^urn:vpro:api:profile:2013$" replace="profile"/>
     <Substitution type="package" search="^$" replace="empty"/>
+<!--    <Substitution type="class"   search="AndType$" replace="AndTYPE"/>
+    <Substitution type="class"   search="Type$" replace=""/>
+    <Substitution type="class"   search="AndTYPE$" replace="AndType"/>
+    -->
   </Substitutions>
 </Config>
