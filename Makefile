@@ -27,9 +27,14 @@ npoapi/xml/__init__.py: setup.py
 
 .PHONY: xsdata
 
-xsdata: npoapi/model/__init__.py
-npoapi/model/__init__.py: setup.py
+xsdata: npoapi/data/__init__.py
+npoapi/data/__init__.py: setup.py Makefile .xsdata.xml
 	$(XSDATA) $(RS)schema/combined.xsd
+	#hackery, but I think something's not right with the empty namespace
+	cat npoapi/__init__.py
+	git checkout  npoapi/__init__.py
+	echo "from npoapi.data.empty import (Collection,CollectionType)" >> npoapi/data/__init__.py
+	mv npoapi/data.py npoapi/data/empty.py
 
 docker:
 	docker build -t mihxil/npo-pyapi:latest  -f docker/Dockerfile .

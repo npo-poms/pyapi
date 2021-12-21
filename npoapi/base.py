@@ -37,7 +37,8 @@ def declare_namespaces():
 
 
 
-NS_MAP={"api": 'urn:vpro:api:2013'}
+NS_MAP={"api": 'urn:vpro:api:2013',
+        "update": "urn:vpro:media:update:2009"}
 
 
 
@@ -160,7 +161,8 @@ class NpoApiBase:
                 self._write_settings()
         return self.settings[name]
 
-    def get_configfiles(self, config_dir = None, default_config_dirs = True) -> List[str]:
+    @staticmethod
+    def get_configfiles(config_dir = None, default_config_dirs = True) -> List[str]:
         current_script_dir = os.path.dirname(sys.argv[0])
         config_files = []
         if default_config_dirs:
@@ -309,8 +311,8 @@ class NpoApiBase:
     def get_response(self, req, url:str, ignore_not_found:bool = False, timeout:int = None) -> Optional[http.client.HTTPResponse]:
         """Error handling around urllib.request.urlopen
 
-        :param bool ignore_not_found Whether status 404 should be logged as an error
-        :param int timeout Timeout in seconds
+        :param ignore_not_found Whether status 404 should be logged as an error
+        :param timeout Timeout in seconds
 
         """
         summary = "%s %s" % (req.method if hasattr(req, "method") else "'GET'" if not req.data else "'POST'", url)
@@ -438,16 +440,14 @@ class NpoApiBase:
             if dataclasses.is_dataclass(data):
                 result = data
             else:
-                from npoapi.data import page
-                from npoapi.data.page_update import Page
                 bytes, contenttype = self.data_to_bytes(data)
-                result = XmlParser().from_bytes(bytes, Page)
+                result = XmlParser().from_bytes(bytes)
             if validate:
                 self.logger.warning("Found out how to do that")
             return result
 
 
-    def to_object_or_none(self, data:str, validate=False, binding=Binding.PYXB) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
+    def to_object_or_none(self, data:str, validate=False, binding=Binding.PYXB) -> object:
         import xml
         try:
             return self.to_object(data, validate, binding=binding)

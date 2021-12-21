@@ -2,10 +2,12 @@
 <Config xmlns="http://pypi.org/project/xsdata" version="21.12">
   <Output maxLineLength="120">
     <Package>npoapi.data</Package>
-    <Format repr="true" eq="true" order="false" unsafeHash="false" frozen="false" slots="false" kwOnly="false">dataclasses</Format>
-    <Structure>namespace-clusters</Structure>
+    <Format
+      repr="true" eq="true" order="false"
+      unsafeHash="false" frozen="false" slots="true" kwOnly="false">dataclasses</Format>
+    <Structure>namespaces</Structure>
     <DocstringStyle>reStructuredText</DocstringStyle>
-    <RelativeImports>true</RelativeImports>
+    <RelativeImports>false</RelativeImports>
     <CompoundFields>true</CompoundFields>
   </Output>
   <Conventions>
@@ -13,23 +15,25 @@
     <FieldName case="camelCase" safePrefix="value"/>
     <ConstantName case="screamingSnakeCase" safePrefix="value"/>
     <ModuleName case="snakeCase" safePrefix="mod"/>
-    <PackageName case="snakeCase" safePrefix="pkg"/>
+    <PackageName case="mixedCase" safePrefix="pkg"/>
   </Conventions>
   <Substitutions>
     <Substitution type="package" search="^urn:vpro:media:2009$" replace="media"/>
-    <Substitution type="package" search="^urn:vpro:media:update:2009$" replace="media_update"/>
+    <Substitution type="package" search="^urn:vpro:media:update:2009$" replace="mediaupdate"/>
     <Substitution type="package" search="^urn:vpro:shared:2009$" replace="shared"/>
     <Substitution type="package" search="^urn:vpro:api:2013$" replace="api"/>
     <Substitution type="package" search="^urn:vpro:api:constraint:media:2013$" replace="api_constraint_media"/>
     <Substitution type="package" search="^urn:vpro:api:constraint:2014$" replace="api_constraint"/>
     <Substitution type="package" search="^urn:vpro:api:constraint:page:2013$" replace="api_constraint_page"/>
     <Substitution type="package" search="^urn:vpro:pages:2013$" replace="page"/>
-    <Substitution type="package" search="^urn:vpro:pages:update:2013$" replace="page_update"/>
+    <Substitution type="package" search="^urn:vpro:pages:update:2013$" replace="pageupdate"/>
     <Substitution type="package" search="^urn:vpro:media:subtitles:2009$" replace="subtitles"/>
     <Substitution type="package" search="^urn:vpro:gtaa:2017$" replace="thesaurus"/>
     <Substitution type="package" search="^urn:vpro:media:search:2012$" replace="media_search"/>
     <Substitution type="package" search="^urn:vpro:api:profile:2013$" replace="profile"/>
-    <Substitution type="package" search="^$" replace="empty"/>
+    <!--
+    <Substitution type="class" search="^data$" replace="npoapi.data.poms"/>
+-->
 <!--    <Substitution type="class"   search="AndType$" replace="AndTYPE"/>
     <Substitution type="class"   search="Type$" replace=""/>
     <Substitution type="class"   search="AndTYPE$" replace="AndType"/>
