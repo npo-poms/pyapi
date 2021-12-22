@@ -3,17 +3,25 @@ from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from npoapi.base import NS_MAP
 
-# imports are implicitely used by parser
+# imports are implicitly used by parser
+import npoapi
 from npoapi.data.media import Group, Program, Segment, LocationType
 from npoapi.data.mediaupdate import Group as GroupUpdate, Program as ProgramUpdate, Segment as SegmentUpdate
 from npoapi.data.pageupdate import Page as PageUpdate
+from npoapi.data.api import MediaForm, PagesForm
 
 parser = XmlParser()
 config = SerializerConfig(pretty_print=False)
 serializer = XmlSerializer(config=config)
 
+# sadly constanats in modules (__NAMESPACE__) ar not accessible
+NS_MAP={
+    "mediaupdate": "urn:vpro:media:update:2009",
+    "pageupdate": "urn:vpro:pages:update:2013",
+    "media": "urn:vpro:media:2009",
+    "pages": "urn:vpro:pages:2013"
+    }
 
 def from_string(source: str):
     return parser.from_string(source)

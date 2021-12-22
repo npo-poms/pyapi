@@ -2,6 +2,8 @@ import codecs
 import os
 import urllib.request
 from xml.dom import minidom
+
+from npoapi.base import DEFAULT_BINDING
 from npoapi.basic_backend import BasicBackend
 from npoapi.xml import media, mediaupdate, poms
 import logging
@@ -58,9 +60,9 @@ class MediaBackend(BasicBackend):
         """Returns pyxb-representation of a mediaobject"""
         return self.to_object(self.get_full(mid, ignore_not_found), validate=False)
 
-    def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False, client_validate=True):
+    def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False, client_validate=True, binding=DEFAULT_BINDING):
         if not raw:
-            update = self.to_object(update, validate=client_validate)
+            update = self.to_object(update, validate=client_validate, binding=binding)
         return self.post_to("media/media/", update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid, stealcrids=steal_crids, validateInput=str(validate_input).lower())
 
     def delete(self, mid:str):

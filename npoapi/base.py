@@ -1,52 +1,52 @@
 import abc
-import argparse
 import codecs
 import copy
+import dataclasses
+import http
 import logging
 import os
 import sys
 import urllib.request
-import http
+from enum import Enum
+from typing import Dict
+from typing import List
+from typing import Optional
 
 import pyxb
-import dataclasses
-
-from xsdata.formats.dataclass.parsers import XmlParser
+from npoapi.data.poms import NS_MAP
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
 import npoapi
-from typing import Optional
-from typing import List
-from typing import Dict
-from enum import Enum
-
 
 
 def declare_namespaces():
     import pyxb.utils.domutils
-    from npoapi.xml import mediaupdate, pageupdate, page, media, shared, api, thesaurus
+    from npoapi.xml import mediaupdate as xmediaupdate, pageupdate, page, media, shared, api as xapi, thesaurus
 
-    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(mediaupdate.Namespace)
+    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(xmediaupdate.Namespace)
     pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(pageupdate.Namespace, 'pu')
     pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(page.Namespace, 'pages')
     pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
     pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(api.Namespace, 'api')
+    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(xapi.Namespace, 'api')
     pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(thesaurus.Namespace, 'gtaa')
 
-
-
-NS_MAP={"api": 'urn:vpro:api:2013',
-        "update": "urn:vpro:media:update:2009"}
-
-
+from importlib import reload
 
 declare_namespaces()
 
 class Binding(Enum):
     PYXB = 1
     XSDATA = 2
+
+import argparse
+
+
+
+DEFAULT_BINDING = Binding.PYXB
+
+
 
 class NpoApiBase:
     """Base class for all api client (both backend and frontend)"""
@@ -371,7 +371,7 @@ class NpoApiBase:
                 content_type = "application/xml"
                 data = serializer.render(data, ns_map=NS_MAP).encode("utf-8")
             elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-                self.logger.warning("pyxb is deprecated!")
+                self.logger.warning("pyxb is deprecated!, but incoming object is pyxb object")
                 content_type = "application/xml"
                 data = data.toxml("utf-8")
             elif isinstance(data, xml.dom.minidom.Document):
@@ -420,12 +420,12 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data:str, validate=False, binding=Binding.PYXB) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
+    def to_object(self, data:str, validate=False, binding=DEFAULT_BINDING) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
         """Converts a string to a pyxb object and optionally validates it"""
         if data is None:
             return None
         if binding == binding.PYXB:
-            self.logger.warning("pyxb is deprecated")
+            self.logger.warning("pyxb is deprecated in to_object")
             if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
                 result = data
             else:
@@ -448,7 +448,7 @@ class NpoApiBase:
             return result
 
 
-    def to_object_or_none(self, data:str, validate=False, binding=Binding.PYXB) -> object:
+    def to_object_or_none(self, data:str, validate=False, binding=DEFAULT_BINDING) -> object:
         import xml
         try:
             return self.to_object(data, validate, binding=binding)
