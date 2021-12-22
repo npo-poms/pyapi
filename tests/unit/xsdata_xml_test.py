@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import dataclasses
 import unittest
 
 
@@ -17,6 +18,24 @@ class Tests(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
+
+
+    def parse_page_update(self):
+        example = """
+        <page type="AUDIO" url="http://test.vpro.nl/article/1234"  xmlns="urn:vpro:pages:update:2013">
+  <crid>crid://bla/1234</crid>
+  <broadcaster>VPRO</broadcaster>
+  <title>Hoi &amp; Hallo foobar</title>
+  <paragraphs>
+    <paragraph>
+      <title>Title of &amp; paragraph</title>
+      <body>Foo &amp; Bar</body>
+    </paragraph>
+  </paragraphs>
+</page>
+        """
+        pageupdate = poms.from_string(example)
+        self.assertTrue(dataclasses.is_dataclass(pageupdate))
 
     def test_set_duration(self):
         xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>

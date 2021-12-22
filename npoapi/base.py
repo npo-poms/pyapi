@@ -440,10 +440,11 @@ class NpoApiBase:
             if dataclasses.is_dataclass(data):
                 result = data
             else:
+                from npoapi.data import poms
                 bytes, contenttype = self.data_to_bytes(data)
-                result = XmlParser().from_bytes(bytes)
+                result = poms.from_bytes(bytes)
             if validate:
-                self.logger.warning("Found out how to do that")
+                self.logger.warning("Find out how to do that")
             return result
 
 
