@@ -22,6 +22,7 @@ function load(m) {
             } else {
                 $("#playable").text(nowPlayable.toString());
             }
+            $("#ranges").text(JSON.stringify(mediaobjects.playableRanges(mediaObject)))
         });
     }
 }
