@@ -6,13 +6,28 @@ const TYPES_F = ["BROADCAST", "STRAND", "MOVIE", "CLIP", "SEGMENT", "VISUALSEGME
 
 
 function load(m) {
-    head = $("head meta[name=mid]");
+    const head = $("head meta[name=mid]");
     if (m) {
         head.attr("content", m)
         history.pushState({}, null, m);
     }
+    var mids = JSON.parse(localStorage.getItem("mids"));
+    if (mids == null) {
+        mids = [];
+        $("#examples li a").each(function(li) {
+            mids.push($(this).text());
+            }
+        );
+    }
+    function pushUnless(array, element) {
+        if ($.inArray(element, array) < 0) {
+            array.push(element);
+        }
+    }
     mid = head.attr("content");
     if (mid !== 'None') {
+        pushUnless(mids, mid);
+        localStorage.setItem("mids", JSON.stringify(mids));
         $.getJSON('mediaobject/' + mid, function (data) {
             const mediaObject = new MediaObject(data);
             $("h1").text(mediaObject.mid + ":" + mediaObject.getMainTitle());
@@ -25,6 +40,11 @@ function load(m) {
             $("#ranges").text(JSON.stringify(mediaobjects.playableRanges(mediaObject)))
         });
     }
+    $(mids).each(function(i, value) {
+        if ($("#examples li a:contains(" + value + ")").length === 0) {
+            $("#examples").append("<li><a href='" + value + "'>" + value + "</a></li>");
+        }
+    })
 }
 $(function() {
     load();

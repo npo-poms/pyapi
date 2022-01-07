@@ -49,7 +49,7 @@ docker-push:
 	docker push mihxil/npo-pyapi:latest
 
 docker-flask-push: docker-flask
-	docker image push docker.vpro.nl/mihxil/npo-pyapi-flask:latest
+	docker image push mihxil/npo-pyapi-flask:latest
 
 
 clean.data:
