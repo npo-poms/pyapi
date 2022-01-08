@@ -26,11 +26,13 @@ def send_js(path):
 
 @app.route('/mediaobject/<path:mid>')
 def send_mediaobject(mid):
-    proxied_response = client.get(mid, accept="application/json", stream=True, properties=
-          ["title:main:1", "locations",
+    all_properties = ["all"]
+    properties =  ["title:main:1",
+           "locations",
            "predictionsForXml", # NPA-602
            "predictions"]
-          )
+    proxied_response = client.get(mid, accept="application/json", stream=False, properties=all_properties)
+
     response = Response(proxied_response, mimetype='application/json')
     return response
 
@@ -39,3 +41,5 @@ def send_mediaobject(mid):
 def authenticate(uri):
     return client.authenticate(uri, interactive=False)
 
+if __name__ == "__main__":
+    app.run(debug=True)
