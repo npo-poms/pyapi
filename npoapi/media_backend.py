@@ -1,6 +1,6 @@
 import codecs
 import os
-import urllib.request
+import urllib.parse
 from xml.dom import minidom
 
 from npoapi.base import DEFAULT_BINDING
@@ -46,11 +46,11 @@ class MediaBackend(BasicBackend):
 
     def get(self, mid: str, ignore_not_found=False) -> str:
         """Returns XML-representation of a mediaobject"""
-        return self.get_from("media/media/" + urllib.request.quote(mid, safe=''), ignore_not_found=ignore_not_found)
+        return self.get_from("media/media/" + urllib.parse.quote(mid, safe=''), ignore_not_found=ignore_not_found)
 
     def get_full(self, mid: str, ignore_not_found=False) -> str:
         """Returns XML-representation of a mediaobject"""
-        return self.get_from("media/media/" + urllib.request.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found)
+        return self.get_from("media/media/" + urllib.parse.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found)
 
     def get_object(self, mid: str, ignore_not_found=False) -> mediaupdate:
         """Returns pyxb-representation of a mediaobject"""
@@ -67,7 +67,7 @@ class MediaBackend(BasicBackend):
 
     def delete(self, mid:str):
         """"""
-        return self.delete_from("media/media/" + urllib.request.quote(mid, safe=''))
+        return self.delete_from("media/media/" + urllib.parse.quote(mid, safe=''))
 
 
     def _parkpost_authentication(self):
@@ -103,14 +103,14 @@ class MediaBackend(BasicBackend):
         return self.members_or_episodes(mid, "episodes", **kwargs)
 
     def delete_member(self, mid, owner_mid):
-        path = "media/media/" + urllib.request.quote(mid) + "/memberOf/" + urllib.request.quote(owner_mid)
+        path = "media/media/" + urllib.parse.quote(mid, safe="") + "/memberOf/" + urllib.parse.quote(owner_mid, safe="")
         self.delete_from(path)
 
     def add_member(self, mid, owner_mid, position=None, highlighted=False):
         memberOf = mediaupdate.memberRef(owner_mid)
         memberOf.position = position
         memberOf.highlighted = highlighted
-        path = "media/media/" + urllib.request.quote(mid) + "/memberOf/"
+        path = "media/media/" + urllib.parse.quote(mid, safe="") + "/memberOf/"
         self.post_to(path, memberOf, accept="application/xml")
 
     # method to implement both members and episodes calls.
@@ -125,7 +125,7 @@ class MediaBackend(BasicBackend):
         w = what + "/full" if full else what
         while True:
 
-            url = (self.url + 'media/' + sub + '/' + urllib.request.quote(mid, '') + "/" + w + "?max=" + str(b) +
+            url = (self.url + 'media/' + sub + '/' + urllib.parse.quote(mid, safe='') + "/" + w + "?max=" + str(b) +
                    "&offset=" + str(offset))
             if deletes:
                 url = url + "&deletes=true"
@@ -265,7 +265,7 @@ class MediaBackend(BasicBackend):
 
     def get_sub(self, mid:str, sub: str, deletes=False, follow_merges=True):
         self._creds()
-        url = self.url + "media/media/" + urllib.request.quote(mid) + "/" + sub
+        url = self.url + "media/media/" + urllib.parse.quote(mid, safe="") + "/" + sub
         sep = '?'
         if deletes:
             url = url + sep +"deletes=true"
