@@ -5,6 +5,10 @@ from xml.dom import minidom
 
 import pyxb
 
+import npoapi.utils
+
+from npoapi.base import DEFAULT_BINDING, Binding
+from npoapi.data import MediaUpdateType
 from npoapi.media_backend import MediaBackend
 from npoapi.xml import media, mediaupdate, poms
 from npoapi.xml.mediaupdate import segmentUpdateType
@@ -25,8 +29,7 @@ class MediaBackendUtil(object):
     @staticmethod
     def main_description(object: mediaupdate.mediaUpdateType, new_value: str = None) -> Union[str, mediaupdate.descriptionUpdateType, None]:
         """Gets/set main description"""
-        return \
-            MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, new_value)
+        return MediaBackendUtil.description(object, media.textualTypeEnum.MAIN, new_value)
 
     @staticmethod
     def title(object: mediaupdate.mediaUpdateType, textual_type, new_value: str = None) -> Union[str, mediaupdate.titleUpdateType, None]:
@@ -316,15 +319,24 @@ class MediaBackendUtil(object):
         return list(map(segment_to_item, segments))
 
     @staticmethod
-    def iterate_objects(members: Union[str, minidom.Document]) -> map:
+    def iterate_objects(members: Union[str, minidom.Document], binding=DEFAULT_BINDING) -> map:
         if type(members) == str:
             members = minidom.parseString(members)
         if type(members) == minidom.Document:
             members = members.getElementsByTagName('item')
-        result = map(lambda m:
-                     poms.CreateFromDOM(m.getElementsByTagName("mediaUpdate")[0], mediaupdate.Namespace), members)
+        result = map(lambda m: MediaBackendUtil.map_member(m, binding), members)
 
         return result
+
+    @staticmethod
+    def map_member(m, binding):
+        update = m.getElementsByTagName("mediaUpdate")[0]
+        if binding == Binding.PYXB:
+            return poms.CreateFromDOM(update, mediaupdate.Namespace)
+        else:
+            # TODO
+            return npoapi.utils.to_object(update, binding=binding, clazz=MediaUpdateType)
+
 
     @staticmethod
     def toxml(update:  pyxb.binding.basis.complexTypeDefinition) -> bytearray:
