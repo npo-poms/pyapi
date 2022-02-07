@@ -357,55 +357,11 @@ class NpoApiBase:
             return None
 
     def data_to_bytes(self, data, content_type:str = None) -> [bytearray, str]:
-        """
-        Given some object representing API data returns it as a bytearray and a content type.
-        Recognized are pyxb bindings, a file name, or else a string.
-        """
-        if data:
-            import pyxb
-            import xml.dom.minidom
-            if data is None:
-                self.logger.warning("Data is none!")
-            elif dataclasses.is_dataclass(data):
-                serializer = XmlSerializer(config=SerializerConfig(pretty_print = False))
-                content_type = "application/xml"
-                data = serializer.render(data, ns_map=NS_MAP).encode("utf-8")
-            elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-                self.logger.warning("pyxb is deprecated!, but incoming object is pyxb object")
-                content_type = "application/xml"
-                data = data.toxml("utf-8")
-            elif isinstance(data, xml.dom.minidom.Document):
-                data = data.toxml(encoding="utf-8")
-            elif isinstance(data, str) and self.isfile(data):
-                if content_type is None:
-                    if data.endswith(".json"):
-                        content_type = "application/json"
-                    elif data.endswith(".xml"):
-                        content_type = "application/xml"
-
-                self.logger.debug("" + data + " is file, reading it in as " + content_type)
-                with codecs.open(data, 'r', 'utf-8') as myfile:
-                    data = myfile.read().encode('utf-8')
-                    self.logger.debug("Found data " + data.decode("utf-8"))
-            elif isinstance(data, str):
-                if data == "-":
-                    data = sys.stdin.read()
-                    self.logger.debug("Slurping data from stdin -> " + data)
-                content_type = None
-                if data.startswith("{"):
-                    content_type = "application/json"
-                elif data.startswith("<"):
-                    content_type = "application/xml"
-                data = data.encode("utf-8")
-
-        return data, content_type
+        return npoapi.utils.data_to_bytes(data, content_type)
 
     @staticmethod
     def isfile(string:str) -> bool:
-        try:
-            return os.path.isfile(string)
-        except:
-            return False
+        return npoapi.utils.isfile(string)
 
     def data_or_from_file(self, data: str) -> str:
         """"""
@@ -420,33 +376,8 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data:str, validate=False, binding=DEFAULT_BINDING) -> Optional[pyxb.binding.basis.complexTypeDefinition]:
-        """Converts a string to a pyxb object and optionally validates it"""
-        if data is None:
-            return None
-        if binding == binding.PYXB:
-            self.logger.warning("pyxb is deprecated in to_object")
-            if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-                result = data
-            else:
-                from npoapi.xml import poms
-                bytes, contenttype = self.data_to_bytes(data)
-                result = poms.CreateFromDocument(bytes)
-
-            if validate:
-                result.validateBinding()
-            return result
-        else:
-            if dataclasses.is_dataclass(data):
-                result = data
-            else:
-                from npoapi.data import poms
-                bytes, contenttype = self.data_to_bytes(data)
-                result = poms.from_bytes(bytes)
-            if validate:
-                self.logger.warning("Find out how to do that")
-            return result
-
+    def to_object(self, data:str, validate=False, binding=DEFAULT_BINDING) -> object:
+        return npoapi.utils.to_object(data, validate, binding)
 
     def to_object_or_none(self, data:str, validate=False, binding=DEFAULT_BINDING) -> object:
         import xml
