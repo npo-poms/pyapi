@@ -32,6 +32,8 @@ class MediaBackend(BasicBackend):
             self.url = "https://api-test.poms.omroep.nl/"
         elif  e == "test_new":
             self.url = "https://api-test-os.poms.omroep.nl/"
+        elif  e == "test_old":
+            self.url = "https://api-test-nb.poms.omroep.nl/"
         elif e == "testa":
             self.url = "https://media-rs-poms-stack-test.apps.poms.cluster.chp4.io/"
         elif  e == "acc":
@@ -60,10 +62,16 @@ class MediaBackend(BasicBackend):
         """Returns pyxb-representation of a mediaobject"""
         return self.to_object(self.get_full(mid, ignore_not_found), validate=False)
 
-    def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False, client_validate=True, binding=DEFAULT_BINDING):
+    def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False, client_validate=True, sub=None, mid=None, binding=DEFAULT_BINDING):
         if not raw:
             update = self.to_object(update, validate=client_validate, binding=binding)
-        return self.post_to("media/media/", update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid, stealcrids=steal_crids, validateInput=str(validate_input).lower())
+        target = "media/media/"
+        if mid is not None and len(mid) > 0:
+            target = target + urllib.parse.quote(mid, safe="") + "/"
+        if sub is not None and len(sub) > 0:
+            target = target + urllib.parse.quote(sub, safe="") + "/"
+
+        return self.post_to(target, update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid, stealcrids=steal_crids, validateInput=str(validate_input).lower())
 
     def delete(self, mid:str):
         """"""
@@ -80,9 +88,9 @@ class MediaBackend(BasicBackend):
         req = urllib.request.Request(url, data=self.xml_to_bytes(xml))
         return self._request(req, url, accept="application/xml", authorization=self.parkpost_authorization)
 
-    def find(self, form, writable=False, raw=False, validate_input=False, client_validate=True):
+    def find(self, form, writable=False, raw=False, validate_input=False, client_validate=True, binding=DEFAULT_BINDING):
         if not raw:
-            form = self.to_object(form, validate=client_validate)
+            form = self.to_object(form, validate=client_validate, binding=binding)
         return self.post_to("media/find", form, accept="application/xml", writable=writable, validateInput=str(validate_input).lower())
 
     def subtitles(self, mid: str, language=None, type="CAPTION"):
