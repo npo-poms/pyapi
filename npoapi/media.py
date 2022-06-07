@@ -45,7 +45,7 @@ class Media(NpoApi):
     def changes(self, profile=None, limit=10, since=None, properties=None, deletes="ID_ONLY", tail=None) -> Union[None, ijson.items]:
         return ijson.items(self.changes_raw(stream=True, profile=profile, limit=limit, since=since, properties=properties, deletes=deletes, tail=tail), 'changes.item')
 
-    def changes_raw(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False, properties=None, check_profile=True, deletes="ID_ONLY", tail=None) -> Union[None, http.client.HTTPResponse, str]:
+    def changes_raw(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False, properties=None, check_profile=None, deletes="ID_ONLY", tail=None) -> Union[None, http.client.HTTPResponse, str]:
         if isinstance(properties, list):
             properties = ",".join(properties)
         sinceLong = None
