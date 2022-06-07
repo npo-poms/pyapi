@@ -324,13 +324,15 @@ class NpoApiBase:
             if self.response_headers:
                 self.logger.info("selector: %s " % (req.selector))
                 for h in response.headers:
-                    if h.startswith("X-NPO-warning"):
+                    lowerh = h.lower()
+                    if lowerh.startswith("x-npo-warning"):
                         self.logger.warning("%s: %s" % (h, response.headers[h]))
-                    elif h.startswith("X-NPO-"):
+                    elif lowerh.startswith("x-npo-"):
                         self.logger.info("%s: %s" % (h, response.headers[h]))
             else:
                  for h in response.headers:
-                    if h.startswith("X-NPO-warning"):
+                    lowerh = h.lower()
+                    if lowerh.startswith("x-npo-warning"):
                         self.logger.warning("%s" % (response.headers[h]))
             self.logger.debug("response code: " + str(response.getcode()))
             self.logger.debug("response headers: " + str(response.getheaders()))

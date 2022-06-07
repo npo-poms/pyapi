@@ -166,6 +166,6 @@ class NpoApi(NpoApiBase):
 
         self._authentication_headers(req, path_for_authentication)
         req.add_header("Accept", accept if accept else self._accept)
-        self.logger.debug("headers: " + str(req.headers))
-        return self.get_response(req, url, ignore_not_found=ignore_not_found, timeout = timeout)
+        self.logger.debug("headers: %s" %  str(req.headers))
+        return self.get_response(req, url, ignore_not_found=ignore_not_found, timeout=timeout)
 
