@@ -13,7 +13,7 @@ client.add_argument("-s", "--since", type=str, default=None)
 client.add_argument('-m', "--max", type=int, default="100")
 client.add_argument("--backwards", action="store_true")
 client.add_argument("--no_check_profile", action="store_true")
-client.add_argument("--deletes", type=str, default="ID_ONLY", choices=("ID_ONLY", "EXLCUDE", "INCLUDE"))
+client.add_argument("--deletes", type=str, default="ID_ONLY", choices=("ID_ONLY", "EXCLUDE", "INCLUDE"))
 client.add_argument("--tail", type=str, default=None,  choices=("ALWAYS", "IF_EMPTY", "NEVER"))
 client.add_argument('-p', "--properties", type=str, default=None,
                     help="properties filtering")
