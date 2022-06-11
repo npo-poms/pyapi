@@ -9,12 +9,12 @@ from npoapi.npoapi import NpoApi
 
 
 class Media(NpoApi):
-    def get(self, mid, sub="", sort=None, accept=None, properties=None, limit=None, profile=None, stream=False) -> Union[None, http.client.HTTPResponse, str]:
+    def get(self, mid, sub="", sort=None, accept=None, properties=None, limit=None, offset=None, profile=None, stream=False) -> Union[None, http.client.HTTPResponse, str]:
         if isinstance(properties, list):
             properties = ",".join(properties)
 
         return self.request_or_stream("/api/media/" + urllib.request.quote(mid, safe='') + sub,
-                            params={"sort": sort, "properties": properties, "max": limit, "profile": profile},
+                            params={"sort": sort, "properties": properties, "max": limit, "offset": offset, "profile": profile},
                             accept=accept, stream=stream)
 
     def multiple(self, mids, accept=None, properties=None, profile=None) -> str:
