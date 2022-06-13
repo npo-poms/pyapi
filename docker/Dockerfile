@@ -1,4 +1,4 @@
-FROM alpine:3.14
+FROM alpine:3.16
 
 RUN apk add --no-cache --upgrade --virtual .build-deps build-base git python3-dev cargo libffi-dev openssl-dev   && \
     apk add --no-cache  python3  py3-pip && \
