@@ -20,7 +20,7 @@ from npoapi.xml import poms
 latency = 60 * 60 # one hour
 
 argument_parser = argparse.ArgumentParser(add_help=True, description="Runs integration test for the NPO backend and frontend API's")
-argument_parser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "proda", "prodb", "dev", "localhost"})
+argument_parser.add_argument('-e', "--env", type=str, default=None, choices={"test", "prod", "proda", "prodb", "acc", "localhost"})
 argument_parser.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
 argument_parser.add_argument('-c', "--config_dir", type=str, default= None, help="Configuration directory")
 args = argument_parser.parse_args()

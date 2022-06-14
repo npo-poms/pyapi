@@ -38,8 +38,6 @@ class MediaBackend(BasicBackend):
             self.url = "https://media-rs-poms-stack-test.apps.poms.cluster.chp4.io/"
         elif  e == "acc":
             self.url = "https://api-acc.poms.omroep.nl/"
-        elif e == "dev":
-            self.url = "https://api-dev.poms.omroep.nl/"
         elif e == "localhost":
             self.url = "http://localhost:8071/rs/"
         else:

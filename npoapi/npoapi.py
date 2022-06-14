@@ -18,7 +18,7 @@ class NpoApi(NpoApiBase):
     __author__ = "Michiel Meeuwissen"
 
     EPILOG = """
-    DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
+    DEBUG=true and ENV=<test|acc|prod> environment variables are recognized.
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
@@ -59,8 +59,6 @@ class NpoApi(NpoApiBase):
             self.url = "https://rs-acc.poms.omroep.nl/v1"
         elif e == None or e == "test":
             self.url = "https://rs-test.poms.omroep.nl/v1"
-        elif e == "dev":
-            self.url = "https://rs-dev.poms.omroep.nl/v1"
         elif e == "localhost":
             self.url = "http://localhost:8070/v1"
         else:

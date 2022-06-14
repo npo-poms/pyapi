@@ -31,8 +31,6 @@ class PagesBackend(BasicBackend):
             self.url = "https://publish-test-os.pages.omroep.nl/"
         elif e == "acc":
             self.url = "https://publish-acc.pages.omroep.nl/"
-        elif e == "dev":
-            self.url = "https://publish-dev.pages.omroep.nl/"
         elif e == "localhost":
             self.url = "http://localhost:8069/"
         else:
