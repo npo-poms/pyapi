@@ -66,11 +66,11 @@ You can also e.g. define an alias to help you remember
 [source, bash]
 ..bash_profile
 -----
-alias npoapi='docker run -v ~/conf:/root/conf -v  $(pwd):/workdir mihxil/npo-pyapi'
+alias npoapi='docker run -v ~/conf:/root/conf -v  $(pwd):/work mihxil/npo-pyapi'
 -----
 
 -----
-function npoapi() { if [ -e /tmp/npoapi.cid ] ; then docker rm `cat /tmp/npoapi.cid` ; rm /tmp/npoapi.cid ; fi ; docker run --cidfile /tmp/npoapi.cid  --attach stdout   -v ~/conf:/root/conf -v  $(pwd):/workdir mihxil/npo-pyapi $@ && docker logs `cat /tmp/npoapi.cid` 1> /dev/null; }
+function npoapi() { if [ -e /tmp/npoapi.cid ] ; then docker rm `cat /tmp/npoapi.cid` ; rm /tmp/npoapi.cid ; fi ; docker run --cidfile /tmp/npoapi.cid  --attach stdout   -v ~/conf:/root/conf -v  $(pwd):/work mihxil/npo-pyapi $@ && docker logs `cat /tmp/npoapi.cid` 1> /dev/null; }
 -----
 And then all tools are available like so:
 [source, bash]
