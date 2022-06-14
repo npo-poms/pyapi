@@ -3,7 +3,7 @@
 command=$1
 shift
 if [ "$command" == "" ] ; then
-    echo << EOF
+    cat << EOF
 No argument given. Try e.g. following arguments.
 # frontend apis
 media_get  --help
