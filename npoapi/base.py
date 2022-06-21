@@ -383,9 +383,10 @@ class NpoApiBase:
 
     def to_object_or_none(self, data:str, validate=False, binding=DEFAULT_BINDING) -> object:
         import xml
+        import xsdata
         try:
             return self.to_object(data, validate, binding=binding)
-        except xml.sax._exceptions.SAXParseException as e:
+        except (xml.sax._exceptions.SAXParseException, xsdata.exceptions.ParserError)  as e:
             self.logger.debug("Not xml")
             return None
 
