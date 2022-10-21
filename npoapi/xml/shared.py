@@ -1,7 +1,7 @@
 # ./npoapi/xml/shared.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:aa73b2ec19d0d50df44ac76274274e111838473b
-# Generated 2021-09-10 12:13:29.182557 by PyXB version 1.2.6 using Python 3.8.2.final.0
+# Generated 2022-10-21 17:21:06.950272 by PyXB version 1.2.6 using Python 3.9.6.final.0
 # Namespace urn:vpro:shared:2009 [xmlns:shared]
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:bcb149ba-121f-11ec-97b0-acde48001122')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:fa5187de-5153-11ed-9cc8-3e22fb45f01a')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -107,7 +107,7 @@ class imageTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'imageTypeEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 72, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 84, 2)
     _Documentation = None
 imageTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=imageTypeEnum, enum_prefix=None)
 imageTypeEnum.PICTURE = imageTypeEnum._CF_enumeration.addEnumeration(unicode_value='PICTURE', tag='PICTURE')
@@ -128,7 +128,7 @@ class ownerTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumerati
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'ownerTypeEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 85, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 97, 2)
     _Documentation = None
 ownerTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=ownerTypeEnum, enum_prefix=None)
 ownerTypeEnum.BROADCASTER = ownerTypeEnum._CF_enumeration.addEnumeration(unicode_value='BROADCASTER', tag='BROADCASTER')
@@ -155,7 +155,7 @@ class subtitlesTypeEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enume
       """
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesTypeEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 103, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 115, 2)
     _Documentation = '\n        The type of a subtitles object. TODO these descriptions are provisional?\n      '
 subtitlesTypeEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesTypeEnum, enum_prefix=None)
 subtitlesTypeEnum.CAPTION = subtitlesTypeEnum._CF_enumeration.addEnumeration(unicode_value='CAPTION', tag='CAPTION')
@@ -171,7 +171,7 @@ class subtitlesWorkflowEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.e
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'subtitlesWorkflowEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 128, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 140, 2)
     _Documentation = None
 subtitlesWorkflowEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=subtitlesWorkflowEnum, enum_prefix=None)
 subtitlesWorkflowEnum.IGNORE = subtitlesWorkflowEnum._CF_enumeration.addEnumeration(unicode_value='IGNORE', tag='IGNORE')
@@ -192,7 +192,7 @@ class licenseEnum (pyxb.binding.datatypes.string, pyxb.binding.basis.enumeration
     """An atomic simple type."""
 
     _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'licenseEnum')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 141, 2)
+    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 153, 2)
     _Documentation = None
 licenseEnum._CF_enumeration = pyxb.binding.facets.CF_enumeration(value_datatype=licenseEnum, enum_prefix=None)
 licenseEnum.COPYRIGHTED = licenseEnum._CF_enumeration.addEnumeration(unicode_value='COPYRIGHTED', tag='COPYRIGHTED')
@@ -380,32 +380,32 @@ class imageType (pyxb.binding.basis.complexTypeDefinition):
     __source = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'source'), 'source', '__urnvproshared2009_imageType_urnvproshared2009source', False, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 60, 6), )
 
     
-    source = property(__source.value, __source.set, None, None)
+    source = property(__source.value, __source.set, None, "\n            Where this image was found. In words. E.g. 'ANP'\n          ")
 
     
     # Element {urn:vpro:shared:2009}sourceName uses Python identifier sourceName
-    __sourceName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'sourceName'), 'sourceName', '__urnvproshared2009_imageType_urnvproshared2009sourceName', False, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 61, 6), )
+    __sourceName = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'sourceName'), 'sourceName', '__urnvproshared2009_imageType_urnvproshared2009sourceName', False, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 67, 6), )
 
     
-    sourceName = property(__sourceName.value, __sourceName.set, None, None)
+    sourceName = property(__sourceName.value, __sourceName.set, None, '\n            Where this image was found. As an URL.\n          ')
 
     
     # Element {urn:vpro:shared:2009}license uses Python identifier license
-    __license = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'license'), 'license', '__urnvproshared2009_imageType_urnvproshared2009license', False, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 62, 6), )
+    __license = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'license'), 'license', '__urnvproshared2009_imageType_urnvproshared2009license', False, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 74, 6), )
 
     
     license = property(__license.value, __license.set, None, None)
 
     
     # Element {urn:vpro:shared:2009}crid uses Python identifier crid
-    __crid = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'crid'), 'crid', '__urnvproshared2009_imageType_urnvproshared2009crid', True, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 63, 6), )
+    __crid = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'crid'), 'crid', '__urnvproshared2009_imageType_urnvproshared2009crid', True, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 75, 6), )
 
     
     crid = property(__crid.value, __crid.set, None, None)
 
     
     # Element {urn:vpro:shared:2009}date uses Python identifier date
-    __date = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'date'), 'date', '__urnvproshared2009_imageType_urnvproshared2009date', False, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 64, 6), )
+    __date = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'date'), 'date', '__urnvproshared2009_imageType_urnvproshared2009date', False, pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 76, 6), )
 
     
     date = property(__date.value, __date.set, None, None)
@@ -469,24 +469,24 @@ class imageType (pyxb.binding.basis.complexTypeDefinition):
     
     # Attribute type uses Python identifier type
     __type = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'type'), 'type', '__urnvproshared2009_imageType_type', _module_typeBindings.imageTypeEnum)
-    __type._DeclarationLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 66, 4)
-    __type._UseLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 66, 4)
+    __type._DeclarationLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 78, 4)
+    __type._UseLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 78, 4)
     
     type = property(__type.value, __type.set, None, None)
 
     
     # Attribute owner uses Python identifier owner
     __owner = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'owner'), 'owner', '__urnvproshared2009_imageType_owner', _module_typeBindings.ownerTypeEnum, required=True)
-    __owner._DeclarationLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 67, 4)
-    __owner._UseLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 67, 4)
+    __owner._DeclarationLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 79, 4)
+    __owner._UseLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 79, 4)
     
     owner = property(__owner.value, __owner.set, None, None)
 
     
     # Attribute highlighted uses Python identifier highlighted
     __highlighted = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'highlighted'), 'highlighted', '__urnvproshared2009_imageType_highlighted', pyxb.binding.datatypes.boolean, unicode_default='false')
-    __highlighted._DeclarationLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 68, 4)
-    __highlighted._UseLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 68, 4)
+    __highlighted._DeclarationLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 80, 4)
+    __highlighted._UseLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 80, 4)
     
     highlighted = property(__highlighted.value, __highlighted.set, None, None)
 
@@ -539,15 +539,15 @@ imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Nam
 
 imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'credits'), pyxb.binding.datatypes.string, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 59, 6)))
 
-imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'source'), pyxb.binding.datatypes.string, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 60, 6)))
+imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'source'), pyxb.binding.datatypes.string, scope=imageType, documentation="\n            Where this image was found. In words. E.g. 'ANP'\n          ", location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 60, 6)))
 
-imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'sourceName'), pyxb.binding.datatypes.string, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 61, 6)))
+imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'sourceName'), pyxb.binding.datatypes.string, scope=imageType, documentation='\n            Where this image was found. As an URL.\n          ', location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 67, 6)))
 
-imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'license'), licenseEnum, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 62, 6)))
+imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'license'), licenseEnum, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 74, 6)))
 
-imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'crid'), pyxb.binding.datatypes.string, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 63, 6)))
+imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'crid'), pyxb.binding.datatypes.string, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 75, 6)))
 
-imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'date'), pyxb.binding.datatypes.string, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 64, 6)))
+imageType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'date'), pyxb.binding.datatypes.string, scope=imageType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 76, 6)))
 
 def _BuildAutomaton ():
     # Remove this helper function from the namespace after it is invoked
@@ -570,13 +570,13 @@ def _BuildAutomaton ():
     counters.add(cc_5)
     cc_6 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 60, 6))
     counters.add(cc_6)
-    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 61, 6))
+    cc_7 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 67, 6))
     counters.add(cc_7)
-    cc_8 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 62, 6))
+    cc_8 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 74, 6))
     counters.add(cc_8)
-    cc_9 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 63, 6))
+    cc_9 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 75, 6))
     counters.add(cc_9)
-    cc_10 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 64, 6))
+    cc_10 = fac.CounterCondition(min=0, max=1, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 76, 6))
     counters.add(cc_10)
     states = []
     final_update = set()
@@ -620,22 +620,22 @@ def _BuildAutomaton ():
     states.append(st_7)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_7, False))
-    symbol = pyxb.binding.content.ElementUse(imageType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'sourceName')), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 61, 6))
+    symbol = pyxb.binding.content.ElementUse(imageType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'sourceName')), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 67, 6))
     st_8 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_8)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_8, False))
-    symbol = pyxb.binding.content.ElementUse(imageType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'license')), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 62, 6))
+    symbol = pyxb.binding.content.ElementUse(imageType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'license')), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 74, 6))
     st_9 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_9)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_9, False))
-    symbol = pyxb.binding.content.ElementUse(imageType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'crid')), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 63, 6))
+    symbol = pyxb.binding.content.ElementUse(imageType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'crid')), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 75, 6))
     st_10 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_10)
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_10, False))
-    symbol = pyxb.binding.content.ElementUse(imageType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'date')), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 64, 6))
+    symbol = pyxb.binding.content.ElementUse(imageType._UseForTag(pyxb.namespace.ExpandedName(Namespace, 'date')), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/vproShared.xsd', 76, 6))
     st_11 = fac.State(symbol, is_initial=False, final_update=final_update, is_unordered_catenation=False)
     states.append(st_11)
     transitions = []

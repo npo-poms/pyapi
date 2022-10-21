@@ -1,7 +1,7 @@
 # ./npoapi/xml/pageupdate.py
 # -*- coding: utf-8 -*-
 # PyXB bindings for NM:5f83322167e39b923e67d23964d9d10739352ba9
-# Generated 2021-09-10 12:13:29.183781 by PyXB version 1.2.6 using Python 3.8.2.final.0
+# Generated 2022-10-21 17:21:06.965207 by PyXB version 1.2.6 using Python 3.9.6.final.0
 # Namespace urn:vpro:pages:update:2013
 
 from __future__ import unicode_literals
@@ -14,7 +14,7 @@ import pyxb.utils.domutils
 import sys
 import pyxb.utils.six as _six
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:bcb149ba-121f-11ec-97b0-acde48001122')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:fa5187de-5153-11ed-9cc8-3e22fb45f01a')
 
 # Version of PyXB used to generate the bindings
 _PyXBVersion = '1.2.6'
@@ -433,7 +433,7 @@ class pageUpdateType (pyxb.binding.basis.complexTypeDefinition):
     __genre = pyxb.binding.content.ElementDeclaration(pyxb.namespace.ExpandedName(Namespace, 'genre'), 'genre', '__urnvpropagesupdate2013_pageUpdateType_urnvpropagesupdate2013genre', True, pyxb.utils.utility.Location('https://rs-test.poms.omroep.nl/v1/schema/urn:vpro:pages:update:2013', 29, 6), )
 
     
-    genre = property(__genre.value, __genre.set, None, None)
+    genre = property(__genre.value, __genre.set, None, 'Genres, as specified in https://publish.pages.omroep.nl/schema/classification')
 
     
     # Element {urn:vpro:pages:update:2013}link uses Python identifier link
@@ -918,7 +918,7 @@ pageUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedNam
 
 pageUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'tag'), pyxb.binding.datatypes.string, scope=pageUpdateType, location=pyxb.utils.utility.Location('https://rs-test.poms.omroep.nl/v1/schema/urn:vpro:pages:update:2013', 28, 6)))
 
-pageUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'genre'), pyxb.binding.datatypes.string, scope=pageUpdateType, location=pyxb.utils.utility.Location('https://rs-test.poms.omroep.nl/v1/schema/urn:vpro:pages:update:2013', 29, 6)))
+pageUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'genre'), pyxb.binding.datatypes.string, scope=pageUpdateType, documentation='Genres, as specified in https://publish.pages.omroep.nl/schema/classification', location=pyxb.utils.utility.Location('https://rs-test.poms.omroep.nl/v1/schema/urn:vpro:pages:update:2013', 29, 6)))
 
 pageUpdateType._AddElement(pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'link'), linkUpdateType, scope=pageUpdateType, location=pyxb.utils.utility.Location('https://rs-test.poms.omroep.nl/v1/schema/urn:vpro:pages:update:2013', 30, 6)))
 
