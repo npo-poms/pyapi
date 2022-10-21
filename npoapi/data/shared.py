@@ -124,6 +124,30 @@ class WorkflowEnumType(Enum):
 
 @dataclass
 class ImageType:
+    """
+    :ivar title:
+    :ivar description:
+    :ivar imageUri:
+    :ivar offset:
+    :ivar height:
+    :ivar width:
+    :ivar credits:
+    :ivar source: Where this image was found. In words. E.g. 'ANP'
+    :ivar sourceName: Where this image was found. As an URL.
+    :ivar license:
+    :ivar crid:
+    :ivar date:
+    :ivar type:
+    :ivar owner:
+    :ivar highlighted:
+    :ivar urn:
+    :ivar publishStart:
+    :ivar publishStop:
+    :ivar publishDate:
+    :ivar creationDate:
+    :ivar lastModified:
+    :ivar workflow:
+    """
     class Meta:
         name = "imageType"
 

@@ -20,7 +20,7 @@ class AgeRatingType(Enum):
     :cvar VALUE_16: Suitable for people of age 16 and up.
     :cvar VALUE_18: Suitable for people of age 18 and up.
     :cvar ALL: Suitable for people of all ages.
-    :cvar NOT_YET_RATED: Not yet rated
+    :cvar NOT_YET_RATED: Not yet rated. Experimental. Not currently accepted.
     """
     VALUE_6 = "6"
     VALUE_9 = "9"
@@ -987,10 +987,12 @@ class PortalRestrictionType:
 
 class PredictionStateEnum(Enum):
     """
-    :cvar NOT_ANNOUNCED: This value is not exposed, it can be present in the database though.
-    :cvar ANNOUNCED:
-    :cvar REALIZED:
-    :cvar REVOKED:
+    :cvar NOT_ANNOUNCED: This value is not exposed, it can be present in the database though. It means that for
+        given platform no playability is or was present or predicted.
+    :cvar ANNOUNCED: For given platform no playability is present, but it predicted though, because it was
+        announced.
+    :cvar REALIZED: For given platform playability currently is present.
+    :cvar REVOKED: For given platform playability currently is revoked. It used to be present though.
     """
     NOT_ANNOUNCED = "NOT_ANNOUNCED"
     ANNOUNCED = "ANNOUNCED"

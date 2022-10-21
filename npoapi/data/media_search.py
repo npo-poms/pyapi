@@ -623,7 +623,6 @@ class MediaListItem(PublishableListItem):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
-            "required": True,
         }
     )
     subTitle: Optional[str] = field(

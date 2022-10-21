@@ -1395,8 +1395,10 @@ class MediaUpdateType:
     :ivar mid:
     :ivar urn:
     :ivar ordered:
-    :ivar version: The POMS version this XML applies too. This is optional, though some feature will only be
-        supported if you explicitely specify a version which is big enough (To ensure backward compatiblity).
+    :ivar version: <xs:paragraphs xmlns:xs="http://www.w3.org/2001/XMLSchema"> The POMS version this XML applies
+        too. This is optional, though some features will only be supported if you explicitly specify a version
+        which is big enough (To ensure backward compatibility). If you don't specify it,  there will be no
+        backwards compatibility. </xs:paragraphs>
     """
     class Meta:
         name = "mediaUpdateType"

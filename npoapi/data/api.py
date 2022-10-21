@@ -305,6 +305,13 @@ class ChangeType:
     class Meta:
         name = "changeType"
 
+    reasons: Optional["ChangeType.Reasons"] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:api:2013",
+        }
+    )
     media: Optional[BaseMediaType] = field(
         default=None,
         metadata={
@@ -366,6 +373,16 @@ class ChangeType:
             "type": "Attribute",
         }
     )
+
+    @dataclass
+    class Reasons:
+        reason: List[str] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:api:2013",
+            }
+        )
 
 
 @dataclass
