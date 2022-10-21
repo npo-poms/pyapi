@@ -27,8 +27,8 @@ class PagesBackend(BasicBackend):
             self.url = "https://publish-os.pages.omroep.nl/"
         elif e is None or e == "test":
             self.url = "https://publish-test.pages.omroep.nl/"
-        elif e == "test_new":
-            self.url = "https://publish-test-os.pages.omroep.nl/"
+        elif e == "test_old":
+            self.url = "https://publish-test-nb.pages.omroep.nl/"
         elif e == "acc":
             self.url = "https://publish-acc.pages.omroep.nl/"
         elif e == "localhost":
@@ -41,23 +41,25 @@ class PagesBackend(BasicBackend):
                 self.url = e
         return self
 
-    def post(self, update):
-        return self.post_to("api/pages/updates", update, accept="text/plain", include_errors=False)
+    def post(self, update) -> str:
+        return self.post_to("api/pages/updates", update, accept="text/plain", include_errors=False)[0]
 
     def delete(self, url, batch: bool = False) -> Optional[dict]:
-        result = self.delete_from("api/pages/updates", url=url, batch=batch, accept="application/json", include_errors=False)
+        result, type = self.delete_from("api/pages/updates", url=url, batch=batch, include_errors=False)
         if result is None:
             return None
-        else:
+        elif type == 'application/json':
             return json.loads(result)
+        else:
+            return result
 
-    def get(self, url):
-        return self.get_from("api/pages/updates", url=url)
+    def get(self, url) -> str:
+        return self.get_from("api/pages/updates", url=url)[0]
 
     def get_users(self):
         return ["pages_user", "user"]
 
-    def post_person(self, new_person):
+    def post_person(self, new_person) -> str:
         import jwt
         import datetime
         new_person.jws = jwt.encode(
@@ -69,7 +71,7 @@ class PagesBackend(BasicBackend):
             self.get_setting("thesaurus_secret", "Your Thesaurus secret"),
             algorithm='HS256'
         ).decode("utf-8")
-        return self.post_to("api/thesaurus/person", new_person)
+        return self.post_to("api/thesaurus/person", new_person)[0]
 
     def __str__(self):
         return "pages backend api for " + str(self.url)

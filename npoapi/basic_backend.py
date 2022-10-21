@@ -2,7 +2,7 @@ import base64
 import dataclasses
 import logging
 import urllib.request
-from typing import Optional
+from typing import Optional, Tuple
 from xml.dom import minidom
 
 import pytz
@@ -100,7 +100,7 @@ class BasicBackend(NpoApiBase):
     def _needs_login(self):
         return not self.authorizationHeader
 
-    def post_to(self, path, xml, accept="application/xml", **kwargs) -> Optional[str]:
+    def post_to(self, path, xml, accept=None, **kwargs) -> Tuple[Optional[str], Optional[str]]:
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
@@ -111,21 +111,21 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept)
 
-    def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs) -> Optional[str]:
+    def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs) -> Tuple[Optional[str], Optional[str]]:
         self._creds()
         _url = self.append_params(self.url + path, include_errors=False, **kwargs)
         req = urllib.request.Request(_url)
         self.logger.debug("Getting from " + _url)
         return self._request(req, _url, accept=accept, ignore_not_found=ignore_not_found)
 
-    def delete_from(self, path: str, accept="text/plain", **kwargs) -> Optional[str]:
+    def delete_from(self, path: str, **kwargs) -> Tuple[Optional[str], Optional[str]]:
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, method="DELETE")
         self.logger.debug("Deleting " + url)
-        return self._request(req, url, accept=accept)
+        return self._request(req, url)
 
-    def _get_xml(self, url:str) -> Optional[bytearray]:
+    def _get_xml(self, url:str) -> Optional[bytes]:
         """Gets XML (as a byte array) from an URL. So this sets the accept header."""
         self._creds()
         self.logger.debug("getting " + url)
@@ -137,7 +137,7 @@ class BasicBackend(NpoApiBase):
         else:
             return None
 
-    def _request(self, req, url, accept="application/xml", needs_authentication=True, authorization=None, ignore_not_found=False) -> Optional[str]:
+    def _request(self, req, url, accept=None, needs_authentication=True, authorization=None, ignore_not_found=False) -> Tuple[Optional[str], Optional[str]]:
         if needs_authentication:
             if authorization:
                 req.add_header("Authorization", authorization)
@@ -146,7 +146,7 @@ class BasicBackend(NpoApiBase):
                     raise Exception("No user/password configured")
                 req.add_header("Authorization", self.authorizationHeader)
         req.add_header("Content-Type", "application/xml")
-        req.add_header("Accept", accept)
+        req.add_header("Accept", accept or self._accept)
         try:
             response = self.get_response(req, url, ignore_not_found=ignore_not_found)
             if response:
@@ -161,17 +161,17 @@ class BasicBackend(NpoApiBase):
                         self.logger.error("%s", str(e))
                 self.logger.debug("Found: %s", result)
 
-                return result
+                return result, response.headers.get('content-type')
             else:
-                return None
+                return None, None
         except urllib.request.HTTPError as e:
             logging.error(e.read().decode())
-            return None
+            return None, None
 
     def info(self):
         return self.url
 
-    def date_attr_value(self, datetime_att):
+    def date_attr_value(self, datetime_att) -> Optional[str]:
         if datetime_att:
             if type(datetime_att) == str:
                 return datetime_att
@@ -197,19 +197,19 @@ class BasicBackend(NpoApiBase):
         return _url
 
     @staticmethod
-    def toxml(update: pyxb.binding.basis.complexTypeDefinition) -> bytearray:
+    def toxml(update: pyxb.binding.basis.complexTypeDefinition) -> bytes:
         "xsi:- xml are not working out of the box.."
         t = type(update)
         if t == mediaupdate.programUpdateType:
-            return update.toxml("utf-8", element_name='program')
+            return bytes(update.toxml("utf-8", element_name='program'))
         elif t == mediaupdate.groupUpdateType:
-            return update.toxml("utf-8", element_name='group')
+            return bytes(update.toxml("utf-8", element_name='group'))
         elif t == mediaupdate.segmentUpdateType:
-            return update.toxml("utf-8", element_name='segment')
+            return bytes(update.toxml("utf-8", element_name='segment'))
         else:
-            return update.toxml("utf-8")
+            return bytes(update.toxml("utf-8"))
 
-    def xml_to_bytes(self, xml) -> bytearray:
+    def xml_to_bytes(self, xml) -> bytes:
         """Accepts xml in several formats, and returns it as a byte array, ready for posting"""
         import xml.etree.ElementTree as ET
         import pyxb

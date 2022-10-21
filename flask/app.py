@@ -27,7 +27,7 @@ def send_js(path):
 @app.route('/mediaobject/<path:mid>')
 def send_mediaobject(mid):
     all_properties = ["all"]
-    properties =  ["title:main:1",
+    properties = ["title:main:1",
            "locations",
            "predictionsForXml", # NPA-602
            "predictions"]

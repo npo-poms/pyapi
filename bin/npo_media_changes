@@ -40,8 +40,6 @@ while len(buffer) > 0:
     stdout.write(buffer)
     buffer = response.read(1024)
     count += 1
-    if count > 10:
-        break
 
 response.close()
 stdout.flush()

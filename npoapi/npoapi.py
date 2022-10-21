@@ -51,8 +51,6 @@ class NpoApi(NpoApiBase):
             self.url = "https://api-server-poms-stack-test.apps.poms.cluster.chp4.io/v1"
         elif e == "testb":
             self.url = "https://rs-b-test.poms.omroep.nl/v1"
-        elif e == "test_new":
-            self.url = "https://rs-test-os.poms.omroep.nl/v1"
         elif e == "test_old":
             self.url = "https://rs-test-nb.poms.omroep.nl/v1"
         elif e == "acc":

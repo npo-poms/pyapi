@@ -21,18 +21,18 @@ while True:
     response = TextIOWrapper(client.changes_raw(
            profile=args.profile,
            since=args.since,
-           limit=args.max,
-           force_oldstyle=args.backwards,
            properties=args.properties,
            check_profile=not args.no_check_profile,
            deletes=args.deletes,
            stream=True), encoding="UTF-8")
 
-    buffer = response.read(1024)
-    while len(buffer) > 0:
-        stdout.write(buffer)
+    while True:
         buffer = response.read(1024)
-        response.close()
+        if len(buffer) == 0:
+            break
+        stdout.write(buffer)
         stdout.flush()
+
+    response.close()
 
 client.exit()

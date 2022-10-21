@@ -1,6 +1,5 @@
-
 FROM alpine:3.14
-# don't upgrade alpine, we need python <= 3.8
+# don't upgrade alpine, we need python <= 3.9
 
 RUN apk add --no-cache --upgrade --virtual .build-deps build-base git python3-dev cargo libffi-dev openssl-dev   && \
     apk add --no-cache  python3  py3-pip && \

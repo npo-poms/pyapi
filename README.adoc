@@ -66,7 +66,7 @@ You can also e.g. define an alias to help you remember
 [source, bash]
 ..bash_profile
 -----
-alias npoapi='docker run -v ~/conf:/root/conf -v  $(pwd):/work mihxil/npo-pyapi'
+alias npoapi='docker run -e ENV=`eval ''echo $ENV'a'` -v ~/conf:/root/conf -v  $(pwd):/work mihxil/npo-pyapi'
 -----
 
 //[source, bash]

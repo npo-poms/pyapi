@@ -4,7 +4,7 @@
 """
 from npoapi import MediaBackend
 
-client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
+client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API", exclude_arguments=["accept"])
 
 list_of_subs = ["members", "episodes", "images", "locations", "full", "subtitles", "memberOfs", "episodeOfs", ""]
 
