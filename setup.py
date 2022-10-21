@@ -16,7 +16,7 @@ setup(
         'jwt==1.3.1',
         'typing==3.7.4.3',
         'requests==2.26.0',
-        'xsdata[cli]==22.5'
+        'xsdata[cli]==22.9'
     ],
     scripts=[
         'bin/npo_media_get',
