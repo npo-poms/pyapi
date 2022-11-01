@@ -19,6 +19,7 @@ client.add_argument("--tail", type=str, default=None,  choices=("ALWAYS", "IF_EM
 client.add_argument('-p', "--properties", type=str, default=None,
                     help="properties filtering")
 client.add_argument("--reason_filter", type=str, default=None)
+client.add_argument("--buffer_size", type=int, default="1000")
 
 args = client.parse_args()
 check_profile = None
@@ -40,11 +41,13 @@ response = TextIOWrapper(client.changes_raw(
     stream=True,
     reason_filter=args.reason_filter), encoding="UTF-8")
 
-buffer = response.read(1024)
+bufsize=args.buffer_size
+buffer = response.read(bufsize)
 count = 0
 while len(buffer) > 0:
     stdout.write(buffer)
-    buffer = response.read(1024)
+    stdout.flush()
+    buffer = response.read(bufsize)
     count += 1
 
 response.close()
