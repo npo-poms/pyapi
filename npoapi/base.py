@@ -263,7 +263,7 @@ class NpoApiBase:
         parent_args.add_argument('-v', "--version", action="store_true", help="show current version")
         if not "accept" in exclude_arguments:
             parent_args.add_argument('-a', "--accept", type=str, default=None, choices=self.accept_choices().keys())
-        parent_args.add_argument('-e', "--env", type=str, default=None, choices={"test", "acc", "testa", "testb", "prod", "proda", "prodb", "prod_new", "test_old", "test_new", "localhost"})
+        parent_args.add_argument('-e', "--env", type=str, default=self._env, choices={"test", "acc", "testa", "testb", "prod", "proda", "prodb", "prod_new", "test_old", "test_new", "localhost"})
         parent_args.add_argument('-u', "--url", type=str, default=None, help="The URL of the API which this client communicates with. This is an alternative to --env")
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")

@@ -55,9 +55,9 @@ class MediaBackend(BasicBackend):
         """Returns pyxb-representation of a mediaobject"""
         return self.to_object(self.get(mid, ignore_not_found), validate=False)
 
-    def get_full_object(self, mid: str, ignore_not_found=False) -> media:
+    def get_full_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> media:
         """Returns pyxb-representation of a mediaobject"""
-        return self.to_object(self.get_full(mid, ignore_not_found), validate=False)
+        return self.to_object(self.get_full(mid, ignore_not_found), validate=False, binding=binding)
 
     def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False, client_validate=True, sub=None, mid=None, binding=DEFAULT_BINDING) -> Optional[str]:
         if not raw:

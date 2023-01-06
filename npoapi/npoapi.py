@@ -55,7 +55,7 @@ class NpoApi(NpoApiBase):
             self.url = "https://rs-test-nb.poms.omroep.nl/v1"
         elif e == "acc":
             self.url = "https://rs-acc.poms.omroep.nl/v1"
-        elif e == None or e == "test":
+        elif (e == None and self._env == None) or e == "test":
             self.url = "https://rs-test.poms.omroep.nl/v1"
         elif e == "localhost":
             self.url = "http://localhost:8070/v1"
@@ -105,7 +105,7 @@ class NpoApi(NpoApiBase):
         self.logger.debug("url: " + str(req.get_full_url()))
 
     def _get_data(self, data:str = None, content_type:str =None) -> [bytearray, str]:
-        """Automaticly determins the content_type if it is not set"""
+        """Automatically determines the content_type if it is not set"""
         if data is None:
             pass
         elif type(data) == str:

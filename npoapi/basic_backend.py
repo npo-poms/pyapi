@@ -26,7 +26,6 @@ class BasicBackend(NpoApiBase):
         self.user = None
         self.password = None
         self.email = email
-        self.url = None
         self.authorizationHeader = None
         self.description = description
 
