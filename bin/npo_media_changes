@@ -12,9 +12,8 @@ client.add_argument('profile', type=str, nargs='?', help='Profile')
 client.add_argument("-s", "--since", type=str, default=None)
 client.add_argument('-m', "--max", type=int, default="100", help="The maximal number of changes to return. If not specified 100 will be filled was parameter. If set to -1, no max parameter will be used (which is unbounded).")
 client.add_argument("--backwards", action="store_true")
-client.add_argument("--no_check_profile", action="store_true")
-client.add_argument("--check_profile", type=bool, default=None)
 client.add_argument("--deletes", type=str, default="ID_ONLY", choices=("ID_ONLY", "EXCLUDE", "INCLUDE"))
+client.add_argument("--order", type=str, default=None, choices=("ASC", "DESC"))
 client.add_argument("--tail", type=str, default=None,  choices=("ALWAYS", "IF_EMPTY", "NEVER"))
 client.add_argument('-p', "--properties", type=str, default=None,
                     help="properties filtering")
@@ -22,23 +21,15 @@ client.add_argument("--reason_filter", type=str, default=None)
 client.add_argument("--buffer_size", type=int, default="1000")
 
 args = client.parse_args()
-check_profile = None
-if args.no_check_profile:
-    check_profile = False
-
-if args.check_profile != None:
-    check_profile = args.check_profile
-
-
 response = TextIOWrapper(client.changes_raw(
     profile=args.profile,
     since=args.since,
     limit=None if args.max == -1 else args.max,
     force_oldstyle=args.backwards,
     properties=args.properties,
-    check_profile=check_profile,
     deletes=args.deletes,
     tail=args.tail,
+    order=args.order,
     stream=True,
     reason_filter=args.reason_filter), encoding="UTF-8")
 
