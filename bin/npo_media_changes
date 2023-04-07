@@ -29,10 +29,11 @@ if args.no_check_profile:
 if args.check_profile != None:
     check_profile = args.check_profile
 
+
 response = TextIOWrapper(client.changes_raw(
     profile=args.profile,
     since=args.since,
-    limit=args.max,
+    limit=None if args.max == -1 else args.max,
     force_oldstyle=args.backwards,
     properties=args.properties,
     check_profile=check_profile,
