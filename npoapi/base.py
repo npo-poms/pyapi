@@ -379,7 +379,12 @@ class NpoApiBase:
         return data
 
     def to_object(self, data:str, validate=False, binding=DEFAULT_BINDING) -> object:
-        return npoapi.utils.to_object(data, validate, binding)
+        try:
+            return npoapi.utils.to_object(data, validate, binding)
+        except Exception as e:
+            self.logger.info("Couldn't transform to object %s"%data)
+            self.logger.error(str(e))
+            return None
 
     def to_object_or_none(self, data:str, validate=False, binding=DEFAULT_BINDING) -> object:
         import xml
