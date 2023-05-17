@@ -1,4 +1,4 @@
-__version__ = "7.1.0.dev"
+__version__ = "7.6.0.dev"
 
 # would this make pyxb work with python 3.10
 import collections
