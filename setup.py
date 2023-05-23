@@ -15,7 +15,7 @@ setup(
         'python-dateutil==2.8.2',
         'jwt==1.3.1',
         'typing==3.7.4.3',
-        'requests==2.27.1',
+        'requests==2.31.0',
         'xsdata[cli]==22.12',
     ],
     scripts=[
