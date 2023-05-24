@@ -10,7 +10,7 @@ from npoapi import Media
 client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
 client.add_argument('profile', type=str, nargs='?', help='Profile')
 client.add_argument("-s", "--since", type=str, default=None)
-client.add_argument('-m', "--max", type=int, default="100", help="The maximal number of changes to return. If not specified 100 will be filled was parameter. If set to -1, no max parameter will be used (which is unbounded).")
+client.add_argument('-m', "--max", type=int, default="100", help="The maximal number of changes to return. If not specified 100 will be filled as parameter. If set to -1, no max parameter will be used (which is unbounded).")
 client.add_argument("--backwards", action="store_true")
 client.add_argument("--deletes", type=str, default="ID_ONLY", choices=("ID_ONLY", "EXCLUDE", "INCLUDE"))
 client.add_argument("--order", type=str, default=None, choices=("ASC", "DESC"))
