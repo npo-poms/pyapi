@@ -101,14 +101,17 @@ class BasicBackend(NpoApiBase):
 
     def post_to(self, path, xml, accept=None, **kwargs) -> Tuple[Optional[str], Optional[str]]:
         """Post to path on configured server. Add necessary authentication headers"""
-        self._creds()
-        url = self.append_params(self.url + path, **kwargs)
         if xml is None:
             raise Exception("Cant post without xml")
-        bytes = self.xml_to_bytes(xml)
+        return self.post_bytes_to(path, self.xml_to_bytes(xml), accept=accept, **kwargs)
+    
+    def post_bytes_to(self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs) -> Tuple[Optional[str], Optional[str]]:
+        """Post to path on configured server. Add necessary authentication headers"""
+        self._creds()
+        url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, data=bytes, method='POST')
         self.logger.debug("Posting " + str(bytes) + " to " + url)
-        return self._request(req, url, accept=accept)
+        return self._request(req, url, accept=accept, content_type = content_type, content_length = content_length)
 
     def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs) -> Tuple[Optional[str], Optional[str]]:
         self._creds()
@@ -136,7 +139,7 @@ class BasicBackend(NpoApiBase):
         else:
             return None
 
-    def _request(self, req, url, accept=None, needs_authentication=True, authorization=None, ignore_not_found=False) -> Tuple[Optional[str], Optional[str]]:
+    def _request(self, req, url, accept=None, needs_authentication=True, authorization=None, ignore_not_found=False, content_type="aplication/xml", content_length = None) -> Tuple[Optional[str], Optional[str]]:
         if needs_authentication:
             if authorization:
                 req.add_header("Authorization", authorization)
@@ -144,8 +147,11 @@ class BasicBackend(NpoApiBase):
                 if not self.authorizationHeader:
                     raise Exception("No user/password configured")
                 req.add_header("Authorization", self.authorizationHeader)
-        req.add_header("Content-Type", "application/xml")
-        req.add_header("Accept", accept or self._accept)
+        req.add_header("Content-Type", content_type)
+        if accept != "":
+            req.add_header("Accept", accept or self._accept)
+        if content_length != None:
+            req.add_header("Content-Length", content_length)
         try:
             response = self.get_response(req, url, ignore_not_found=ignore_not_found)
             if response:

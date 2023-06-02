@@ -279,7 +279,6 @@ class MediaBackend(BasicBackend):
             url = url + sep + "followMerges=false"
         return self._get_xml(url)
 
-
     def guess_format(self, url):
         if str(url).endswith(".mp4"):
             return media.avFileFormatEnum.MP4
@@ -287,3 +286,9 @@ class MediaBackend(BasicBackend):
             return media.avFileFormatEnum.MP3
         else:
             return media.avFileFormatEnum.UNKNOWN
+        
+    def upload_audio(self, mid:str, file:str, **kwargs):
+        path =  "media/upload/%s" %( urllib.parse.quote(mid, safe=""))
+        if file.endswith(".mp3"):
+            with open(file, "rb") as f:
+                return self.post_bytes_to(path, f, content_type="audio/mp3", content_length= os.stat(file).st_size, accept="", **kwargs)
