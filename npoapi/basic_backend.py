@@ -139,7 +139,7 @@ class BasicBackend(NpoApiBase):
         else:
             return None
 
-    def _request(self, req, url, accept=None, needs_authentication=True, authorization=None, ignore_not_found=False, content_type="aplication/xml", content_length = None) -> Tuple[Optional[str], Optional[str]]:
+    def _request(self, req, url, accept=None, needs_authentication=True, authorization=None, ignore_not_found=False, content_type="application/xml", content_length = None) -> Tuple[Optional[str], Optional[str]]:
         if needs_authentication:
             if authorization:
                 req.add_header("Authorization", authorization)
