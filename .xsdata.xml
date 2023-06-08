@@ -33,10 +33,13 @@
     <Substitution type="package" search="^urn:vpro:api:profile:2013$" replace="profile"/>
     <!--
     <Substitution type="class" search="^data$" replace="npoapi.data.poms"/>
--->
-<!--    <Substitution type="class"   search="AndType$" replace="AndTYPE"/>
+    <Substitution type="class"   search="AndType$" replace="AndTYPE"/>
     <Substitution type="class"   search="Type$" replace=""/>
     <Substitution type="class"   search="AndTYPE$" replace="AndType"/>
     -->
+    <!--
+        <Substitution type="class" search="Not$" replace="NotType"/>
+
+-->
   </Substitutions>
 </Config>

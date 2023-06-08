@@ -128,7 +128,7 @@ class BasicBackend(NpoApiBase):
         return self._request(req, url)
 
     def _get_xml(self, url:str) -> Optional[bytes]:
-        """Gets XML (as a byte array) from an URL. So this sets the accept header."""
+        """Gets XML (as a byte array) from a URL. So this sets the accept header."""
         self._creds()
         self.logger.debug("getting " + url)
         req = urllib.request.Request(url)

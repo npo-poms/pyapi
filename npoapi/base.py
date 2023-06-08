@@ -8,7 +8,7 @@ import os
 import sys
 import urllib.request
 from enum import Enum
-from typing import Dict
+from typing import Dict, Union
 from typing import List
 from typing import Optional
 
@@ -378,7 +378,7 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data:str, validate=False, binding=DEFAULT_BINDING) -> object:
+    def to_object(self, data:str, validate=False, binding=DEFAULT_BINDING) -> Union[object]:
         try:
             return npoapi.utils.to_object(data, validate, binding)
         except Exception as e:

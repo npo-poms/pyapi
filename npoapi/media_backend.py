@@ -1,11 +1,15 @@
 import codecs
 import os
 import urllib.parse
-from typing import Optional
+from typing import Optional, Union
 from xml.dom import minidom
+
+from npoapi.xml.mediaupdate import mediaUpdateType
+from npoapi.xml.media import baseMediaType, streamingStatus
 
 from npoapi.base import DEFAULT_BINDING
 from npoapi.basic_backend import BasicBackend
+from npoapi.data import MediaUpdateType, BaseMediaType, StreamingStatus
 from npoapi.xml import media, mediaupdate, poms
 import logging
 import time
@@ -51,13 +55,19 @@ class MediaBackend(BasicBackend):
         """Returns XML-representation of a mediaobject"""
         return self.get_from("media/media/" + urllib.parse.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found)[0]
 
-    def get_object(self, mid: str, ignore_not_found=False) -> mediaupdate:
-        """Returns pyxb-representation of a mediaobject"""
-        return self.to_object(self.get(mid, ignore_not_found), validate=False)
+    def get_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> Union[mediaUpdateType, MediaUpdateType]:
+        """Returns pyxb/xsdata-representation of a mediaobject"""
+        return self.to_object(self.get(mid, ignore_not_found), validate=False, binding=binding)
 
-    def get_full_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> media:
-        """Returns pyxb-representation of a mediaobject"""
+    def get_full_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> Union[baseMediaType, BaseMediaType]:
+        """Returns pyxb/xsdat-representation of a mediaobject"""
         return self.to_object(self.get_full(mid, ignore_not_found), validate=False, binding=binding)
+    
+    def exists(self, mid:str):
+        return self.get_from("media/exists/" + urllib.parse.quote(mid, safe=''), accept='')[0] == "true"
+    
+    def streaming_status(self, mid:str, binding= DEFAULT_BINDING) -> Union[streamingStatus, StreamingStatus]:
+        return self.to_object(self.get_from("media/streamingstatus/" + urllib.parse.quote(mid, safe=''))[0], binding=binding)  
 
     def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False, client_validate=True, sub=None, mid=None, binding=DEFAULT_BINDING) -> Optional[str]:
         if not raw:
