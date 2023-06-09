@@ -1,5 +1,6 @@
 .PHONY: docker docker-push
-POMS=https://poms-test.omroep.nl/
+#POMS=https://poms-test.omroep.nl/
+POMS=http://michiel.omroep.nl:8071/
 #RS=https://rs-test.poms.omroep.nl/v1/
 RS=http://localhost:8070/v1/
 PAGESPUB=https://publish-test.pages.omroep.nl/
@@ -58,7 +59,7 @@ clean:
 
 
 clean.data: clean
-	rm -rf npoapi/data/*
+	find npoapi/data -type f -not -name 'poms.py' -delete 
 
 clean.xml: clean.model clean
 	rm -rf npoapi/xml/*

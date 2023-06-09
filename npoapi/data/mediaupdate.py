@@ -360,6 +360,47 @@ class TranscodeStatusEnum(Enum):
 
 
 @dataclass(slots=True)
+class UploadResponseType:
+    class Meta:
+        name = "uploadResponseType"
+
+    status: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
+    )
+    response: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
+    )
+    bytes: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        }
+    )
+    statusCode: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        }
+    )
+    mid: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        }
+    )
+
+
+@dataclass(slots=True)
 class AssetType:
     class Meta:
         name = "assetType"
@@ -1027,6 +1068,13 @@ class TranscodeType:
             "type": "Attribute",
         }
     )
+
+
+@dataclass(slots=True)
+class UploadResponse(UploadResponseType):
+    class Meta:
+        name = "uploadResponse"
+        namespace = "urn:vpro:media:update:2009"
 
 
 @dataclass(slots=True)

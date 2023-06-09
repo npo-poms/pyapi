@@ -295,6 +295,8 @@ from npoapi.data.mediaupdate import (
     TranscodeStatusEnum,
     TranscodeStatusType,
     TranscodeType,
+    UploadResponse,
+    UploadResponseType,
     VideoAttributesUpdateType,
 )
 from npoapi.data.page import (
@@ -653,6 +655,8 @@ __all__ = [
     "TranscodeStatusEnum",
     "TranscodeStatusType",
     "TranscodeType",
+    "UploadResponse",
+    "UploadResponseType",
     "VideoAttributesUpdateType",
     "EmbedType",
     "PageGenre",
