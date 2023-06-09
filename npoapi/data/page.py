@@ -16,7 +16,7 @@ from npoapi.data.shared import (
 __NAMESPACE__ = "urn:vpro:pages:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class GenreType:
     class Meta:
         name = "genreType"
@@ -68,7 +68,7 @@ class PageWorkflow(Enum):
     DELETED = "DELETED"
 
 
-@dataclass
+@dataclass(slots=True)
 class RelationType:
     class Meta:
         name = "relationType"
@@ -101,7 +101,7 @@ class RelationType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SectionType:
     class Meta:
         name = "sectionType"
@@ -120,7 +120,7 @@ class SectionType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class EmbedType:
     class Meta:
         name = "embedType"
@@ -139,37 +139,39 @@ class EmbedType:
             "namespace": "urn:vpro:pages:2013",
         }
     )
-    group: Optional[Group] = field(
+    groupOrProgramOrSegment: Optional[object] = field(
         default=None,
         metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:2009",
-        }
-    )
-    program: Optional[Program] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:2009",
-        }
-    )
-    segment: Optional[Segment] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:2009",
+            "type": "Elements",
+            "choices": (
+                {
+                    "name": "group",
+                    "type": Group,
+                    "namespace": "urn:vpro:media:2009",
+                },
+                {
+                    "name": "program",
+                    "type": Program,
+                    "namespace": "urn:vpro:media:2009",
+                },
+                {
+                    "name": "segment",
+                    "type": Segment,
+                    "namespace": "urn:vpro:media:2009",
+                },
+            ),
         }
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Genre(GenreType):
     class Meta:
         name = "genre"
         namespace = "urn:vpro:pages:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class ImageType:
     class Meta:
         name = "imageType"
@@ -230,7 +232,7 @@ class ImageType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class LinkType:
     class Meta:
         name = "linkType"
@@ -256,7 +258,7 @@ class LinkType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PortalType:
     class Meta:
         name = "portalType"
@@ -292,7 +294,7 @@ class PortalType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ReferralType:
     class Meta:
         name = "referralType"
@@ -317,7 +319,7 @@ class ReferralType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ParagraphType:
     class Meta:
         name = "paragraphType"
@@ -345,7 +347,7 @@ class ParagraphType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageType:
     class Meta:
         name = "pageType"
@@ -534,7 +536,7 @@ class PageType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Paragraphs:
         paragraph: List[ParagraphType] = field(
             default_factory=list,
@@ -544,7 +546,7 @@ class PageType:
             }
         )
 
-    @dataclass
+    @dataclass(slots=True)
     class Images:
         image: List[ImageType] = field(
             default_factory=list,
@@ -555,7 +557,7 @@ class PageType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class Page(PageType):
     class Meta:
         name = "page"

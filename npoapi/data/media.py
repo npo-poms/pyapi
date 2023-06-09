@@ -37,7 +37,7 @@ class AspectRatioEnum(Enum):
     VALUE_16_9 = "16:9"
 
 
-@dataclass
+@dataclass(slots=True)
 class AudioAttributesType:
     class Meta:
         name = "audioAttributesType"
@@ -91,7 +91,7 @@ class AvTypeEnum(Enum):
     MIXED = "MIXED"
 
 
-@dataclass
+@dataclass(slots=True)
 class AvailableSubtitleType:
     class Meta:
         name = "availableSubtitleType"
@@ -416,6 +416,7 @@ class ChannelEnum(Enum):
     :cvar TRT1: TRT 1
     :cvar ALJI: Al Jazeera English
     :cvar SPID: Spike Nederland
+    :cvar PRMT: Paramount Nederland
     :cvar XXXX: Test channel. This channel only exist for the sake of testing.
     """
     NED1 = "NED1"
@@ -722,6 +723,7 @@ class ChannelEnum(Enum):
     TRT1 = "TRT1"
     ALJI = "ALJI"
     SPID = "SPID"
+    PRMT = "PRMT"
     XXXX = "XXXX"
 
 
@@ -749,7 +751,7 @@ class ContentRatingType(Enum):
     DRUGS_EN_ALCOHOL = "DRUGS_EN_ALCOHOL"
 
 
-@dataclass
+@dataclass(slots=True)
 class CountryType:
     class Meta:
         name = "countryType"
@@ -774,7 +776,7 @@ class Encryption(Enum):
     DRM = "DRM"
 
 
-@dataclass
+@dataclass(slots=True)
 class GenreType:
     class Meta:
         name = "genreType"
@@ -852,7 +854,7 @@ class IntentionEnum(Enum):
     ACTIVATING = "ACTIVATING"
 
 
-@dataclass
+@dataclass(slots=True)
 class LanguageType:
     class Meta:
         name = "languageType"
@@ -927,7 +929,7 @@ class MediaTypeEnum(Enum):
     COLLECTION = "COLLECTION"
 
 
-@dataclass
+@dataclass(slots=True)
 class OrganizationType:
     class Meta:
         name = "organizationType"
@@ -954,7 +956,7 @@ class PlatformTypeEnum(Enum):
     NPOPLUSVOD = "NPOPLUSVOD"
 
 
-@dataclass
+@dataclass(slots=True)
 class PortalRestrictionType:
     class Meta:
         name = "portalRestrictionType"
@@ -1012,7 +1014,7 @@ class ProgramTypeEnum(Enum):
     RECORDING = "RECORDING"
 
 
-@dataclass
+@dataclass(slots=True)
 class RelationType:
     class Meta:
         name = "relationType"
@@ -1052,7 +1054,7 @@ class RelationType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class RepeatType:
     class Meta:
         name = "repeatType"
@@ -1146,7 +1148,7 @@ class StreamingStatusValue(Enum):
     UNSET = "UNSET"
 
 
-@dataclass
+@dataclass(slots=True)
 class TagType:
     class Meta:
         name = "tagType"
@@ -1194,13 +1196,13 @@ class TwitterTypeType(Enum):
     HASHTAG = "HASHTAG"
 
 
-@dataclass
+@dataclass(slots=True)
 class BroadcasterType(OrganizationType):
     class Meta:
         name = "broadcasterType"
 
 
-@dataclass
+@dataclass(slots=True)
 class DescendantRefType:
     class Meta:
         name = "descendantRefType"
@@ -1229,7 +1231,7 @@ class DescendantRefType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DescriptionType:
     class Meta:
         name = "descriptionType"
@@ -1255,7 +1257,7 @@ class DescriptionType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GeoLocationType:
     class Meta:
         name = "geoLocationType"
@@ -1296,7 +1298,7 @@ class GeoLocationType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GeoRestrictionType:
     class Meta:
         name = "geoRestrictionType"
@@ -1333,7 +1335,7 @@ class GeoRestrictionType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ImagesType:
     class Meta:
         name = "imagesType"
@@ -1347,7 +1349,7 @@ class ImagesType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class IntentionType:
     class Meta:
         name = "intentionType"
@@ -1367,7 +1369,7 @@ class IntentionType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class NameType:
     class Meta:
         name = "nameType"
@@ -1407,7 +1409,7 @@ class NameType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PersonType:
     class Meta:
         name = "personType"
@@ -1449,7 +1451,7 @@ class PersonType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PortalsType:
     class Meta:
         name = "portalsType"
@@ -1463,7 +1465,7 @@ class PortalsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PredictionType:
     class Meta:
         name = "predictionType"
@@ -1494,7 +1496,7 @@ class PredictionType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class RecursiveMemberRef:
     class Meta:
         name = "recursiveMemberRef"
@@ -1546,7 +1548,7 @@ class RecursiveMemberRef:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleEventDescription:
     class Meta:
         name = "scheduleEventDescription"
@@ -1573,7 +1575,7 @@ class ScheduleEventDescription:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleEventTitle:
     class Meta:
         name = "scheduleEventTitle"
@@ -1600,7 +1602,7 @@ class ScheduleEventTitle:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class StreamingStatus:
     class Meta:
         name = "streamingStatus"
@@ -1620,7 +1622,7 @@ class StreamingStatus:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TargetGroupsType:
     class Meta:
         name = "targetGroupsType"
@@ -1640,7 +1642,7 @@ class TargetGroupsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TitleType:
     class Meta:
         name = "titleType"
@@ -1666,7 +1668,7 @@ class TitleType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TopicType:
     class Meta:
         name = "topicType"
@@ -1700,7 +1702,7 @@ class TopicType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TwitterType:
     class Meta:
         name = "twitterType"
@@ -1719,7 +1721,7 @@ class TwitterType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class VideoAttributesType:
     """
     :ivar color:
@@ -1773,7 +1775,7 @@ class VideoAttributesType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class AvAttributesType:
     class Meta:
         name = "avAttributesType"
@@ -1815,7 +1817,7 @@ class AvAttributesType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class CreditsType:
     class Meta:
         name = "creditsType"
@@ -1840,7 +1842,7 @@ class CreditsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GeoLocationsType:
     class Meta:
         name = "geoLocationsType"
@@ -1860,7 +1862,7 @@ class GeoLocationsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MemberRefType:
     """
     :ivar episodeOf:
@@ -1947,7 +1949,7 @@ class MemberRefType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TopicsType:
     class Meta:
         name = "topicsType"
@@ -1967,7 +1969,7 @@ class TopicsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class LocationType:
     class Meta:
         name = "locationType"
@@ -2071,7 +2073,7 @@ class LocationType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleEventType:
     class Meta:
         name = "scheduleEventType"
@@ -2228,7 +2230,7 @@ class ScheduleEventType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class LocationTableType:
     class Meta:
         name = "locationTableType"
@@ -2249,7 +2251,7 @@ class LocationTableType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class LocationsType:
     class Meta:
         name = "locationsType"
@@ -2263,7 +2265,7 @@ class LocationsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleEventsType:
     class Meta:
         name = "scheduleEventsType"
@@ -2277,7 +2279,7 @@ class ScheduleEventsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleType:
     class Meta:
         name = "scheduleType"
@@ -2334,7 +2336,7 @@ class ScheduleType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class BaseMediaType:
     """This is the abstract base entity for programs, groups and segments.
 
@@ -2746,7 +2748,7 @@ class BaseMediaType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Schedule(ScheduleType):
     """Programs of type 'BROADCAST' can contain schedule events.
 
@@ -2758,7 +2760,7 @@ class Schedule(ScheduleType):
         namespace = "urn:vpro:media:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class GroupType(BaseMediaType):
     class Meta:
         name = "groupType"
@@ -2793,7 +2795,7 @@ class GroupType(BaseMediaType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SegmentType(BaseMediaType):
     class Meta:
         name = "segmentType"
@@ -2839,7 +2841,7 @@ class SegmentType(BaseMediaType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Group(GroupType):
     """A groups collects a number of programs and/or other groups.
 
@@ -2850,7 +2852,7 @@ class Group(GroupType):
         namespace = "urn:vpro:media:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class Segment(SegmentType):
     """A program can contain a number of segments.
 
@@ -2861,7 +2863,7 @@ class Segment(SegmentType):
         namespace = "urn:vpro:media:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class SegmentsType:
     class Meta:
         name = "segmentsType"
@@ -2875,7 +2877,7 @@ class SegmentsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GroupTableType:
     class Meta:
         name = "groupTableType"
@@ -2890,7 +2892,7 @@ class GroupTableType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ProgramType(BaseMediaType):
     """
     :ivar scheduleEvents:
@@ -2932,7 +2934,7 @@ class ProgramType(BaseMediaType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Program(ProgramType):
     """This is the most used entity in POMS.
 
@@ -2944,7 +2946,7 @@ class Program(ProgramType):
         namespace = "urn:vpro:media:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class ProgramTableType:
     class Meta:
         name = "programTableType"
@@ -2958,7 +2960,7 @@ class ProgramTableType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaTableType:
     """
     :ivar programTable: A table with all program objects in this container
@@ -3020,9 +3022,10 @@ class MediaTableType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaInformation(MediaTableType):
-    """Base element only used when programs, groups and schedule information need to be bundled in one XML.
+    """Base element only used when programs, groups and schedule information need
+    to be bundled in one XML.
 
     E.g. when distributing to cable companies.
     """

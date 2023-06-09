@@ -31,7 +31,7 @@ from npoapi.data.shared import (
 __NAMESPACE__ = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class AssetDataType:
     class Meta:
         name = "assetDataType"
@@ -46,7 +46,7 @@ class AssetDataType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class AssetLocationType:
     class Meta:
         name = "assetLocationType"
@@ -60,7 +60,7 @@ class AssetLocationType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class AudioAttributesUpdateType:
     class Meta:
         name = "audioAttributesUpdateType"
@@ -83,7 +83,7 @@ class AudioAttributesUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ImageDataType:
     class Meta:
         name = "imageDataType"
@@ -98,7 +98,7 @@ class ImageDataType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ImageLocationType:
     """
     :ivar mimeType: Sometimes it may be usefull to explicitely specify the mimetype of the given location. (E.g.
@@ -126,7 +126,7 @@ class ImageLocationType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ItemizeType:
     class Meta:
         name = "itemizeType"
@@ -159,7 +159,7 @@ class ListOrder(Enum):
     DESC = "DESC"
 
 
-@dataclass
+@dataclass(slots=True)
 class LiveItemize1:
     class Meta:
         name = "liveItemize"
@@ -186,7 +186,7 @@ class LiveItemize1:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MemberRefUpdateType:
     class Meta:
         name = "memberRefUpdateType"
@@ -212,7 +212,7 @@ class MemberRefUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MemberUpdateType:
     class Meta:
         name = "memberUpdateType"
@@ -238,7 +238,7 @@ class MemberUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MoveActionType:
     class Meta:
         name = "moveActionType"
@@ -262,7 +262,7 @@ class MoveActionType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PortalRestrictionUpdateType:
     class Meta:
         name = "portalRestrictionUpdateType"
@@ -294,7 +294,7 @@ class PriorityType(Enum):
     URGENT = "URGENT"
 
 
-@dataclass
+@dataclass(slots=True)
 class RelationUpdateType:
     class Meta:
         name = "relationUpdateType"
@@ -336,7 +336,7 @@ class RelationUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TopicUpdateType:
     class Meta:
         name = "topicUpdateType"
@@ -359,23 +359,27 @@ class TranscodeStatusEnum(Enum):
     PAUSED = "PAUSED"
 
 
-@dataclass
+@dataclass(slots=True)
 class AssetType:
     class Meta:
         name = "assetType"
 
-    assetData: Optional[AssetDataType] = field(
+    assetDataOrAssetLocation: Optional[object] = field(
         default=None,
         metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        }
-    )
-    assetLocation: Optional[AssetLocationType] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
+            "type": "Elements",
+            "choices": (
+                {
+                    "name": "assetData",
+                    "type": AssetDataType,
+                    "namespace": "urn:vpro:media:update:2009",
+                },
+                {
+                    "name": "assetLocation",
+                    "type": AssetLocationType,
+                    "namespace": "urn:vpro:media:update:2009",
+                },
+            ),
         }
     )
     publishStart: Optional[XmlDateTime] = field(
@@ -392,7 +396,7 @@ class AssetType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DescriptionUpdateType:
     class Meta:
         name = "descriptionUpdateType"
@@ -413,7 +417,7 @@ class DescriptionUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GeoLocationUpdateType:
     class Meta:
         name = "geoLocationUpdateType"
@@ -432,7 +436,7 @@ class GeoLocationUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GeoRestrictionUpdateType:
     class Meta:
         name = "geoRestrictionUpdateType"
@@ -463,7 +467,7 @@ class GeoRestrictionUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ImageUpdateType:
     """
     :ivar title:
@@ -477,9 +481,7 @@ class ImageUpdateType:
     :ivar credits:
     :ivar date:
     :ivar offset:
-    :ivar imageData: The image as a base-64 encoded blob.
-    :ivar imageLocation: An URL from where the image can be downloaded from.
-    :ivar urn: The URN of an already existing image inside the POMS image server.
+    :ivar imageDataOrImageLocationOrUrn:
     :ivar type:
     :ivar urnAttribute:
     :ivar publishStart:
@@ -562,26 +564,28 @@ class ImageUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    imageData: Optional[ImageDataType] = field(
+    imageDataOrImageLocationOrUrn: Optional[object] = field(
         default=None,
         metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        }
-    )
-    imageLocation: Optional[ImageLocationType] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        }
-    )
-    urn: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-            "pattern": r"urn:vpro[\.:]image:[0-9]+",
+            "type": "Elements",
+            "choices": (
+                {
+                    "name": "imageData",
+                    "type": ImageDataType,
+                    "namespace": "urn:vpro:media:update:2009",
+                },
+                {
+                    "name": "imageLocation",
+                    "type": ImageLocationType,
+                    "namespace": "urn:vpro:media:update:2009",
+                },
+                {
+                    "name": "urn",
+                    "type": str,
+                    "namespace": "urn:vpro:media:update:2009",
+                    "pattern": r"urn:vpro[\.:]image:[0-9]+",
+                },
+            ),
         }
     )
     type: Optional[ImageTypeEnum] = field(
@@ -618,30 +622,34 @@ class ImageUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Itemize(ItemizeType):
     class Meta:
         name = "itemize"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class ItemizeResponseType:
     class Meta:
         name = "itemizeResponseType"
 
-    request: Optional[ItemizeType] = field(
+    requestOrLiverequest: Optional[object] = field(
         default=None,
         metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        }
-    )
-    liverequest: Optional[LiveItemize1] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
+            "type": "Elements",
+            "choices": (
+                {
+                    "name": "request",
+                    "type": ItemizeType,
+                    "namespace": "urn:vpro:media:update:2009",
+                },
+                {
+                    "name": "liverequest",
+                    "type": LiveItemize1,
+                    "namespace": "urn:vpro:media:update:2009",
+                },
+            ),
         }
     )
     result: List[str] = field(
@@ -667,7 +675,7 @@ class ItemizeResponseType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ListType:
     class Meta:
         name = "list"
@@ -712,28 +720,28 @@ class ListType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Liveitemize(LiveItemize1):
     class Meta:
         name = "liveitemize"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class MemberRef(MemberRefUpdateType):
     class Meta:
         name = "memberRef"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class MemberUpdate(MemberUpdateType):
     class Meta:
         name = "memberUpdate"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class MidAndTypeType:
     class Meta:
         name = "midAndTypeType"
@@ -766,14 +774,14 @@ class MidAndTypeType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Move(MoveActionType):
     class Meta:
         name = "move"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class NameUpdateType:
     class Meta:
         name = "nameUpdateType"
@@ -794,7 +802,7 @@ class NameUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PersonUpdateType:
     class Meta:
         name = "personUpdateType"
@@ -828,7 +836,7 @@ class PersonUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PredictionUpdateType:
     class Meta:
         name = "predictionUpdateType"
@@ -859,7 +867,7 @@ class PredictionUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TitleUpdateType:
     class Meta:
         name = "titleUpdateType"
@@ -881,7 +889,7 @@ class TitleUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TopicsUpdateType:
     class Meta:
         name = "topicsUpdateType"
@@ -895,7 +903,7 @@ class TopicsUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TranscodeStatusType:
     class Meta:
         name = "transcodeStatusType"
@@ -976,7 +984,7 @@ class TranscodeStatusType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Broadcasters:
         broadcaster: List[str] = field(
             default_factory=list,
@@ -987,7 +995,7 @@ class TranscodeStatusType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class TranscodeType:
     class Meta:
         name = "transcodeType"
@@ -1021,7 +1029,7 @@ class TranscodeType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class VideoAttributesUpdateType:
     class Meta:
         name = "videoAttributesUpdateType"
@@ -1063,7 +1071,7 @@ class VideoAttributesUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class AvAtributeUpdateType:
     class Meta:
         name = "avAtributeUpdateType"
@@ -1105,7 +1113,7 @@ class AvAtributeUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class BulkUpdateType:
     class Meta:
         name = "bulkUpdateType"
@@ -1128,7 +1136,7 @@ class BulkUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class CreditsUpdateType:
     class Meta:
         name = "creditsUpdateType"
@@ -1153,7 +1161,7 @@ class CreditsUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GeoLocationsUpdateType:
     class Meta:
         name = "geoLocationsUpdateType"
@@ -1167,35 +1175,35 @@ class GeoLocationsUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Image(ImageUpdateType):
     class Meta:
         name = "image"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class ItemizeResponse(ItemizeResponseType):
     class Meta:
         name = "itemizeResponse"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class MidAndType(MidAndTypeType):
     class Meta:
         name = "midAndType"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class Prediction(PredictionUpdateType):
     class Meta:
         name = "prediction"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleEventUpdateType:
     class Meta:
         name = "scheduleEventUpdateType"
@@ -1251,7 +1259,7 @@ class ScheduleEventUpdateType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Titles:
         title: List[TitleUpdateType] = field(
             default_factory=list,
@@ -1261,7 +1269,7 @@ class ScheduleEventUpdateType:
             }
         )
 
-    @dataclass
+    @dataclass(slots=True)
     class Descriptions:
         description: List[DescriptionUpdateType] = field(
             default_factory=list,
@@ -1272,21 +1280,21 @@ class ScheduleEventUpdateType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class Transcode(TranscodeType):
     class Meta:
         name = "transcode"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class TranscodeStatus(TranscodeStatusType):
     class Meta:
         name = "transcodeStatus"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class LocationUpdateType:
     class Meta:
         name = "locationUpdateType"
@@ -1341,14 +1349,14 @@ class LocationUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Location(LocationUpdateType):
     class Meta:
         name = "location"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaUpdateType:
     """
     :ivar crid:
@@ -1695,7 +1703,7 @@ class MediaUpdateType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Intentions:
         intention: List[IntentionEnum] = field(
             default_factory=list,
@@ -1705,7 +1713,7 @@ class MediaUpdateType:
             }
         )
 
-    @dataclass
+    @dataclass(slots=True)
     class TargetGroups:
         targetGroup: List[TargetGroupEnum] = field(
             default_factory=list,
@@ -1715,7 +1723,7 @@ class MediaUpdateType:
             }
         )
 
-    @dataclass
+    @dataclass(slots=True)
     class Locations:
         location: List[LocationUpdateType] = field(
             default_factory=list,
@@ -1725,7 +1733,7 @@ class MediaUpdateType:
             }
         )
 
-    @dataclass
+    @dataclass(slots=True)
     class ScheduleEvents:
         scheduleEvent: List[ScheduleEventUpdateType] = field(
             default_factory=list,
@@ -1735,7 +1743,7 @@ class MediaUpdateType:
             }
         )
 
-    @dataclass
+    @dataclass(slots=True)
     class Images:
         image: List[ImageUpdateType] = field(
             default_factory=list,
@@ -1746,7 +1754,7 @@ class MediaUpdateType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class GroupUpdateType(MediaUpdateType):
     class Meta:
         name = "groupUpdateType"
@@ -1770,7 +1778,7 @@ class GroupUpdateType(MediaUpdateType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SegmentUpdateType(MediaUpdateType):
     class Meta:
         name = "segmentUpdateType"
@@ -1797,21 +1805,21 @@ class SegmentUpdateType(MediaUpdateType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Group(GroupUpdateType):
     class Meta:
         name = "group"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class Segment(SegmentUpdateType):
     class Meta:
         name = "segment"
         namespace = "urn:vpro:media:update:2009"
 
 
-@dataclass
+@dataclass(slots=True)
 class ProgramUpdateType(MediaUpdateType):
     """
     :ivar episodeOf: episodeOf works similar to memberOf. Important differences: only programs of type CLIP or
@@ -1852,7 +1860,7 @@ class ProgramUpdateType(MediaUpdateType):
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Segments:
         segment: List[Segment] = field(
             default_factory=list,
@@ -1863,7 +1871,7 @@ class ProgramUpdateType(MediaUpdateType):
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class Program(ProgramUpdateType):
     class Meta:
         name = "program"

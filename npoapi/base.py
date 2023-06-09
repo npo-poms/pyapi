@@ -360,6 +360,26 @@ class NpoApiBase:
 
     def data_to_bytes(self, data, content_type:str = None) -> [bytearray, str]:
         return npoapi.utils.data_to_bytes(data, content_type)
+    
+    
+    def write_response(self, response: http.client.HTTPResponse, buffer_size=1024, capture=False) -> Union[None, str]:
+        buffer = response.read(buffer_size)
+        count = 0
+        if capture:
+            result = "" 
+        else:
+            result = None
+        while len(buffer) > 0:
+            s = buffer.decode("utf-8")
+            if capture:
+                result += s
+            sys.stdout.write(s)
+            sys.stdout.flush()
+            buffer = response.read(buffer_size)
+            count += 1
+
+        response.close()
+        return result
 
     @staticmethod
     def isfile(string:str) -> bool:

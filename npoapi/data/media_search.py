@@ -21,7 +21,7 @@ from npoapi.data.shared import (
 __NAMESPACE__ = "urn:vpro:media:search:2012"
 
 
-@dataclass
+@dataclass(slots=True)
 class DateRangeValueType:
     class Meta:
         name = "dateRangeValueType"
@@ -40,7 +40,7 @@ class DateRangeValueType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class EditorSearch:
     class Meta:
         name = "editorSearch"
@@ -59,7 +59,7 @@ class EditorSearch:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class IntegerRangeValueType:
     class Meta:
         name = "integerRangeValueType"
@@ -106,7 +106,7 @@ class MediaSortField(Enum):
     EPISODEOF_COUNT = "episodeofCount"
 
 
-@dataclass
+@dataclass(slots=True)
 class RelationFormType:
     class Meta:
         name = "relationFormType"
@@ -138,7 +138,7 @@ class RelationFormType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DateRangeType:
     class Meta:
         name = "dateRangeType"
@@ -159,7 +159,7 @@ class DateRangeType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class IntegerRangeType:
     class Meta:
         name = "integerRangeType"
@@ -180,7 +180,7 @@ class IntegerRangeType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaPagerType:
     class Meta:
         name = "mediaPagerType"
@@ -218,7 +218,7 @@ class MediaPagerType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PublishableListItem:
     class Meta:
         name = "publishableListItem"
@@ -249,13 +249,13 @@ class PublishableListItem:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ImageListItem(PublishableListItem):
     class Meta:
         name = "imageListItem"
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaFormType:
     """
     :ivar pager:
@@ -571,7 +571,7 @@ class MediaFormType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Title:
         value: str = field(
             default="",
@@ -599,14 +599,14 @@ class MediaFormType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaForm(MediaFormType):
     class Meta:
         name = "mediaForm"
         namespace = "urn:vpro:media:search:2012"
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaListItem(PublishableListItem):
     class Meta:
         name = "mediaListItem"
@@ -802,7 +802,7 @@ class MediaListItem(PublishableListItem):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaListResultType:
     class Meta:
         name = "mediaListResultType"
@@ -852,7 +852,7 @@ class MediaListResultType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ListType(MediaListResultType):
     class Meta:
         name = "list"

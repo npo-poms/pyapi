@@ -4,7 +4,7 @@ from typing import List, Optional
 __NAMESPACE__ = "urn:vpro:gtaa:2017"
 
 
-@dataclass
+@dataclass(slots=True)
 class ClassificationType:
     class Meta:
         name = "classificationType"
@@ -53,7 +53,7 @@ class ClassificationType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GenreType:
     class Meta:
         name = "genreType"
@@ -102,7 +102,7 @@ class GenreType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GeographicNameType:
     class Meta:
         name = "geographicNameType"
@@ -151,7 +151,7 @@ class GeographicNameType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MakerType:
     class Meta:
         name = "makerType"
@@ -200,7 +200,7 @@ class MakerType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class NameType:
     class Meta:
         name = "nameType"
@@ -249,7 +249,7 @@ class NameType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Names:
     class Meta:
         name = "names"
@@ -270,7 +270,7 @@ class Names:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TopicType:
     class Meta:
         name = "topicType"
@@ -319,7 +319,7 @@ class TopicType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TopicbandgType:
     class Meta:
         name = "topicbandgType"
@@ -368,42 +368,42 @@ class TopicbandgType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Classification(ClassificationType):
     class Meta:
         name = "classification"
         namespace = "urn:vpro:gtaa:2017"
 
 
-@dataclass
+@dataclass(slots=True)
 class Genre(GenreType):
     class Meta:
         name = "genre"
         namespace = "urn:vpro:gtaa:2017"
 
 
-@dataclass
+@dataclass(slots=True)
 class GeographicName(GeographicNameType):
     class Meta:
         name = "geographicName"
         namespace = "urn:vpro:gtaa:2017"
 
 
-@dataclass
+@dataclass(slots=True)
 class Maker(MakerType):
     class Meta:
         name = "maker"
         namespace = "urn:vpro:gtaa:2017"
 
 
-@dataclass
+@dataclass(slots=True)
 class Name(NameType):
     class Meta:
         name = "name"
         namespace = "urn:vpro:gtaa:2017"
 
 
-@dataclass
+@dataclass(slots=True)
 class PersonType:
     class Meta:
         name = "personType"
@@ -473,21 +473,21 @@ class PersonType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Topic(TopicType):
     class Meta:
         name = "topic"
         namespace = "urn:vpro:gtaa:2017"
 
 
-@dataclass
+@dataclass(slots=True)
 class Topicbandg(TopicbandgType):
     class Meta:
         name = "topicbandg"
         namespace = "urn:vpro:gtaa:2017"
 
 
-@dataclass
+@dataclass(slots=True)
 class Person(PersonType):
     class Meta:
         name = "person"

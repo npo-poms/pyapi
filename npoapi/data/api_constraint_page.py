@@ -4,73 +4,62 @@ from typing import List, Optional, Type
 __NAMESPACE__ = "urn:vpro:api:constraint:page:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class Not:
     class Meta:
         name = "not"
 
-    andValue: Optional["And"] = field(
+    choice: Optional[object] = field(
         default=None,
         metadata={
-            "name": "and",
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
-        }
-    )
-    orValue: Optional["Or"] = field(
-        default=None,
-        metadata={
-            "name": "or",
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
-        }
-    )
-    notValue: Optional["Not"] = field(
-        default=None,
-        metadata={
-            "name": "not",
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
-        }
-    )
-    broadcaster: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
-        }
-    )
-    type: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
-        }
-    )
-    portal: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
-        }
-    )
-    section: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
-        }
-    )
-    genre: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
+            "type": "Elements",
+            "choices": (
+                {
+                    "name": "and",
+                    "type": Type["And"],
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+                {
+                    "name": "or",
+                    "type": Type["Or"],
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+                {
+                    "name": "not",
+                    "type": Type["Not"],
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+                {
+                    "name": "broadcaster",
+                    "type": str,
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+                {
+                    "name": "type",
+                    "type": str,
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+                {
+                    "name": "portal",
+                    "type": str,
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+                {
+                    "name": "section",
+                    "type": str,
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+                {
+                    "name": "genre",
+                    "type": str,
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+            ),
         }
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Or:
     class Meta:
         name = "or"
@@ -125,7 +114,7 @@ class Or:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class And:
     class Meta:
         name = "and"
@@ -180,60 +169,49 @@ class And:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Filter:
     class Meta:
         name = "filter"
         namespace = "urn:vpro:api:constraint:page:2013"
 
-    andValue: Optional[And] = field(
+    choice: Optional[object] = field(
         default=None,
         metadata={
-            "name": "and",
-            "type": "Element",
-        }
-    )
-    orValue: Optional[Or] = field(
-        default=None,
-        metadata={
-            "name": "or",
-            "type": "Element",
-        }
-    )
-    notValue: Optional[Not] = field(
-        default=None,
-        metadata={
-            "name": "not",
-            "type": "Element",
-        }
-    )
-    broadcaster: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-        }
-    )
-    type: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-        }
-    )
-    portal: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-        }
-    )
-    section: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-        }
-    )
-    genre: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Element",
+            "type": "Elements",
+            "choices": (
+                {
+                    "name": "and",
+                    "type": And,
+                },
+                {
+                    "name": "or",
+                    "type": Or,
+                },
+                {
+                    "name": "not",
+                    "type": Not,
+                },
+                {
+                    "name": "broadcaster",
+                    "type": str,
+                },
+                {
+                    "name": "type",
+                    "type": str,
+                },
+                {
+                    "name": "portal",
+                    "type": str,
+                },
+                {
+                    "name": "section",
+                    "type": str,
+                },
+                {
+                    "name": "genre",
+                    "type": str,
+                },
+            ),
         }
     )

@@ -7,24 +7,27 @@ from npoapi.data.api_constraint_page import Filter as PageFilter
 __NAMESPACE__ = "urn:vpro:api:profile:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class ProfileDefinitionType:
     class Meta:
         name = "profileDefinitionType"
 
-    filter: Optional[MediaFilter] = field(
+    choice: Optional[object] = field(
         default=None,
         metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:media:2013",
-        }
-    )
-    vproApiConstraintPage2013Filter: Optional[PageFilter] = field(
-        default=None,
-        metadata={
-            "name": "filter",
-            "type": "Element",
-            "namespace": "urn:vpro:api:constraint:page:2013",
+            "type": "Elements",
+            "choices": (
+                {
+                    "name": "filter",
+                    "type": MediaFilter,
+                    "namespace": "urn:vpro:api:constraint:media:2013",
+                },
+                {
+                    "name": "filter",
+                    "type": PageFilter,
+                    "namespace": "urn:vpro:api:constraint:page:2013",
+                },
+            ),
         }
     )
     since: Optional[XmlDateTime] = field(
@@ -35,7 +38,7 @@ class ProfileDefinitionType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ProfileType:
     class Meta:
         name = "profileType"
@@ -68,7 +71,7 @@ class ProfileType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Profile(ProfileType):
     class Meta:
         name = "profile"

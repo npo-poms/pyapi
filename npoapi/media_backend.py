@@ -295,10 +295,17 @@ class MediaBackend(BasicBackend):
         elif str(url).endswith(".mp3"):
             return media.avFileFormatEnum.MP3
         else:
-            return media.avFileFormatEnum.UNKNOWN
+            return media.avFileFormatEnum.UNasdfkljKNOWN
         
     def upload_audio(self, mid:str, file:str, **kwargs):
         path =  "media/upload/%s" %( urllib.parse.quote(mid, safe=""))
         if file.endswith(".mp3"):
-            with open(file, "rb") as f:
-                return self.post_bytes_to(path, f, content_type="audio/mp3", content_length= os.stat(file).st_size, accept="", **kwargs)
+            with open(file, "rb") as f:            
+                response = self.post_bytes_to_response(path, f, content_type="audio/mp3", content_length= os.stat(file).st_size, accept="", **kwargs)
+                self.logger.info("Response: %s" % str(response))
+                result = self.write_response(response, buffer_size=1, capture=True)
+                from npoapi.data import poms
+                return poms.from_string(result)
+                
+        return "not supported " + file
+                

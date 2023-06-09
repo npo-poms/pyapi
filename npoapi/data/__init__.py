@@ -73,6 +73,8 @@ from npoapi.data.api import (
     PagesForm,
     PagesFormType,
     PagesSearchType,
+    PublicationReason,
+    PublicationReasonType,
     RangeFacetResultItem,
     RangeMatcherType,
     RedirectEntry,
@@ -133,7 +135,7 @@ from npoapi.data.api_constraint_media import (
 from npoapi.data.api_constraint_page import (
     And as PageAnd,
     Filter as PageFilter,
-#Not as PageNot,
+    Not as PageNot,
     Or as PageOr,
 )
 from npoapi.data.media import (
@@ -441,6 +443,8 @@ __all__ = [
     "PagesForm",
     "PagesFormType",
     "PagesSearchType",
+    "PublicationReason",
+    "PublicationReasonType",
     "RangeFacetResultItem",
     "RangeMatcherType",
     "RedirectEntry",

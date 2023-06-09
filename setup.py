@@ -9,14 +9,14 @@ setup(
     version=__version__,
     packages=find_packages(),
     install_requires=[
-        'pytz==2022.7',
+        'pytz==2023.3',
         'ijson==3.1.4',
         'pyxb==1.2.6',
         'python-dateutil==2.8.2',
         'jwt==1.3.1',
         'typing==3.7.4.3',
-        'requests==2.27.1',
-        'xsdata[cli]==22.12',
+        'requests==2.31.0',
+        'xsdata[cli]==23.5',
     ],
     scripts=[
         'bin/npo_media_get',

@@ -18,7 +18,7 @@ class SubtitlesFormatEnum(Enum):
     SRT = "SRT"
 
 
-@dataclass
+@dataclass(slots=True)
 class SubtitlesContentType:
     class Meta:
         name = "subtitlesContentType"
@@ -44,7 +44,7 @@ class SubtitlesContentType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SubtitlesType:
     class Meta:
         name = "subtitlesType"
@@ -115,7 +115,7 @@ class SubtitlesType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Subtitles(SubtitlesType):
     class Meta:
         name = "subtitles"

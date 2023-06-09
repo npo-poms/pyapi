@@ -1,6 +1,7 @@
 .PHONY: docker docker-push
 POMS=https://poms-test.omroep.nl/
-RS=https://rs-test.poms.omroep.nl/v1/
+#RS=https://rs-test.poms.omroep.nl/v1/
+RS=http://localhost:8070/v1/
 PAGESPUB=https://publish-test.pages.omroep.nl/
 #PAGESPUB=http://localhost:8069/
 
@@ -31,8 +32,8 @@ xsdata: npoapi/data/__init__.py
 npoapi/data/__init__.py: setup.py Makefile .xsdata.xml
 	$(XSDATA) $(RS)schema/combined.xsd
 	#hackery, but I think something's not right with the empty namespace
-	cat npoapi/__init__.py
-	git checkout  npoapi/__init__.py
+	#cat npoapi/__init__.py
+	#git checkout  npoapi/__init__.py
 	echo "from npoapi.data.empty import (Collection,CollectionType)" >> npoapi/data/__init__.py
 	mv npoapi/data.py npoapi/data/empty.py
 
@@ -52,8 +53,12 @@ docker-flask-push: docker-flask
 	docker image push mihxil/npo-pyapi-flask:latest
 
 
-clean.data:
+clean:
+	rm -rf build
+
+
+clean.data: clean
 	rm -rf npoapi/data/*
 
-clean: clean.model
+clean.xml: clean.model clean
 	rm -rf npoapi/xml/*

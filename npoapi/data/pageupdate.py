@@ -15,7 +15,7 @@ from npoapi.data.shared import (
 __NAMESPACE__ = "urn:vpro:pages:update:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class EmbedUpdateType:
     class Meta:
         name = "embedUpdateType"
@@ -42,7 +42,7 @@ class EmbedUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ImageLocationType:
     class Meta:
         name = "imageLocationType"
@@ -56,7 +56,7 @@ class ImageLocationType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class RelationUpdateType:
     class Meta:
         name = "relationUpdateType"
@@ -89,7 +89,7 @@ class RelationUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ImageUpdateType:
     class Meta:
         name = "imageUpdateType"
@@ -152,7 +152,7 @@ class ImageUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class LinkUpdateType:
     class Meta:
         name = "linkUpdateType"
@@ -178,7 +178,7 @@ class LinkUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PortalUpdateType:
     class Meta:
         name = "portalUpdateType"
@@ -206,14 +206,14 @@ class PortalUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Image(ImageUpdateType):
     class Meta:
         name = "image"
         namespace = "urn:vpro:pages:update:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class ParagraphUpdateType:
     class Meta:
         name = "paragraphUpdateType"
@@ -241,7 +241,7 @@ class ParagraphUpdateType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageUpdateType:
     """
     :ivar crid:
@@ -430,7 +430,7 @@ class PageUpdateType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Paragraphs:
         paragraph: List[ParagraphUpdateType] = field(
             default_factory=list,
@@ -440,7 +440,7 @@ class PageUpdateType:
             }
         )
 
-    @dataclass
+    @dataclass(slots=True)
     class Embeds:
         embed: List[EmbedUpdateType] = field(
             default_factory=list,
@@ -451,7 +451,7 @@ class PageUpdateType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class Page(PageUpdateType):
     class Meta:
         name = "page"

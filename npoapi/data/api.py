@@ -18,13 +18,13 @@ from npoapi.data.shared import OwnerTypeEnum
 __NAMESPACE__ = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class AbstractFacetType:
     class Meta:
         name = "abstractFacetType"
 
 
-@dataclass
+@dataclass(slots=True)
 class DateRangeFacetItemType:
     class Meta:
         name = "dateRangeFacetItemType"
@@ -63,7 +63,7 @@ class DateRangePresetTypeEnum(Enum):
     TOMORROW = "TOMORROW"
 
 
-@dataclass
+@dataclass(slots=True)
 class DurationRangeFacetItemType:
     class Meta:
         name = "durationRangeFacetItemType"
@@ -91,7 +91,7 @@ class DurationRangeFacetItemType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ErrorType:
     class Meta:
         name = "errorType"
@@ -151,7 +151,7 @@ class FacetOrderTypeEnum(Enum):
     REVERSE_COUNT = "REVERSE_COUNT"
 
 
-@dataclass
+@dataclass(slots=True)
 class FacetResultItem:
     class Meta:
         name = "facetResultItem"
@@ -173,7 +173,7 @@ class FacetResultItem:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class HighlightType:
     class Meta:
         name = "highlightType"
@@ -200,7 +200,7 @@ class Match(Enum):
     NOT = "NOT"
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaSearchResults:
     class Meta:
         name = "mediaSearchResults"
@@ -223,7 +223,7 @@ class OrderTypeEnum(Enum):
     DESC = "DESC"
 
 
-@dataclass
+@dataclass(slots=True)
 class PageSearchResults:
     class Meta:
         name = "pageSearchResults"
@@ -236,7 +236,26 @@ class PageSortTypeEnum(Enum):
     CREATION_DATE = "creationDate"
 
 
-@dataclass
+@dataclass(slots=True)
+class PublicationReasonType:
+    class Meta:
+        name = "publicationReasonType"
+
+    value: str = field(
+        default="",
+        metadata={
+            "required": True,
+        }
+    )
+    publishDate: Optional[XmlDateTime] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        }
+    )
+
+
+@dataclass(slots=True)
 class RedirectEntry:
     class Meta:
         name = "redirectEntry"
@@ -279,7 +298,7 @@ class StandardMatchType(Enum):
     WILDCARD = "WILDCARD"
 
 
-@dataclass
+@dataclass(slots=True)
 class Suggestion:
     class Meta:
         name = "suggestion"
@@ -300,7 +319,7 @@ class TotalQualifier(Enum):
     MISSING = "MISSING"
 
 
-@dataclass
+@dataclass(slots=True)
 class ChangeType:
     class Meta:
         name = "changeType"
@@ -374,9 +393,9 @@ class ChangeType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Reasons:
-        reason: List[str] = field(
+        reason: List[PublicationReasonType] = field(
             default_factory=list,
             metadata={
                 "type": "Element",
@@ -385,7 +404,7 @@ class ChangeType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class DateRangeFacetsType(AbstractFacetType):
     class Meta:
         name = "dateRangeFacetsType"
@@ -415,7 +434,7 @@ class DateRangeFacetsType(AbstractFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DurationRangeFacetsType(AbstractFacetType):
     class Meta:
         name = "durationRangeFacetsType"
@@ -440,14 +459,14 @@ class DurationRangeFacetsType(AbstractFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Error(ErrorType):
     class Meta:
         name = "error"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class ExtendedMatcherType:
     class Meta:
         name = "extendedMatcherType"
@@ -484,7 +503,7 @@ class ExtendedMatcherType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GeoLocationSearchType:
     class Meta:
         name = "geoLocationSearchType"
@@ -521,7 +540,7 @@ class GeoLocationSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MatcherList:
     class Meta:
         name = "matcherList"
@@ -534,7 +553,7 @@ class MatcherList:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaSortType:
     class Meta:
         name = "mediaSortType"
@@ -553,7 +572,7 @@ class MediaSortType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageSortType:
     class Meta:
         name = "pageSortType"
@@ -572,7 +591,14 @@ class PageSortType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
+class PublicationReason(PublicationReasonType):
+    class Meta:
+        name = "publicationReason"
+        namespace = "urn:vpro:api:2013"
+
+
+@dataclass(slots=True)
 class RangeFacetResultItem(FacetResultItem):
     class Meta:
         name = "rangeFacetResultItem"
@@ -585,7 +611,7 @@ class RangeFacetResultItem(FacetResultItem):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class RangeMatcherType:
     class Meta:
         name = "rangeMatcherType"
@@ -604,7 +630,7 @@ class RangeMatcherType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class RedirectList:
     class Meta:
         name = "redirectList"
@@ -624,7 +650,7 @@ class RedirectList:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ResultType:
     class Meta:
         name = "resultType"
@@ -661,7 +687,7 @@ class ResultType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Items:
         item: List[object] = field(
             default_factory=list,
@@ -672,35 +698,37 @@ class ResultType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleEventApiType(ScheduleEventType):
     class Meta:
         name = "scheduleEventApiType"
 
-    program: Optional[Program] = field(
+    programOrGroupOrSegment: Optional[object] = field(
         default=None,
         metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:2009",
-        }
-    )
-    group: Optional[Group] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:2009",
-        }
-    )
-    segment: Optional[Segment] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:2009",
+            "type": "Elements",
+            "choices": (
+                {
+                    "name": "program",
+                    "type": Program,
+                    "namespace": "urn:vpro:media:2009",
+                },
+                {
+                    "name": "group",
+                    "type": Group,
+                    "namespace": "urn:vpro:media:2009",
+                },
+                {
+                    "name": "segment",
+                    "type": Segment,
+                    "namespace": "urn:vpro:media:2009",
+                },
+            ),
         }
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SearchResultItem:
     class Meta:
         name = "searchResultItem"
@@ -727,7 +755,7 @@ class SearchResultItem:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SimpleMatcherType:
     """
     :ivar value:
@@ -772,7 +800,7 @@ class SimpleMatcherType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TermFacetResultItemType(FacetResultItem):
     class Meta:
         name = "termFacetResultItemType"
@@ -793,7 +821,7 @@ class TermFacetResultItemType(FacetResultItem):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TextFacetType(AbstractFacetType):
     class Meta:
         name = "textFacetType"
@@ -834,7 +862,7 @@ class TextFacetType(AbstractFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TextMatcherType:
     class Meta:
         name = "textMatcherType"
@@ -859,7 +887,7 @@ class TextMatcherType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TitleSearchType:
     class Meta:
         name = "titleSearchType"
@@ -896,14 +924,14 @@ class TitleSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Change(ChangeType):
     class Meta:
         name = "change"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class DateFacetResultItemType(RangeFacetResultItem):
     class Meta:
         name = "dateFacetResultItemType"
@@ -931,7 +959,7 @@ class DateFacetResultItemType(RangeFacetResultItem):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DateRangeMatcherType(RangeMatcherType):
     class Meta:
         name = "dateRangeMatcherType"
@@ -952,7 +980,7 @@ class DateRangeMatcherType(RangeMatcherType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DurationFacetResultItemType(RangeFacetResultItem):
     class Meta:
         name = "durationFacetResultItemType"
@@ -973,7 +1001,7 @@ class DurationFacetResultItemType(RangeFacetResultItem):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DurationRangeMatcherType(RangeMatcherType):
     class Meta:
         name = "durationRangeMatcherType"
@@ -994,7 +1022,7 @@ class DurationRangeMatcherType(RangeMatcherType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ExtendedTextMatcherListType(MatcherList):
     class Meta:
         name = "extendedTextMatcherListType"
@@ -1008,7 +1036,7 @@ class ExtendedTextMatcherListType(MatcherList):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaGenreFacetResultItemType(TermFacetResultItemType):
     class Meta:
         name = "mediaGenreFacetResultItemType"
@@ -1022,7 +1050,7 @@ class MediaGenreFacetResultItemType(TermFacetResultItemType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaGeoLocationFacetResultItemType(TermFacetResultItemType):
     class Meta:
         name = "mediaGeoLocationFacetResultItemType"
@@ -1036,13 +1064,13 @@ class MediaGeoLocationFacetResultItemType(TermFacetResultItemType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaResultType(ResultType):
     class Meta:
         name = "mediaResultType"
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaTitleFacetType(TextFacetType):
     class Meta:
         name = "mediaTitleFacetType"
@@ -1062,7 +1090,7 @@ class MediaTitleFacetType(TextFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MemberRefFacetResultItemType(TermFacetResultItemType):
     class Meta:
         name = "memberRefFacetResultItemType"
@@ -1076,7 +1104,7 @@ class MemberRefFacetResultItemType(TermFacetResultItemType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class NamedTermFacetResultItemType:
     class Meta:
         name = "namedTermFacetResultItemType"
@@ -1096,7 +1124,7 @@ class NamedTermFacetResultItemType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageGenreFacetResultItemType(TermFacetResultItemType):
     class Meta:
         name = "pageGenreFacetResultItemType"
@@ -1110,7 +1138,7 @@ class PageGenreFacetResultItemType(TermFacetResultItemType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageSortListType:
     class Meta:
         name = "pageSortListType"
@@ -1125,14 +1153,14 @@ class PageSortListType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Redirects(RedirectList):
     class Meta:
         name = "redirects"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleEventSearchType(RangeMatcherType):
     class Meta:
         name = "scheduleEventSearchType"
@@ -1174,26 +1202,26 @@ class ScheduleEventSearchType(RangeMatcherType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleItem(ScheduleEventApiType):
     class Meta:
         name = "scheduleItem"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class SearchResultType(ResultType):
     class Meta:
         name = "searchResultType"
 
 
-@dataclass
+@dataclass(slots=True)
 class SuggestResultType(ResultType):
     class Meta:
         name = "suggestResultType"
 
 
-@dataclass
+@dataclass(slots=True)
 class TextMatcherListType(MatcherList):
     class Meta:
         name = "textMatcherListType"
@@ -1207,7 +1235,7 @@ class TextMatcherListType(MatcherList):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class TitleSortOrderType(MediaSortType):
     class Meta:
         name = "titleSortOrderType"
@@ -1226,7 +1254,7 @@ class TitleSortOrderType(MediaSortType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class AssociationSearchType:
     class Meta:
         name = "associationSearchType"
@@ -1253,7 +1281,7 @@ class AssociationSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DateRangeMatcherListType(MatcherList):
     class Meta:
         name = "dateRangeMatcherListType"
@@ -1267,7 +1295,7 @@ class DateRangeMatcherListType(MatcherList):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class DurationRangeMatcherListType(MatcherList):
     class Meta:
         name = "durationRangeMatcherListType"
@@ -1281,7 +1309,7 @@ class DurationRangeMatcherListType(MatcherList):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaFacetsResultType:
     class Meta:
         name = "mediaFacetsResultType"
@@ -1408,7 +1436,7 @@ class MediaFacetsResultType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaRelationSearchType:
     class Meta:
         name = "mediaRelationSearchType"
@@ -1449,14 +1477,14 @@ class MediaRelationSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaResult(MediaResultType):
     class Meta:
         name = "mediaResult"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class MemberRefSearchType:
     class Meta:
         name = "memberRefSearchType"
@@ -1483,7 +1511,7 @@ class MemberRefSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageFacetsResultType:
     class Meta:
         name = "pageFacetsResultType"
@@ -1562,7 +1590,7 @@ class PageFacetsResultType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageRelationSearchType:
     class Meta:
         name = "pageRelationSearchType"
@@ -1603,7 +1631,7 @@ class PageRelationSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SubtitlesSearchType:
     class Meta:
         name = "subtitlesSearchType"
@@ -1644,14 +1672,14 @@ class SubtitlesSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SuggestResult(SuggestResultType):
     class Meta:
         name = "suggestResult"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class TermSearchType:
     class Meta:
         name = "termSearchType"
@@ -1671,7 +1699,7 @@ class TermSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class GenericMediaSearchResultType(SearchResultType):
     class Meta:
         name = "genericMediaSearchResultType"
@@ -1692,7 +1720,7 @@ class GenericMediaSearchResultType(SearchResultType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaRelationSearchListType:
     class Meta:
         name = "mediaRelationSearchListType"
@@ -1706,7 +1734,7 @@ class MediaRelationSearchListType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageAssociationSearchListType:
     class Meta:
         name = "pageAssociationSearchListType"
@@ -1720,7 +1748,7 @@ class PageAssociationSearchListType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageRelationSearchListType:
     class Meta:
         name = "pageRelationSearchListType"
@@ -1734,7 +1762,7 @@ class PageRelationSearchListType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageSearchResultType(SearchResultType):
     class Meta:
         name = "pageSearchResultType"
@@ -1769,7 +1797,7 @@ class PageSearchResultType(SearchResultType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SubtitlesFormType:
     class Meta:
         name = "subtitlesFormType"
@@ -1783,13 +1811,13 @@ class SubtitlesFormType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaSearchResultType(GenericMediaSearchResultType):
     class Meta:
         name = "mediaSearchResultType"
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaSearchType:
     """
     Limits the search result to media with certain properties.
@@ -1986,14 +2014,14 @@ class MediaSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageSearchResult(PageSearchResultType):
     class Meta:
         name = "pageSearchResult"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class PagesSearchType:
     class Meta:
         name = "pagesSearchType"
@@ -2111,14 +2139,14 @@ class PagesSearchType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SubtitlesForm(SubtitlesFormType):
     class Meta:
         name = "subtitlesForm"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class ExtendedMediaFacetType(TextFacetType):
     class Meta:
         name = "extendedMediaFacetType"
@@ -2138,7 +2166,7 @@ class ExtendedMediaFacetType(TextFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ExtendedPageFacetType(TextFacetType):
     class Meta:
         name = "extendedPageFacetType"
@@ -2158,7 +2186,7 @@ class ExtendedPageFacetType(TextFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaFacetType(TextFacetType):
     class Meta:
         name = "mediaFacetType"
@@ -2172,14 +2200,14 @@ class MediaFacetType(TextFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaSearchResult(MediaSearchResultType):
     class Meta:
         name = "mediaSearchResult"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class PageFacetType(TextFacetType):
     class Meta:
         name = "pageFacetType"
@@ -2193,7 +2221,7 @@ class PageFacetType(TextFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleFormType:
     class Meta:
         name = "scheduleFormType"
@@ -2213,7 +2241,7 @@ class ScheduleFormType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaRelationFacetType(ExtendedMediaFacetType):
     class Meta:
         name = "mediaRelationFacetType"
@@ -2233,7 +2261,7 @@ class MediaRelationFacetType(ExtendedMediaFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaSearchableTermFacetType(MediaFacetType):
     class Meta:
         name = "mediaSearchableTermFacetType"
@@ -2247,7 +2275,7 @@ class MediaSearchableTermFacetType(MediaFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaTitleFacetListType(MediaFacetType):
     class Meta:
         name = "mediaTitleFacetListType"
@@ -2268,7 +2296,7 @@ class MediaTitleFacetListType(MediaFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MemberRefFacetType(MediaFacetType):
     class Meta:
         name = "memberRefFacetType"
@@ -2282,7 +2310,7 @@ class MemberRefFacetType(MediaFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageRelationFacetType(ExtendedPageFacetType):
     class Meta:
         name = "pageRelationFacetType"
@@ -2302,7 +2330,7 @@ class PageRelationFacetType(ExtendedPageFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageSearchableTermFacetType(PageFacetType):
     class Meta:
         name = "pageSearchableTermFacetType"
@@ -2316,14 +2344,14 @@ class PageSearchableTermFacetType(PageFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class ScheduleForm(ScheduleFormType):
     class Meta:
         name = "scheduleForm"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaRelationFacetListType(AbstractFacetType):
     class Meta:
         name = "mediaRelationFacetListType"
@@ -2351,7 +2379,7 @@ class MediaRelationFacetListType(AbstractFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PageRelationFacetListType(AbstractFacetType):
     class Meta:
         name = "pageRelationFacetListType"
@@ -2379,7 +2407,7 @@ class PageRelationFacetListType(AbstractFacetType):
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaFacetsType:
     class Meta:
         name = "mediaFacetsType"
@@ -2498,7 +2526,7 @@ class MediaFacetsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PagesFacetsType:
     class Meta:
         name = "pagesFacetsType"
@@ -2575,7 +2603,7 @@ class PagesFacetsType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaFormType:
     class Meta:
         name = "mediaFormType"
@@ -2608,7 +2636,7 @@ class MediaFormType:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class SortFields:
         sortOrTitleSort: List[object] = field(
             default_factory=list,
@@ -2630,14 +2658,14 @@ class MediaFormType:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class MediaForm(MediaFormType):
     class Meta:
         name = "mediaForm"
         namespace = "urn:vpro:api:2013"
 
 
-@dataclass
+@dataclass(slots=True)
 class PagesFormType:
     class Meta:
         name = "pagesFormType"
@@ -2678,7 +2706,7 @@ class PagesFormType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PagesForm(PagesFormType):
     class Meta:
         name = "pagesForm"

@@ -5,7 +5,7 @@ from typing import List, Optional
 __NAMESPACE__ = "urn:vpro:api:constraint:2014"
 
 
-@dataclass
+@dataclass(slots=True)
 class LocalizedString:
     class Meta:
         name = "localizedString"
@@ -33,7 +33,7 @@ class OperatorType(Enum):
     GTE = "GTE"
 
 
-@dataclass
+@dataclass(slots=True)
 class BooleanPredicateTestResult:
     class Meta:
         name = "booleanPredicateTestResult"
@@ -66,7 +66,7 @@ class BooleanPredicateTestResult:
         }
     )
 
-    @dataclass
+    @dataclass(slots=True)
     class Clauses:
         clause: List[object] = field(
             default_factory=list,
@@ -77,7 +77,7 @@ class BooleanPredicateTestResult:
         )
 
 
-@dataclass
+@dataclass(slots=True)
 class NotPredicateTestResult:
     class Meta:
         name = "notPredicateTestResult"
@@ -111,7 +111,7 @@ class NotPredicateTestResult:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class SimplePredicateTestResult:
     class Meta:
         name = "simplePredicateTestResult"
@@ -138,13 +138,13 @@ class SimplePredicateTestResult:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class AndPredicateTestResult(BooleanPredicateTestResult):
     class Meta:
         name = "andPredicateTestResult"
 
 
-@dataclass
+@dataclass(slots=True)
 class OrPredicateTestResult(BooleanPredicateTestResult):
     class Meta:
         name = "orPredicateTestResult"

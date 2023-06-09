@@ -122,7 +122,7 @@ class WorkflowEnumType(Enum):
     IGNORE = "IGNORE"
 
 
-@dataclass
+@dataclass(slots=True)
 class ImageType:
     """
     :ivar title:
@@ -299,7 +299,7 @@ class ImageType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class PublishableObjectType:
     class Meta:
         name = "publishableObjectType"
@@ -348,7 +348,7 @@ class PublishableObjectType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Image(ImageType):
     class Meta:
         name = "image"

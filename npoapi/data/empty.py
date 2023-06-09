@@ -2,7 +2,7 @@ from dataclasses import dataclass, field
 from typing import List, Optional
 
 
-@dataclass
+@dataclass(slots=True)
 class CollectionType:
     class Meta:
         name = "collectionType"
@@ -23,7 +23,7 @@ class CollectionType:
     )
 
 
-@dataclass
+@dataclass(slots=True)
 class Collection(CollectionType):
     class Meta:
         name = "collection"
