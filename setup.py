@@ -20,8 +20,10 @@ setup(
     ],
     #  pip3 install --upgrade ".[testing]"
     extras_require={
-        "testing": [
-          'xmldiff==2.4'
+      "testing": [
+        'xmldiff==2.4',
+        'nose==1.3.7',
+        'lxml==4.6.3'
        ]
     },
     scripts=[
