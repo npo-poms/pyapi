@@ -4,7 +4,7 @@ import time
 import unittest
 from xml.dom import minidom
 
-from npoapi import MediaBackend
+from npoapi import MediaBackend, data
 from npoapi.xml import mediaupdate
 from npoapi.xml import poms
 
@@ -39,8 +39,11 @@ class MediaBackendTest(unittest.TestCase):
 
     def test_get_locations(self):
         bs = self.client.get_locations(MID)
-        locations=poms.CreateFromDocument(bs)
-        print(str(locations))
+        locations_pyxb=poms.CreateFromDocument(bs)        
+        print(str(locations_pyxb))
+        locations_xsdata=data.poms.from_bytes(bs)
+        print(str(locations_xsdata))
+
 
     def test_get_segments(self):
         bytes = self.client.get("RBX_AT_2145721")
@@ -73,3 +76,5 @@ class MediaBackendTest(unittest.TestCase):
 
     def test_create_location(self):
         self.client.set_location(MID, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
+        
+    

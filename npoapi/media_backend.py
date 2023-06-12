@@ -1,15 +1,19 @@
 import codecs
 import os
 import urllib.parse
+from datetime import datetime
 from typing import Optional, Union
 from xml.dom import minidom
+
+from npoapi import data
+from xsdata.models.datatype import XmlDateTime
 
 from npoapi.xml.mediaupdate import mediaUpdateType
 from npoapi.xml.media import baseMediaType, streamingStatus
 
 from npoapi.base import DEFAULT_BINDING
 from npoapi.basic_backend import BasicBackend
-from npoapi.data import MediaUpdateType, BaseMediaType, StreamingStatus
+from npoapi.data import MediaUpdateType, BaseMediaType, StreamingStatus, LocationUpdateType
 from npoapi.xml import media, mediaupdate, poms
 import logging
 import time
@@ -225,11 +229,13 @@ class MediaBackend(BasicBackend):
         return self.post_to("media/media/" + mid + "/location", location, accept="text/plain")[0]
 
 
-    def set_location(self, mid, location, publishStop=None, publishStart=None, programUrl=None) -> Optional[str]:
-        locations = poms.CreateFromDocument(self.get_locations(mid)).wildcardElements()
+    def set_location(self, mid:str, location: Union[str, int], publishStop:Union[str, datetime]=None, publishStart:Union[str,datetime]=None, programUrl:str=None) -> Optional[str]:
+        locations = data.poms.from_bytes(self.get_locations(mid))
         location_object = None
-        for l in locations:
-            if type(location) == int or location.isdigit():
+        for anyElement in locations.otherElement:
+            l = poms.from_any(anyElement)
+            if type(location) == int or (type(location) == str and location.isdigit()):
+                # given location is given as digit
                 if (l.urn is not None and str(l.urn).endswith(':' + str(location))) and (
                         programUrl is None or str(l.programUrl) == programUrl):
                     location_object = l
@@ -245,7 +251,7 @@ class MediaBackend(BasicBackend):
 
         if location_object is None:
             # location_object = mediaupdate.locationUpdateType()
-            location_object = mediaupdate.CreateFromDocument("""<location xmlns="urn:vpro:media:update:2009">
+            location_object = data.poms.from_string("""<location xmlns="urn:vpro:media:update:2009">
 <programUrl>http://www.vpro.nl/123</programUrl>
 <avAttributes>
 <avFileFormat>MP4</avFileFormat>
@@ -264,14 +270,15 @@ class MediaBackend(BasicBackend):
         self.logger.debug("Processing %s" % location_object)
 
         if publishStop:
-            location_object.publishStop = publishStop
+            location_object.publishStop = data.poms.to_xml_data_time(publishStop)
         if publishStart:
-            location_object.publishStart = publishStart
+            location_object.publishStart = data.poms.to_xml_date_time(publishStart)
 
-        location_xml = location_object.toxml()
+        location_xml = data.poms.to_xml(location)
         self.logger.debug("Found " + location_xml)
         return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")[0]
-
+    
+    
     def get_locations(self, mid:str) -> bytes:
         return self.get_sub(mid, "locations")
 
