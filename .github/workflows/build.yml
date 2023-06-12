@@ -25,6 +25,9 @@ jobs:
         run: |
           nosetests -s -v --where=tests/unit
           #nosetests -s -v --where=tests/integration
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2.7.0
+
   docker:
     needs: test
     runs-on: ubuntu-latest
