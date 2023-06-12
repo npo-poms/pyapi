@@ -16,8 +16,14 @@ setup(
         'jwt==1.3.1',
         'typing==3.7.4.3',
         'requests==2.31.0',
-        'xsdata[cli]==23.5',
+        'xsdata[cli]==23.5',        
     ],
+    #  pip3 install --upgrade ".[testing]"
+    extras_require={
+        "testing": [
+          'xmldiff==2.4'
+       ]
+    },
     scripts=[
         'bin/npo_media_get',
         'bin/npo_media_search',

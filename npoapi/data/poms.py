@@ -1,4 +1,8 @@
 # This file is NOT generated
+from datetime import datetime
+from typing import Union, Optional
+
+from xsdata.models.datatype import XmlDateTime
 from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
@@ -7,7 +11,7 @@ from xsdata.formats.dataclass.serializers.config import SerializerConfig
 # imports are implicitly used by parser
 import npoapi
 from npoapi.data.media import Group, Program, Segment, LocationType
-from npoapi.data.mediaupdate import Group as GroupUpdate, Program as ProgramUpdate, Segment as SegmentUpdate
+from npoapi.data.mediaupdate import Group as GroupUpdate, Program as ProgramUpdate, Segment as SegmentUpdate, Location as LocationUpdate, Image as ImageUpdate
 from npoapi.data.pageupdate import Page as PageUpdate
 from npoapi.data.api import MediaForm, PagesForm
 from npoapi.data import api
@@ -34,4 +38,15 @@ def from_bytes(source: bytes):
 
 def to_xml(node: object):
     return serializer.render(node, ns_map=NS_MAP)
+
+def to_xml_data_time(input: Union[datetime, str, XmlDateTime]) -> Optional[XmlDateTime]:
+    if type is None:
+        return None
+    if type(input) == XmlDateTime:
+        return input
+    if type(input) == str:
+        return XmlDateTime.from_string(input)
+    if type(input) == datetime:
+        return XmlDateTime.from_datetime(input)
+    raise ValueError(f"Cannot convert {input} to XmlDateTime")
 
