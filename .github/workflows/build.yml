@@ -22,7 +22,8 @@ jobs:
           pip install . ".[testing]"
       - name: Run tests
         run: |
-          pytest -v
+          pytest -v --junitxml=junit/test-results.xml
+        continue-on-error: true
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2.7.0
 
