@@ -3,6 +3,7 @@ import dataclasses
 import unittest
 from datetime import datetime
 import dateutil.parser
+from npoapi.data.mediaupdate import Location
 
 from xsdata.models.datatype import XmlDateTime
 
@@ -87,15 +88,44 @@ class Tests(unittest.TestCase):
         
     def test_images_collection(self):
         xml = """<collection xmlns:update="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009">
-<update:image type="PORTRAIT" highlighted="false" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="update:image">
+<update:image type="PORTRAIT" highlighted="false">
 <update:title>sdf</update:title>
 <update:description>asdfasdf</update:description>
 <update:urn>urn:vpro:image:274460</update:urn>
 </update:image>
 </collection>"""
         images = poms.from_string(xml)
-        self.assertEqual(images.otherElement[0].value.title, "sdf")
+        first_image = images.otherElement[0]
+        converted = poms.from_any(first_image)
+        self.assertEqual(converted.title, "sdf")
         
+    def test_locations_collection(self):
+        xml = """
+<collection xmlns:update="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009" version="7.6.2">
+  <update:location publishStop="2012-01-11T18:16:01.287+01:00" urn="urn:vpro:media:location:126275555">
+    <update:programUrl>http://www.vpro.nl/123</update:programUrl>
+    <update:avAttributes>
+      <update:avFileFormat>UNKNOWN</update:avFileFormat>
+    </update:avAttributes>
+  </update:location>
+  <update:location publishStop="2012-01-11T18:16:01.287+01:00" urn="urn:vpro:media:location:126275547">
+    <update:programUrl>http://www.vpro.nl/1681974873.mp3</update:programUrl>
+    <update:avAttributes>
+      <update:avFileFormat>MP3</update:avFileFormat>
+    </update:avAttributes>
+  </update:location>
+  <update:location urn="urn:vpro:media:location:99591948">
+    <update:programUrl>npo://internetvod.omroep.nl/WO_VPRO_783763</update:programUrl>
+    <update:avAttributes>
+      <update:bitrate>3500000</update:bitrate>
+      <update:avFileFormat>HASP</update:avFileFormat>
+    </update:avAttributes>
+  </update:location>
+</collection>"""
+        locations = poms.from_string(xml)
+        first_location = locations.otherElement[0]
+        converted = poms.from_any(first_location)
+        self.assertEqual(converted.urn, "urn:vpro:media:location:126275555")
 
     def test_page_domain(self):
         xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>

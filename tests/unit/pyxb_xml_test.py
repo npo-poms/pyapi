@@ -187,3 +187,29 @@ class Tests(unittest.TestCase):
 """
 
         object = poms.CreateFromDocument(xml)
+
+    def test_locations_collection(self):
+        xml = """
+<collection xmlns:update="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009" version="7.6.2">
+  <update:location publishStop="2012-01-11T18:16:01.287+01:00" urn="urn:vpro:media:location:126275555">
+    <update:programUrl>http://www.vpro.nl/123</update:programUrl>
+    <update:avAttributes>
+      <update:avFileFormat>UNKNOWN</update:avFileFormat>
+    </update:avAttributes>
+  </update:location>
+  <update:location publishStop="2012-01-11T18:16:01.287+01:00" urn="urn:vpro:media:location:126275547">
+    <update:programUrl>http://www.vpro.nl/1681974873.mp3</update:programUrl>
+    <update:avAttributes>
+      <update:avFileFormat>MP3</update:avFileFormat>
+    </update:avAttributes>
+  </update:location>
+  <update:location urn="urn:vpro:media:location:99591948">
+    <update:programUrl>npo://internetvod.omroep.nl/WO_VPRO_783763</update:programUrl>
+    <update:avAttributes>
+      <update:bitrate>3500000</update:bitrate>
+      <update:avFileFormat>HASP</update:avFileFormat>
+    </update:avAttributes>
+  </update:location>
+</collection>"""
+        locations = poms.CreateFromDocument(xml)
+        self.assertEqual(locations.wildcardElements()[0].urn, "urn:vpro:media:location:126275555")

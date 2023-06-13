@@ -229,11 +229,14 @@ class MediaBackend(BasicBackend):
         return self.post_to("media/media/" + mid + "/location", location, accept="text/plain")[0]
 
 
-    def set_location(self, mid:str, location: Union[str, int], publishStop:Union[str, datetime]=None, publishStart:Union[str,datetime]=None, programUrl:str=None) -> Optional[str]:
+    def set_location(self, mid:str, location: Union[str, int], publishStop:Union[str, datetime]=None, publishStart:Union[str,datetime]=None, programUrl:str=None, only_if_exists:bool=False) -> Optional[str]:
         locations = data.poms.from_bytes(self.get_locations(mid))
         location_object = None
         for anyElement in locations.otherElement:
-            l = poms.from_any(anyElement)
+            # Sadly xsdata parses to AnyElements, which I suppose is a fixable shortcoming (pyxb, and jaxb do it better)
+            l = data.poms.from_any(anyElement)
+
+        
             if type(location) == int or (type(location) == str and location.isdigit()):
                 # given location is given as digit
                 if (l.urn is not None and str(l.urn).endswith(':' + str(location))) and (
@@ -241,15 +244,19 @@ class MediaBackend(BasicBackend):
                     location_object = l
                     break
             elif str(l.urn).startswith("urn:vpro:media:location:"):
+                # given location is given as urn
                 if (str(l.urn) == location) and (programUrl is None or str(l.programUrl) == programUrl):
                     location_object = l
                     break
-            else:
-                if str(l.programUrl) == location:
-                    location_object = l
-                    break
+
+            # given location is given as programUrl
+            if str(l.programUrl) == location:
+                location_object = l
+                break
 
         if location_object is None:
+            if only_if_exists:
+                return None
             # location_object = mediaupdate.locationUpdateType()
             location_object = data.poms.from_string("""<location xmlns="urn:vpro:media:update:2009">
 <programUrl>http://www.vpro.nl/123</programUrl>
@@ -274,7 +281,7 @@ class MediaBackend(BasicBackend):
         if publishStart:
             location_object.publishStart = data.poms.to_xml_date_time(publishStart)
 
-        location_xml = data.poms.to_xml(location)
+        location_xml = data.poms.to_xml(location_object)
         self.logger.debug("Found " + location_xml)
         return self.post_to("media/media/" + mid + "/location", location_xml, accept="text/plain")[0]
     
