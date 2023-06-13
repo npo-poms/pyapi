@@ -1,3 +1,4 @@
+import datetime
 import http
 import os
 import urllib.request
@@ -45,12 +46,14 @@ class Media(NpoApi):
     def changes(self, profile=None, limit=10, since=None, properties=None, deletes="ID_ONLY", tail=None) -> Union[None, ijson.items]:
         return ijson.items(self.changes_raw(stream=True, profile=profile, limit=limit, since=since, properties=properties, deletes=deletes, tail=tail), 'changes.item')
 
-    def changes_raw(self, profile=None, order="ASC", stream=False, limit=10, since=None, force_oldstyle=False, properties=None, deletes="ID_ONLY", tail=None, reason_filter=None) -> Union[None, http.client.HTTPResponse, str]:
+    def changes_raw(self, profile=None, order="ASC", stream=False, limit=10, since:Union[str, int, datetime.datetime]=None, force_oldstyle=False, properties=None, deletes="ID_ONLY", tail=None, reason_filter=None) -> Union[None, http.client.HTTPResponse, str]:
         if isinstance(properties, list):
             properties = ",".join(properties)
         sinceLong = None
         sinceDate = None
         if not since is None:
+            if isinstance(since, datetime.datetime):
+                since = since.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
             if not force_oldstyle and (not since.isdigit() or int(since) > 946681200000):
                 sinceDate = since
             else:

@@ -12,11 +12,11 @@ from xmldiff import main
 
 class Tests(unittest.TestCase):
 
-    def xmlAssert(self, expected: str, real: object):
+    def xml_assert(self, expected: str, real: object):
        if not isinstance(real, str):
           real = poms.to_xml(real)
 
-       self.assertEquals([],main.diff_texts(expected.strip().encode("UTF-8"), real.encode("UTF-8")))
+       self.assertEqual([],main.diff_texts(expected.strip().encode("UTF-8"), real.encode("UTF-8")))
 
 
     def setUp(self):
@@ -26,7 +26,7 @@ class Tests(unittest.TestCase):
     def test_location_xml_datetime(self):
         location = poms.LocationType()
         location.publishStart = XmlDateTime.from_string("2012-01-11T16:16:01.287+01:00")
-        self.xmlAssert(
+        self.xml_assert(
             """
             <?xml version="1.0" encoding="UTF-8"?>
 <locationType xmlns:mediaupdate="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" publishStart="2012-01-11T16:16:01.287+01:00"/>
@@ -35,7 +35,7 @@ class Tests(unittest.TestCase):
     def test_location_native_datetime(self):
         location = poms.LocationType()
         location.publishStart = XmlDateTime.from_datetime(dateutil.parser.isoparse("2012-01-11T16:16:01.287+01:00"))
-        self.xmlAssert(
+        self.xml_assert(
             """
             <?xml version="1.0" encoding="UTF-8"?>
 <locationType xmlns:mediaupdate="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" publishStart="2012-01-11T16:16:01.287+01:00"/>
@@ -81,7 +81,7 @@ class Tests(unittest.TestCase):
         self.assertEqual(update.type, media.ProgramTypeEnum.CLIP)
         self.assertEqual(update.title[0].value, "Main title")
         update.duration = "PT5M"
-        self.xmlAssert("""<?xml version="1.0" encoding="UTF-8"?>
+        self.xml_assert("""<?xml version="1.0" encoding="UTF-8"?>
 <update:program xmlns:api="urn:vpro:api:2013" xmlns:update="urn:vpro:media:update:2009" avType="VIDEO" embeddable="true" publishStart="2012-01-11T16:16:01.287+01:00" publishStop="2012-01-11T18:16:01.287+01:00" type="CLIP"><update:broadcaster>VPRO</update:broadcaster><update:title type="MAIN">Main title</update:title><update:duration>PT5M</update:duration><update:memberOf position="34" highlighted="false">urn:vpro:media:group:2981744</update:memberOf><update:memberOf highlighted="false">POMS_S_VPRO_159096</update:memberOf><update:images><update:image type="PICTURE" highlighted="false"><update:title>bla</update:title><update:urn>urn:vpro:image:496158</update:urn></update:image></update:images></update:program>""", update)
 
         

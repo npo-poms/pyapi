@@ -44,14 +44,20 @@ class MediaTests(unittest.TestCase):
     def test_stream(self):
         from datetime import datetime
         client = self.get_client()
-        objects:items = client.changes()
+        objects:items = client.changes(deletes="INCLUDE", since=datetime(2016, 1, 1))
+        
         for o in objects:
-            media = o["media"]
-            if "sortDate" in media:
-                sort_date = datetime.fromtimestamp(media["sortDate"] / 1e3)
-                print(media["broadcasters"], sort_date)
+            publish_date = datetime.fromtimestamp(o["publishDate"] / 1e3)
+            id = o['id']
+            if 'media' in o:
+              media = o["media"]
+              if "sortDate" in media:
+                  sort_date = datetime.fromtimestamp(media["sortDate"] / 1e3)
+                  print(id, media["broadcasters"], sort_date, publish_date)
+              else:
+                  print(id, media["broadcasters"], publish_date)
             else:
-                print(media["broadcasters"])
+                print("No media in object")
 
     def test(self):
         import datetime

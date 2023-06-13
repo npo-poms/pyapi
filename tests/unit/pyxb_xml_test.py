@@ -19,7 +19,7 @@ class Tests(unittest.TestCase):
        if not isinstance(real, str):
           real = real.toxml()
 
-       self.assertEquals([],main.diff_texts(expected.strip(), real))
+       self.assertEqual([],main.diff_texts(expected.strip(), real))
 
 
     def setUp(self):

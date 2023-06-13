@@ -14,18 +14,17 @@ from npoapi.data.media import Group, Program, Segment, LocationType
 from npoapi.data.mediaupdate import Group as GroupUpdate, Program as ProgramUpdate, Segment as SegmentUpdate, Location as LocationUpdate, Image as ImageUpdate
 from npoapi.data.pageupdate import Page as PageUpdate
 from npoapi.data.api import MediaForm, PagesForm
-from npoapi.data import api
+from npoapi.data import api, page, media, mediaupdate, pageupdate
 
 parser = XmlParser()
 config = SerializerConfig(pretty_print=False)
 serializer = XmlSerializer(config=config)
 
-# sadly constants in modules (__NAMESPACE__) ar not accessible
 NS_MAP={
-    "mediaupdate": "urn:vpro:media:update:2009",
-    "pageupdate": "urn:vpro:pages:update:2013",
-    "media": "urn:vpro:media:2009",
-    "pages": "urn:vpro:pages:2013",
+    "update": mediaupdate.__NAMESPACE__,
+    "pageupdate": pageupdate.__NAMESPACE__,
+    "media": media.__NAMESPACE__,
+    "pages": page.__NAMESPACE__,
     "api": api.__NAMESPACE__,
     }
 

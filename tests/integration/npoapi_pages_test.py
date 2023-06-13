@@ -22,10 +22,11 @@ class PagesTest(unittest.TestCase):
         form.searches.types.matcher = [matcher]
         result = client.search(form = form, profile = "vpro")
         result = json.JSONDecoder().decode(result)
+        print(result)
 
 
-
-    def get_client(self):
+    @staticmethod
+    def get_client():
         print(os.path.dirname(__file__))
         return Pages().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
 

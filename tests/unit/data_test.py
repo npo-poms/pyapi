@@ -22,7 +22,7 @@ class DataTests(unittest.TestCase):
         serializer = XmlSerializer(config=SerializerConfig(pretty_print = True))
         xml = serializer.render(form, ns_map={"api": 'urn:vpro:api:2013'})
         print(xml)
-        self.assertEquals([],main.diff_texts("""<?xml version="1.0"?>
+        self.assertEqual([],main.diff_texts("""<?xml version="1.0"?>
 <api:pagesForm xmlns:api="urn:vpro:api:2013">
   <api:searches>
     <api:types>

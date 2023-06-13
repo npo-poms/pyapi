@@ -9,7 +9,7 @@ PAGESPUB=https://publish-test.pages.omroep.nl/
 XSDATA=xsdata generate
 
 
-npoapi/xml/__init__.py: setup.py
+npoapi/xml/__init__.py: pyproject.toml
 	pyxbgen \
 	   --schema-location=$(POMS)schema/vproMedia.xsd --module media \
 	   --schema-location=$(POMS)schema/vproShared.xsd --module shared \
@@ -25,18 +25,18 @@ npoapi/xml/__init__.py: setup.py
 	   --schema-location=$(RS)schema/urn:vpro:media:subtitles:2009 --module subtitles \
 	   --schema-location=$(RS)schema/urn:vpro:gtaa:2017 --module thesaurus \
 	   --schema-location=$(RS)schema/combined.xsd --module poms \
-	   --module-prefix=npoapi.xml
+	   --module-prefix=src/npoapi.xml
 
 .PHONY: xsdata
 
-xsdata: npoapi/data/__init__.py
-npoapi/data/__init__.py: setup.py Makefile .xsdata.xml
+xsdata: src/npoapi/data/__init__.py
+src/npoapi/data/__init__.py: pyproject.toml Makefile .xsdata.xml
 	$(XSDATA) $(RS)schema/combined.xsd
 	#hackery, but I think something's not right with the empty namespace
 	#cat npoapi/__init__.py
 	#git checkout  npoapi/__init__.py
-	echo "from npoapi.data.empty import (Collection,CollectionType)" >> npoapi/data/__init__.py
-	mv npoapi/data.py npoapi/data/empty.py
+	echo "from npoapi.data.empty import (Collection,CollectionType)" >> src/npoapi/data/__init__.py
+	mv src/npoapi/data.py src/npoapi/data/empty.py
 
 docker:
 	docker build -t mihxil/npo-pyapi:latest  -f docker/Dockerfile .

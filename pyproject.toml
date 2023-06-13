@@ -1,0 +1,59 @@
+
+[project]
+name = "npoapi"
+version = "7.6.0.dev"
+description = "Python Library for connecing to npo apis"
+authors = [
+    {name = "Michiel Meeuwissen", email = "git@meeuw.org"},
+]
+
+dependencies = [
+    "ijson==3.1.4",
+    "jwt==1.3.1",
+    "python-dateutil==2.8.2",
+    "pytz==2023.3",
+    "pyxb==1.2.6",
+    "requests==2.31.0",
+    "typing==3.7.4.3",
+    "xsdata==23.5",
+]
+ 
+requires-python = ">=3.10"
+readme = "README.txt"
+license = {text = "MIT"}
+
+
+[project.optional-dependencies]
+testing = [
+    "pytest==6.2.5",
+    "lxml==4.9.2",
+    "xmldiff==2.6.3",
+    "nose==1.3.7",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+
+[project.scripts]
+npo_media_get = "npoapi.bin:media_get"
+npo_media_search = "npoapi.bin:media_search"
+npo_media_iterate = "npoapi.bin:media_iterate"
+npo_media_follow_changes = "npoapi.bin:media_follow_changes"
+npo_media_changes= "npoapi.bin:media_changes"
+
+npo_pages_get = "npoapi.bin:media_follow_changes"
+
+npo_pages_search= "npoapi.bin:pages_search"
+npo_pages_iterate= "npoapi.bin:pages_iterate"
+        
+npo_schedule_get="npoapi.bin:schedule_get"
+npo_schedule_search="npoapi.bin:schedule_search"
+npo_check_credentials="npoapi.bin:check_credentials"
+npo_mediabackend_get="npoapi.bin:mediabackend_get"
+npo_mediabackend="npoapi.bin:mediabackend"
+npo_pagesbackend="npoapi.bin:pagesbackend"
+npo_thesaurus="npoapi.bin:thesaurus"
+npo_subtitles="npoapi.bin:subtitles"
+#npo_integration_tests'

@@ -1,7 +1,7 @@
 = pyapi
 :toc:
 
-Python libraries and scripts to talk to the NPO api's. Currently classes are available for the frontend api (Media, Pages, Schedule, and Screens) and for the media backend api (MediaBackend, Pages Backend and Thesaurus).
+Python libraries and scripts to talk to the NPO api's. Currently,classes are available for the frontend api (Media, Pages, Schedule, and Screens) and for the media backend api (MediaBackend, Pages Backend and Thesaurus).
 
 == How to install
 
@@ -12,7 +12,7 @@ There are several ways to use this.
 
 === Direct install
 
-You need a https://www.python.org/downloads/[python3] installation. Also you need the 'setuptools' module:
+You need a https://www.python.org/downloads/[python3] installation. Also, you need the 'setuptools' module:
 
 ----
 sudo -H pip3  install setuptools

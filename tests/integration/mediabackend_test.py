@@ -20,11 +20,11 @@ class MediaBackendTest(unittest.TestCase):
         self.client = MediaBackend().configured_login(config_dir=CONFIG_DIR).env(ENV).debug(DEBUG)
 
     def test_xml_to_bytes_string(self):
-        self.assertEquals("<a xmlns='urn:vpro:media:update:2009' />",
+        self.assertEqual("<a xmlns='urn:vpro:media:update:2009' />",
                           self.client.xml_to_bytes("<a xmlns='urn:vpro:media:update:2009' />").decode("utf-8"))
 
     def test_xml_to_bytes_minidom(self):
-        self.assertEquals('<a xmlns="urn:vpro:media:update:2009"/>',
+        self.assertEqual('<a xmlns="urn:vpro:media:update:2009"/>',
                           self.client.xml_to_bytes(
                               minidom.parseString("<a xmlns='urn:vpro:media:update:2009' />").documentElement).decode(
                               "utf-8"))

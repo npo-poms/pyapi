@@ -21,7 +21,7 @@ def looks_like_form(form: str):
     """
     Checks if the given string looks like a form. E.g. it represents json, xml, a file, or 'stdin'.
 
-    Otherwise it can e.g. be interpreted as the text for search
+    Otherwise, it can e.g. be interpreted as the text for search
     """
     if form.startswith("{") or form.startswith("<"):
         logger.debug("Detected a string that look like either json or xml")
