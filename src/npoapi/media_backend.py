@@ -317,9 +317,13 @@ class MediaBackend(BasicBackend):
             with open(file, "rb") as f:            
                 response = self.post_bytes_to_response(path, f, content_type="audio/mp3", content_length= os.stat(file).st_size, accept="", **kwargs)
                 self.logger.info("Response: %s" % str(response))
-                result = self.write_response(response, buffer_size=1, capture=True)
-                from npoapi.data import poms
-                return poms.from_string(result)
+                if response is None:
+                    self.logger.error("No response")
+                    return "no response"
+                else:
+                    result = self.write_response(response, buffer_size=1, capture=True)
+                    from npoapi.data import poms
+                    return poms.from_string(result)
                 
         return "not supported " + file
                 
