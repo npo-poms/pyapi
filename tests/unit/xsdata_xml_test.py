@@ -1,15 +1,14 @@
 #!/usr/bin/env python3
 import dataclasses
 import unittest
-from datetime import datetime
-import dateutil.parser
-from npoapi.data.mediaupdate import Location
 
+import dateutil.parser
+from xmldiff import main
 from xsdata.models.datatype import XmlDateTime
 
 from npoapi.data import media
 from npoapi.data import poms
-from xmldiff import main
+
 
 class Tests(unittest.TestCase):
 

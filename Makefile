@@ -1,8 +1,8 @@
 .PHONY: docker docker-push
-#POMS=https://poms-test.omroep.nl/
-POMS=http://michiel.omroep.nl:8071/
-#RS=https://rs-test.poms.omroep.nl/v1/
-RS=http://localhost:8070/v1/
+POMS=https://poms-test.omroep.nl/
+#POMS=http://michiel.omroep.nl:8071/
+RS=https://rs-test.poms.omroep.nl/v1/
+#RS=http://localhost:8070/v1/
 PAGESPUB=https://publish-test.pages.omroep.nl/
 #PAGESPUB=http://localhost:8069/
 
