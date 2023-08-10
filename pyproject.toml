@@ -1,4 +1,4 @@
-
+# see https://peps.python.org/pep-0518/
 [project]
 name = "npoapi"
 version = "7.6.0.dev"
@@ -15,13 +15,12 @@ dependencies = [
     "pyxb==1.2.6",
     "requests==2.31.0",
     "typing==3.7.4.3",
-    "xsdata[cli]==23.5",
+    "xsdata @ git+https://github.com/tefra/xsdata",
 ]
  
 requires-python = ">=3.10"
 readme = "README.txt"
 license = {text = "MIT"}
-
 
 [project.optional-dependencies]
 testing = [
@@ -57,3 +56,6 @@ npo_pagesbackend="npoapi.bin:pagesbackend"
 npo_thesaurus="npoapi.bin:thesaurus"
 npo_subtitles="npoapi.bin:subtitles"
 #npo_integration_tests'
+
+ [tool.hatch.metadata] 
+ allow-direct-references = true 

@@ -592,13 +592,6 @@ class PageSortType:
 
 
 @dataclass(slots=True)
-class PublicationReason(PublicationReasonType):
-    class Meta:
-        name = "publicationReason"
-        namespace = "urn:vpro:api:2013"
-
-
-@dataclass(slots=True)
 class RangeFacetResultItem(FacetResultItem):
     class Meta:
         name = "rangeFacetResultItem"
@@ -904,9 +897,10 @@ class TitleSearchType:
             "type": "Attribute",
         }
     )
-    type: Optional[TextualTypeEnum] = field(
+    typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -1095,9 +1089,10 @@ class MemberRefFacetResultItemType(TermFacetResultItemType):
     class Meta:
         name = "memberRefFacetResultItemType"
 
-    type: Optional[MediaTypeEnum] = field(
+    typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
         }
@@ -1240,9 +1235,10 @@ class TitleSortOrderType(MediaSortType):
     class Meta:
         name = "titleSortOrderType"
 
-    type: Optional[TextualTypeEnum] = field(
+    typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )

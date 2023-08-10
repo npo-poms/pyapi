@@ -29,7 +29,7 @@ class Tests(unittest.TestCase):
         self.xml_assert(
             """
             <?xml version="1.0" encoding="UTF-8"?>
-<locationType xmlns:mediaupdate="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" publishStart="2012-01-11T16:16:01.287+01:00"/>
+<locationType xmlns:update="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" publishStart="2012-01-11T16:16:01.287+01:00"/>
             """, location)
         
     def test_location_native_datetime(self):
@@ -38,7 +38,7 @@ class Tests(unittest.TestCase):
         self.xml_assert(
             """
             <?xml version="1.0" encoding="UTF-8"?>
-<locationType xmlns:mediaupdate="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" publishStart="2012-01-11T16:16:01.287+01:00"/>
+<locationType xmlns:update="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" publishStart="2012-01-11T16:16:01.287+01:00"/>
             """, location)
         
     def test_locations(self):
@@ -78,11 +78,11 @@ class Tests(unittest.TestCase):
 </program>
 """
         update = poms.from_string(xml)
-        self.assertEqual(update.type, media.ProgramTypeEnum.CLIP)
+        self.assertEqual(update.typeValue, media.ProgramTypeEnum.CLIP)
         self.assertEqual(update.title[0].value, "Main title")
         update.duration = "PT5M"
         self.xml_assert("""<?xml version="1.0" encoding="UTF-8"?>
-<update:program xmlns:api="urn:vpro:api:2013" xmlns:update="urn:vpro:media:update:2009" avType="VIDEO" embeddable="true" publishStart="2012-01-11T16:16:01.287+01:00" publishStop="2012-01-11T18:16:01.287+01:00" type="CLIP"><update:broadcaster>VPRO</update:broadcaster><update:title type="MAIN">Main title</update:title><update:duration>PT5M</update:duration><update:memberOf position="34" highlighted="false">urn:vpro:media:group:2981744</update:memberOf><update:memberOf highlighted="false">POMS_S_VPRO_159096</update:memberOf><update:images><update:image type="PICTURE" highlighted="false"><update:title>bla</update:title><update:urn>urn:vpro:image:496158</update:urn></update:image></update:images></update:program>""", update)
+<update:program xmlns:update="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" avType="VIDEO" embeddable="true" publishStart="2012-01-11T16:16:01.287+01:00" publishStop="2012-01-11T18:16:01.287+01:00" type="CLIP"><update:broadcaster>VPRO</update:broadcaster><update:title type="MAIN">Main title</update:title><update:duration>PT5M</update:duration><update:memberOf position="34" highlighted="false">urn:vpro:media:group:2981744</update:memberOf><update:memberOf highlighted="false">POMS_S_VPRO_159096</update:memberOf><update:images><update:image type="PICTURE" highlighted="false"><update:title>bla</update:title><update:urn>urn:vpro:image:496158</update:urn></update:image></update:images></update:program>""", update)
 
         
     def test_images_collection(self):
@@ -95,8 +95,7 @@ class Tests(unittest.TestCase):
 </collection>"""
         images = poms.from_string(xml)
         first_image = images.otherElement[0]
-        converted = poms.from_any(first_image)
-        self.assertEqual(converted.title, "sdf")
+        self.assertEqual(first_image.title, "sdf")
         
     def test_locations_collection(self):
         xml = """
@@ -123,8 +122,7 @@ class Tests(unittest.TestCase):
 </collection>"""
         locations = poms.from_string(xml)
         first_location = locations.otherElement[0]
-        converted = poms.from_any(first_location)
-        self.assertEqual(converted.urn, "urn:vpro:media:location:126275555")
+        self.assertEqual(first_location.urn, "urn:vpro:media:location:126275555")
 
     def test_page_domain(self):
         xml = """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>

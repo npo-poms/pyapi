@@ -305,9 +305,10 @@ class RelationUpdateType:
             "required": True,
         }
     )
-    type: Optional[str] = field(
+    typeValue: Optional[str] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
             "pattern": r"[A-Z0-9_-]{4,}",
@@ -332,6 +333,26 @@ class RelationUpdateType:
         default=None,
         metadata={
             "type": "Attribute",
+        }
+    )
+
+
+@dataclass(slots=True)
+class RepeatType:
+    class Meta:
+        name = "repeatType"
+
+    value: str = field(
+        default="",
+        metadata={
+            "required": True,
+        }
+    )
+    isRerun: Optional[bool] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+            "required": True,
         }
     )
 
@@ -449,9 +470,10 @@ class DescriptionUpdateType:
             "min_length": 1,
         }
     )
-    type: Optional[TextualTypeEnum] = field(
+    typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -523,7 +545,7 @@ class ImageUpdateType:
     :ivar date:
     :ivar offset:
     :ivar imageDataOrImageLocationOrUrn:
-    :ivar type:
+    :ivar typeValue:
     :ivar urnAttribute:
     :ivar publishStart:
     :ivar publishStop:
@@ -629,9 +651,10 @@ class ImageUpdateType:
             ),
         }
     )
-    type: Optional[ImageTypeEnum] = field(
+    typeValue: Optional[ImageTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -807,9 +830,10 @@ class MidAndTypeType:
             "type": "Attribute",
         }
     )
-    type: Optional[MediaTypeEnum] = field(
+    typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -921,9 +945,10 @@ class TitleUpdateType:
             "max_length": 255,
         }
     )
-    type: Optional[TextualTypeEnum] = field(
+    typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -1277,6 +1302,13 @@ class ScheduleEventUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
+        }
+    )
+    repeat: Optional[RepeatType] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
         }
     )
     titles: Optional["ScheduleEventUpdateType.Titles"] = field(
@@ -1817,9 +1849,10 @@ class GroupUpdateType(MediaUpdateType):
             "max_length": 255,
         }
     )
-    type: Optional[GroupTypeEnum] = field(
+    typeValue: Optional[GroupTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -1845,9 +1878,10 @@ class SegmentUpdateType(MediaUpdateType):
             "type": "Attribute",
         }
     )
-    type: Optional[SegmentTypeEnum] = field(
+    typeValue: Optional[SegmentTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -1881,7 +1915,7 @@ class ProgramUpdateType(MediaUpdateType):
         a podcast of a weekly segment in a radio show without providing the complete radio program it is a part
         of. Rules: - Start time is required - If duration is not set the player should play until the end of the
         program - Removing a program also deletes its segments
-    :ivar type:
+    :ivar typeValue:
     """
     class Meta:
         name = "programUpdateType"
@@ -1900,9 +1934,10 @@ class ProgramUpdateType(MediaUpdateType):
             "namespace": "urn:vpro:media:update:2009",
         }
     )
-    type: Optional[ProgramTypeEnum] = field(
+    typeValue: Optional[ProgramTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }

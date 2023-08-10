@@ -102,9 +102,10 @@ class AvailableSubtitleType:
             "type": "Attribute",
         }
     )
-    type: Optional[str] = field(
+    typeValue: Optional[str] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -1025,9 +1026,10 @@ class RelationType:
             "required": True,
         }
     )
-    type: Optional[str] = field(
+    typeValue: Optional[str] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
             "pattern": r"[A-Z0-9_-]{4,}",
@@ -1222,9 +1224,10 @@ class DescendantRefType:
             "type": "Attribute",
         }
     )
-    type: Optional[MediaTypeEnum] = field(
+    typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -1242,9 +1245,10 @@ class DescriptionType:
             "required": True,
         }
     )
-    type: Optional[TextualTypeEnum] = field(
+    typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -1528,9 +1532,10 @@ class RecursiveMemberRef:
             "type": "Attribute",
         }
     )
-    type: Optional[MediaTypeEnum] = field(
+    typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -1566,9 +1571,10 @@ class ScheduleEventDescription:
             "required": True,
         }
     )
-    type: Optional[TextualTypeEnum] = field(
+    typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -1593,9 +1599,10 @@ class ScheduleEventTitle:
             "required": True,
         }
     )
-    type: Optional[TextualTypeEnum] = field(
+    typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -1653,9 +1660,10 @@ class TitleType:
             "required": True,
         }
     )
-    type: Optional[TextualTypeEnum] = field(
+    typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -1713,9 +1721,10 @@ class TwitterType:
             "required": True,
         }
     )
-    type: Optional[TwitterTypeType] = field(
+    typeValue: Optional[TwitterTypeType] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -1873,7 +1882,7 @@ class MemberRefType:
         attribute is still available for backwards compatibility.
     :ivar cridRef: Reference to a crid of the parent of this object. This is only used for imports from systems
         that cannot supply a MID or URN. POMS does not export or publish parent crids.
-    :ivar type:
+    :ivar typeValue:
     :ivar index:
     :ivar highlighted:
     :ivar added:
@@ -1923,9 +1932,10 @@ class MemberRefType:
             "type": "Attribute",
         }
     )
-    type: Optional[MediaTypeEnum] = field(
+    typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -2010,9 +2020,10 @@ class LocationType:
             "namespace": "urn:vpro:media:2009",
         }
     )
-    type: Optional[LocationTypeEnum] = field(
+    typeValue: Optional[LocationTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -2222,9 +2233,10 @@ class ScheduleEventType:
             "required": True,
         }
     )
-    type: Optional[ScheduleEventTypeEnum] = field(
+    typeValue: Optional[ScheduleEventTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -2780,9 +2792,10 @@ class GroupType(BaseMediaType):
             "required": True,
         }
     )
-    type: Optional[GroupTypeEnum] = field(
+    typeValue: Optional[GroupTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -2832,9 +2845,10 @@ class SegmentType(BaseMediaType):
             "required": True,
         }
     )
-    type: Optional[SegmentTypeEnum] = field(
+    typeValue: Optional[SegmentTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -2899,7 +2913,7 @@ class ProgramType(BaseMediaType):
     :ivar episodeOf: A program (only if its type is 'BROADCAST') can be an episode of a group of type 'SERIES' or
         'SEASON'.
     :ivar segments:
-    :ivar type: The type of this program (e.g. BROADCAST, TRACK, CLIP)
+    :ivar typeValue: The type of this program (e.g. BROADCAST, TRACK, CLIP)
     """
     class Meta:
         name = "programType"
@@ -2925,9 +2939,10 @@ class ProgramType(BaseMediaType):
             "namespace": "urn:vpro:media:2009",
         }
     )
-    type: Optional[ProgramTypeEnum] = field(
+    typeValue: Optional[ProgramTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }

@@ -137,7 +137,7 @@ class ImageType:
     :ivar license:
     :ivar crid:
     :ivar date:
-    :ivar type:
+    :ivar typeValue:
     :ivar owner:
     :ivar highlighted:
     :ivar urn:
@@ -236,9 +236,10 @@ class ImageType:
             "namespace": "urn:vpro:shared:2009",
         }
     )
-    type: Optional[ImageTypeEnum] = field(
+    typeValue: Optional[ImageTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )

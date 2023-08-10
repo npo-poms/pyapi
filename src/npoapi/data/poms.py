@@ -80,20 +80,7 @@ def from_bytes(source: bytes):
 def to_xml(node: object):
     return serializer.render(node, ns_map=NS_MAP)
 
-
-def from_any(source: AnyElement):
-    for i in parser.context.xsi_cache.items():
-        if i[0] == source.qname:
-            source.qname = None
-            source.text = None
-            namespace = i[1][0].Meta.namespace
-            name = i[1][0].Meta.name
-            pref = prefix(namespace)
-            
-            return from_string(to_xml(source).replace("AnyElement",  pref + ":" + name))
-
-    raise ValueError("Cannot convert AnyElement to dataclass")
-        
+ 
 def children_from_any(source: AnyElement, qname: str):
      return  list(filter(lambda a: a.qname == qname, source.children))
         

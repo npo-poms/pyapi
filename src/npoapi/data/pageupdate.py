@@ -67,9 +67,10 @@ class RelationUpdateType:
             "required": True,
         }
     )
-    type: Optional[str] = field(
+    typeValue: Optional[str] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -143,9 +144,10 @@ class ImageUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         }
     )
-    type: Optional[ImageTypeEnum] = field(
+    typeValue: Optional[ImageTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -170,9 +172,10 @@ class LinkUpdateType:
             "type": "Attribute",
         }
     )
-    type: Optional[LinkTypeEnum] = field(
+    typeValue: Optional[LinkTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -260,7 +263,7 @@ class PageUpdateType:
     :ivar statRef:
     :ivar image:
     :ivar relation:
-    :ivar type:
+    :ivar typeValue:
     :ivar url:
     :ivar publishStart:
     :ivar lastPublished:
@@ -385,9 +388,10 @@ class PageUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         }
     )
-    type: Optional[PageTypeEnum] = field(
+    typeValue: Optional[PageTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }

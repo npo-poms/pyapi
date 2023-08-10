@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Config xmlns="http://pypi.org/project/xsdata" version="23.5">
+<Config xmlns="http://pypi.org/project/xsdata" version="23.7">
   <Output maxLineLength="120">
-    <Package>src.npoapi.data</Package>
+    <Package>npoapi.data</Package>
     <Format
       repr="true" eq="true" order="false"
       unsafeHash="false" frozen="false" slots="true" kwOnly="false">dataclasses</Format>

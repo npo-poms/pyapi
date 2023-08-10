@@ -82,9 +82,10 @@ class SubtitlesType:
             "type": "Attribute",
         }
     )
-    type: Optional[SubtitlesTypeEnum] = field(
+    typeValue: Optional[SubtitlesTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )

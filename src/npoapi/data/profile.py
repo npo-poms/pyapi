@@ -30,12 +30,6 @@ class ProfileDefinitionType:
             ),
         }
     )
-    since: Optional[XmlDateTime] = field(
-        default=None,
-        metadata={
-            "type": "Attribute",
-        }
-    )
 
 
 @dataclass(slots=True)

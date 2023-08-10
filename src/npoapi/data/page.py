@@ -92,9 +92,10 @@ class RelationType:
             "required": True,
         }
     )
-    type: Optional[str] = field(
+    typeValue: Optional[str] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }
@@ -218,9 +219,10 @@ class ImageType:
             "namespace": "urn:vpro:pages:2013",
         }
     )
-    type: Optional[ImageTypeEnum] = field(
+    typeValue: Optional[ImageTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -250,9 +252,10 @@ class LinkType:
             "type": "Attribute",
         }
     )
-    type: Optional[LinkTypeEnum] = field(
+    typeValue: Optional[LinkTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -311,9 +314,10 @@ class ReferralType:
             "type": "Attribute",
         }
     )
-    type: Optional[LinkTypeEnum] = field(
+    typeValue: Optional[LinkTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -480,9 +484,10 @@ class PageType:
             "required": True,
         }
     )
-    type: Optional[PageTypeEnum] = field(
+    typeValue: Optional[PageTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
             "required": True,
         }

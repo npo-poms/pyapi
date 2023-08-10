@@ -2,7 +2,7 @@
 """
   Simple client to get an object from the NPO Frontend API media endpoint. This version accepts explicit key, secret origins.
 """
-from npoapi import Media
+from npoapi.media import Media
 
 def check_credentials():
     

@@ -117,9 +117,10 @@ class RelationFormType:
             "required": True,
         }
     )
-    type: Optional[str] = field(
+    typeValue: Optional[str] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Attribute",
         }
     )
@@ -264,7 +265,7 @@ class MediaFormType:
     :ivar organization:
     :ivar text:
     :ivar title:
-    :ivar type:
+    :ivar typeValue:
     :ivar releaseYear:
     :ivar relation:
     :ivar noBroadcast:
@@ -346,9 +347,10 @@ class MediaFormType:
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    type: List[MediaTypeEnum] = field(
+    typeValue: List[MediaTypeEnum] = field(
         default_factory=list,
         metadata={
+            "name": "type",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
         }
@@ -579,9 +581,10 @@ class MediaFormType:
                 "required": True,
             }
         )
-        type: Optional[TextualTypeEnum] = field(
+        typeValue: Optional[TextualTypeEnum] = field(
             default=None,
             metadata={
+                "name": "type",
                 "type": "Attribute",
             }
         )
@@ -676,9 +679,10 @@ class MediaListItem(PublishableListItem):
             "namespace": "urn:vpro:media:search:2012",
         }
     )
-    type: Optional[MediaTypeEnum] = field(
+    typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
+            "name": "type",
             "type": "Element",
             "namespace": "urn:vpro:media:search:2012",
             "required": True,
