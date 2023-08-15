@@ -16,18 +16,18 @@ from npoapi.base import DEFAULT_BINDING, Binding
 logger: Final = logging.getLogger("Npo.Utils")
 pattern: Final = re.compile('[a-z0-9]{2,}', re.IGNORECASE)
 
-MIDS = ["WO_VPRO_025057"]
+MIDS = ["WO_VPRO_025057", "WO_NOS_2321514 (not from vpro)", "WO_VPRO_025700 (has locations)", "WO_VPRO_4911154"]
 
 
-MID_SHORTHANDS = ", ".join(map(lambda e: "M:%d: %s" % e, enumerate(MIDS)))
+MID_SHORTHANDS = ", ".join(map(lambda e: "M%d: %s" % e, enumerate(MIDS)))
 MID_HELP = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS 
-
+MID_SHORTHAND_PATTERN = re.compile("^M[0-9]+$")
 
 def resolve_mid(mid: str) -> str:
-    if mid.startswith("M:"):
-        index = int(mid[2:])
+    if MID_SHORTHAND_PATTERN.match(mid):
+        index = int(mid[1:])
         if index < len(MIDS):
-            return MIDS[int(mid[2:])]
+            return MIDS[index].split(" ", 2)[0]
         else:
             raise Exception("No shorthand found %s. Available are %s" % (mid, MID_SHORTHANDS))
     else:
