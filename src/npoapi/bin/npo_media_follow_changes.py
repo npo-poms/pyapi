@@ -11,7 +11,6 @@ def media_follow_changes():
     client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
     client.add_argument('profile', type=str, nargs='?', help='Profile')
     client.add_argument("-s", "--since", type=str, default=None)
-    client.add_argument("--no_check_profile", action="store_true")
     client.add_argument("--deletes", type=str, default="ID_ONLY")
     client.add_argument('-p', "--properties", type=str, default=None,
                         help="properties filtering")
@@ -24,7 +23,6 @@ def media_follow_changes():
                profile=args.profile,
                since=args.since,
                properties=args.properties,
-               check_profile=not args.no_check_profile,
                deletes=args.deletes,
                stream=True), encoding="UTF-8")
     

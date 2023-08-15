@@ -306,18 +306,32 @@ class MediaBackend(BasicBackend):
             return media.avFileFormatEnum.UNasdfkljKNOWN
         
     def upload_audio(self, mid:str, file:str, **kwargs):
+        if not (file.endswith(".mp3")):
+            return "not an mp3 " + file
+        return self.upload(mid, file, **kwargs)
+    
+    def upload(self, mid:str, file:str, content_type: None, **kwargs):
         path =  "media/upload/%s" %( urllib.parse.quote(mid, safe=""))
-        if file.endswith(".mp3"):
-            with open(file, "rb") as f:            
-                response = self.post_bytes_to_response(path, f, content_type="audio/mp3", content_length= os.stat(file).st_size, accept="", **kwargs)
-                self.logger.info("Response: %s" % str(response))
-                if response is None:
-                    self.logger.error("No response")
-                    return "no response"
-                else:
-                    result = self.write_response(response, buffer_size=1, capture=True)
-                    from npoapi.data import poms
-                    return poms.from_string(result)
+
+        if content_type is None:
+            if file.endswith(".mp3"):
+                content_type = "audio/mp3"
+            elif file.endswith(".mp4"):
+                content_type = "video/mp4"
+            else:
+                return "not supported " + file
+        
+        with open(file, "rb") as f:            
+            response = self.post_bytes_to_response(path, f, content_type=content_type, content_length= os.stat(file).st_size, accept="", **kwargs)
+            self.logger.info("Response: %s" % str(response))
+            if response is None:
+                self.logger.error("No response")
+                return "no response"
+            else:
+                result = self.write_response(response, buffer_size=1, capture=True)
+                from npoapi.data import poms
+                return poms.from_string(result)
+
+        
                 
-        return "not supported " + file
                 
