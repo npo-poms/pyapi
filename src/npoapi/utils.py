@@ -19,9 +19,9 @@ pattern: Final = re.compile('[a-z0-9]{2,}', re.IGNORECASE)
 MIDS = ["WO_VPRO_025057", "WO_NOS_2321514 (not from vpro)", "WO_VPRO_025700 (has locations)", "WO_VPRO_4911154"]
 
 
-MID_SHORTHANDS = ", ".join(map(lambda e: "M%d: %s" % e, enumerate(MIDS)))
-MID_HELP = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS 
-MID_SHORTHAND_PATTERN = re.compile("^M[0-9]+$")
+MID_SHORTHANDS: Final = ", ".join(map(lambda e: "M%d: %s" % e, enumerate(MIDS)))
+MID_HELP : Final  = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS 
+MID_SHORTHAND_PATTERN: Final = re.compile("^M[0-9]+$")
 
 def resolve_mid(mid: str) -> str:
     if MID_SHORTHAND_PATTERN.match(mid):
