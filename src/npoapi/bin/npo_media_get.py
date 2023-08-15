@@ -4,10 +4,13 @@
 """
 from npoapi import Media
 
+from npoapi.utils import resolve_mid, MID_HELP
+
+
 def media_get():
     client = Media().command_line_client(description="Get an media object from the NPO Frontend API")
     list_of_subs = ["descendants", "members", "episodes", "related", ""]
-    client.add_argument('mid', type=str, nargs=1, help='The mid  of the object to get')
+    client.add_argument('mid', type=str, nargs=1, help=MID_HELP)
     client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
                       help="Sub call for the mediaobject. On default the mediaobject itself is returned, but you can also opt for one of these choices")
     client.add_argument('-s', "--sort", type=str, default=None, choices={"asc", "desc"},
@@ -29,10 +32,13 @@ def media_get():
     
     args = client.parse_args()
     
+    mid = resolve_mid(args.mid[0])
+
+    
     if args.multiple:
-        print(client.multiple(args.mid[0], properties=args.properties, profile=args.profile))
+        print(client.multiple(mid, properties=args.properties, profile=args.profile))
     else:
-        print(client.get(args.mid[0],
+        print(client.get(mid,
                          sub="" if args.sub == "" else "/" + args.sub,
                          properties=args.properties,
                          sort=args.sort,

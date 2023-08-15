@@ -4,12 +4,15 @@
 """
 from npoapi import MediaBackend
 
+from npoapi.utils import resolve_mid, MID_HELP
+
+
 def mediabackend_get():
     client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API", exclude_arguments=["accept"])
     
     list_of_subs = ["members", "episodes", "images", "locations", "full", "subtitles", "memberOfs", "episodeOfs", "predictions", "predictions/INTERNETVOD", "predictions/TVVOD", "predictions/PLUSVOD", ""]
     
-    client.add_argument('mid', type=str, nargs=1, help='The mid of the object to get')
+    client.add_argument('mid', type=str, nargs=1, help=MID_HELP)
     client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
                         help="Sub call for the mediaobject. On default the mediaobject itself is returned, but you can also opt for one of these choices")
     
@@ -25,7 +28,7 @@ def mediabackend_get():
     args = client.parse_args()
     process = args.process
     sub=args.sub
-    mid = args.mid[0]
+    mid = resolve_mid(args.mid[0])
     
     def get():
         nonlocal sub
@@ -45,7 +48,7 @@ def mediabackend_get():
         result = None
     
     if args.delete:
-        client.delete(args.mid[0])
+        client.delete(resolve_mid(mid))
     
     if type(result) == list:
         strings = map(lambda o:

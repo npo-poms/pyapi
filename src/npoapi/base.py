@@ -37,7 +37,7 @@ from importlib import reload
 declare_namespaces()
 
 class Binding(Enum):
-    PYXB = 1
+    PYXB = 1 # deprecated?
     XSDATA = 2
 
 import argparse
@@ -53,7 +53,7 @@ class NpoApiBase:
     __author__ = "Michiel Meeuwissen"
     __metaclass__ = abc.ABCMeta
     EPILOG = """
-    DEBUG=true and ENV=<dev|test|prod> environment variables are recognized.
+    DEBUG=true and ENV=<test|acc|prod> environment variables are recognized.
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
@@ -79,7 +79,7 @@ class NpoApiBase:
     def env(self, e):
         """"Sets environment"""
         self._env = e
-        self.actualenv = self._env if self._env else "test"
+        self.actualenv = self._env if self._env else "acc"
         return self
 
     def debug(self, arg=True):
@@ -98,7 +98,7 @@ class NpoApiBase:
             if 'ENV' in os.environ:
                 self.env(os.environ['ENV'])
             else:
-                self.env('test')
+                self.env('acc')
 
         if 'DEBUG' in os.environ and os.environ['DEBUG'] == 'true':
             self.debug()

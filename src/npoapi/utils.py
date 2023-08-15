@@ -16,6 +16,22 @@ from npoapi.base import DEFAULT_BINDING, Binding
 logger: Final = logging.getLogger("Npo.Utils")
 pattern: Final = re.compile('[a-z0-9]{2,}', re.IGNORECASE)
 
+MIDS = ["WO_VPRO_025057"]
+
+
+MID_SHORTHANDS = ", ".join(map(lambda e: "M:%d: %s" % e, enumerate(MIDS)))
+MID_HELP = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS 
+
+
+def resolve_mid(mid: str) -> str:
+    if mid.startswith("M:"):
+        index = int(mid[2:])
+        if index < len(MIDS):
+            return MIDS[int(mid[2:])]
+        else:
+            raise Exception("No shorthand found %s. Available are %s" % (mid, MID_SHORTHANDS))
+    else:
+        return mid
 
 def looks_like_form(form: str):
     """

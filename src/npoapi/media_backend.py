@@ -35,8 +35,6 @@ class MediaBackend(BasicBackend):
         super().env(e)
         if e == "prod":
             self.url = "https://api.poms.omroep.nl/"
-        elif  e == "prod_new":
-            self.url = "https://api-os.poms.omroep.nl/"
         elif e == None or e == "test":
             self.url = "https://api-test.poms.omroep.nl/"
         elif  e == "test_old":
