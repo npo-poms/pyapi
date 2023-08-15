@@ -230,11 +230,7 @@ class MediaBackend(BasicBackend):
     def set_location(self, mid:str, location: Union[str, int], publishStop:Union[str, datetime]=None, publishStart:Union[str,datetime]=None, programUrl:str=None, only_if_exists:bool=False) -> Optional[str]:
         locations = data.poms.from_bytes(self.get_locations(mid))
         location_object = None
-        for anyElement in locations.otherElement:
-            # Sadly xsdata parses to AnyElements, which I suppose is a fixable shortcoming (pyxb, and jaxb do it better)
-            l = data.poms.from_any(anyElement)
-
-        
+        for l in locations.otherElement:
             if type(location) == int or (type(location) == str and location.isdigit()):
                 # given location is given as digit
                 if (l.urn is not None and str(l.urn).endswith(':' + str(location))) and (
