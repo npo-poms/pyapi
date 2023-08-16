@@ -2,8 +2,11 @@
 """
   Simple client to get the changes feed from the NPO Frontend API
 """
+from datetime import datetime, time
 from io import TextIOWrapper
 from sys import stdout
+from isoduration import parse_duration
+import pytz
 
 from npoapi import Media
     
@@ -22,9 +25,17 @@ def media_changes():
     client.add_argument("--buffer_size", type=int, default="1000")
     
     args = client.parse_args()
+    since = args.since
+    if since and since.startswith("P"):
+        duration = parse_duration(since)
+        since = datetime.now().astimezone() + duration
+        
+        client.logger.info("Parsed duration " + str(duration) + " to " + str(since))
+
+        
     response = TextIOWrapper(client.changes_raw(
         profile=args.profile,
-        since=args.since,
+        since=since,
         limit=None if args.max == -1 else args.max,
         force_oldstyle=args.backwards,
         properties=args.properties,
@@ -47,3 +58,6 @@ def media_changes():
     stdout.flush()
     client.exit()
     #time.sleep(300)
+
+if __name__ == "__main__":
+    media_changes()

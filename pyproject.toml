@@ -15,7 +15,8 @@ dependencies = [
     "pyxb==1.2.6",
     "requests==2.31.0",
     "typing==3.7.4.3",
-    "xsdata[cli]==23.8"
+    "xsdata[cli]==23.8",
+    "isoduration==20.11.0",
 ]
  
 requires-python = ">=3.10"
