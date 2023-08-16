@@ -13,7 +13,7 @@ from npoapi import Media
 def media_changes():    
     client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
     client.add_argument('profile', type=str, nargs='?', help='Profile')
-    client.add_argument("-s", "--since", type=str, default=None)
+    client.add_argument("-s", "--since", type=str, default=None, help="The since date. As millis since epoch, ISO date format, or ISO duration format (which will substracted from the current time)")
     client.add_argument('-m', "--max", type=int, default="100", help="The maximal number of changes to return. If not specified 100 will be filled as parameter. If set to -1, no max parameter will be used (which is unbounded).")
     client.add_argument("--backwards", action="store_true")
     client.add_argument("--deletes", type=str, default="ID_ONLY", choices=("ID_ONLY", "EXCLUDE", "INCLUDE"))
@@ -28,7 +28,7 @@ def media_changes():
     since = args.since
     if since and since.startswith("P"):
         duration = parse_duration(since)
-        since = datetime.now().astimezone() + duration
+        since = datetime.now().astimezone() - duration
         
         client.logger.info("Parsed duration " + str(duration) + " to " + str(since))
 
