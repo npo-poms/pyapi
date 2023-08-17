@@ -6,7 +6,7 @@ import dateutil.parser
 from xmldiff import main
 from xsdata.models.datatype import XmlDateTime
 
-from npoapi.data import media
+from npoapi.data import media, AgeRatingType
 from npoapi.data import poms
 
 
@@ -152,3 +152,22 @@ class Tests(unittest.TestCase):
 
         object = poms.from_string(xml)
         print(str(object))
+        
+    def test_tolerate_xsi(self):
+       xml =  """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- This clip does not have a mid. So it will be a new clip when you post this -->
+<program xmlns="urn:vpro:media:update:2009"
+         type="CLIP" avType="VIDEO"
+         publishStart="2012-01-11T16:16:01.287+01:00" embeddable="true"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="urn:vpro:media:update:2009 https://poms.omroep.nl/schema/update/vproMediaUpdate.xsd"        
+         >
+  <broadcaster>VPRO</broadcaster>
+  <title type="MAIN">TEST TEST</title>
+  <tag>Kabouters</tag>
+  <ageRating>ALL</ageRating>
+  <email>programma@avro.nl</email>  
+</program>         
+         """
+       program_update =  poms.from_string(xml)
+       self.assertEqual(program_update.ageRating, AgeRatingType.ALL)

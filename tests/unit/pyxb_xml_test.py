@@ -7,6 +7,7 @@ from npoapi import base
 from npoapi.xml import media
 from npoapi.xml import poms
 from npoapi.xml import mediaupdate
+from npoapi.xml.media import ageRatingType
 from xmldiff import main
 
 
@@ -213,3 +214,24 @@ class Tests(unittest.TestCase):
 </collection>"""
         locations = poms.CreateFromDocument(xml)
         self.assertEqual(locations.wildcardElements()[0].urn, "urn:vpro:media:location:126275555")
+        
+    def test_tolerate_xsi(self):
+       example =  """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- This clip does not have a mid. So it will be a new clip when you post this -->
+<program xmlns="urn:vpro:media:update:2009"
+         type="CLIP" avType="VIDEO"
+         publishStart="2012-01-11T16:16:01.287+01:00" embeddable="true"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="urn:vpro:media:update:2009 https://poms.omroep.nl/schema/update/vproMediaUpdate.xsd">
+  <broadcaster>VPRO</broadcaster>
+  <title type="MAIN">TEST TEST</title>
+  <tag>Kabouters</tag>
+  <ageRating>ALL</ageRating>
+  <email>programma@avro.nl</email>  
+</program>
+
+         
+         """
+       program_update = poms.CreateFromDocument(example)
+       self.assertEqual(program_update.ageRating, ageRatingType.ALL)
+
