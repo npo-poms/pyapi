@@ -169,5 +169,5 @@ class Tests(unittest.TestCase):
   <email>programma@avro.nl</email>  
 </program>         
          """
-       program_update =  poms.from_string(xml)
+       program_update =  poms.from_string(xml) # FAILS: https://github.com/tefra/xsdata/issues/845
        self.assertEqual(program_update.ageRating, AgeRatingType.ALL)
