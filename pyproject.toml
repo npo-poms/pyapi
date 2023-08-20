@@ -20,7 +20,7 @@ dependencies = [
     "isoduration==20.11.0",
 ]
  
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 readme = "README.txt"
 license = {text = "MIT"}
 
