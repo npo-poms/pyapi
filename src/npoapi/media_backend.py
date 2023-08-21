@@ -131,7 +131,7 @@ class MediaBackend(BasicBackend):
         return self.post_to(path, memberOf, accept="application/xml")[0]
 
     # method to implement both members and episodes calls.
-    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="", full=False, follow_merges=True, deletes=False) -> list:
+    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="", full=False, follow_merges=True, deletes=False, raw=False) -> Optional[Union[list, str]]:
         """Returns a list of minidom objects"""
         self._creds()
         self.logger.log(logging.INFO if log_progress else logging.DEBUG, "loading %s of %s", what, mid)
@@ -152,20 +152,23 @@ class MediaBackend(BasicBackend):
 
             bytes:bytes = self._get_xml(url)
             if bytes:
-                xml = minidom.parseString(bytes)
-                items = xml.getElementsByTagNameNS('*', 'item')
-                #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
-                result.extend(items)
-                total = xml.childNodes[0].getAttribute("totalCount")
-                if len(items) == 0 or (limit and len(result) >= limit):
-                    break
-                if len(items) != len(result):
-                    self.logger.log(logging.INFO if log_progress else logging.DEBUG, "%s%s of %s: %s/%s (+%s)", log_indent, what, mid, len(result), total,  len(items))
+                if raw:
+                    return bytes.encode("utf-8")
                 else:
-                    self.logger.log(logging.INFO if log_progress else logging.DEBUG, "%s%s of %s: %s/%s", log_indent, what, mid, len(result), total)
-                offset += b
-                # print xml.childNodes[0].toxml('utf-8')
-                self.logger.debug(str(len(result)) + "/" + total + (("/" + str(limit)) if limit else ""))
+                    xml = minidom.parseString(bytes)
+                    items = xml.getElementsByTagNameNS('*', 'item')
+                    #result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
+                    result.extend(items)
+                    total = xml.childNodes[0].getAttribute("totalCount")
+                    if len(items) == 0 or (limit and len(result) >= limit):
+                        break
+                    if len(items) != len(result):
+                        self.logger.log(logging.INFO if log_progress else logging.DEBUG, "%s%s of %s: %s/%s (+%s)", log_indent, what, mid, len(result), total,  len(items))
+                    else:
+                        self.logger.log(logging.INFO if log_progress else logging.DEBUG, "%s%s of %s: %s/%s", log_indent, what, mid, len(result), total)
+                    offset += b
+                    # print xml.childNodes[0].toxml('utf-8')
+                    self.logger.debug(str(len(result)) + "/" + total + (("/" + str(limit)) if limit else ""))
             else:
                 self.logger.debug("None returned from %s", url)
                 time.sleep(2)
@@ -286,7 +289,7 @@ class MediaBackend(BasicBackend):
     def get_images(self, mid:str) -> bytes:
         return self.get_sub(mid, "images")
 
-    def get_sub(self, mid:str, sub: str, deletes=False, follow_merges=True) -> bytes:
+    def get_sub(self, mid:str, sub: str, deletes=False, follow_merges=True, raw=False) -> bytes:
         self._creds()
         url = self.url + "media/media/" + urllib.parse.quote(mid, safe="") + "/" + sub
         sep = '?'
