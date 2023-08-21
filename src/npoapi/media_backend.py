@@ -153,7 +153,7 @@ class MediaBackend(BasicBackend):
             bytes:bytes = self._get_xml(url)
             if bytes:
                 if raw:
-                    return bytes.encode("utf-8")
+                    return bytes.decode("utf-8")
                 else:
                     xml = minidom.parseString(bytes)
                     items = xml.getElementsByTagNameNS('*', 'item')
