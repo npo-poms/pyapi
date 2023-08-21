@@ -14,7 +14,7 @@ def mediabackend_get():
     
     client.add_argument('mid', type=str, nargs=1, help=MID_HELP)
     client.add_argument('sub', type=str, nargs='?', default="", choices=list_of_subs,
-                        help="Sub call for the mediaobject. On default the mediaobject itself is returned, but you can also opt for one of these choices")
+                        help="Sub call for the mediaobject. On default the mediaobject (update view) itself is returned, but you can also opt for one of these choices")
     
     client.add_argument('-p', '--process',  type=str, help="""python code to postprocess. E.g. "update.duration='PT5M'""""")
     
