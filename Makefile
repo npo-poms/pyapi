@@ -9,6 +9,8 @@ PAGESPUB=https://publish-test.pages.omroep.nl/
 XSDATA=xsdata generate
 
 
+# doesnt work any more in python > 3.10
+# module 'collections' has no attribute 'MutableSequence'
 npoapi/xml/__init__.py: pyproject.toml
 	pyxbgen \
 	   --schema-location=$(POMS)schema/vproMedia.xsd --module media \
@@ -33,7 +35,6 @@ xsdata: src/npoapi/data/__init__.py
 src/npoapi/data/__init__.py: pyproject.toml Makefile src/.xsdata.xml
 	(cd src ; $(XSDATA) $(RS)schema/combined.xsd)
 	#hackery, but I think something's not right with the empty namespace
-	cat npoapi/__init__.py >> 
 	git checkout  src/npoapi/__init__.py
 	echo "from npoapi.data.empty import (Collection,CollectionType)" >> src/npoapi/data/__init__.py
 	mv src/npoapi/data.py src/npoapi/data/empty.py
@@ -59,7 +60,7 @@ clean:
 
 
 clean.data: clean
-	find npoapi/data -type f -not -name 'poms.py' -delete 
+	find npoapi/data -type f -not -name 'poms.py' -delete
 
 clean.xml: clean.model clean
 	rm -rf npoapi/xml/*
