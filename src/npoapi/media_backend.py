@@ -5,6 +5,8 @@ from datetime import datetime
 from typing import Optional, Union
 from xml.dom import minidom
 
+import lxml
+
 from npoapi import data
 from xsdata.models.datatype import XmlDateTime
 
@@ -332,8 +334,13 @@ class MediaBackend(BasicBackend):
                 return "no response"
             else:
                 result = self.write_response(response, buffer_size=1, capture=True)
-                from npoapi.data import poms
-                return poms.from_string(result)
+                try:
+                    from npoapi.data import poms
+                    return poms.from_string(result)
+                except Exception as e:
+                    self.logger.error("Error parsing for %s '%s': %s" % (mid, result, e))
+                    return None
+                    
 
         
                 
