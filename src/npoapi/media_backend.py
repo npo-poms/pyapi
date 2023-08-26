@@ -308,7 +308,7 @@ class MediaBackend(BasicBackend):
         elif str(url).endswith(".mp3"):
             return media.avFileFormatEnum.MP3
         else:
-            return media.avFileFormatEnum.UNasdfkljKNOWN
+            return media.avFileFormatEnum.UNKNOWN
         
     def upload_audio(self, mid:str, file:str, **kwargs):
         if not (file.endswith(".mp3")):
