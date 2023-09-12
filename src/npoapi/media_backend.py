@@ -316,15 +316,30 @@ class MediaBackend(BasicBackend):
         return self.upload(mid, file, **kwargs)
     
     def upload(self, mid:str, file:str, content_type: None, **kwargs):
-        path =  "media/upload/%s" %( urllib.parse.quote(mid, safe=""))
 
+        parseable_response = True
+        post_fix = ""
+        encryption = kwargs.get('encryption', None)
+        priority = kwargs.get('priority', None)
+        transcode = kwargs.get('transcode', True)
         if content_type is None:
             if file.endswith(".mp3"):
-                content_type = "audio/mp3"
+                content_type = "audio/mp3"              
             elif file.endswith(".mp4"):
-                content_type = "video/mp4"
+                content_type = "video/mp4"            
             else:
                 return "not supported " + file
+        if content_type.startswith("video/"):
+            if transcode:
+                post_fix = "/%s/%s" % ("NONE" if encryption is None else encryption, "NORMAL" if priority is None else priority)
+                parseable_response = False
+        if content_type.startswith("audio/"):
+            if encryption is not None or priority is not None:
+                raise "encryption and priority only for video"
+            if not transcode:
+                raise "audio is always implicitly transcoded to mp3"
+            
+        path =  "media/upload/%s%s" %( urllib.parse.quote(mid, safe=""), post_fix)
         
         with open(file, "rb") as f:            
             response = self.post_bytes_to_response(path, f, content_type=content_type, content_length= os.stat(file).st_size, accept="", **kwargs)
@@ -334,12 +349,15 @@ class MediaBackend(BasicBackend):
                 return "no response"
             else:
                 result = self.write_response(response, buffer_size=1, capture=True)
-                try:
-                    from npoapi.data import poms
-                    return poms.from_string(result)
-                except Exception as e:
-                    self.logger.error("Error parsing for %s '%s': %s" % (mid, result, e))
-                    return None
+                if parseable_response:
+                    try:
+                        from npoapi.data import poms
+                        return poms.from_string(result)
+                    except Exception as e:
+                        self.logger.error("Error parsing for %s '%s': %s" % (mid, result, e))
+                        return None
+                else:
+                    return result
                     
 
         
