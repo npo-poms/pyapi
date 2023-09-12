@@ -44,7 +44,8 @@ npo_media_iterate = "npoapi.bin:media_iterate"
 npo_media_follow_changes = "npoapi.bin:media_follow_changes"
 npo_media_changes= "npoapi.bin:media_changes"
 
-npo_pages_get = "npoapi.bin:media_follow_changes"
+npo_pages_get = "npoapi.bin:pages_get"
+npo_pages_list = "npoapi.bin:pages_list"
 
 npo_pages_search= "npoapi.bin:pages_search"
 npo_pages_iterate= "npoapi.bin:pages_iterate"
