@@ -9,5 +9,10 @@ def pages_get():
     client.add_argument('url', type=str, nargs=1, help='The url or crid of the object to get')
     
     args = client.parse_args()
+    
     print(client.get(args.url[0]))
     client.exit()
+
+
+if __name__ == "__main__":
+    pages_get()
