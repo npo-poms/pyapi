@@ -1627,6 +1627,12 @@ class StreamingStatus:
             "type": "Attribute",
         }
     )
+    audioWithoutDrm: Optional[StreamingStatusValue] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        }
+    )
 
 
 @dataclass(slots=True)
