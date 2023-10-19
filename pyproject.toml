@@ -18,7 +18,7 @@ dependencies = [
     "xsdata @ git+https://github.com/tefra/xsdata",
     #"xsdata[cli]==23.8",
     "isoduration==20.11.0",
-    "lxml==4.6.3",
+    "lxml==4.9.3",
 ]
  
 requires-python = ">=3.11"
