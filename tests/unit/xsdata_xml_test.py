@@ -152,6 +152,7 @@ class Tests(unittest.TestCase):
 
         object = poms.from_string(xml)
         print(str(object))
+        print(object.to_xml())
         
     def test_tolerate_xsi(self):
        xml =  """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
