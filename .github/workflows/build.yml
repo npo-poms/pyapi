@@ -28,7 +28,7 @@ jobs:
           pytest -v --junitxml=junit/test-results.xml
         continue-on-error: true
       - name: Publish Unit Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2.9.0
+        uses: EnricoMi/publish-unit-test-result-action@v2.11.0
         with: 
           junit_files: junit/test-results.xml
           check_name: Tests results

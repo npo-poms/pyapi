@@ -42,11 +42,8 @@ class Binding(Enum):
 
 import argparse
 
-
-
-DEFAULT_BINDING = Binding.PYXB
-
-
+# 
+DEFAULT_BINDING = Binding.XSDATA
 
 class NpoApiBase:
     """Base class for all api client (both backend and frontend)"""
@@ -135,7 +132,7 @@ class NpoApiBase:
 
         if not config_file and create_config_file:
             print("No configuration file (%s) found. " % ",".join(config_files))
-
+            
         if self.logger.isEnabledFor(logging.DEBUG):
             settings_for_log = copy.copy(self.settings)
             self.anonymize_for_logging(settings_for_log)
@@ -147,7 +144,6 @@ class NpoApiBase:
 
     def get_setting(self, name:str, description, write_settings = True) -> str:
         if not(name in self.settings):
-
             if name.lower() in self.settings:
                 value = self.settings[name.lower()]
                 del self.settings[name.lower()]
