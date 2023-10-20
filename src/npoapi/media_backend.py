@@ -2,10 +2,11 @@ import codecs
 import os
 import urllib.parse
 from datetime import datetime
-from typing import Optional, Union
+from typing import Optional, Union, Dict
 from xml.dom import minidom
 
 import lxml
+from typing_extensions import override
 
 from npoapi import data
 from xsdata.models.datatype import XmlDateTime
@@ -39,10 +40,6 @@ class MediaBackend(BasicBackend):
             self.url = "https://api.poms.omroep.nl/"
         elif e == None or e == "test":
             self.url = "https://api-test.poms.omroep.nl/"
-        elif  e == "test_old":
-            self.url = "https://api-test-nb.poms.omroep.nl/"
-        elif e == "testa":
-            self.url = "https://media-rs-poms-stack-test.apps.poms.cluster.chp4.io/"
         elif  e == "acc":
             self.url = "https://api-acc.poms.omroep.nl/"
         elif e == "localhost":
@@ -51,20 +48,20 @@ class MediaBackend(BasicBackend):
             self.url = e
         return self
 
-    def get(self, mid: str, ignore_not_found=False) -> str:
-        """Returns XML-representation of a mediaobject"""
-        return self.get_from("media/media/" + urllib.parse.quote(mid, safe=''), ignore_not_found=ignore_not_found)[0]
+    def get(self, mid: str, ignore_not_found=False, accept="application/xml") -> str:
+        """Returns XML or json -representation of a mediaobject (as a string)"""
+        return self.get_from("media/media/" + urllib.parse.quote(mid, safe=''), ignore_not_found=ignore_not_found, accept=accept)[0]
 
-    def get_full(self, mid: str, ignore_not_found=False) -> str:
-        """Returns XML-representation of a mediaobject"""
-        return self.get_from("media/media/" + urllib.parse.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found)[0]
+    def get_full(self, mid: str, ignore_not_found=False, accept="application/xml") -> str:
+        """Returns XML-representation of a mediaobject (as a string)"""
+        return self.get_from("media/media/" + urllib.parse.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found, accept=accept)[0]
 
     def get_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> Union[mediaUpdateType, MediaUpdateType]:
-        """Returns pyxb/xsdata-representation of a mediaobject"""
+        """Returns xsdata/pyxb-representation of a mediaobject"""
         return self.to_object(self.get(mid, ignore_not_found), validate=False, binding=binding)
 
     def get_full_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> Union[baseMediaType, BaseMediaType]:
-        """Returns pyxb/xsdat-representation of a mediaobject"""
+        """Returns xsdata/pyxb-representation of a mediaobject"""
         return self.to_object(self.get_full(mid, ignore_not_found), validate=False, binding=binding)
     
     def exists(self, mid:str):
@@ -133,7 +130,7 @@ class MediaBackend(BasicBackend):
         return self.post_to(path, memberOf, accept="application/xml")[0]
 
     # method to implement both members and episodes calls.
-    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="", full=False, follow_merges=True, deletes=False, raw=False) -> Optional[Union[list, str]]:
+    def members_or_episodes(self, mid:str, what:str, limit:int=None, batch:int=20, log_progress=False, log_indent="", full=False, follow_merges=True, deletes=False, raw=False, accept="application/xml") -> Optional[Union[list, str]]:
         """Returns a list of minidom objects"""
         self._creds()
         self.logger.log(logging.INFO if log_progress else logging.DEBUG, "loading %s of %s", what, mid)
@@ -150,9 +147,13 @@ class MediaBackend(BasicBackend):
                 url = url + "&deletes=true"
             if not follow_merges:
                 url = url + "&followMerges=false"
+                
+            if accept == "application/json" and not raw:
+                self.logger("Cannot parse json, so raw is forced")
+                raw = True
 
 
-            bytes:bytes = self._get_xml(url)
+            bytes:bytes = self._get(url, accept=accept)
             if bytes:
                 if raw:
                     return bytes.decode("utf-8")
@@ -291,7 +292,7 @@ class MediaBackend(BasicBackend):
     def get_images(self, mid:str) -> bytes:
         return self.get_sub(mid, "images")
 
-    def get_sub(self, mid:str, sub: str, deletes=False, follow_merges=True, raw=False) -> bytes:
+    def get_sub(self, mid:str, sub: str, deletes=False, follow_merges=True, accept=None) -> bytes:
         self._creds()
         url = self.url + "media/media/" + urllib.parse.quote(mid, safe="") + "/" + sub
         sep = '?'
@@ -300,7 +301,7 @@ class MediaBackend(BasicBackend):
             sep = '&'
         if not follow_merges:
             url = url + sep + "followMerges=false"
-        return self._get_xml(url)
+        return self._get(url, accept=accept)
 
     def guess_format(self, url):
         if str(url).endswith(".mp4"):
@@ -360,6 +361,9 @@ class MediaBackend(BasicBackend):
                     return result
                     
 
+    @override
+    def accept_choices(self) -> Dict[str, str]:
+        return {"xml": "application/xml", "json": "application/json"}
         
                 
                 

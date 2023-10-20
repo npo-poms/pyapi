@@ -13,6 +13,7 @@ from typing import List
 from typing import Optional
 
 import pyxb
+
 from npoapi.data.poms import NS_MAP
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
@@ -66,7 +67,7 @@ class NpoApiBase:
         self._env = env
         self.actualenv = None
         self.env(env)
-        self._accept = accept or "application/json"
+        self._accept = accept
         self.interactive = interactive
         self.settings = {}
         self.response_headers = False
@@ -87,7 +88,8 @@ class NpoApiBase:
         if arg:
             self._accept = arg
         else:
-            self._accept = "application/json"
+            first = next(iter(self.accept_choices())) #
+            self._accept = self.accept_choices()[first]
         return self
 
     def read_environmental_variables(self):
@@ -259,7 +261,7 @@ class NpoApiBase:
         parent_args.add_argument('-v', "--version", action="store_true", help="show current version")
         if not "accept" in exclude_arguments:
             parent_args.add_argument('-a', "--accept", type=str, default=None, choices=self.accept_choices().keys())
-        parent_args.add_argument('-e', "--env", type=str, default=self._env, choices={"test", "acc", "testa", "testb", "prod", "proda", "prodb", "prod_new", "test_old", "test_new", "localhost"})
+        parent_args.add_argument('-e', "--env", type=str, default=self._env, choices={"test", "acc",  "prod", "localhost"})
         parent_args.add_argument('-u', "--url", type=str, default=None, help="The URL of the API which this client communicates with. This is an alternative to --env")
         parent_args.add_argument('-c', "--createconfig", action='store_true', help="Create config")
         parent_args.add_argument('-d', "--debug", action='store_true', help="Switch on debug logging")
@@ -423,7 +425,8 @@ class NpoApiBase:
         from xml.dom.minidom import parseString
         import xml.parsers.expat
         try:
-            return parseString(string).toprettyxml(indent="  ")
+            return (parseString(string)
+                    .toprettyxml(indent="  "))
         except xml.parsers.expat.ExpatError as e:
             self.logger.error(e)
             return string

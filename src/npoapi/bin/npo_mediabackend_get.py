@@ -8,7 +8,7 @@ from npoapi.utils import resolve_mid, MID_HELP
 
 
 def mediabackend_get():
-    client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API", exclude_arguments=["accept"])
+    client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
     
     list_of_subs = [
         "members",
@@ -57,7 +57,7 @@ def mediabackend_get():
         else:
             if args.full and sub == "":
                 sub = "full"
-            return client.get_sub(mid, sub, follow_merges=not args.nofollowMerges, deletes=args.deletes, raw=args.raw)
+            return client.get_sub(mid, sub, follow_merges=not args.nofollowMerges, deletes=args.deletes)
     
     
     if not args.delete or process:

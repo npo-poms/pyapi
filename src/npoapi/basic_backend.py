@@ -8,6 +8,7 @@ from xml.dom import minidom
 
 import pytz
 import pyxb
+from typing_extensions import deprecated
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
@@ -136,13 +137,20 @@ class BasicBackend(NpoApiBase):
         req = urllib.request.Request(url, method="DELETE")
         self.logger.debug("Deleting " + url)
         return self._request(req, url)
-
+    
+    @deprecated
     def _get_xml(self, url:str) -> Optional[bytes]:
         """Gets XML (as a byte array) from a URL. So this sets the accept header."""
+        return self._get(url, accept="application/xml")
+
+
+    def _get(self, url:str, accept:str = None) -> Optional[bytes]:
+        """Gets response (as a byte array) from a URL"""
         self._creds()
-        self.logger.debug("getting " + url)
         req = urllib.request.Request(url)
-        req.add_header("Accept", "application/xml")
+                
+        req.add_header("Accept", accept if accept else self._accept)
+        self.logger.debug("getting " + url + " accept: " + req.get_header("Accept"))
         response = self.get_response(req, url)
         if response:
             return response.read()

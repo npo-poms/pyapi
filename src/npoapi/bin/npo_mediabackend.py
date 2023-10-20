@@ -22,7 +22,7 @@ def mediabackend():
     client.add_argument('-W', '--writable', action='store_true',
                         help="""Only writable items are searched""")
     client.add_argument('-D', '--delete', action='store_true',
-                       help="""The mid will be deleted.""")
+                       help="""The object with given mid will be deleted.""")
     
     client.add_argument('--raw', action='store_true', help="""The XML will not be parsed first. Implies that the argument is XML,  not a MID""")
     
@@ -42,7 +42,7 @@ def mediabackend():
     
     client.add_argument('-b', '--binding',
                         choices=Binding.__members__,
-                        default='XSDATA',
+                        default=DEFAULT_BINDING.name,
                         help=""" 
                         binding to use when unmarshalling to objects (when using --process)
                         """
