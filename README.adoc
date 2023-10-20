@@ -8,21 +8,9 @@ Python libraries and scripts to talk to the NPO api's. Currently,classes are ava
 There are several ways to use this.
 
 - You can install it directly in your python3 environment or, recommendedly, install it in a dedicated virtualenv. If you want it as a library, this is probably the way.
-- The provided command line utilities can also be called from a ready made docker container. It required docker and a few hundred Mb's but for the rest this should be simple.
+- The provided command line utilities can also be called from a ready-made docker container. It requires docker and a few hundred Mb's but for the rest this should be simple.
 
 === Direct install
-
-You need a https://www.python.org/downloads/[python3] installation. Also, you need the 'setuptools' module:
-
-----
-sudo -H pip3  install setuptools
-Collecting setuptools
-  Downloading setuptools-36.4.0-py2.py3-none-any.whl (478kB)
-    100% |################################| 481kB 2.1MB/s
-Installing collected packages: setuptools
-Successfully installed setuptools-36.4.0
-
-----
 
 Then you can install the python libraries and command line scripts with the following command
 
@@ -33,12 +21,14 @@ pip3 install git+https://github.com/npo-poms/pyapi.git@5.12.0
 or if you dare install the latest, which may sometimes be a bit broken:
 
 ----
-sudo pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git#egg=Package'
+pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git'
 ----
+
+Needed dependencies will be installed automatically, and are maintained in link:https://pip.pypa.io/en/stable/reference/build-system/pyproject-toml/[pyproject.toml].
 
 === Virtual environment
 
-It may also be a good idea to set up a virtual environment in stead, to avoid version conflicts with other python projects.
+It may also be a good idea to set up a virtual environment instead, to avoid version conflicts with other python projects.
 
 E.g. like so:
 
