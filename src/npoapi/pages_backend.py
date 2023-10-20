@@ -23,12 +23,8 @@ class PagesBackend(BasicBackend):
         super().env(e)
         if e == "prod":
             self.url = "https://publish.pages.omroep.nl/"
-        elif e == "prod_new":
-            self.url = "https://publish-os.pages.omroep.nl/"
         elif e is None or e == "test":
             self.url = "https://publish-test.pages.omroep.nl/"
-        elif e == "test_old":
-            self.url = "https://publish-test-nb.pages.omroep.nl/"
         elif e == "acc":
             self.url = "https://publish-acc.pages.omroep.nl/"
         elif e == "localhost":

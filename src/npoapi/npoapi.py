@@ -41,18 +41,8 @@ class NpoApi(NpoApiBase):
         super().env(e)
         if e == "prod":
             self.url = "https://rs.poms.omroep.nl/v1"
-        elif e == "proda":
-            self.url = "https://rs-a.poms.omroep.nl/v1"
-        elif e == "prodb":
-            self.url = "https://rs-b.poms.omroep.nl/v1"
-        elif e == "prod_new":
-            self.url = "https://rs-os.poms.omroep.nl/v1"
         elif e == "testa":
             self.url = "https://api-server-poms-stack-test.apps.poms.cluster.chp4.io/v1"
-        elif e == "testb":
-            self.url = "https://rs-b-test.poms.omroep.nl/v1"
-        elif e == "test_old":
-            self.url = "https://rs-test-nb.poms.omroep.nl/v1"
         elif e == "acc":
             self.url = "https://rs-acc.poms.omroep.nl/v1"
         elif (e == None and self._env == None) or e == "test":
