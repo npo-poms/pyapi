@@ -8,6 +8,7 @@ from npoapi import Pages
 import sys
 import os
 
+
 def pages_iterate():
     client = Pages()\
         .command_line_client(description="Iterate the NPO Frontend API. This is the adviced way to download all data or all data relevant to you (via profile and/or form arguments).", exclude_arguments= {"accept"})
@@ -18,7 +19,7 @@ def pages_iterate():
     client.add_argument('-m', "--max", type=int, default="100", help="On default the size is maximized to 100, but unlike with other API calls you can set this max value arbitrary large.")
     client.add_argument("--progress", action='store_true', help="If set to true, some progress indication will be written to stderr")
     client.add_argument('-p', "--properties", type=str, default=None,   help="properties filtering")
-    
+
     args = client.parse_args()
     profile = args.profile
     form = args.form
@@ -28,9 +29,9 @@ def pages_iterate():
               "creationDate" : "ASC"
         }}
         """
-    
+
     response = client.iterate_raw(profile=args.profile, form=form, limit=args.max, properties=args.properties, timeout=100)
-    
+
     buffer_size = 1000
     buffer = bytearray("-" * buffer_size, "ascii")
     total_count = 0
@@ -42,7 +43,7 @@ def pages_iterate():
             number_of_bytes_read = response.readinto(buffer)
         except IncompleteRead as e:
             number_of_bytes_read = len(e.partial)
-    
+
         os.write(sys.stdout.fileno(), buffer[0:number_of_bytes_read])
         sys.stdout.flush()
         total_count += number_of_bytes_read

@@ -14,9 +14,9 @@ def media_follow_changes():
     client.add_argument("--deletes", type=str, default="ID_ONLY")
     client.add_argument('-p', "--properties", type=str, default=None,
                         help="properties filtering")
-    
+
     args = client.parse_args()
-    
+
     since=""
     while True:
         response = TextIOWrapper(client.changes_raw(
@@ -25,14 +25,14 @@ def media_follow_changes():
                properties=args.properties,
                deletes=args.deletes,
                stream=True), encoding="UTF-8")
-    
+
         while True:
             buffer = response.read(1024)
             if len(buffer) == 0:
                 break
             stdout.write(buffer)
             stdout.flush()
-    
+
         response.close()
-    
+
     client.exit()

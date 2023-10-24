@@ -6,6 +6,7 @@ from npoapi import Schedule
 import os
 import json
 
+
 def schedule_search():
     client = Schedule()\
         .command_line_client(description="Search from the NPO Frontend API")
@@ -16,12 +17,12 @@ def schedule_search():
                         help="properties filtering")
     client.add_argument('-P', "--profile", type=str, default=None,
                         help="profile filtering")
-    
+
     args = client.parse_args()
     form = args.form[0]
-    
+
     if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<"):
         form = "{\"searches\": {\"text\": %s}}" % json.dumps(form)
-    
+
     print(client.search(form, sort='asc', limit=args.max, offset=args.offset, properties=args.properties, profile=args.profile))
     client.exit()

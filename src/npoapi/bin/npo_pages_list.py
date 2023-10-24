@@ -4,12 +4,13 @@
 """
 from npoapi import Pages
 
+
 def pages_list():
     client = Pages().command_line_client(description="Get a pages from the NPO Frontend API")
     client.add_argument('max', type=int)
-        
+
     args = client.parse_args()
-    
+
     print(client.list(max = args.max))
     client.exit()
 

@@ -8,6 +8,7 @@ import json
 from npoapi import Media
 from npoapi.utils import looks_like_form
 
+
 def media_search():
     client = Media()\
         .command_line_client(description="Search from the NPO Frontend API")
@@ -25,20 +26,18 @@ def media_search():
                         help="properties filtering")
     client.add_argument('-P', "--profile", type=str, default=None,
                         help="profile filtering")
-    
+
     args = client.parse_args()
     mid = args.mid
     sub = args.sub
     form = args.form[0]
-    
-    
+
     if not looks_like_form(form):
         form = "{\"searches\": {\"text\": {\"value\": %s, \"fuzziness\": \"%s\" }}}" % (json.dumps(form), "AUTO" if args.fuzzy else "")
         client.logger.debug("Posting " + form)
-    
+
     print(client.search(form, sort=args.sort, limit=args.max, offset=args.offset, properties=args.properties, mid=mid, sub=sub, profile=args.profile))
     client.exit()
-
 
 
 if __name__ == "__main__":

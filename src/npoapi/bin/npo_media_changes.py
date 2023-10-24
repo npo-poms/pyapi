@@ -9,8 +9,9 @@ from isoduration import parse_duration
 import pytz
 
 from npoapi import Media
-    
-def media_changes():    
+
+
+def media_changes():
     client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
     client.add_argument('profile', type=str, nargs='?', help='Profile')
     client.add_argument("-s", "--since", type=str, default=None, help="The since date. As millis since epoch, ISO date format, or ISO duration format (which will substracted from the current time)")
@@ -23,16 +24,16 @@ def media_changes():
                         help="properties filtering")
     client.add_argument("--reason_filter", type=str, default=None)
     client.add_argument("--buffer_size", type=int, default="1000")
-    
+
     args = client.parse_args()
     since = args.since
     if since and since.startswith("P"):
         duration = parse_duration(since)
         since = datetime.now().astimezone() - duration
-        
+
         client.logger.info("Parsed duration " + str(duration) + " to " + str(since))
 
-        
+
     response = TextIOWrapper(client.changes_raw(
         profile=args.profile,
         since=since,
@@ -44,20 +45,21 @@ def media_changes():
         order=args.order,
         stream=True,
         reason_filter=args.reason_filter), encoding="UTF-8")
-    
-    bufsize=args.buffer_size
-    buffer = response.read(bufsize)
+
+    buf_size=args.buffer_size
+    buffer = response.read(buf_size)
     count = 0
     while len(buffer) > 0:
         stdout.write(buffer)
         stdout.flush()
-        buffer = response.read(bufsize)
+        buffer = response.read(buf_size)
         count += 1
-    
+
     response.close()
     stdout.flush()
     client.exit()
     #time.sleep(300)
+
 
 if __name__ == "__main__":
     media_changes()

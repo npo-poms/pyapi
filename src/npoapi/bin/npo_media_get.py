@@ -29,12 +29,12 @@ def media_get():
                         help="offset (only relevant when using sub)")
     client.add_argument('-P', "--profile", type=str, default=None,
                         help="profile filtering")
-    
+
     args = client.parse_args()
-    
+
     mid = resolve_mid(args.mid[0])
 
-    
+
     if args.multiple:
         print(client.multiple(mid, properties=args.properties, profile=args.profile))
     else:
@@ -45,10 +45,11 @@ def media_get():
                          limit=args.max,
                          offset=args.offset,
                          profile=args.profile
-    
+
         ))
-    
+
     client.exit()
+
 
 if __name__ == "__main__":
     media_get()
