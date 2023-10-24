@@ -57,12 +57,13 @@ class NpoApi(NpoApiBase):
         return self.key + "@" + self.url
 
     def authenticate(self, uri="", now=utils.formatdate(usegmt=True), interactive=True) -> [str, str]:
-        if self.origin is None:
-            self.origin = self.get_setting("origin", "Your NPO api origin", interactive)
-        if self.key is None:
-            self.key = self.get_setting("apiKey", "Your NPO api key", interactive)
-        if self.secret is None:
-            self.secret = self.get_setting("secret", "Your NPO api secret", interactive)
+        if interactive:
+            if self.origin is None:
+                self.origin = self.get_setting("origin", "Your NPO api origin", interactive)
+            if self.key is None:
+                self.key = self.get_setting("apiKey", "Your NPO api key", interactive)
+            if self.secret is None:
+                self.secret = self.get_setting("secret", "Your NPO api secret", interactive)
 
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         self.logger.debug("message: " + message)
