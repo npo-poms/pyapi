@@ -1,7 +1,6 @@
 import abc
 import codecs
 import copy
-import dataclasses
 import http
 import logging
 import os
@@ -12,33 +11,9 @@ from typing import Dict, Union
 from typing import List
 from typing import Optional
 
-import pyxb
-
-from npoapi.data.poms import NS_MAP
-from xsdata.formats.dataclass.serializers import XmlSerializer
-from xsdata.formats.dataclass.serializers.config import SerializerConfig
-
 import npoapi
 
-
-def declare_namespaces():
-    import pyxb.utils.domutils
-    from npoapi.xml import mediaupdate as xmediaupdate, pageupdate, page, media, shared, api as xapi, thesaurus
-
-    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(xmediaupdate.Namespace)
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(pageupdate.Namespace, 'pu')
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(page.Namespace, 'pages')
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, 'media')
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, 'shared')
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(xapi.Namespace, 'api')
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(thesaurus.Namespace, 'gtaa')
-
-from importlib import reload
-
-declare_namespaces()
-
 class Binding(Enum):
-    PYXB = 1 # deprecated?
     XSDATA = 2
 
 import argparse
@@ -396,19 +371,19 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data:str, validate=False, binding=DEFAULT_BINDING) -> Union[object]:
+    def to_object(self, data:str, validate=False):
         try:
-            return npoapi.utils.to_object(data, validate, binding)
+            return npoapi.utils.to_object(data, validate)
         except Exception as e:
             self.logger.info("Couldn't transform to object %s"%data)
             self.logger.error(str(e))
             return None
 
-    def to_object_or_none(self, data:str, validate=False, binding=DEFAULT_BINDING) -> object:
+    def to_object_or_none(self, data:str, validate=False) -> object:
         import xml
         import xsdata
         try:
-            return self.to_object(data, validate, binding=binding)
+            return self.to_object(data, validate)
         except (xml.sax._exceptions.SAXParseException, xsdata.exceptions.ParserError)  as e:
             self.logger.debug("Not xml")
             return None
