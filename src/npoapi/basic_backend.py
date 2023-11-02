@@ -106,7 +106,7 @@ class BasicBackend(NpoApiBase):
         if xml is None:
             raise Exception("Cant post without xml")
         return self.post_bytes_to(path, self.xml_to_bytes(xml), accept=accept, **kwargs)
-    
+
     def post_bytes_to(self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs) -> Tuple[Optional[str], Optional[str]]:
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
@@ -114,8 +114,8 @@ class BasicBackend(NpoApiBase):
         req = urllib.request.Request(url, data=bytes, method='POST')
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept, content_type=content_type, content_length=content_length)
-    
-       
+
+
     def post_bytes_to_response(self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs) -> Tuple[Optional[str], Optional[str]]:
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
@@ -137,19 +137,18 @@ class BasicBackend(NpoApiBase):
         req = urllib.request.Request(url, method="DELETE")
         self.logger.debug("Deleting " + url)
         return self._request(req, url)
-    
+
     @deprecated
-    def _get_xml(self, url:str) -> Optional[bytes]:
+    def _get_xml(self, url: str) -> Optional[bytes]:
         """Gets XML (as a byte array) from a URL. So this sets the accept header."""
         return self._get(url, accept="application/xml")
-
 
     def _get(self, url:str, accept:str = None) -> Optional[bytes]:
         """Gets response (as a byte array) from a URL"""
         self._creds()
         req = urllib.request.Request(url)
-                
-        req.add_header("Accept", accept if accept else self._accept)
+
+        req.add_header("Accept", accept if accept else self.accept())
         self.logger.debug("getting " + url + " accept: " + req.get_header("Accept"))
         response = self.get_response(req, url)
         if response:
@@ -178,7 +177,7 @@ class BasicBackend(NpoApiBase):
         except urllib.request.HTTPError as e:
             logging.error(e.read().decode())
             return None, None
-        
+
     def _request_response(self, req, url, accept=None, needs_authentication=True, authorization=None, ignore_not_found=False, content_type="application/xml", content_length = None) ->  http.client.HTTPResponse:
         if needs_authentication:
             if authorization:
@@ -193,7 +192,7 @@ class BasicBackend(NpoApiBase):
         if content_length != None:
             req.add_header("Content-Length", content_length)
         return self.get_response(req, url, ignore_not_found=ignore_not_found)
-        
+
     def info(self):
         return self.url
 
