@@ -11,7 +11,7 @@ def subtitles():
     client = Subtitles().command_line_client(description="Set subtitles")
     client.add_argument('mid|text', type=str, nargs=1, help='The mid for wich subtitles to get. Or form description')
     client.add_argument('-S', '--search', action='store_true',
-                       help="""The argument is interpreted as a text to search on""")
+                        help="""The argument is interpreted as a text to search on""")
     client.add_argument('language', type=str, nargs='?', default="nl", help='Language. Required when getting mid')
     client.add_argument('type', type=str, nargs='?', default="CAPTION", help='', choices={"CAPTION", "TRANSLATION"})
 
