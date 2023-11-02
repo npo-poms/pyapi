@@ -188,7 +188,7 @@ class BasicBackend(NpoApiBase):
                 req.add_header("Authorization", self.authorizationHeader)
         req.add_header("Content-Type", content_type)
         if accept != "":
-            req.add_header("Accept", accept or self._accept)
+            req.add_header("Accept", accept or self.accept())
         if content_length != None:
             req.add_header("Content-Length", content_length)
         return self.get_response(req, url, ignore_not_found=ignore_not_found)

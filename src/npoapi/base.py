@@ -43,7 +43,7 @@ class Binding(Enum):
 
 import argparse
 
-# 
+#
 DEFAULT_BINDING = Binding.XSDATA
 
 class NpoApiBase:
@@ -90,7 +90,7 @@ class NpoApiBase:
         else:
             first = next(iter(self.accept_choices())) #
             self._accept = self.accept_choices()[first]
-        return self
+        return self._accept
 
     def read_environmental_variables(self):
         if self._env is None:
@@ -134,7 +134,7 @@ class NpoApiBase:
 
         if not config_file and create_config_file:
             print("No configuration file (%s) found. " % ",".join(config_files))
-            
+
         if self.logger.isEnabledFor(logging.DEBUG):
             settings_for_log = copy.copy(self.settings)
             self.anonymize_for_logging(settings_for_log)
@@ -358,13 +358,13 @@ class NpoApiBase:
 
     def data_to_bytes(self, data, content_type:str = None) -> [bytearray, str]:
         return npoapi.utils.data_to_bytes(data, content_type)
-    
-    
+
+
     def write_response(self, response: http.client.HTTPResponse, buffer_size=1024, capture=False) -> Union[None, str]:
         buffer = response.read(buffer_size)
         count = 0
         if capture:
-            result = "" 
+            result = ""
         else:
             result = None
         while len(buffer) > 0:
