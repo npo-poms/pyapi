@@ -6,7 +6,7 @@ from npoapi import PagesBackend
 from npoapi.xml import thesaurus
 
 
-def theaurus():
+def thesaurus():
     client = PagesBackend().command_line_client(description="Submit thesaurus object")
     client.add_argument('xml', type=str, nargs='?', help='The xml to post')
     client.add_argument("--given_name", type=str, default=None, help="Override given name")
@@ -17,7 +17,7 @@ def theaurus():
 
     data = None
     if args.xml:
-        date = args.xml[0]
+        data = args.xml[0]
     update = None
 
     if data:
@@ -37,3 +37,6 @@ def theaurus():
 
     client.exit()
 
+
+if __name__ == "__main__":
+    thesaurus()

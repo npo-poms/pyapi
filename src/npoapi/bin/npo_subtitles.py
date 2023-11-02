@@ -31,3 +31,7 @@ def subtitles():
         print(client.get(mid, language, subtitle_type=args.type))
 
     client.exit()
+
+
+if __name__ == "__main__":
+    subtitles()
