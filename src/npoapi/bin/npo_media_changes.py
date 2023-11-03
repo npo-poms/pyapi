@@ -6,7 +6,6 @@ from datetime import datetime, time
 from io import TextIOWrapper
 from sys import stdout
 from isoduration import parse_duration
-import pytz
 
 from npoapi import Media
 

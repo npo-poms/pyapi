@@ -3,8 +3,6 @@
   Simple client to get an object from the NPO Backend API media endpoint
 """
 from npoapi import MediaBackend
-from npoapi.base import Binding, DEFAULT_BINDING
-from npoapi.xml import media_search
 from xml.dom.minidom import parseString
 import re
 
@@ -41,20 +39,10 @@ def mediabackend():
                         """
                         )
 
-    client.add_argument('-b', '--binding',
-                        choices=Binding.__members__,
-                        default=DEFAULT_BINDING.name,
-                        help="""
-                        binding to use when unmarshalling to objects (when using --process)
-                        """
-                        )
 
     args = client.parse_args()
 
     xml, mid, sub = args.xml, args.mid, args.sub
-
-    binding = DEFAULT_BINDING if args.binding is None else Binding[args.binding.upper()]
-    client.logger.debug("binding " + str(args.binding) + " " + str(binding))
 
     def is_prediction(update):
         if type(update) == str:
@@ -86,7 +74,7 @@ def mediabackend():
             if xml:
                 update = xml
                 if args.process is not None:
-                    update = client.to_object_or_none(xml, validate=args.client_validate, binding=binding)
+                    update = client.to_object_or_none(xml, validate=args.client_validate)
                     exec(args.process)
                     client.logger.debug("Execed " + args.process)
                 if not(type(update) == str) and xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
