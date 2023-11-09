@@ -53,7 +53,7 @@ class Media(NpoApi):
         sinceDate = None
         if not since is None:
             if isinstance(since, datetime.datetime):
-                since = str(since).replace(" ", "T")
+                sinceDate = str(since).replace(" ", "T")
             elif type(since) == int:\
                 sinceDate= str(since)
             elif not force_oldstyle and (not since.isdigit() or int(since) > 946681200000):
