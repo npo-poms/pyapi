@@ -198,7 +198,7 @@ class NpoApiBase:
                         f.write(key + "=" + self.settings[key] + "\n")
             self.logger.info("Wrote %s" % str(config_file))
         else:
-            self.logger.warn("Configuration could not be saved since no file of %s is writable" % str(config_files))
+            self.logger.warning("Configuration could not be saved since no file of %s is writable" % str(config_files))
 
     def _read_properties_file(self, config_file, properties=None) -> Dict[str, str]:
         if properties is None:
