@@ -23,7 +23,7 @@ class FollowChanges:
         self.client.add_argument("--tail", action='store_true')
         self.client.add_argument('-p', "--properties", type=str, default=None,
                         help="properties filtering")
-        self.client.add_argument("--raw", action='store_true', description="No attempts to stream and handle big results. Everything should fit in memory. Simpler, but less efficient.")
+        self.client.add_argument("--raw", action='store_true', help="No attempts to stream and handle big results. Everything should fit in memory. Simpler, but less efficient.")
         self.client.add_argument("--reasonFilter", type=str, default="")
 
         self.args = self.client.parse_args()
@@ -33,23 +33,26 @@ class FollowChanges:
             self.since = datetime.now().isoformat()
         self.client.logger.info("No since given, using %s" % self.since)
 
-        self.sinceAsEpoch = int(datetime.fromisoformat(self.since).timestamp() * 1000) - 60000
+        self.since_as_epoch = int(datetime.fromisoformat(self.since).timestamp() * 1000) - 60000
+        self.check_grow = False
 
     def one_call_raw(self):
         response = self.client.changes_raw(
             profile=self.args.profile,
-            since=self.sinceAsEpoch,
+            since=self.since_as_epoch,
             properties=self.args.properties,
             deletes=self.args.deletes,
             reason_filter=self.args.reasonFilter,
             stream=False)
-        self.sinceAsEpoch = json.loads(response)['changes'][0]['publishDate']
-        stdout.write(response)
+        self.since_as_epoch = json.loads(response)['changes'][-1]['publishDate']
+        is_tail  = json.loads(response)['changes'][-1]['tail']
+        if not is_tail or self.args.tail:
+            stdout.write(response + "\n")
 
     def one_call(self):
         response = self.client.changes_raw(
             profile=self.args.profile,
-            since=self.sinceAsEpoch,
+            since=self.since_as_epoch,
             properties=self.args.properties,
             deletes=self.args.deletes,
             reason_filter=self.args.reasonFilter,
@@ -60,39 +63,40 @@ class FollowChanges:
             return
         data = json_stream.load(response)
         changes = data['changes']
-        newsince = None
+        new_since = None
         count = 0
         for change in changes:
             count += 1
             c = json_stream.to_standard_types(change)
-            newsince = c.get('publishDate')
-            if not newsince:
+            new_since = c.get('publishDate')
+            if not new_since:
                 logging.error("No publishDate in %s" % c)
                 break
-            tail = c.get('tail', False)
-            if not tail or self.args.tail:
-                stdout.write(json.dumps(c))
-                stdout.write("\n")
+            is_tail = c.get('tail', False)
+            if not is_tail or self.args.tail:
+                stdout.write(json.dumps(c) + "\n")
             stdout.flush()
         if count == 0:
             raise Exception("No changes received!")
-        if newsince is None:
+        if new_since is None:
             raise Exception("No tail received?")
-        if newsince <= self.sinceAsEpoch:
-            raise Exception("Since doesn't grow")
-        self.sinceAsEpoch = newsince
+        if self.check_grow and new_since < self.since_as_epoch:
+            raise Exception("Since doesn't grow (%s <= %s)" % (new_since, self.since_as_epoch))
+        self.check_grow = True
+        self.since_as_epoch = new_since
         changes.read_all()
         response.close()
-        time.sleep(self.args.sleep)
+
 
     def follow_changes(self):
         try:
             while True:
-                self.client.logger.info("since: %s (%s)" % (self.sinceAsEpoch, datetime.fromtimestamp(self.sinceAsEpoch/1000).isoformat()))
+                self.client.logger.info("since: %s (%s)" % (self.since_as_epoch, datetime.fromtimestamp(self.since_as_epoch/1000).isoformat()))
                 if self.args.raw:
                     self.one_call_raw()
                 else:
                     self.one_call()
+                time.sleep(self.args.sleep)
         except KeyboardInterrupt:
             self.client.logger.info("interrupted")
 

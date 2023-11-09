@@ -51,6 +51,8 @@ class Media(NpoApi):
             properties = ",".join(properties)
         sinceLong = None
         sinceDate = None
+        if tail is None:
+            tail = "ALWAYS"
         if not since is None:
             if isinstance(since, datetime.datetime):
                 sinceDate = str(since).replace(" ", "T")
