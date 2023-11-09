@@ -90,6 +90,14 @@ npoapi pagesbackend  --help
 ----
 (The 'npo_' prefixes are made optional in this docker image, and left away here)
 
+
+Just to use it as a python on the current directory
+[source,bash]
+----
+docker run -it -v ~/conf:/root/conf:z  -v $(pwd):/work:z mihxil/npo-pyapi  /bin/sh
+----
+This can be useful to run scripts only _using_ the API.
+
 == Examples
 
 Check https://github.com/npo-poms/pyapi/blob/main/pyproject.toml[pyproject.toml] to see which command line clients it will make available. These also serve as examples on how to use the npoapi module.
