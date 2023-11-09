@@ -53,7 +53,7 @@ If you don't feel like installing anything at all, but have a docker environment
 
 [source, bash]
 ----
-docker run -v ~/conf:/root/conf mihxil/npo-pyapi npo_mediabackend_get -c POMS_VPRO_729992
+docker run -i -v ~/conf:/root/conf mihxil/npo-pyapi npo_mediabackend_get -c POMS_VPRO_729992
 ----
 Nothing more needed then.
 
