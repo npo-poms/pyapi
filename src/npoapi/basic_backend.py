@@ -263,4 +263,7 @@ class BasicBackend(NpoApiBase):
         else:
             raise Exception("unrecognized type " + str(t))
 
+    def __str__(self) -> str:
+        return "client for " + self.url
+
 

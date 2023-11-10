@@ -158,3 +158,6 @@ class NpoApi(NpoApiBase):
         req.add_header("Accept", accept if accept else self._accept)
         self.logger.debug("headers: %s" % str(req.headers))
         return self.get_response(req, url, ignore_not_found=ignore_not_found, timeout=timeout)
+
+    def __str__(self) -> str:
+        return "frontend api client " + self.url
