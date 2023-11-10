@@ -149,20 +149,19 @@ class FollowChanges:
 
     def follow_changes(self):
         self.client.logger.info("Watching %s " % (self.client.url))
-        try:
-            while True:
-                try:
-                    self.client.logger.debug("since: %s,%s (%s)" % (self.since, self.since_mid, self.timestamp_to_string(self.since)))
-                    if self.args.raw:
-                        self.one_call_raw()
-                    else:
-                        self.one_call()
-                    time.sleep(self.args.sleep)
-                except http.client.IncompleteRead:
-                    self.client.logger.warn("Incomplete read")
-
-        except KeyboardInterrupt:
-            self.client.logger.info("interrupted")
+        while True:
+            try:
+                self.client.logger.debug("since: %s,%s (%s)" % (self.since, self.since_mid, self.timestamp_to_string(self.since)))
+                if self.args.raw:
+                    self.one_call_raw()
+                else:
+                    self.one_call()
+                time.sleep(self.args.sleep)
+            except KeyboardInterrupt:
+                self.client.logger.info("interrupted")
+                break
+            except Exception as e:
+                self.client.logger.warn("Exception %s" % str(e))
 
         self.client.exit()
 
