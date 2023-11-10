@@ -112,8 +112,11 @@ class FollowChanges:
             reason_filter=self.args.reasonFilter,
             stream=True)
 
+        if response is None:
+            self.client.logger.debug("No response")
+            return
         if response.status != 200:
-            logging.error("Error %d" % response.status)
+            self.client.logger.error("Error %d" % response.status)
             return
         data = json_stream.load(response)
         changes = data['changes']
