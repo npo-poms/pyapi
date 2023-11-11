@@ -1,17 +1,16 @@
 import codecs
 import dataclasses
-import os
 import logging
+import os
 import re
 import sys
-from typing import Final, Optional
+from typing import Final
 
-import pyxb
-from npoapi.data.poms import NS_MAP
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from npoapi.base import DEFAULT_BINDING, Binding
+from npoapi.base import DEFAULT_BINDING
+from npoapi.data.poms import NS_MAP
 
 logger: Final = logging.getLogger("Npo.Utils")
 pattern: Final = re.compile('[a-z0-9]{2,}', re.IGNORECASE)
@@ -20,7 +19,7 @@ MIDS = ["WO_VPRO_025057", "WO_NOS_2321514 (not from vpro)", "WO_VPRO_025700 (has
 
 
 MID_SHORTHANDS: Final = ", ".join(map(lambda e: "M%d: %s" % e, enumerate(MIDS)))
-MID_HELP : Final  = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS 
+MID_HELP : Final  = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS
 MID_SHORTHAND_PATTERN: Final = re.compile("^M[0-9]+$")
 
 def resolve_mid(mid: str) -> str:
@@ -62,25 +61,13 @@ def to_object(data:str, validate=False, binding=DEFAULT_BINDING, clazz=None) -> 
     """Converts a string to a pyxb or dataclasses object and optionally validates it"""
     if data is None:
         return None
-    if binding == Binding.PYXB:
-        logger.warning("pyxb is deprecated in to_object")
-        if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-            result = data
-        else:
-            from npoapi.xml import poms
-            bytes, contenttype = data_to_bytes(data)
-            result = poms.CreateFromDocument(bytes)
 
-        if validate:
-            result.validateBinding()
-        return result
+    if dataclasses.is_dataclass(data):
+        result = data
     else:
-        if dataclasses.is_dataclass(data):
-            result = data
-        else:
-            from npoapi.data import poms
-            bytes, contenttype = data_to_bytes(data, clazz=clazz)
-            result = poms.from_bytes(bytes)
+        from npoapi.data import poms
+        bytes, contenttype = data_to_bytes(data, clazz=clazz)
+        result = poms.from_bytes(bytes)
         if validate:
             logger.warning("Find out how to do that")
         return result

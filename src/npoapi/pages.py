@@ -2,6 +2,7 @@ import http, ijson
 from typing import Union
 from npoapi.npoapi import NpoApi
 
+
 class Pages(NpoApi):
 
     __author__ = "Michiel Meeuwissen"

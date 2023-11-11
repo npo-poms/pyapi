@@ -5,8 +5,7 @@ import unittest
 from xml.dom import minidom
 
 from npoapi import MediaBackend, data
-from npoapi.xml import mediaupdate
-from npoapi.xml import poms
+
 
 ENV = "acc"
 MID = "WO_VPRO_783763"
@@ -33,13 +32,13 @@ class MediaBackendTest(unittest.TestCase):
         self.assertEqual("http://vpro.nl?a=a&x=y", self.client.append_params("http://vpro.nl", include_errors=False,  a="a", x="y"))
 
     def test_set_duration(self):
-        existing = poms.CreateFromDocument(self.client.get(MID))
+        existing = self.client.get_object(MID)
         existing.duration = "PT30M"
         self.client.post(existing)
 
     def test_get_locations(self):
         bs = self.client.get_locations(MID)
-        locations_pyxb=poms.CreateFromDocument(bs)        
+        locations_pyxb=poms.CreateFromDocument(bs)
         print(str(locations_pyxb))
         locations_xsdata=data.poms.from_bytes(bs)
         print(str(locations_xsdata))
@@ -76,5 +75,5 @@ class MediaBackendTest(unittest.TestCase):
 
     def test_create_location(self):
         self.client.set_location(MID, "http://www.vpro.nl/" + str(round(time.time())) + ".mp3", publishStop="2012-01-11T17:16:01.287Z")
-        
-    
+
+

@@ -9,13 +9,9 @@
 import argparse
 import time
 
-import pyxb
 
 from npoapi import Media
 from npoapi import MediaBackend
-from npoapi.xml import api
-from npoapi.xml import mediaupdate
-from npoapi.xml import poms
 
 latency = 60 * 60 # one hour
 
@@ -43,7 +39,7 @@ def create_title():
 
 
 def create_clip():
-    program = mediaupdate.program(type="CLIP", avType="MIXED")
+    program = MediaUpdate.program(type="CLIP", avType="MIXED")
     title = create_title()
     program.title.append(mediaupdate.titleUpdateType(title, type="MAIN"))
     program.crid.append(CLIP_CRID)
