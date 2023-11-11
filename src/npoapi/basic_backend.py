@@ -7,13 +7,11 @@ from typing import Optional, Tuple
 from xml.dom import minidom
 
 import pytz
-import pyxb
 from typing_extensions import deprecated, override
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
 from npoapi.base import NpoApiBase, NS_MAP
-from npoapi.xml import mediaupdate
 
 
 class BasicBackend(NpoApiBase):
@@ -221,23 +219,9 @@ class BasicBackend(NpoApiBase):
                 sep = "&"
         return _url
 
-    @staticmethod
-    def toxml(update: pyxb.binding.basis.complexTypeDefinition) -> bytes:
-        "xsi:- xml are not working out of the box.."
-        t = type(update)
-        if t == mediaupdate.programUpdateType:
-            return bytes(update.toxml("utf-8", element_name='program'))
-        elif t == mediaupdate.groupUpdateType:
-            return bytes(update.toxml("utf-8", element_name='group'))
-        elif t == mediaupdate.segmentUpdateType:
-            return bytes(update.toxml("utf-8", element_name='segment'))
-        else:
-            return bytes(update.toxml("utf-8"))
-
     def xml_to_bytes(self, xml) -> bytes:
         """Accepts xml in several formats, and returns it as a byte array, ready for posting"""
         import xml.etree.ElementTree as ET
-        import pyxb
 
         t = type(xml)
         if t == str:
@@ -256,8 +240,6 @@ class BasicBackend(NpoApiBase):
             return xml.toxml('utf-8')
         elif t == ET.Element:
             return ET.tostring(xml, encoding='utf-8')
-        elif isinstance(xml, pyxb.binding.basis.complexTypeDefinition):
-            return self.toxml(xml)
         elif hasattr(xml, "toDOM"):
             return xml.toDOM().toxml('utf-8')
         else:

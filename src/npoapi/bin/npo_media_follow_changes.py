@@ -1,15 +1,13 @@
 #!/usr/bin/env python3
 """
-  Simple client to get the changes feed from the NPO Frontend API
+  C client to get the changes feed from the NPO Frontend API
 """
-import http
 import json
 import logging
 import os
 import time
 from datetime import datetime
 from sys import stdout
-from typing import final, Final
 
 import json_stream
 
