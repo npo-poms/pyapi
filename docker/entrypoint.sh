@@ -2,7 +2,7 @@
 # simple script to make the npo_ prefixes superflouous
 command=$1
 shift
-if [ "$command" == "" ] ; then
+if [ "$command" = "" ] ; then
     cat << EOF
 No argument given. Try e.g. following arguments.
 # frontend apis
