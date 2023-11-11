@@ -1,17 +1,16 @@
 import codecs
 import dataclasses
-import os
 import logging
+import os
 import re
 import sys
-from typing import Final, Optional
+from typing import Final
 
-import pyxb
-from npoapi.data.poms import NS_MAP
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from npoapi.base import DEFAULT_BINDING, Binding
+from npoapi.base import DEFAULT_BINDING
+from npoapi.data.poms import NS_MAP
 
 logger: Final = logging.getLogger("Npo.Utils")
 pattern: Final = re.compile('[a-z0-9]{2,}', re.IGNORECASE)

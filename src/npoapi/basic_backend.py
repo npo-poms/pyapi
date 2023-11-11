@@ -7,11 +7,12 @@ from typing import Optional, Tuple
 from xml.dom import minidom
 
 import pytz
+from npoapi.data import poms
 from typing_extensions import deprecated, override
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from npoapi.base import NpoApiBase, NS_MAP
+from npoapi.base import NpoApiBase
 
 
 class BasicBackend(NpoApiBase):
@@ -230,7 +231,7 @@ class BasicBackend(NpoApiBase):
         elif dataclasses.is_dataclass(xml):
             serializer = XmlSerializer(config=SerializerConfig(pretty_print = False))
             content_type = "application/xml"
-            return serializer.render(xml, ns_map=NS_MAP).encode("utf-8")
+            return serializer.render(xml, ns_map=poms.NS_MAP).encode("utf-8")
         elif t == minidom.Element:
             # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
             # xml.setAttribute("xmlns:xsi",
