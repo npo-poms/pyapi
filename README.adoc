@@ -32,14 +32,19 @@ It may also be a good idea to set up a virtual environment instead, to avoid ver
 
 E.g. like so:
 
-[source]
+[source, bash]
 ----
 mihxil@baleno:~$ python3 -m venv ~/venvs/pyapi-env
 mihxil@baleno:~$ source ~/venvs/pyapi-env/bin/activate
 (pyapi-env) mihxil@baleno:~$ pip3 install --upgrade  'git+https://github.com/npo-poms/pyapi.git'
 (pyapi-env) mihxil@baleno:~$ which npo_media_get
 /Users/mihxil/venvs/pyapi-env/bin/npo_media_get
+----
 
+To run tests also its dependencies must be installed
+[source, bash]
+----
+pip install -e .[testing]
 ----
 
 === Docker
@@ -48,7 +53,7 @@ If you don't feel like installing anything at all, but have a docker environment
 
 [source, bash]
 ----
-docker run -v ~/conf:/root/conf mihxil/npo-pyapi npo_mediabackend_get -c POMS_VPRO_729992
+docker run -i -v ~/conf:/root/conf mihxil/npo-pyapi npo_mediabackend_get -c POMS_VPRO_729992
 ----
 Nothing more needed then.
 
@@ -84,6 +89,14 @@ npoapi mediabackend_get  --help
 npoapi pagesbackend  --help
 ----
 (The 'npo_' prefixes are made optional in this docker image, and left away here)
+
+
+Just to use it as a python on the current directory
+[source,bash]
+----
+docker run -it -v ~/conf:/root/conf:z  -v $(pwd):/work:z mihxil/npo-pyapi  /bin/sh
+----
+This can be useful to run scripts only _using_ the API.
 
 == Examples
 

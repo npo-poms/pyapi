@@ -46,22 +46,33 @@ class Media(NpoApi):
     def changes(self, profile=None, limit=10, since=None, properties=None, deletes="ID_ONLY", tail=None) -> Union[None, ijson.items]:
         return ijson.items(self.changes_raw(stream=True, profile=profile, limit=limit, since=since, properties=properties, deletes=deletes, tail=tail), 'changes.item')
 
-    def changes_raw(self, profile=None, order="ASC", stream=False, limit=10, since:Union[str, int, datetime.datetime]=None, force_oldstyle=False, properties=None, deletes="ID_ONLY", tail=None, reason_filter=None) -> Union[None, http.client.HTTPResponse, str]:
+    def changes_raw(self, profile=None, order="ASC", stream=False, limit=None,
+                    since:Union[str, int, datetime.datetime]=None,
+                    since_mid=None,
+                    force_oldstyle=False, properties=None, deletes="ID_ONLY", tail=None, reason_filter="") -> Union[None, http.client.HTTPResponse, str]:
         if isinstance(properties, list):
             properties = ",".join(properties)
         sinceLong = None
         sinceDate = None
+        if tail is None:
+            tail = "ALWAYS"
         if not since is None:
             if isinstance(since, datetime.datetime):
-                since = str(since).replace(" ", "T")
-            if not force_oldstyle and (not since.isdigit() or int(since) > 946681200000):
+                sinceDate = str(since).replace(" ", "T")
+            elif type(since) == int:\
+                sinceDate= str(since)
+            elif not force_oldstyle and (not since.isdigit() or int(since) > 946681200000):
                 sinceDate = since
             else:
                 sinceLong = since
 
         params = { "profile": profile, "order": order, "max": limit,
-                   "since": sinceLong, "publishedSince": sinceDate, "properties": properties,
-                   "deletes": deletes, "tail": tail, "reasonFilter": reason_filter }
+                   "since": sinceLong,
+                   "publishedSince": (sinceDate + ("," + since_mid if since_mid else "")),
+                   "properties": properties,
+                   "deletes": deletes,
+                   "tail": tail,
+                   "reasonFilter": reason_filter }
         if stream:
             return self.stream("/api/media/changes", params=params)
         else:
@@ -82,3 +93,6 @@ class Media(NpoApi):
         else:
             return self.request("/api/media/iterate", data=form,
                                 params={"profile": profile, "max": limit, "properties": properties})
+
+    def __str__(self) -> str:
+        return super.__str__(self) + " (media)"

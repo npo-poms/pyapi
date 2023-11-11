@@ -375,3 +375,7 @@ class MediaBackend(BasicBackend):
     @override
     def accept_choices(self) -> Dict[str, str]:
         return {"xml": "application/xml", "json": "application/json"}
+
+    @override
+    def __str__(self) -> str:
+        return super().__str__() + " (media)"
