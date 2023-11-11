@@ -1,5 +1,7 @@
 from typing import Optional
 
+from typing_extensions import override
+
 from npoapi.basic_backend import BasicBackend
 
 import json
@@ -69,8 +71,8 @@ class PagesBackend(BasicBackend):
         ).decode("utf-8")
         return self.post_to("api/thesaurus/person", new_person)[0]
 
-    def __str__(self):
-        return "pages backend api for " + str(self.url)
-
+    @override
+    def __str__(self) -> str:
+        return super().__str__() + " (pages)"
 
 

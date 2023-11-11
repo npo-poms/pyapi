@@ -8,7 +8,7 @@ from xml.dom import minidom
 
 import pytz
 import pyxb
-from typing_extensions import deprecated
+from typing_extensions import deprecated, override
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
@@ -263,6 +263,7 @@ class BasicBackend(NpoApiBase):
         else:
             raise Exception("unrecognized type " + str(t))
 
+    @override
     def __str__(self) -> str:
         return "client for " + self.url
 
