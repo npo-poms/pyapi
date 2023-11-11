@@ -5,9 +5,11 @@
 import http
 import json
 import logging
+import os
 import time
 from datetime import datetime
 from sys import stdout
+from typing import final, Final
 
 import json_stream
 
@@ -31,16 +33,27 @@ class FollowChanges:
         self.args = self.client.parse_args()
 
         since = self.args.since
+        self.since_file = None
         if since is None:
-            since = str(datetime.now().isoformat())
-            self.client.logger.info("No since given, using %s" % since)
+            since = "./since"
+            self.client.logger.info("No since given, using %s" % os.path.abspath(since))
+        if since.startswith(".") or os.path.exists(since):
+            self.since_file = since
+            # default
+            since = str(int(datetime.now().timestamp() * 1000))
 
-        if since.isdigit():
-            self.since = int(since)
+        if self.since_file and os.path.exists(self.since_file):
+            self.since = json.loads(open(self.since_file, "r").read().strip())
+            self.client.logger.info("Using since %s from %s" % (self.since, self.since_file))
         else:
-            self.since = int(datetime.fromisoformat(since).timestamp() * 1000) - 60000
-
-        self.since_mid = None
+            self.since = {
+            }
+            if since.isdigit():
+                self.since['timestamp'] = int(since)
+            else:
+                self.since['timestamp'] = int(datetime.fromisoformat(since).timestamp() * 1000) - 60000
+            self.since['mid'] = None
+            self.safe_since()
         self.check_grow = False
         if self.args.change_to_string == "CONCISE":
             self.change_to_string_function = "timestamp_to_string(change.get('publishDate')) + ':' + change.get('id', '') + ':' + title(change) + ':' + reasons(change)"
@@ -85,18 +98,29 @@ class FollowChanges:
     def timestamp_to_string(self, timestamp):
         return datetime.fromtimestamp(timestamp/1000).isoformat()
 
+    def set_since(self, timestamp, mid):
+        self.since['timestamp'] = timestamp
+        self.since['mid'] = mid
+        self.safe_since()
+
+    def safe_since(self):
+        if self.since_file:
+            open(self.since_file, "w").write(json.dumps(self.since))
+
+
     def one_call_raw(self):
         response = self.client.changes_raw(
             profile=self.args.profile,
-            since=self.since,
-            since_mid = self.since_mid,
+            since=self.since['timestamp'],
+            since_mid = self.since['mid'],
             properties=self.args.properties,
             deletes=self.args.deletes,
             reason_filter=self.args.reasonFilter,
             stream=False)
         changes = json.loads(response)['changes']
-        self.since = changes[-1]['publishDate']
-        self.since_mid = changes[-1].get('id', None)
+        last_change = changes[-1]
+
+        self.set_since(last_change['publishDate'], last_change['id'])
         for change in changes:
             is_tail = change.get('tail', False)
             if not is_tail or self.args.tail:
@@ -105,8 +129,8 @@ class FollowChanges:
     def one_call(self):
         response = self.client.changes_raw(
             profile=self.args.profile,
-            since=self.since,
-            since_mid = self.since_mid,
+            since=self.since['timestamp'],
+            since_mid = self.since['mid'],
             properties=self.args.properties,
             deletes=self.args.deletes,
             reason_filter=self.args.reasonFilter,
@@ -126,7 +150,7 @@ class FollowChanges:
             count += 1
             c = json_stream.to_standard_types(lazy_change)
             new_since = c.get('publishDate')
-            self.since_mid = c.get('id', None)
+            self.set_since(new_since, c.get('id', None))
             if not new_since:
                 logging.error("No publishDate in %s" % c)
                 break
@@ -138,20 +162,17 @@ class FollowChanges:
             raise Exception("No changes received!")
         if new_since is None:
             raise Exception("No tail received?")
-        if self.check_grow and new_since < self.since:
+        if self.check_grow and new_since < self.since['timestamp']:
             raise Exception("Since doesn't grow (%s < %s)" % (new_since, self.since))
         self.check_grow = True
-        self.since = new_since
         changes.read_all()
         response.close()
-
-
 
     def follow_changes(self):
         self.client.logger.info("Watching %s " % (self.client.url))
         while True:
             try:
-                self.client.logger.debug("since: %s,%s (%s)" % (self.since, self.since_mid, self.timestamp_to_string(self.since)))
+                self.client.logger.debug("since: %s,%s (%s)" % (self.since, self.since['timestamp'], self.timestamp_to_string(self.since['timestamp'])))
                 if self.args.raw:
                     self.one_call_raw()
                 else:
