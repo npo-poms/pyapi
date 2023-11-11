@@ -16,7 +16,7 @@ dependencies = [
     "requests==2.31.0",
     "typing==3.7.4.3",
     "xsdata @ git+https://github.com/tefra/xsdata", # awaiting release v23.9
-    #"xsdata[cli]==23.8",
+    #"xsdata[cli]==23.9",
     "isoduration==20.11.0",
     "lxml==4.9.3",
     "json-stream==2.3.2",
