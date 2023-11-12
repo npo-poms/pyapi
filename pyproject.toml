@@ -1,7 +1,7 @@
 # see https://peps.python.org/pep-0518/
 [project]
 name = "npoapi"
-version = "7.9.0.dev"
+version = "7.9.0"
 description = "Python Library for connecing to npo apis"
 authors = [
     {name = "Michiel Meeuwissen", email = "git@meeuw.org"},
@@ -31,6 +31,7 @@ testing = [
     "pytest==6.2.5",
     "xmldiff==2.6.3",
     "nose==1.3.7",
+    "xsdata[cli]==23.8"
 ]
 
 [build-system]
