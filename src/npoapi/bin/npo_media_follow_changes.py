@@ -35,7 +35,7 @@ class FollowChanges:
         since = self.args.since
         self.since_file = None
         if since is None:
-            since = "./since"
+            since = "./since." + self.client.actualenv
             self.client.logger.info("No since given, using %s" % os.path.abspath(since))
         if since.startswith(".") or os.path.exists(since):
             self.since_file = since
