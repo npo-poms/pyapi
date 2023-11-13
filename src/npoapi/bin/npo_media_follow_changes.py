@@ -96,7 +96,7 @@ class FollowChanges:
             return "<no media>"
 
     def timestamp_to_string(self, timestamp):
-        return datetime.fromtimestamp(timestamp/1000).isoformat()
+        return datetime.fromtimestamp(timestamp/1000).isoformat(timespec='milliseconds')
 
     def set_since(self, timestamp, mid):
         self.since['timestamp'] = timestamp
