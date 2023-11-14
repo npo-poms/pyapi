@@ -28,7 +28,7 @@ class FollowChanges:
                         help="properties filtering")
         self.client.add_argument("--raw", action='store_true', help="No attempts to stream and handle big results. Everything should fit in memory. Simpler, but less efficient.")
         self.client.add_argument("--reasonFilter", type=str, default="")
-        self.client.add_argument("--change_to_string", type=str, help="dict to string for change. E.g. 'change.get('id', '') + title(change). Or 'CONCISE' for a default concise string.")
+        self.client.add_argument("--change_to_string", type=str, default="CONCISE", help="dict to string for change. E.g. 'change.get('id', '') + title(change). Or 'CONCISE' for a default concise string.")
 
         self.args = self.client.parse_args()
 
@@ -56,10 +56,10 @@ class FollowChanges:
             self.safe_since()
         self.check_grow = False
         if self.args.change_to_string == "CONCISE":
-            self.change_to_string_function = "timestamp_to_string(change.get('publishDate')) + ':' + change.get('id', '') + ':' + title(change) + ':' + reasons(change)"
-            self.client.logger.info("Using to string: %s" % self.change_to_string_function)
+            self.change_to_string_function = " self.client.actualenv + ':' + timestamp_to_string(change.get('publishDate')) + ':' + change.get('id', '') + ':' + title(change) + ':' + reasons(change)"
         else:
             self.change_to_string_function = self.args.change_to_string
+        self.client.logger.info("Using to string: %s" % self.change_to_string_function)
 
 
     def change_to_string(self, change):
@@ -94,6 +94,16 @@ class FollowChanges:
             return media['titles'][0]['value']
         else:
             return "<no media>"
+
+    def modi(self, change):
+        tail = change.get("tail", False)
+        if tail:
+            return "TAIL"
+        delete = change.get("delete", False)
+        if delete:
+            return "DELETE"
+        media = change.get('media')
+
 
     def timestamp_to_string(self, timestamp):
         return datetime.fromtimestamp(timestamp/1000).isoformat(timespec='milliseconds')
@@ -181,8 +191,11 @@ class FollowChanges:
             except KeyboardInterrupt:
                 self.client.logger.info("interrupted")
                 break
+            except OSError as e:
+                self.client.logger.error("OSError %s" % str(e))
+                break
             except Exception as e:
-                self.client.logger.warn("Exception %s" % str(e))
+                self.client.logger.warn("Exception %s %s" % (str(type(e)), str(e)))
 
         self.client.exit()
 
