@@ -2,14 +2,12 @@
 """
   Simple client to get the changes feed from the NPO Frontend API
 """
-import http
 import json
 import logging
 import os
 import time
 from datetime import datetime
 from sys import stdout
-from typing import final, Final
 
 import json_stream
 
@@ -20,8 +18,8 @@ class FollowChanges:
     def __init__(self):
         self.client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
         self.client.add_argument('profile', type=str, nargs='?', help='Profile')
-        self.client.add_argument("-s", "--since", type=str, default=None)
-        self.client.add_argument("--sleep", type=int, default=5)
+        self.client.add_argument("-s", "--since", type=str, default=None, help="From what time/mid to stream, or a file containing it. It defaults to a file called since.<env>.")
+        self.client.add_argument("--sleep", type=int, default=5, help="sleep (in seconds) between calls")
         self.client.add_argument("--deletes", type=str, default="ID_ONLY")
         self.client.add_argument("--tail", action='store_true')
         self.client.add_argument('-p', "--properties", type=str, default=None,
