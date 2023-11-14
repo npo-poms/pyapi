@@ -1,7 +1,7 @@
 FROM alpine:3.18
 
 RUN apk add --no-cache --upgrade --virtual .build-deps gcc build-base python3-dev cargo libffi-dev openssl-dev   && \
-    apk add --no-cache git python3 py3-pip gcc tzdata && \
+    apk add --no-cache git python3 py3-pip gcc tzdata ffmpeg mediainfo && \
     pip3 install cffi && \
     apk del .build-deps && \
     ln -s /usr/share/zoneinfo/Europe/Amsterdam /etc/localtime && \
