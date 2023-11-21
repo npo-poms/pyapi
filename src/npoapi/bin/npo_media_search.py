@@ -9,7 +9,7 @@ from npoapi import Media
 from npoapi.utils import looks_like_form
 
 
-def media_search():
+def media_frontendsearch():
     client = Media()\
         .command_line_client(description="Search from the NPO Frontend API")
     list_of_subs = ["descendants", "members", "episodes", "related", ""]
@@ -41,4 +41,4 @@ def media_search():
 
 
 if __name__ == "__main__":
-    media_search()
+    media_frontendsearch()
