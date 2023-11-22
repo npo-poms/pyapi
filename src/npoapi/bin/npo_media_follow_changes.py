@@ -104,7 +104,7 @@ class FollowChanges:
 
 
     def timestamp_to_string(self, timestamp):
-        return datetime.fromtimestamp(timestamp/1000).isoformat(timespec='milliseconds') if timestamp else ""
+        return datetime.fromtimestamp(timestamp/1000).isoformat(timespec='milliseconds') if not timestamp is None else ""
 
     def set_since(self, timestamp, mid):
         self.since['timestamp'] = timestamp
@@ -146,6 +146,9 @@ class FollowChanges:
 
         if response is None:
             self.client.logger.debug("No response")
+            return
+        if response.status == 503:
+            self.client.logger.debug("503")
             return
         if response.status != 200:
             self.client.logger.error("Error %d" % response.status)
