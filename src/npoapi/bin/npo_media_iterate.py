@@ -22,16 +22,10 @@ def media_iterate():
 
     args = client.parse_args()
     form = args.form
-    if not form:
-        form = """{
-          "sort" : {
-              "creationDate" : "ASC"
-        }}
-        """
 
     response = client.iterate_raw(form=form, profile=args.profile, limit=None if args.max == -1 else args.max, timeout=100, properties=args.properties)
 
-    buffer_size = 1000
+    buffer_size = 10000
     buffer = bytearray("-" * buffer_size, "ascii")
     total_count = 0
     while not response.closed:
