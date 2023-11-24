@@ -52,3 +52,7 @@ def media_iterate():
     if args.progress:
         sys.stderr.write("\n%d byte written\n" % total_count)
     client.exit()
+
+
+if __name__ == "__main__":
+    media_iterate()
