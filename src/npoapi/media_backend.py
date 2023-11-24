@@ -16,7 +16,8 @@ from npoapi.xml.media import baseMediaType, streamingStatus
 
 from npoapi.base import DEFAULT_BINDING
 from npoapi.basic_backend import BasicBackend
-from npoapi.data import MediaUpdateType, BaseMediaType, StreamingStatus, LocationUpdateType
+from npoapi.data import MediaUpdateType, BaseMediaType, StreamingStatus, LocationUpdateType, PredictionUpdateType, \
+    Prediction
 from npoapi.xml import media, mediaupdate, poms
 import logging
 import time
@@ -87,6 +88,11 @@ class MediaBackend(BasicBackend):
 
         return self.post_to(target, update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid,
                             stealcrids=steal_crids, validateInput=str(validate_input).lower())[0]
+
+    def post_prediction(self, mid, update: Prediction) -> Optional[str]:
+        target = "media/media/%s/predictions/%s" % (mid, update.value)
+
+        return self.post_to(target, update, accept="application/xml", errors=self.get_errors())[0]
 
     def delete(self, mid: str) -> Optional[str]:
         """"""
