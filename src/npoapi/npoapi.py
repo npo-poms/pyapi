@@ -59,12 +59,15 @@ class NpoApi(NpoApiBase):
 
     def authenticate(self, uri="", now=utils.formatdate(usegmt=True), interactive=True) -> [str, str]:
         if interactive:
+            prev_write_count = self.write_count
             if self.origin is None:
-                self.origin = self.get_setting("origin", "Your NPO api origin", interactive)
+                self.origin = self.get_setting("origin", "Your NPO api origin", interactive, write_silent=True)
             if self.key is None:
-                self.key = self.get_setting("apiKey", "Your NPO api key", interactive)
+                self.key = self.get_setting("apiKey", "Your NPO api key", interactive, write_silent=True)
             if self.secret is None:
-                self.secret = self.get_setting("secret", "Your NPO api secret", interactive)
+                self.secret = self.get_setting("secret", "Your NPO api secret", interactive, write_silent=True)
+            if self.write_count > prev_write_count:
+                self.logger.info("Wrote config file %s" % self.get_config_file())
 
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         self.logger.debug("message: " + message)

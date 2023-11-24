@@ -71,6 +71,7 @@ class NpoApiBase:
         self.interactive = interactive
         self.settings = {}
         self.response_headers = False
+        self.write_count = 0;
 
 
     @abc.abstractmethod
@@ -144,7 +145,7 @@ class NpoApiBase:
 
         return self
 
-    def get_setting(self, name:str, description, write_settings = True) -> str:
+    def get_setting(self, name:str, description, write_settings = True, write_silent = False) -> str:
         if not(name in self.settings):
             if name.lower() in self.settings:
                 value = self.settings[name.lower()]
@@ -156,7 +157,7 @@ class NpoApiBase:
                     raise ValueError("No setting found " + name.lower())
             self.settings[name] = value
             if write_settings and self.interactive:
-                self._write_settings()
+                self._write_settings(write_silent = write_silent)
         return self.settings[name]
 
     @staticmethod
@@ -175,10 +176,9 @@ class NpoApiBase:
             config_files.insert(0, os.path.join(config_dir, "creds.properties"))
         return config_files
 
-    def _write_settings(self, config_dir = None):
+    def get_config_file(self, config_dir = None):
         config_file = None
-        config_files = self.get_configfiles(config_dir = config_dir)
-        for file in self.get_configfiles():
+        for file in self.get_configfiles(config_dir = config_dir):
             config_file = os.path.normpath(file)
             if os.access(os.path.dirname(config_file), os.W_OK):
                 self.logger.debug("Found " + config_file)
@@ -186,6 +186,10 @@ class NpoApiBase:
             else:
                 self.logger.debug("Not writeable " + config_file)
                 config_file = None
+        return config_file
+
+    def _write_settings(self, config_dir = None, write_silent = False):
+        config_file = self.get_config_file(config_dir = config_dir)
 
         if config_file:
             with open(str(config_file), "w") as f:
@@ -196,8 +200,11 @@ class NpoApiBase:
                         f.write(key + "." + self.actualenv + "=" + self.settings[key] + "\n")
                     if len(key.split(".")) == 2:
                         f.write(key + "=" + self.settings[key] + "\n")
-            self.logger.info("Wrote %s" % str(config_file))
+            if not write_silent:
+                self.logger.info("Wrote %s" % str(config_file))
+            self.write_count += 1
         else:
+            config_files = self.get_configfiles(config_dir = config_dir)
             self.logger.warning("Configuration could not be saved since no file of %s is writable" % str(config_files))
 
     def _read_properties_file(self, config_file, properties=None) -> Dict[str, str]:
@@ -234,13 +241,13 @@ class NpoApiBase:
                     self.logger.debug("%s %s %s %s", e, usedkey, key, value)
         return self.settings
 
-    def anonymize_for_logging(self, settings_for_log):
+    @staticmethod
+    def anonymize_for_logging(settings_for_log):
         for key, vale in settings_for_log.items():
             if key in ["user", "pages_user", "parkpost_user"]:
                 settings_for_log[key] = settings_for_log[key].split(":", 1)[0] + ":xxx"
             if key.endswith("secret"):
                 settings_for_log[key] = "xxx"
-
 
     def command_line_client(self, description=None, read_environment=True, create_config_file=True, exclude_arguments=None):
         """Configure this api client as a command line client. I.e. create an argument parser with common arguments
