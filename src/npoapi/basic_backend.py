@@ -55,6 +55,19 @@ class BasicBackend(NpoApiBase):
     def get_errors(self):
         return self.email or self.settings.get('errors') or self.settings.get('email')
 
+    @override
+    def command_line_client(self, description=None, read_environment=True, create_config_file=True, exclude_arguments=None):
+        client = super().command_line_client(description, read_environment, create_config_file, exclude_arguments)
+        client.add_argument('--errors', type=str, default=None, help="""Email address to send asynchronous errors to, or url to post to""")
+        return client
+
+    @override
+    def parse_args(self, description=None, read_environment=True, create_config_file=True, exclude_arguments=None):
+        args = super().parse_args()
+        if args.errors:
+            self.errors(args.errors)
+        return args
+
     def login(self):
         """Authenticates if not yet authenticated."""
         if self.authorizationHeader:
