@@ -8,7 +8,10 @@ from npoapi.utils import resolve_mid, MID_HELP
 
 
 def mediabackend_get():
-    client = MediaBackend().command_line_client(description="Get an media object from the NPO Backend API")
+    client = MediaBackend().command_line_client(
+        description="Get an media object from the NPO Backend API",
+        exclude_arguments="errors"
+    )
 
     list_of_subs = [
         "members",
