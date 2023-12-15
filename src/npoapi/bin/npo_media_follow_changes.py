@@ -18,14 +18,14 @@ class FollowChanges:
     def __init__(self):
         self.client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
         self.client.add_argument('profile', type=str, nargs='?', help='Profile')
-        self.client.add_argument("-s", "--since", type=str, default=None, help="From what time/mid to stream, or a file containing it. It defaults to a file called since.<env>.")
+        self.client.add_argument("-s", "--since", type=str, default=None, help="From what time/mid to stream, or a file containing it. It defaults to a file called since.<env>. Empty string: now, no store.")
         self.client.add_argument("--sleep", type=int, default=5, help="sleep (in seconds) between calls")
         self.client.add_argument("--deletes", type=str, default="ID_ONLY")
         self.client.add_argument("--tail", action='store_true')
         self.client.add_argument('-p', "--properties", type=str, default=None,
                         help="properties filtering")
         self.client.add_argument("--raw", action='store_true', help="No attempts to stream and handle big results. Everything should fit in memory. Simpler, but less efficient.")
-        self.client.add_argument("--reasonFilter", type=str, default="")
+        self.client.add_argument("--reasonFilter", type=str, default="", help="reason filtering argument. Defaults to empty string (only reporting)")
         self.client.add_argument("--change_to_string", type=str, default="CONCISE", help="dict to string for change. E.g. 'change.get('id', '') + title(change). Or 'CONCISE' for a default concise string.")
 
         self.args = self.client.parse_args()
@@ -38,6 +38,8 @@ class FollowChanges:
         if since.startswith(".") or os.path.exists(since):
             self.since_file = since
             # default
+            since = str(int(datetime.now().timestamp() * 1000))
+        if since == "":
             since = str(int(datetime.now().timestamp() * 1000))
 
         if self.since_file and os.path.exists(self.since_file):
@@ -58,7 +60,6 @@ class FollowChanges:
         else:
             self.change_to_string_function = self.args.change_to_string
         self.client.logger.info("Using to string: %s" % self.change_to_string_function)
-
 
     def change_to_string(self, change):
         if self.args.change_to_string:
@@ -102,7 +103,6 @@ class FollowChanges:
             return "DELETE"
         media = change.get('media')
 
-
     def timestamp_to_string(self, timestamp):
         return datetime.fromtimestamp(timestamp/1000).isoformat(timespec='milliseconds') if not timestamp is None else ""
 
@@ -114,7 +114,6 @@ class FollowChanges:
     def safe_since(self):
         if self.since_file:
             open(self.since_file, "w").write(json.dumps(self.since))
-
 
     def one_call_raw(self):
         response = self.client.changes_raw(
