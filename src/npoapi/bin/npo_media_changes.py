@@ -22,7 +22,7 @@ def media_changes():
     client.add_argument("--tail", type=str, default=None,  choices=("ALWAYS", "IF_EMPTY", "NEVER"))
     client.add_argument('-p', "--properties", type=str, default=None,
                         help="properties filtering")
-    client.add_argument("--reason_filter", type=str, default=None)
+    client.add_argument("--reason_filter", type=str, default="")
     client.add_argument("--buffer_size", type=int, default="1000")
 
     args = client.parse_args()
