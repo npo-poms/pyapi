@@ -158,7 +158,9 @@ class NpoApi(NpoApiBase):
             req.add_header("Content-Type", content_type)
 
         self._authentication_headers(req, path_for_authentication)
-        req.add_header("Accept", accept if accept else self._accept)
+        effective_accept = accept if accept else self._accept
+        if effective_accept is not None:
+            req.add_header("Accept", effective_accept)
         self.logger.debug("headers: %s" % str(req.headers))
         return self.get_response(req, url, ignore_not_found=ignore_not_found, timeout=timeout)
 
