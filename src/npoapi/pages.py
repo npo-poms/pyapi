@@ -26,7 +26,6 @@ class Pages(NpoApi):
         else:
             return None
 
-
     def iterate_raw(self, form="{}", profile=None, limit=1000, stream=True, timeout=None, properties=None) -> Union[None, http.client.HTTPResponse, str]:
         if not form:
             form = "{}"
