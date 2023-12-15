@@ -319,7 +319,8 @@ class MediaBackend(BasicBackend):
             url = url + sep + "followMerges=false"
         return self._get(url, accept=accept)
 
-    def guess_format(self, url):
+    @staticmethod
+    def guess_format(url):
         if str(url).endswith(".mp4"):
             return media.avFileFormatEnum.MP4
         elif str(url).endswith(".mp3"):
