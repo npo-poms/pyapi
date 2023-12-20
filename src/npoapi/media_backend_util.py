@@ -8,7 +8,7 @@ import pyxb
 import npoapi.utils
 
 from npoapi.base import DEFAULT_BINDING, Binding
-from npoapi.data import MediaUpdateType
+from npoapi.data import MediaUpdateType, ProgramUpdateType
 from npoapi.media_backend import MediaBackend
 from npoapi.xml import media, mediaupdate, poms
 from npoapi.xml.mediaupdate import segmentUpdateType
@@ -335,7 +335,9 @@ class MediaBackendUtil(object):
             return poms.CreateFromDOM(update, mediaupdate.Namespace)
         else:
             # TODO
-            return npoapi.utils.to_object(update, binding=binding, clazz=MediaUpdateType)
+            update.removeAttribute('xsi:type')
+            update.setAttribute('xmlns', 'urn:vpro:media:update:2009')
+            return npoapi.utils.to_object(update, binding=binding, clazz=ProgramUpdateType)
 
 
     @staticmethod

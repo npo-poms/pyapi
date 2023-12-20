@@ -550,6 +550,7 @@ class ImageUpdateType:
     :ivar publishStart:
     :ivar publishStop:
     :ivar highlighted:
+    :ivar delete: If true, the image will be marked deleted.
     """
     class Meta:
         name = "imageUpdateType"
@@ -680,6 +681,12 @@ class ImageUpdateType:
     )
     highlighted: bool = field(
         default=False,
+        metadata={
+            "type": "Attribute",
+        }
+    )
+    delete: Optional[bool] = field(
+        default=None,
         metadata={
             "type": "Attribute",
         }
@@ -1376,6 +1383,16 @@ class TranscodeStatus(TranscodeStatusType):
 
 @dataclass(slots=True)
 class LocationUpdateType:
+    """
+    :ivar programUrl:
+    :ivar avAttributes:
+    :ivar offset:
+    :ivar duration:
+    :ivar publishStart:
+    :ivar publishStop:
+    :ivar urn:
+    :ivar delete: If true, the location will be marked deleted.
+    """
     class Meta:
         name = "locationUpdateType"
 
@@ -1422,6 +1439,12 @@ class LocationUpdateType:
         }
     )
     urn: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        }
+    )
+    delete: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",

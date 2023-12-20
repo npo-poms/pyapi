@@ -3,10 +3,11 @@ import dataclasses
 import unittest
 
 import dateutil.parser
+from npoapi.data.api import MediaForm, MediaSearchType
 from xmldiff import main
 from xsdata.models.datatype import XmlDateTime
 
-from npoapi.data import media, AgeRatingType
+from npoapi.data import media, AgeRatingType, PredictionUpdateType, Prediction, ProgramTypeEnum
 from npoapi.data import poms
 
 
@@ -21,8 +22,8 @@ class Tests(unittest.TestCase):
 
     def setUp(self):
         self.maxDiff = None
-        
-        
+
+
     def test_location_xml_datetime(self):
         location = poms.LocationType()
         location.publishStart = XmlDateTime.from_string("2012-01-11T16:16:01.287+01:00")
@@ -31,7 +32,7 @@ class Tests(unittest.TestCase):
             <?xml version="1.0" encoding="UTF-8"?>
 <locationType xmlns:update="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" publishStart="2012-01-11T16:16:01.287+01:00"/>
             """, location)
-        
+
     def test_location_native_datetime(self):
         location = poms.LocationType()
         location.publishStart = XmlDateTime.from_datetime(dateutil.parser.isoparse("2012-01-11T16:16:01.287+01:00"))
@@ -40,7 +41,7 @@ class Tests(unittest.TestCase):
             <?xml version="1.0" encoding="UTF-8"?>
 <locationType xmlns:update="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" publishStart="2012-01-11T16:16:01.287+01:00"/>
             """, location)
-        
+
     def test_locations(self):
         pass
 
@@ -84,7 +85,7 @@ class Tests(unittest.TestCase):
         self.xml_assert("""<?xml version="1.0" encoding="UTF-8"?>
 <update:program xmlns:update="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013" avType="VIDEO" embeddable="true" publishStart="2012-01-11T16:16:01.287+01:00" publishStop="2012-01-11T18:16:01.287+01:00" type="CLIP"><update:broadcaster>VPRO</update:broadcaster><update:title type="MAIN">Main title</update:title><update:duration>PT5M</update:duration><update:memberOf position="34" highlighted="false">urn:vpro:media:group:2981744</update:memberOf><update:memberOf highlighted="false">POMS_S_VPRO_159096</update:memberOf><update:images><update:image type="PICTURE" highlighted="false"><update:title>bla</update:title><update:urn>urn:vpro:image:496158</update:urn></update:image></update:images></update:program>""", update)
 
-        
+
     def test_images_collection(self):
         xml = """<collection xmlns:update="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009">
 <update:image type="PORTRAIT" highlighted="false">
@@ -96,7 +97,7 @@ class Tests(unittest.TestCase):
         images = poms.from_string(xml)
         first_image = images.otherElement[0]
         self.assertEqual(first_image.title, "sdf")
-        
+
     def test_locations_collection(self):
         xml = """
 <collection xmlns:update="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009" version="7.6.2">
@@ -153,7 +154,7 @@ class Tests(unittest.TestCase):
         object = poms.from_string(xml)
         print(str(object))
         print(object.to_xml())
-        
+
     def test_tolerate_xsi(self):
        xml =  """<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- This clip does not have a mid. So it will be a new clip when you post this -->
@@ -161,14 +162,34 @@ class Tests(unittest.TestCase):
          type="CLIP" avType="VIDEO"
          publishStart="2012-01-11T16:16:01.287+01:00" embeddable="true"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="urn:vpro:media:update:2009 https://poms.omroep.nl/schema/update/vproMediaUpdate.xsd"        
+         xsi:schemaLocation="urn:vpro:media:update:2009 https://poms.omroep.nl/schema/update/vproMediaUpdate.xsd"
          >
   <broadcaster>VPRO</broadcaster>
   <title type="MAIN">TEST TEST</title>
   <tag>Kabouters</tag>
   <ageRating>ALL</ageRating>
-  <email>programma@avro.nl</email>  
-</program>         
+  <email>programma@avro.nl</email>
+</program>
          """
        program_update =  poms.from_string(xml) # FAILS: https://github.com/tefra/xsdata/issues/845
        self.assertEqual(program_update.ageRating, AgeRatingType.ALL)
+
+    def test_prediction(self):
+        prediction = Prediction()
+        prediction.value = "INTERNETVOD"
+        self.xml_assert(
+            """
+            <?xml version="1.0" encoding="UTF-8"?>
+<prediction xmlns:update="urn:vpro:media:update:2009">INTERNETVOD</prediction>
+            """, prediction)
+
+
+    def test_media_form(self):
+        form = MediaForm()
+        form.searches = MediaSearchType()
+        form.searches.types = [ProgramTypeEnum.BROADCAST]
+        self.xml_assert(
+            """
+           <?xml version="1.0" encoding="UTF-8"?>
+<api:mediaForm xmlns:update="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013"><api:searches><api:types>BROADCAST</api:types></api:searches></api:mediaForm>
+            """, form)

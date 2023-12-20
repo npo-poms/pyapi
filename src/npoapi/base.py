@@ -13,6 +13,7 @@ from typing import List
 from typing import Optional
 
 import pyxb
+from urllib3.exceptions import NameResolutionError
 
 from npoapi.data.poms import NS_MAP
 from xsdata.formats.dataclass.serializers import XmlSerializer

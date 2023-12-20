@@ -24,8 +24,8 @@ from npoapi.data import api, page, media, mediaupdate, pageupdate
 class MyParser(XmlParser):
     def __init__(self):
         super().__init__()
-        
-    
+
+
     def start(
         self,
         clazz: Optional[Type],
@@ -36,10 +36,10 @@ class MyParser(XmlParser):
         ns_map: Dict,
     ):
         if qname == "{urn:vpro:media:update:2009}location":
-            clazz = LocationUpdate           
+            clazz = LocationUpdate
         super().start(clazz, queue, objects, qname, attrs, ns_map)
 
-    
+
 
 from xsdata.formats.dataclass.context import XmlContext
 from xsdata.formats.dataclass.parsers import XmlParser
@@ -64,7 +64,7 @@ NS_MAP={
     "pages": page.__NAMESPACE__,
     "api": api.__NAMESPACE__,
     }
-    
+
 def prefix(namespace:str):
     for k,v in NS_MAP.items():
         if v == namespace:
@@ -74,16 +74,16 @@ def prefix(namespace:str):
 def from_string(source: str):
     return parser.from_string(source)
 
-def from_bytes(source: bytes):
-    return parser.from_bytes(source)
+def from_bytes(source: bytes, clazz: Optional[Type] = None):
+    return parser.from_bytes(source, clazz)
 
 def to_xml(node: object):
     return serializer.render(node, ns_map=NS_MAP)
 
- 
+
 def children_from_any(source: AnyElement, qname: str):
      return  list(filter(lambda a: a.qname == qname, source.children))
-        
+
 
 def to_xml_data_time(input: Union[datetime, str, XmlDateTime]) -> Optional[XmlDateTime]:
     if type is None:

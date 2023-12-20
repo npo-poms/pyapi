@@ -1,14 +1,14 @@
 # see https://peps.python.org/pep-0518/
 [project]
 name = "npoapi"
-version = "7.9.0"
+version = "7.10.0"
 description = "Python Library for connecing to npo apis"
 authors = [
     {name = "Michiel Meeuwissen", email = "git@meeuw.org"},
 ]
 
 dependencies = [
-    "ijson==3.1.4",
+    "ijson==3.2.3",
     "jwt==1.3.1",
     "python-dateutil==2.8.2",
     "pytz==2023.3",
@@ -18,7 +18,7 @@ dependencies = [
     "xsdata @ git+https://github.com/tefra/xsdata", # awaiting release v23.9
     #"xsdata[cli]==23.9",
     "isoduration==20.11.0",
-    "lxml==4.9.3",
+    "lxml==4.9.4",
     "json-stream==2.3.2",
 ]
 requires-python = ">=3.10"
@@ -27,7 +27,7 @@ license = {text = "MIT"}
 
 [project.optional-dependencies]
 testing = [
-    "pytest==6.2.5",
+    "pytest==7.4.3",
     "xmldiff==2.6.3",
     "nose==1.3.7",
     "xsdata[cli]==23.8"

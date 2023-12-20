@@ -1,5 +1,6 @@
 import codecs
 import dataclasses
+import json
 import os
 import logging
 import re
@@ -20,7 +21,7 @@ MIDS = ["WO_VPRO_025057", "WO_NOS_2321514 (not from vpro)", "WO_VPRO_025700 (has
 
 
 MID_SHORTHANDS: Final = ", ".join(map(lambda e: "M%d: %s" % e, enumerate(MIDS)))
-MID_HELP : Final  = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS 
+MID_HELP : Final  = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS
 MID_SHORTHAND_PATTERN: Final = re.compile("^M[0-9]+$")
 
 def resolve_mid(mid: str) -> str:
@@ -79,8 +80,8 @@ def to_object(data:str, validate=False, binding=DEFAULT_BINDING, clazz=None) -> 
             result = data
         else:
             from npoapi.data import poms
-            bytes, contenttype = data_to_bytes(data, clazz=clazz)
-            result = poms.from_bytes(bytes)
+            bytes, contenttype = data_to_bytes(data)
+            result = poms.from_bytes(bytes, clazz)
         if validate:
             logger.warning("Find out how to do that")
         return result
@@ -129,6 +130,10 @@ def data_to_bytes(data, content_type:str = None, clazz=None) -> [bytearray, str]
             elif data.startswith("<"):
                 content_type = "application/xml"
             data = data.encode("utf-8")
+        elif isinstance(data, dict):
+            data = json.dumps(data).encode("utf-8")
+            content_type = "application/json"
+
 
     return data, content_type
 

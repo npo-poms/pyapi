@@ -89,6 +89,7 @@ class AvTypeEnum(Enum):
     AUDIO = "AUDIO"
     VIDEO = "VIDEO"
     MIXED = "MIXED"
+    UNKNOWN = "UNKNOWN"
 
 
 @dataclass(slots=True)
@@ -419,6 +420,7 @@ class ChannelEnum(Enum):
     :cvar SPID: Spike Nederland
     :cvar PRMT: Paramount Nederland
     :cvar XXXX: Test channel. This channel only exist for the sake of testing.
+    :cvar XXXY: Second test channel. This channel only exist for the sake of testing.
     """
     NED1 = "NED1"
     NED2 = "NED2"
@@ -726,6 +728,7 @@ class ChannelEnum(Enum):
     SPID = "SPID"
     PRMT = "PRMT"
     XXXX = "XXXX"
+    XXXY = "XXXY"
 
 
 class ColorType(Enum):
@@ -807,6 +810,7 @@ class GeoRestrictionEnum(Enum):
     :cvar NLALL: New in 5.6. Nederland plus BES gemeentes plus Curacao, St. Maarten en Aruba
     :cvar EU: New in 5.6. EU (incl. BES gemeentes, Curacao, St. Maarten en Aruba)
     :cvar EUROPE: New in 5.6. Europa in breedste zin van het woord
+    :cvar UNIVERSE: New in 7.7. Explicitly no geo-restriction
     """
     NL = "NL"
     BENELUX = "BENELUX"
@@ -814,6 +818,7 @@ class GeoRestrictionEnum(Enum):
     NLALL = "NLALL"
     EU = "EU"
     EUROPE = "EUROPE"
+    UNIVERSE = "UNIVERSE"
 
 
 class GeoRoleType(Enum):

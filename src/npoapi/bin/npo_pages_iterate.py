@@ -7,6 +7,8 @@ from http.client import IncompleteRead
 from npoapi import Pages
 import sys
 import os
+import json_stream
+
 
 
 def pages_iterate():
@@ -19,9 +21,10 @@ def pages_iterate():
     client.add_argument('-m', "--max", type=int, default="100", help="On default the size is maximized to 100, but unlike with other API calls you can set this max value arbitrary large.")
     client.add_argument("--progress", action='store_true', help="If set to true, some progress indication will be written to stderr")
     client.add_argument('-p', "--properties", type=str, default=None,   help="properties filtering")
+    client.add_argument("--object_to_string", type=str, default="CONCISE", help="dict to string for change. E.g. 'change.get('id', '') + title(change). Or 'CONCISE' for a default concise string.")
+    client.add_argument("--output_size", type=int, default=None,   help="If this is used, the 'output' parameter must contain a '%d', and every file will contain an array with this many media objects. Defaults to 1000 if output contains a '%d'")
 
     args = client.parse_args()
-    profile = args.profile
     form = args.form
     if not form:
         form = """{
@@ -31,6 +34,19 @@ def pages_iterate():
         """
 
     response = client.iterate_raw(profile=args.profile, form=form, limit=args.max, properties=args.properties, timeout=100)
+
+    if args.output:
+        if  "%d" in args.output:
+            if args.output_size:
+                output_size = args.output_size
+            else:
+                output_size = 1000
+
+
+        output = args.output % 0
+        output_count = 0
+        output_file = open(output, "w")
+        output_file.write("[")
 
     buffer_size = 1000
     buffer = bytearray("-" * buffer_size, "ascii")
