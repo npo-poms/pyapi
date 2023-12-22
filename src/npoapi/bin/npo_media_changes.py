@@ -2,11 +2,11 @@
 """
   Simple client to get the changes feed from the NPO Frontend API
 """
-from datetime import datetime, time
+from datetime import datetime
 from io import TextIOWrapper
 from sys import stdout
+
 from isoduration import parse_duration
-import pytz
 
 from npoapi import Media
 

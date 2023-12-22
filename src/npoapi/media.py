@@ -66,9 +66,10 @@ class Media(NpoApi):
             else:
                 sinceLong = since
 
+
         params = { "profile": profile, "order": order, "max": limit,
                    "since": sinceLong,
-                   "publishedSince": (sinceDate + ("," + since_mid if since_mid else "")),
+                   "publishedSince": (sinceDate + (("," + str(since_mid)) if since_mid else "")) if sinceDate else None,
                    "properties": properties,
                    "deletes": deletes,
                    "tail": tail,
