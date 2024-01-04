@@ -46,7 +46,7 @@ def media_changes():
         stream=True,
         reason_filter=args.reason_filter), encoding="UTF-8")
 
-    buf_size=args.buffer_size
+    buf_size = args.buffer_size
     buffer = response.read(buf_size)
     count = 0
     while len(buffer) > 0:

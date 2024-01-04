@@ -79,7 +79,6 @@ class Media(NpoApi):
         else:
             return self.request("/api/media/changes", params=params)
 
-
     def redirects(self) -> str:
         return self.request("/api/media/redirects")
 
