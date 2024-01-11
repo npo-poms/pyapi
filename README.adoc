@@ -15,7 +15,7 @@ There are several ways to use this.
 Then you can install the python libraries and command line scripts with the following command
 
 ----
-pip3 install git+https://github.com/npo-poms/pyapi.git@5.12.0
+pip3 install git+https://github.com/npo-poms/pyapi.git@7.9.0
 ----
 
 or if you dare install the latest, which may sometimes be a bit broken:
