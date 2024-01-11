@@ -1,7 +1,7 @@
 # see https://peps.python.org/pep-0518/
 [project]
 name = "npoapi"
-version = "7.10.0"
+version = "7.10.1"
 description = "Python Library for connecing to npo apis"
 authors = [
     {name = "Michiel Meeuwissen", email = "git@meeuw.org"},
