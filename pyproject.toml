@@ -15,7 +15,6 @@ dependencies = [
     "pytz==2023.3",
     "pyxb==1.2.6", #deprecated
     "requests==2.31.0",
-    "typing==3.7.4.3",
     "xsdata[cli]==24.1",
     "isoduration==20.11.0",
     "lxml==4.9.4",
