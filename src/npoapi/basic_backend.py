@@ -151,7 +151,7 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Deleting " + url)
         return self._request(req, url)
 
-    @deprecated
+    @deprecated("")
     def _get_xml(self, url: str) -> Optional[bytes]:
         """Gets XML (as a byte array) from a URL. So this sets the accept header."""
         return self._get(url, accept="application/xml")
