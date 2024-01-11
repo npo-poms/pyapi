@@ -11,9 +11,11 @@ from npoapi import Media
 import sys
 import os
 
+
 class MediaIterate:
 
-    def raw_to_stdout(self, response, progress: bool, buffer_size: int):
+    @staticmethod
+    def raw_to_stdout(response, progress: bool, buffer_size: int):
         buffer = bytearray("-" * buffer_size, "ascii")
         total_count = 0
         while not response.closed:
@@ -34,7 +36,8 @@ class MediaIterate:
         if progress:
             sys.stderr.write("\n%d byte written\n" % total_count)
 
-    def stream_to_stdout(self, response, progress: bool, buffer_size: int, object_to_string:Callable[[dict, int], str]):
+    @staticmethod
+    def stream_to_stdout(response, progress: bool, buffer_size: int, object_to_string:Callable[[dict, int], str]):
         data = json_stream.load(response)
         mediaobjects = data['mediaobjects']
         count = 0
