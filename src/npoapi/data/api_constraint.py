@@ -14,14 +14,14 @@ class LocalizedString:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     lang: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "http://www.w3.org/XML/1998/namespace",
-        }
+        },
     )
 
 
@@ -43,27 +43,27 @@ class BooleanPredicateTestResult:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:2014",
-        }
+        },
     )
     clauses: Optional["BooleanPredicateTestResult.Clauses"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:2014",
-        }
+        },
     )
     applies: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     reason: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
     @dataclass(slots=True)
@@ -73,7 +73,7 @@ class BooleanPredicateTestResult:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:api:constraint:2014",
-            }
+            },
         )
 
 
@@ -87,27 +87,27 @@ class NotPredicateTestResult:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:2014",
-        }
+        },
     )
     clause: Optional[object] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:2014",
-        }
+        },
     )
     applies: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     reason: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -121,20 +121,20 @@ class SimplePredicateTestResult:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:constraint:2014",
-        }
+        },
     )
     applies: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     reason: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 

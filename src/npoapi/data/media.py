@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 from xsdata.models.datatype import XmlDate, XmlDateTime, XmlDuration
 from npoapi.data.shared import (
     Image,
@@ -22,6 +22,7 @@ class AgeRatingType(Enum):
     :cvar ALL: Suitable for people of all ages.
     :cvar NOT_YET_RATED: Not yet rated. Experimental. Not currently accepted.
     """
+
     VALUE_6 = "6"
     VALUE_9 = "9"
     VALUE_12 = "12"
@@ -35,6 +36,8 @@ class AgeRatingType(Enum):
 class AspectRatioEnum(Enum):
     VALUE_4_3 = "4:3"
     VALUE_16_9 = "16:9"
+    X_CIF = "xCIF"
+    VALUE_9_16 = "9:16"
 
 
 @dataclass(slots=True)
@@ -47,21 +50,21 @@ class AudioAttributesType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     audioCoding: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     language: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
 
 
@@ -101,14 +104,14 @@ class AvailableSubtitleType:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[str] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -422,6 +425,7 @@ class ChannelEnum(Enum):
     :cvar XXXX: Test channel. This channel only exist for the sake of testing.
     :cvar XXXY: Second test channel. This channel only exist for the sake of testing.
     """
+
     NED1 = "NED1"
     NED2 = "NED2"
     NED3 = "NED3"
@@ -747,6 +751,7 @@ class ContentRatingType(Enum):
     :cvar SEKS: Sex. Contains nudity and/or sexual behavior or sexual references.
     :cvar DRUGS_EN_ALCOHOL: Drugs. Refers to or depicts the use of drugs.
     """
+
     DISCRIMINATIE = "DISCRIMINATIE"
     GROF_TAALGEBRUIK = "GROF_TAALGEBRUIK"
     ANGST = "ANGST"
@@ -764,14 +769,14 @@ class CountryType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     code: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "pattern": r"(\w){2,4}",
-        }
+        },
     )
 
 
@@ -790,7 +795,7 @@ class GenreType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
@@ -798,7 +803,7 @@ class GenreType:
             "type": "Attribute",
             "required": True,
             "pattern": r"3(\.[0-9]+)+",
-        }
+        },
     )
 
 
@@ -812,6 +817,7 @@ class GeoRestrictionEnum(Enum):
     :cvar EUROPE: New in 5.6. Europa in breedste zin van het woord
     :cvar UNIVERSE: New in 7.7. Explicitly no geo-restriction
     """
+
     NL = "NL"
     BENELUX = "BENELUX"
     NLBES = "NLBES"
@@ -869,14 +875,14 @@ class LanguageType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     code: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "pattern": r"(\w){2,4}",
-        }
+        },
     )
 
 
@@ -911,6 +917,7 @@ class MediaTypeEnum(Enum):
     :cvar RECORDING:
     :cvar COLLECTION:
     """
+
     MEDIA = "MEDIA"
     GROUP = "GROUP"
     PROGRAM = "PROGRAM"
@@ -944,14 +951,14 @@ class OrganizationType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "pattern": r"[A-Z0-9_-]{2,}",
-        }
+        },
     )
 
 
@@ -971,25 +978,25 @@ class PortalRestrictionType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     portalId: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     start: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     stop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1002,6 +1009,7 @@ class PredictionStateEnum(Enum):
     :cvar REALIZED: For given platform playability currently is present.
     :cvar REVOKED: For given platform playability currently is revoked. It used to be present though.
     """
+
     NOT_ANNOUNCED = "NOT_ANNOUNCED"
     ANNOUNCED = "ANNOUNCED"
     REALIZED = "REALIZED"
@@ -1029,7 +1037,7 @@ class RelationType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     typeValue: Optional[str] = field(
         default=None,
@@ -1038,26 +1046,26 @@ class RelationType:
             "type": "Attribute",
             "required": True,
             "pattern": r"[A-Z0-9_-]{4,}",
-        }
+        },
     )
     broadcaster: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     uriRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     urn: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1070,14 +1078,14 @@ class RepeatType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     isRerun: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -1111,6 +1119,7 @@ class RoleType(Enum):
     :cvar VISUAL_EFFECTS:
     :cvar UNDEFINED:
     """
+
     DIRECTOR = "DIRECTOR"
     CHIEF_EDITOR = "CHIEF_EDITOR"
     EDITOR = "EDITOR"
@@ -1164,14 +1173,14 @@ class TagType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     lang: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "http://www.w3.org/XML/1998/namespace",
-        }
+        },
     )
 
 
@@ -1221,13 +1230,13 @@ class DescendantRefType:
             "min_length": 4,
             "max_length": 255,
             "pattern": r"[ \.a-zA-Z0-9_-]+",
-        }
+        },
     )
     urnRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[MediaTypeEnum] = field(
         default=None,
@@ -1235,7 +1244,7 @@ class DescendantRefType:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -1248,21 +1257,21 @@ class DescriptionType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -1277,33 +1286,33 @@ class GeoLocationType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     role: Optional[GeoRoleType] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     gtaaUri: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     gtaaStatus: Optional[GtaaStatusType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1316,31 +1325,31 @@ class GeoRestrictionType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     regionId: Optional[GeoRestrictionEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     start: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     stop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1354,7 +1363,7 @@ class ImagesType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
 
 
@@ -1368,13 +1377,13 @@ class IntentionType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1388,33 +1397,33 @@ class NameType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     role: Optional[RoleType] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     gtaaUri: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     gtaaStatus: Optional[GtaaStatusType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1429,7 +1438,7 @@ class PersonType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     familyName: Optional[str] = field(
         default=None,
@@ -1437,26 +1446,26 @@ class PersonType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     role: Optional[RoleType] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     gtaaUri: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     gtaaStatus: Optional[GtaaStatusType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1470,7 +1479,7 @@ class PortalsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
 
 
@@ -1483,25 +1492,25 @@ class PredictionType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     state: Optional[PredictionStateEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1515,46 +1524,46 @@ class RecursiveMemberRef:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     episodeOf: List["RecursiveMemberRef"] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     segmentOf: Optional["RecursiveMemberRef"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     midRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     index: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     highlighted: bool = field(
         default=False,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1567,14 +1576,14 @@ class ScheduleEventDescription:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     typeValue: Optional[TextualTypeEnum] = field(
         default=None,
@@ -1582,7 +1591,7 @@ class ScheduleEventDescription:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -1595,14 +1604,14 @@ class ScheduleEventTitle:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     typeValue: Optional[TextualTypeEnum] = field(
         default=None,
@@ -1610,7 +1619,7 @@ class ScheduleEventTitle:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -1624,19 +1633,19 @@ class StreamingStatus:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     withoutDrm: Optional[StreamingStatusValue] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     audioWithoutDrm: Optional[StreamingStatusValue] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1650,13 +1659,13 @@ class TargetGroupsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1669,21 +1678,21 @@ class TitleType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -1698,26 +1707,26 @@ class TopicType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     gtaaUri: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     gtaaStatus: Optional[GtaaStatusType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1730,14 +1739,14 @@ class TwitterType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     typeValue: Optional[TwitterTypeType] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1751,6 +1760,7 @@ class VideoAttributesType:
     :ivar heigth: This obviously is a typo.
     :ivar width:
     """
+
     class Meta:
         name = "videoAttributesType"
 
@@ -1759,39 +1769,39 @@ class VideoAttributesType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     videoCoding: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     aspectRatio: Optional[AspectRatioEnum] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     height: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     heigth: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     width: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1805,35 +1815,35 @@ class AvAttributesType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     byteSize: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     avFileFormat: Optional[AvFileFormatEnum] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     videoAttributes: Optional[VideoAttributesType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     audioAttributes: Optional[AudioAttributesType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
 
 
@@ -1842,7 +1852,7 @@ class CreditsType:
     class Meta:
         name = "creditsType"
 
-    personOrName: List[object] = field(
+    personOrName: List[Union[PersonType, NameType]] = field(
         default_factory=list,
         metadata={
             "type": "Elements",
@@ -1858,7 +1868,7 @@ class CreditsType:
                     "namespace": "urn:vpro:media:2009",
                 },
             ),
-        }
+        },
     )
 
 
@@ -1872,13 +1882,13 @@ class GeoLocationsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1898,6 +1908,7 @@ class MemberRefType:
     :ivar highlighted:
     :ivar added:
     """
+
     class Meta:
         name = "memberRefType"
 
@@ -1906,21 +1917,21 @@ class MemberRefType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     memberOf: List[RecursiveMemberRef] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     segmentOf: Optional[RecursiveMemberRef] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     midRef: Optional[str] = field(
         default=None,
@@ -1929,44 +1940,44 @@ class MemberRefType:
             "min_length": 4,
             "max_length": 255,
             "pattern": r"[ \.a-zA-Z0-9_-]+",
-        }
+        },
     )
     urnRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     cridRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     index: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     highlighted: bool = field(
         default=False,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     added: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1980,13 +1991,13 @@ class TopicsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2001,97 +2012,97 @@ class LocationType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     avAttributes: Optional[AvAttributesType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     subtitles: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     offset: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     duration: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     typeValue: Optional[LocationTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     urn: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2105,49 +2116,49 @@ class ScheduleEventType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     description: List[ScheduleEventDescription] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     repeat: Optional[RepeatType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     memberOf: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     avAttributes: Optional[AvAttributesType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     textSubtitles: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     textPage: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     guideDay: Optional[XmlDate] = field(
         default=None,
@@ -2155,7 +2166,7 @@ class ScheduleEventType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     start: Optional[XmlDateTime] = field(
         default=None,
@@ -2163,14 +2174,14 @@ class ScheduleEventType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     offset: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     duration: Optional[XmlDuration] = field(
         default=None,
@@ -2178,7 +2189,7 @@ class ScheduleEventType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     poProgId: Optional[str] = field(
         default=None,
@@ -2186,46 +2197,46 @@ class ScheduleEventType:
             "name": "poProgID",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     primaryLifestyle: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     secondaryLifestyle: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     imi: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     channel: Optional[ChannelEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     net: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     guideDayAttribute: Optional[XmlDate] = field(
         default=None,
         metadata={
             "name": "guideDay",
             "type": "Attribute",
-        }
+        },
     )
     midRef: Optional[str] = field(
         default=None,
@@ -2235,21 +2246,21 @@ class ScheduleEventType:
             "min_length": 4,
             "max_length": 255,
             "pattern": r"[ \.a-zA-Z0-9_-]+",
-        }
+        },
     )
     urnRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     typeValue: Optional[ScheduleEventTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2263,14 +2274,14 @@ class LocationTableType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     scheduleEvent: List[ScheduleEventType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
 
 
@@ -2284,7 +2295,7 @@ class LocationsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
 
 
@@ -2298,7 +2309,7 @@ class ScheduleEventsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
 
 
@@ -2313,49 +2324,49 @@ class ScheduleType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "min_occurs": 1,
-        }
+        },
     )
     channel: Optional[ChannelEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     net: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     date: Optional[XmlDate] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     releaseVersion: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     start: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     stop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     reruns: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2432,6 +2443,7 @@ class BaseMediaType:
     :ivar workflow:
     :ivar mergedTo:
     """
+
     class Meta:
         name = "baseMediaType"
 
@@ -2440,7 +2452,7 @@ class BaseMediaType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     broadcaster: List[BroadcasterType] = field(
         default_factory=list,
@@ -2448,28 +2460,28 @@ class BaseMediaType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "min_occurs": 1,
-        }
+        },
     )
     portal: List[OrganizationType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     exclusive: List[PortalRestrictionType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     region: List[GeoRestrictionType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     title: List[TitleType] = field(
         default_factory=list,
@@ -2477,161 +2489,161 @@ class BaseMediaType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "min_occurs": 1,
-        }
+        },
     )
     description: List[DescriptionType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     genre: List[GenreType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     tag: List[TagType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     intentions: List[IntentionType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     targetGroups: List[TargetGroupsType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     geoLocations: List[GeoLocationsType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     topics: List[TopicsType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     source: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     country: List[CountryType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     language: List[LanguageType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     isDubbed: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     availableSubtitles: List[AvailableSubtitleType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     avAttributes: Optional[AvAttributesType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     releaseYear: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     duration: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     credits: Optional[CreditsType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     award: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     descendantOf: List[DescendantRefType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     memberOf: List[MemberRefType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     ageRating: Optional[AgeRatingType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     contentRating: List[ContentRatingType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     email: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     website: List[str] = field(
         default_factory=list,
@@ -2640,49 +2652,49 @@ class BaseMediaType:
             "namespace": "urn:vpro:media:2009",
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     twitter: List[TwitterType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     teletext: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     prediction: List[PredictionType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     locations: Optional[LocationsType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     relation: List[RelationType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     images: Optional[ImagesType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
@@ -2691,74 +2703,74 @@ class BaseMediaType:
             "min_length": 4,
             "max_length": 255,
             "pattern": r"[ \.a-zA-Z0-9_-]+",
-        }
+        },
     )
     avType: Optional[AvTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     sortDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     embeddable: bool = field(
         default=True,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     hasSubtitles: bool = field(
         default=False,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     urn: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     mergedTo: Optional[str] = field(
         default=None,
@@ -2767,7 +2779,7 @@ class BaseMediaType:
             "min_length": 4,
             "max_length": 255,
             "pattern": r"[ \.a-zA-Z0-9_-]+",
-        }
+        },
     )
 
 
@@ -2778,6 +2790,7 @@ class Schedule(ScheduleType):
     A schedule indicates on which channel and at what time the program is broadcast. A schedule is a container
     which contains the schedule events of different programs, for a certain period of time.
     """
+
     class Meta:
         name = "schedule"
         namespace = "urn:vpro:media:2009"
@@ -2794,14 +2807,14 @@ class GroupType(BaseMediaType):
             "name": "poSeriesID",
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     isOrdered: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     typeValue: Optional[GroupTypeEnum] = field(
         default=None,
@@ -2809,13 +2822,13 @@ class GroupType(BaseMediaType):
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     defaultElement: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2829,7 +2842,7 @@ class SegmentType(BaseMediaType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     start: Optional[XmlDuration] = field(
         default=None,
@@ -2837,7 +2850,7 @@ class SegmentType(BaseMediaType):
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "required": True,
-        }
+        },
     )
     midRef: Optional[str] = field(
         default=None,
@@ -2847,14 +2860,14 @@ class SegmentType(BaseMediaType):
             "min_length": 4,
             "max_length": 255,
             "pattern": r"[ \.a-zA-Z0-9_-]+",
-        }
+        },
     )
     urnRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     typeValue: Optional[SegmentTypeEnum] = field(
         default=None,
@@ -2862,7 +2875,7 @@ class SegmentType(BaseMediaType):
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -2872,6 +2885,7 @@ class Group(GroupType):
 
     Examples: season, series, playlist and album.
     """
+
     class Meta:
         name = "group"
         namespace = "urn:vpro:media:2009"
@@ -2883,6 +2897,7 @@ class Segment(SegmentType):
 
     A segment is an identifiable part of a program.
     """
+
     class Meta:
         name = "segment"
         namespace = "urn:vpro:media:2009"
@@ -2898,7 +2913,7 @@ class SegmentsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
 
 
@@ -2913,7 +2928,7 @@ class GroupTableType:
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
             "min_occurs": 1,
-        }
+        },
     )
 
 
@@ -2926,6 +2941,7 @@ class ProgramType(BaseMediaType):
     :ivar segments:
     :ivar typeValue: The type of this program (e.g. BROADCAST, TRACK, CLIP)
     """
+
     class Meta:
         name = "programType"
 
@@ -2934,21 +2950,21 @@ class ProgramType(BaseMediaType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     episodeOf: List[MemberRefType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     segments: Optional[SegmentsType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     typeValue: Optional[ProgramTypeEnum] = field(
         default=None,
@@ -2956,7 +2972,7 @@ class ProgramType(BaseMediaType):
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -2967,6 +2983,7 @@ class Program(ProgramType):
     It represents e.g. one broadcast program or one web-only clip. It represent a standalone entity which a
     consumer can view or listen to.
     """
+
     class Meta:
         name = "program"
         namespace = "urn:vpro:media:2009"
@@ -2982,7 +2999,7 @@ class ProgramTableType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
 
 
@@ -2997,6 +3014,7 @@ class MediaTableType:
     :ivar publicationTime:
     :ivar version:
     """
+
     class Meta:
         name = "mediaTableType"
 
@@ -3005,46 +3023,46 @@ class MediaTableType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     groupTable: Optional[GroupTableType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     locationTable: Optional[LocationTableType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     schedule: Optional[Schedule] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:2009",
-        }
+        },
     )
     publisher: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publicationTime: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     version: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -3055,6 +3073,7 @@ class MediaInformation(MediaTableType):
 
     E.g. when distributing to cable companies.
     """
+
     class Meta:
         name = "mediaInformation"
         namespace = "urn:vpro:media:2009"

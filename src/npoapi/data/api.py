@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 from xsdata.models.datatype import XmlDateTime, XmlDuration
 from npoapi.data.media import (
     BaseMediaType,
@@ -34,21 +34,21 @@ class DateRangeFacetItemType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     begin: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     end: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -73,21 +73,21 @@ class DurationRangeFacetItemType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     begin: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     end: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -101,7 +101,7 @@ class ErrorType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     classValue: List[str] = field(
         default_factory=list,
@@ -109,34 +109,34 @@ class ErrorType:
             "name": "class",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     cause: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     otherElement: List[object] = field(
         default_factory=list,
         metadata={
             "type": "Wildcard",
             "namespace": "##other",
-        }
+        },
     )
     testResult: Optional[object] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     status: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -162,14 +162,14 @@ class FacetResultItem:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "required": True,
-        }
+        },
     )
     selected: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -184,13 +184,13 @@ class HighlightType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     term: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -245,13 +245,13 @@ class PublicationReasonType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -266,25 +266,25 @@ class RedirectEntry:
         metadata={
             "name": "from",
             "type": "Attribute",
-        }
+        },
     )
     to: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     ultimate: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     circular: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -308,7 +308,7 @@ class Suggestion:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
 
 
@@ -329,68 +329,68 @@ class ChangeType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     media: Optional[BaseMediaType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     deleted: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     tail: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     sequence: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     revision: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     mergedTo: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     realPublishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
     @dataclass(slots=True)
@@ -400,7 +400,7 @@ class ChangeType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:api:2013",
-            }
+            },
         )
 
 
@@ -409,7 +409,7 @@ class DateRangeFacetsType(AbstractFacetType):
     class Meta:
         name = "dateRangeFacetsType"
 
-    intervalOrPresetOrRange: List[object] = field(
+    intervalOrPresetOrRange: List[Union[str, DateRangePresetTypeEnum, DateRangeFacetItemType]] = field(
         default_factory=list,
         metadata={
             "type": "Elements",
@@ -430,7 +430,7 @@ class DateRangeFacetsType(AbstractFacetType):
                     "namespace": "urn:vpro:api:2013",
                 },
             ),
-        }
+        },
     )
 
 
@@ -439,7 +439,7 @@ class DurationRangeFacetsType(AbstractFacetType):
     class Meta:
         name = "durationRangeFacetsType"
 
-    intervalOrRange: List[object] = field(
+    intervalOrRange: List[Union[str, DurationRangeFacetItemType]] = field(
         default_factory=list,
         metadata={
             "type": "Elements",
@@ -455,7 +455,7 @@ class DurationRangeFacetsType(AbstractFacetType):
                     "namespace": "urn:vpro:api:2013",
                 },
             ),
-        }
+        },
     )
 
 
@@ -475,31 +475,31 @@ class ExtendedMatcherType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     fuzziness: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     matchType: Optional[StandardMatchType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     caseSensitive: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -512,31 +512,31 @@ class GeoLocationSearchType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     role: Optional[GeoRoleType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     gtaaUri: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -549,7 +549,7 @@ class MatcherList:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -562,13 +562,13 @@ class MediaSortType:
         default=None,
         metadata={
             "required": True,
-        }
+        },
     )
     order: Optional[OrderTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -581,13 +581,13 @@ class PageSortType:
         default=None,
         metadata={
             "required": True,
-        }
+        },
     )
     order: Optional[OrderTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -600,7 +600,7 @@ class RangeFacetResultItem(FacetResultItem):
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -613,13 +613,13 @@ class RangeMatcherType:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -633,13 +633,13 @@ class RedirectList:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     lastUpdate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -653,31 +653,31 @@ class ResultType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     total: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     totalQualifier: Optional[TotalQualifier] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     offset: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     max: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
     @dataclass(slots=True)
@@ -687,7 +687,7 @@ class ResultType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:api:2013",
-            }
+            },
         )
 
 
@@ -696,7 +696,7 @@ class ScheduleEventApiType(ScheduleEventType):
     class Meta:
         name = "scheduleEventApiType"
 
-    programOrGroupOrSegment: Optional[object] = field(
+    programOrGroupOrSegment: Optional[Union[Program, Group, Segment]] = field(
         default=None,
         metadata={
             "type": "Elements",
@@ -717,7 +717,7 @@ class ScheduleEventApiType(ScheduleEventType):
                     "namespace": "urn:vpro:media:2009",
                 },
             ),
-        }
+        },
     )
 
 
@@ -731,20 +731,20 @@ class SearchResultItem:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     highlight: List[HighlightType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     score: Optional[float] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -758,6 +758,7 @@ class SimpleMatcherType:
     :ivar matchType:
     :ivar match:
     """
+
     class Meta:
         name = "simpleMatcherType"
 
@@ -765,31 +766,31 @@ class SimpleMatcherType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     fuzziness: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     semantic: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     matchType: Optional[SimpleMatchType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -803,14 +804,14 @@ class TermFacetResultItemType(FacetResultItem):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     value: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -824,34 +825,34 @@ class TextFacetType(AbstractFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     max: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     include: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     script: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     sort: Optional[FacetOrderTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -864,19 +865,19 @@ class TextMatcherType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     matchType: Optional[StandardMatchType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -889,32 +890,32 @@ class TitleSearchType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[TextualTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     matchType: Optional[StandardMatchType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -935,21 +936,21 @@ class DateFacetResultItemType(RangeFacetResultItem):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     end: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     name: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -963,14 +964,14 @@ class DateRangeMatcherType(RangeMatcherType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     end: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -984,14 +985,14 @@ class DurationFacetResultItemType(RangeFacetResultItem):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     end: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1005,14 +1006,14 @@ class DurationRangeMatcherType(RangeMatcherType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     end: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1026,7 +1027,7 @@ class ExtendedTextMatcherListType(MatcherList):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1040,7 +1041,7 @@ class MediaGenreFacetResultItemType(TermFacetResultItemType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1054,7 +1055,7 @@ class MediaGeoLocationFacetResultItemType(TermFacetResultItemType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1074,13 +1075,13 @@ class MediaTitleFacetType(TextFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     name: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1095,7 +1096,7 @@ class MemberRefFacetResultItemType(TermFacetResultItemType):
             "name": "type",
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1109,13 +1110,13 @@ class NamedTermFacetResultItemType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     name: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1129,7 +1130,7 @@ class PageGenreFacetResultItemType(TermFacetResultItemType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1144,7 +1145,7 @@ class PageSortListType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
 
 
@@ -1165,35 +1166,35 @@ class ScheduleEventSearchType(RangeMatcherType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     end: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     channel: Optional[ChannelEnum] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     net: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     rerun: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1226,7 +1227,7 @@ class TextMatcherListType(MatcherList):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1240,13 +1241,13 @@ class TitleSortOrderType(MediaSortType):
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1260,20 +1261,20 @@ class AssociationSearchType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     types: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1287,7 +1288,7 @@ class DateRangeMatcherListType(MatcherList):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1301,7 +1302,7 @@ class DurationRangeMatcherListType(MatcherList):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1316,7 +1317,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     types: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1324,7 +1325,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     avTypes: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1332,7 +1333,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     sortDates: List[DateFacetResultItemType] = field(
         default_factory=list,
@@ -1340,7 +1341,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     broadcasters: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1348,7 +1349,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     genres: List[MediaGenreFacetResultItemType] = field(
         default_factory=list,
@@ -1356,7 +1357,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     geoLocations: List[MediaGeoLocationFacetResultItemType] = field(
         default_factory=list,
@@ -1364,7 +1365,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     tags: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1372,7 +1373,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     durations: List[DurationFacetResultItemType] = field(
         default_factory=list,
@@ -1380,7 +1381,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     descendantOf: List[MemberRefFacetResultItemType] = field(
         default_factory=list,
@@ -1388,7 +1389,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     episodeOf: List[MemberRefFacetResultItemType] = field(
         default_factory=list,
@@ -1396,7 +1397,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     memberOf: List[MemberRefFacetResultItemType] = field(
         default_factory=list,
@@ -1404,7 +1405,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     relations: List[NamedTermFacetResultItemType] = field(
         default_factory=list,
@@ -1412,7 +1413,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     ageRatings: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1420,7 +1421,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     contentRatings: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1428,7 +1429,7 @@ class MediaFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
 
 
@@ -1442,34 +1443,34 @@ class MediaRelationSearchType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     broadcasters: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     values: Optional[ExtendedTextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     uriRefs: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1490,20 +1491,20 @@ class MemberRefSearchType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     types: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1518,7 +1519,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     types: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1526,7 +1527,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     broadcasters: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1534,7 +1535,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     tags: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1542,7 +1543,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     keywords: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1550,7 +1551,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     genres: List[PageGenreFacetResultItemType] = field(
         default_factory=list,
@@ -1558,7 +1559,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     portals: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1566,7 +1567,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     sections: List[TermFacetResultItemType] = field(
         default_factory=list,
@@ -1574,7 +1575,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     relations: List[NamedTermFacetResultItemType] = field(
         default_factory=list,
@@ -1582,7 +1583,7 @@ class PageFacetsResultType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
 
 
@@ -1596,34 +1597,34 @@ class PageRelationSearchType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     broadcasters: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     values: Optional[ExtendedTextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     uriRefs: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1637,34 +1638,34 @@ class SubtitlesSearchType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     mids: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     types: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     languages: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1685,13 +1686,13 @@ class TermSearchType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1705,14 +1706,14 @@ class GenericMediaSearchResultType(SearchResultType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     selectedFacets: Optional[MediaFacetsResultType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1726,7 +1727,7 @@ class MediaRelationSearchListType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1740,7 +1741,7 @@ class PageAssociationSearchListType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1754,7 +1755,7 @@ class PageRelationSearchListType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1768,28 +1769,28 @@ class PageSearchResultType(SearchResultType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     selectedFacets: Optional[PageFacetsResultType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     mediaFacets: Optional[MediaFacetsResultType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     mediaSelectedFacets: Optional[MediaFacetsResultType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1803,7 +1804,7 @@ class SubtitlesFormType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -1842,6 +1843,7 @@ class MediaSearchType:
     :ivar geoLocations:
     :ivar match:
     """
+
     class Meta:
         name = "mediaSearchType"
 
@@ -1850,119 +1852,119 @@ class MediaSearchType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     mediaIds: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     types: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     avTypes: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     sortDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     publishDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     creationDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     lastModifiedDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     broadcasters: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     locations: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     tags: Optional[ExtendedTextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     genres: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     durations: Optional[DurationRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     descendantOf: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     episodeOf: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     memberOf: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     relations: Optional[MediaRelationSearchListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     scheduleEvents: List[ScheduleEventSearchType] = field(
         default_factory=list,
@@ -1970,21 +1972,21 @@ class MediaSearchType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     ageRatings: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     contentRatings: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     titles: List[TitleSearchType] = field(
         default_factory=list,
@@ -1992,7 +1994,7 @@ class MediaSearchType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     geoLocations: List[GeoLocationSearchType] = field(
         default_factory=list,
@@ -2000,13 +2002,13 @@ class MediaSearchType:
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
             "nillable": True,
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2027,111 +2029,111 @@ class PagesSearchType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     broadcasters: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     types: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     portals: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     sections: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     genres: Optional[TextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     tags: Optional[ExtendedTextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     keywords: Optional[ExtendedTextMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     sortDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     lastModifiedDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     creationDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     publishDates: Optional[DateRangeMatcherListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     relations: Optional[PageRelationSearchListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     links: Optional[PageAssociationSearchListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     referrals: Optional[PageAssociationSearchListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     match: Optional[Match] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2152,13 +2154,13 @@ class ExtendedMediaFacetType(TextFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     caseSensitive: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2172,13 +2174,13 @@ class ExtendedPageFacetType(TextFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     caseSensitive: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2192,7 +2194,7 @@ class MediaFacetType(TextFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2213,7 +2215,7 @@ class PageFacetType(TextFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2227,13 +2229,13 @@ class ScheduleFormType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     highlight: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2247,13 +2249,13 @@ class MediaRelationFacetType(ExtendedMediaFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     name: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2267,7 +2269,7 @@ class MediaSearchableTermFacetType(MediaFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2281,14 +2283,14 @@ class MediaTitleFacetListType(MediaFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     title: List[MediaTitleFacetType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2302,7 +2304,7 @@ class MemberRefFacetType(MediaFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2316,13 +2318,13 @@ class PageRelationFacetType(ExtendedPageFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     name: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -2336,7 +2338,7 @@ class PageSearchableTermFacetType(PageFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2357,21 +2359,21 @@ class MediaRelationFacetListType(AbstractFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     subSearch: Optional[MediaRelationSearchType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     facet: List[MediaRelationFacetType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2385,21 +2387,21 @@ class PageRelationFacetListType(AbstractFacetType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     subSearch: Optional[PageRelationSearchType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     facet: List[PageRelationFacetType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2413,112 +2415,112 @@ class MediaFacetsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     types: Optional[MediaFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     avTypes: Optional[MediaFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     sortDates: Optional[DateRangeFacetsType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     broadcasters: Optional[MediaFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     genres: Optional[MediaSearchableTermFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     tags: Optional[ExtendedMediaFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     durations: Optional[DurationRangeFacetsType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     descendantOf: Optional[MemberRefFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     episodeOf: Optional[MemberRefFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     memberOf: Optional[MemberRefFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     relations: Optional[MediaRelationFacetListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     ageRatings: Optional[MediaFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     contentRatings: Optional[MediaFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     geoLocations: Optional[MediaSearchableTermFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     filter: Optional[MediaSearchType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2532,70 +2534,70 @@ class PagesFacetsType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     broadcasters: Optional[PageFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     types: Optional[PageFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     tags: Optional[ExtendedPageFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     keywords: Optional[ExtendedPageFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     genres: Optional[PageSearchableTermFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     portals: Optional[PageFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     sections: Optional[PageFacetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     relations: Optional[PageRelationFacetListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     filter: Optional[PagesSearchType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
 
 
@@ -2609,32 +2611,32 @@ class MediaFormType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     sortFields: Optional["MediaFormType.SortFields"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     facets: Optional[MediaFacetsType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     highlight: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
     @dataclass(slots=True)
     class SortFields:
-        sortOrTitleSort: List[object] = field(
+        sortOrTitleSort: List[Union[MediaSortType, TitleSortOrderType]] = field(
             default_factory=list,
             metadata={
                 "type": "Elements",
@@ -2650,7 +2652,7 @@ class MediaFormType:
                         "namespace": "urn:vpro:api:2013",
                     },
                 ),
-            }
+            },
         )
 
 
@@ -2671,34 +2673,34 @@ class PagesFormType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     sortFields: Optional[PageSortListType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     facets: Optional[PagesFacetsType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     mediaForm: Optional[MediaForm] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:api:2013",
-        }
+        },
     )
     highlight: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 

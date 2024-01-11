@@ -25,20 +25,20 @@ class EmbedUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     description: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     midRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -52,7 +52,7 @@ class ImageLocationType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
 
 
@@ -65,7 +65,7 @@ class RelationUpdateType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     typeValue: Optional[str] = field(
         default=None,
@@ -73,20 +73,20 @@ class RelationUpdateType:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     broadcaster: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     uriRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -100,49 +100,49 @@ class ImageUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     description: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     source: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     sourceName: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     license: Optional[LicenseEnum] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     credits: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     imageLocation: Optional[ImageLocationType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     typeValue: Optional[ImageTypeEnum] = field(
         default=None,
@@ -150,7 +150,7 @@ class ImageUpdateType:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -164,20 +164,20 @@ class LinkUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     pageRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[LinkTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -191,21 +191,21 @@ class PortalUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     url: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -226,21 +226,21 @@ class ParagraphUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     body: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     image: Optional[Image] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
 
 
@@ -271,6 +271,7 @@ class PageUpdateType:
     :ivar lastModified:
     :ivar workflow:
     """
+
     class Meta:
         name = "pageUpdateType"
 
@@ -279,14 +280,14 @@ class PageUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     alternativeUrl: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     broadcaster: List[str] = field(
         default_factory=list,
@@ -294,14 +295,14 @@ class PageUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
             "min_occurs": 1,
-        }
+        },
     )
     portal: Optional[PortalUpdateType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     title: Optional[str] = field(
         default=None,
@@ -309,84 +310,84 @@ class PageUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
             "required": True,
-        }
+        },
     )
     subtitle: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     keyword: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     summary: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     paragraphs: Optional["PageUpdateType.Paragraphs"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     tag: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     genre: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     link: List[LinkUpdateType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     embeds: Optional["PageUpdateType.Embeds"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     statRef: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     image: List[Image] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     relation: List[RelationUpdateType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
-        }
+        },
     )
     typeValue: Optional[PageTypeEnum] = field(
         default=None,
@@ -394,44 +395,44 @@ class PageUpdateType:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     url: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     lastPublished: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     workflow: Optional[PageWorkflow] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
     @dataclass(slots=True)
@@ -441,7 +442,7 @@ class PageUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:pages:update:2013",
-            }
+            },
         )
 
     @dataclass(slots=True)
@@ -451,7 +452,7 @@ class PageUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:pages:update:2013",
-            }
+            },
         )
 
 

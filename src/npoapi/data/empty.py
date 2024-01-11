@@ -12,14 +12,14 @@ class CollectionType:
         metadata={
             "type": "Wildcard",
             "namespace": "##other",
-        }
+        },
     )
     version: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "pattern": r"[0-9]+(\.[0-9]+(\.[0-9]+)?)?",
-        }
+        },
     )
 
 

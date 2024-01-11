@@ -7,6 +7,7 @@ authors = [
     {name = "Michiel Meeuwissen", email = "git@meeuw.org"},
 ]
 
+
 dependencies = [
     "ijson==3.2.3",
     "jwt==1.3.1",

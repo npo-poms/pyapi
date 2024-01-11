@@ -1,6 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional
+from typing import List, Optional, Union
 from xsdata.models.datatype import XmlDate, XmlDateTime, XmlDuration
 from npoapi.data.media import (
     AgeRatingType,
@@ -42,7 +42,7 @@ class AssetDataType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "format": "base64",
-        }
+        },
     )
 
 
@@ -56,7 +56,7 @@ class AssetLocationType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
 
 
@@ -70,7 +70,7 @@ class AudioAttributesUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     coding: Optional[str] = field(
         default=None,
@@ -79,7 +79,7 @@ class AudioAttributesUpdateType:
             "namespace": "urn:vpro:media:update:2009",
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
 
 
@@ -94,7 +94,7 @@ class ImageDataType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "format": "base64",
-        }
+        },
     )
 
 
@@ -105,6 +105,7 @@ class ImageLocationType:
         if there are no or no correct http content type headers).
     :ivar url:
     """
+
     class Meta:
         name = "imageLocationType"
 
@@ -113,7 +114,7 @@ class ImageLocationType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     url: Optional[str] = field(
         default=None,
@@ -122,7 +123,7 @@ class ImageLocationType:
             "namespace": "urn:vpro:media:update:2009",
             "max_length": 1024,
             "pattern": r"[a-z][a-z]+:.*",
-        }
+        },
     )
 
 
@@ -136,7 +137,7 @@ class ItemizeType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     stop: Optional[XmlDuration] = field(
         default=None,
@@ -144,13 +145,13 @@ class ItemizeType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -169,20 +170,20 @@ class LiveItemize1:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     stop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     stream: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -196,19 +197,19 @@ class MemberRefUpdateType:
         metadata={
             "required": True,
             "min_length": 4,
-        }
+        },
     )
     position: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     highlighted: bool = field(
         default=False,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -222,44 +223,32 @@ class MemberUpdateType:
         metadata={
             "type": "Wildcard",
             "namespace": "##any",
-        }
+        },
     )
     position: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     highlighted: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
-@dataclass(slots=True)
-class MoveActionType:
-    class Meta:
-        name = "moveActionType"
+class MoveActionTypeType(Enum):
+    """
+    :cvar REFERENCE: 'from' and 'to' refer to mediaobjects in the list by reference (e.g. mid).
+    :cvar NUMBER: Would refer to the number in the memberref object (presently unsupported)
+    :cvar INDEX: 'from' and 'to' refer to the index (offset 0) of the mediaobject in the list.
+    """
 
-    fromValue: Optional[int] = field(
-        default=None,
-        metadata={
-            "name": "from",
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-            "required": True,
-        }
-    )
-    to: Optional[int] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-            "required": True,
-        }
-    )
+    REFERENCE = "REFERENCE"
+    NUMBER = "NUMBER"
+    INDEX = "INDEX"
 
 
 @dataclass(slots=True)
@@ -271,19 +260,19 @@ class PortalRestrictionUpdateType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     start: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     stop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -303,7 +292,7 @@ class RelationUpdateType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     typeValue: Optional[str] = field(
         default=None,
@@ -312,7 +301,7 @@ class RelationUpdateType:
             "type": "Attribute",
             "required": True,
             "pattern": r"[A-Z0-9_-]{4,}",
-        }
+        },
     )
     broadcaster: Optional[str] = field(
         default=None,
@@ -321,19 +310,19 @@ class RelationUpdateType:
             "required": True,
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     uriRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     urn: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -346,14 +335,14 @@ class RepeatType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     isRerun: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -367,7 +356,7 @@ class TopicUpdateType:
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -390,34 +379,34 @@ class UploadResponseType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     response: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     bytes: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     statusCode: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -426,7 +415,7 @@ class AssetType:
     class Meta:
         name = "assetType"
 
-    assetDataOrAssetLocation: Optional[object] = field(
+    assetDataOrAssetLocation: Optional[Union[AssetDataType, AssetLocationType]] = field(
         default=None,
         metadata={
             "type": "Elements",
@@ -442,19 +431,19 @@ class AssetType:
                     "namespace": "urn:vpro:media:update:2009",
                 },
             ),
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -468,7 +457,7 @@ class DescriptionUpdateType:
         metadata={
             "required": True,
             "min_length": 1,
-        }
+        },
     )
     typeValue: Optional[TextualTypeEnum] = field(
         default=None,
@@ -476,7 +465,7 @@ class DescriptionUpdateType:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -489,13 +478,13 @@ class GeoLocationUpdateType:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     role: Optional[GeoRoleType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -508,25 +497,25 @@ class GeoRestrictionUpdateType:
         default=None,
         metadata={
             "required": True,
-        }
+        },
     )
     start: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     stop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -552,6 +541,7 @@ class ImageUpdateType:
     :ivar highlighted:
     :ivar delete: If true, the image will be marked deleted.
     """
+
     class Meta:
         name = "imageUpdateType"
 
@@ -563,72 +553,72 @@ class ImageUpdateType:
             "required": True,
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     description: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     source: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     sourceName: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     license: Optional[LicenseEnum] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     width: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     height: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     credits: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     date: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     offset: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
-    imageDataOrImageLocationOrUrn: Optional[object] = field(
+    imageDataOrImageLocationOrUrn: Optional[Union[ImageDataType, ImageLocationType, str]] = field(
         default=None,
         metadata={
             "type": "Elements",
@@ -650,7 +640,7 @@ class ImageUpdateType:
                     "pattern": r"urn:vpro[\.:]image:[0-9]+",
                 },
             ),
-        }
+        },
     )
     typeValue: Optional[ImageTypeEnum] = field(
         default=None,
@@ -658,38 +648,38 @@ class ImageUpdateType:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     urnAttribute: Optional[str] = field(
         default=None,
         metadata={
             "name": "urn",
             "type": "Attribute",
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     highlighted: bool = field(
         default=False,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     delete: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -705,7 +695,7 @@ class ItemizeResponseType:
     class Meta:
         name = "itemizeResponseType"
 
-    requestOrLiverequest: Optional[object] = field(
+    requestOrLiverequest: Optional[Union[ItemizeType, LiveItemize1]] = field(
         default=None,
         metadata={
             "type": "Elements",
@@ -721,28 +711,28 @@ class ItemizeResponseType:
                     "namespace": "urn:vpro:media:update:2009",
                 },
             ),
-        }
+        },
     )
     result: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     success: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -757,37 +747,37 @@ class ListType:
         metadata={
             "type": "Wildcard",
             "namespace": "##any",
-        }
+        },
     )
     offset: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     totalCount: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     max: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     size: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     order: Optional[ListOrder] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -823,34 +813,58 @@ class MidAndTypeType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "pattern": r"(c|C)(r|R)(i|I)(d|D)://.*/.*",
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     id: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[MediaTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
 
 
 @dataclass(slots=True)
-class Move(MoveActionType):
+class MoveActionType:
     class Meta:
-        name = "move"
-        namespace = "urn:vpro:media:update:2009"
+        name = "moveActionType"
+
+    fromValue: Optional[str] = field(
+        default=None,
+        metadata={
+            "name": "from",
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        },
+    )
+    to: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        },
+    )
+    typeValue: Optional[MoveActionTypeType] = field(
+        default=None,
+        metadata={
+            "name": "type",
+            "type": "Attribute",
+        },
+    )
 
 
 @dataclass(slots=True)
@@ -863,14 +877,14 @@ class NameUpdateType:
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     role: Optional[RoleType] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -884,27 +898,27 @@ class PersonUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     familyName: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     gtaaUri: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     role: Optional[RoleType] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -917,25 +931,25 @@ class PredictionUpdateType:
         default=None,
         metadata={
             "required": True,
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     encryption: Optional[Encryption] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -950,7 +964,7 @@ class TitleUpdateType:
             "required": True,
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     typeValue: Optional[TextualTypeEnum] = field(
         default=None,
@@ -958,7 +972,7 @@ class TitleUpdateType:
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -972,7 +986,7 @@ class TopicsUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
 
 
@@ -986,75 +1000,75 @@ class TranscodeStatusType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     status: Optional[TranscodeStatusEnum] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     statusMessage: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     workflowType: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     workflowId: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     startTime: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     updateTime: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     endTime: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     broadcasters: Optional["TranscodeStatusType.Broadcasters"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     missingMedia: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
     @dataclass(slots=True)
@@ -1064,7 +1078,7 @@ class TranscodeStatusType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
 
@@ -1078,27 +1092,27 @@ class TranscodeType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     encryption: Optional[Encryption] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     priority: Optional[PriorityType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1119,14 +1133,14 @@ class VideoAttributesUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     color: Optional[ColorType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     coding: Optional[str] = field(
         default=None,
@@ -1135,19 +1149,19 @@ class VideoAttributesUpdateType:
             "namespace": "urn:vpro:media:update:2009",
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     width: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     height: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1161,35 +1175,35 @@ class AvAtributeUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     byteSize: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     avFileFormat: Optional[AvFileFormatEnum] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     videoAttributes: Optional[VideoAttributesUpdateType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     audioAttributes: Optional[AudioAttributesUpdateType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
 
 
@@ -1204,7 +1218,7 @@ class BulkUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
-        }
+        },
     )
     descriptions: Optional[DescriptionUpdateType] = field(
         default=None,
@@ -1212,7 +1226,7 @@ class BulkUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
-        }
+        },
     )
 
 
@@ -1221,7 +1235,7 @@ class CreditsUpdateType:
     class Meta:
         name = "creditsUpdateType"
 
-    personOrName: List[object] = field(
+    personOrName: List[Union[PersonUpdateType, NameUpdateType]] = field(
         default_factory=list,
         metadata={
             "type": "Elements",
@@ -1237,7 +1251,7 @@ class CreditsUpdateType:
                     "namespace": "urn:vpro:media:update:2009",
                 },
             ),
-        }
+        },
     )
 
 
@@ -1251,7 +1265,7 @@ class GeoLocationsUpdateType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
 
 
@@ -1277,6 +1291,13 @@ class MidAndType(MidAndTypeType):
 
 
 @dataclass(slots=True)
+class Move(MoveActionType):
+    class Meta:
+        name = "move"
+        namespace = "urn:vpro:media:update:2009"
+
+
+@dataclass(slots=True)
 class Prediction(PredictionUpdateType):
     class Meta:
         name = "prediction"
@@ -1294,14 +1315,14 @@ class ScheduleEventUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
-        }
+        },
     )
     guideDay: Optional[XmlDate] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     duration: Optional[XmlDuration] = field(
         default=None,
@@ -1309,41 +1330,41 @@ class ScheduleEventUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
-        }
+        },
     )
     repeat: Optional[RepeatType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     titles: Optional["ScheduleEventUpdateType.Titles"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     descriptions: Optional["ScheduleEventUpdateType.Descriptions"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     channel: Optional[ChannelEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     net: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
     @dataclass(slots=True)
@@ -1353,7 +1374,7 @@ class ScheduleEventUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
     @dataclass(slots=True)
@@ -1363,7 +1384,7 @@ class ScheduleEventUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
 
@@ -1393,6 +1414,7 @@ class LocationUpdateType:
     :ivar urn:
     :ivar delete: If true, the location will be marked deleted.
     """
+
     class Meta:
         name = "locationUpdateType"
 
@@ -1402,7 +1424,7 @@ class LocationUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
-        }
+        },
     )
     avAttributes: Optional[AvAtributeUpdateType] = field(
         default=None,
@@ -1410,45 +1432,45 @@ class LocationUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
-        }
+        },
     )
     offset: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     duration: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     urn: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     delete: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1511,6 +1533,7 @@ class MediaUpdateType:
         which is big enough (To ensure backward compatibility). If you don't specify it,  there will be no
         backwards compatibility. </xs:paragraphs>
     """
+
     class Meta:
         name = "mediaUpdateType"
 
@@ -1520,7 +1543,7 @@ class MediaUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "pattern": r"(c|C)(r|R)(i|I)(d|D)://.*/.*",
-        }
+        },
     )
     broadcaster: List[str] = field(
         default_factory=list,
@@ -1529,7 +1552,7 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
             "min_occurs": 1,
             "pattern": r"[A-Z0-9_-]{2,}",
-        }
+        },
     )
     portal: List[str] = field(
         default_factory=list,
@@ -1537,21 +1560,21 @@ class MediaUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "pattern": r"[A-Z0-9_-]{2,}",
-        }
+        },
     )
     exclusive: List[PortalRestrictionUpdateType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     region: List[GeoRestrictionUpdateType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     title: List[TitleUpdateType] = field(
         default_factory=list,
@@ -1559,14 +1582,14 @@ class MediaUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "min_occurs": 1,
-        }
+        },
     )
     description: List[DescriptionUpdateType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     tag: List[str] = field(
         default_factory=list,
@@ -1575,21 +1598,21 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     country: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     language: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     genre: List[str] = field(
         default_factory=list,
@@ -1597,84 +1620,84 @@ class MediaUpdateType:
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "pattern": r"3(\.[0-9]+)+",
-        }
+        },
     )
     intentions: Optional["MediaUpdateType.Intentions"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     targetGroups: Optional["MediaUpdateType.TargetGroups"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     geoLocations: Optional[GeoLocationsUpdateType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     topics: Optional[TopicsUpdateType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     avAttributes: Optional[AvAtributeUpdateType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     releaseYear: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     duration: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     credits: Optional[CreditsUpdateType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     memberOf: List[MemberRefUpdateType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     ageRating: Optional[AgeRatingType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     contentRating: List[ContentRatingType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     email: List[str] = field(
         default_factory=list,
@@ -1683,7 +1706,7 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     website: List[str] = field(
         default_factory=list,
@@ -1692,7 +1715,7 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     twitterref: List[str] = field(
         default_factory=list,
@@ -1702,80 +1725,80 @@ class MediaUpdateType:
             "min_length": 2,
             "max_length": 16,
             "pattern": r"[@#][A-Za-z0-9_]{1,139}",
-        }
+        },
     )
     prediction: List[PredictionUpdateType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     locations: Optional["MediaUpdateType.Locations"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     scheduleEvents: Optional["MediaUpdateType.ScheduleEvents"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     relation: List[RelationUpdateType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     images: Optional["MediaUpdateType.Images"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     asset: Optional[AssetType] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     avType: Optional[AvTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     deleted: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     embeddable: bool = field(
         default=True,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
@@ -1784,26 +1807,26 @@ class MediaUpdateType:
             "min_length": 4,
             "max_length": 255,
             "pattern": r"[ \.a-zA-Z0-9_-]+",
-        }
+        },
     )
     urn: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     ordered: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     version: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "pattern": r"[0-9]+(\.[0-9]+(\.[0-9]+)?)?",
-        }
+        },
     )
 
     @dataclass(slots=True)
@@ -1813,7 +1836,7 @@ class MediaUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
     @dataclass(slots=True)
@@ -1823,7 +1846,7 @@ class MediaUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
     @dataclass(slots=True)
@@ -1833,7 +1856,7 @@ class MediaUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
     @dataclass(slots=True)
@@ -1843,7 +1866,7 @@ class MediaUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
     @dataclass(slots=True)
@@ -1853,7 +1876,7 @@ class MediaUpdateType:
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
 
@@ -1870,7 +1893,7 @@ class GroupUpdateType(MediaUpdateType):
             "namespace": "urn:vpro:media:update:2009",
             "min_length": 1,
             "max_length": 255,
-        }
+        },
     )
     typeValue: Optional[GroupTypeEnum] = field(
         default=None,
@@ -1878,7 +1901,7 @@ class GroupUpdateType(MediaUpdateType):
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
 
@@ -1893,20 +1916,20 @@ class SegmentUpdateType(MediaUpdateType):
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
             "required": True,
-        }
+        },
     )
     midRef: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[SegmentTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -1940,6 +1963,7 @@ class ProgramUpdateType(MediaUpdateType):
         program - Removing a program also deletes its segments
     :ivar typeValue:
     """
+
     class Meta:
         name = "programUpdateType"
 
@@ -1948,14 +1972,14 @@ class ProgramUpdateType(MediaUpdateType):
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     segments: Optional["ProgramUpdateType.Segments"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
-        }
+        },
     )
     typeValue: Optional[ProgramTypeEnum] = field(
         default=None,
@@ -1963,7 +1987,7 @@ class ProgramUpdateType(MediaUpdateType):
             "name": "type",
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
 
     @dataclass(slots=True)
@@ -1973,7 +1997,7 @@ class ProgramUpdateType(MediaUpdateType):
             metadata={
                 "type": "Element",
                 "namespace": "urn:vpro:media:update:2009",
-            }
+            },
         )
 
 

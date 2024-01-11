@@ -42,6 +42,7 @@ class OwnerTypeEnum(Enum):
     AUTHORITY = "AUTHORITY"
     RADIOBOX = "RADIOBOX"
     BEELDENGELUID = "BEELDENGELUID"
+    TEMPORARY = "TEMPORARY"
 
 
 class SubtitlesTypeEnum(Enum):
@@ -55,6 +56,7 @@ class SubtitlesTypeEnum(Enum):
         than the main language that can be heard
     :cvar TRANSCRIPT: The subtitles represent a precise or automatic version of what is being said.
     """
+
     CAPTION = "CAPTION"
     TRANSLATION = "TRANSLATION"
     TRANSCRIPT = "TRANSCRIPT"
@@ -87,6 +89,7 @@ class WorkflowEnumType(Enum):
     :cvar IGNORE: This means that the object is ignored for workflow changes. This is mainly usefull during
         testing.
     """
+
     FOR_PUBLICATION = "FOR PUBLICATION"
     FOR_REPUBLICATION = "FOR REPUBLICATION"
     PUBLISHED = "PUBLISHED"
@@ -124,6 +127,7 @@ class ImageType:
     :ivar lastModified:
     :ivar workflow:
     """
+
     class Meta:
         name = "imageType"
 
@@ -133,146 +137,146 @@ class ImageType:
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
             "required": True,
-        }
+        },
     )
     description: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     imageUri: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     offset: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     height: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     width: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     credits: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     source: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     sourceName: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     license: Optional[LicenseEnum] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     crid: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     date: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:shared:2009",
-        }
+        },
     )
     typeValue: Optional[ImageTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     highlighted: bool = field(
         default=False,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     urn: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -285,43 +289,43 @@ class PublishableObjectType:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStart: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishStop: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     publishDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     workflow: Optional[WorkflowEnumType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 

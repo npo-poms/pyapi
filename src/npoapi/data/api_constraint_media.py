@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Optional, Type
+from typing import List, Optional, Type, Union
 from npoapi.data.api_constraint import OperatorType
 from npoapi.data.media import PlatformTypeEnum
 
@@ -39,7 +39,7 @@ class HasLocationConstraintType:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -60,6 +60,7 @@ class ProgramUrlConstraintType:
     """
     Constraints on the program url field of locations.
     """
+
     class Meta:
         name = "programUrlConstraintType"
 
@@ -67,13 +68,13 @@ class ProgramUrlConstraintType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     exact: Optional[bool] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -86,13 +87,13 @@ class GeoRestrictionConstraintType:
         default="",
         metadata={
             "required": True,
-        }
+        },
     )
     platform: Optional[PlatformTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -105,7 +106,7 @@ class HasPredictionConstraintType:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -118,6 +119,7 @@ class ScheduleEventType:
         http://natty.joestelmach.com/try.jsp
     :ivar operator:
     """
+
     class Meta:
         name = "scheduleEventType"
 
@@ -125,13 +127,13 @@ class ScheduleEventType:
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     operator: Optional[OperatorType] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -140,7 +142,25 @@ class Not:
     class Meta:
         name = "not"
 
-    choice: Optional[object] = field(
+    choice: Optional[
+        Union[
+            "And",
+            "Or",
+            "Not",
+            str,
+            ProgramUrlConstraintType,
+            HasImageConstraintType,
+            HasLocationConstraintType,
+            HasPredictionConstraintType,
+            ScheduleEventType,
+            HasPortalConstraintType,
+            HasPortalRestrictionConstraintType,
+            HasGeoRestrictionConstraintType,
+            GeoRestrictionConstraintType,
+            HasAgeRatingConstraintType,
+            HasContentRatingConstraintType,
+        ]
+    ] = field(
         default=None,
         metadata={
             "type": "Elements",
@@ -276,7 +296,7 @@ class Not:
                     "namespace": "urn:vpro:api:constraint:media:2013",
                 },
             ),
-        }
+        },
     )
 
 
@@ -285,7 +305,25 @@ class Or:
     class Meta:
         name = "or"
 
-    choice: List[object] = field(
+    choice: List[
+        Union[
+            "And",
+            "Or",
+            Not,
+            str,
+            ProgramUrlConstraintType,
+            HasImageConstraintType,
+            HasLocationConstraintType,
+            HasPredictionConstraintType,
+            ScheduleEventType,
+            HasPortalConstraintType,
+            HasPortalRestrictionConstraintType,
+            HasGeoRestrictionConstraintType,
+            GeoRestrictionConstraintType,
+            HasAgeRatingConstraintType,
+            HasContentRatingConstraintType,
+        ]
+    ] = field(
         default_factory=list,
         metadata={
             "type": "Elements",
@@ -421,7 +459,7 @@ class Or:
                     "namespace": "urn:vpro:api:constraint:media:2013",
                 },
             ),
-        }
+        },
     )
 
 
@@ -430,7 +468,25 @@ class And:
     class Meta:
         name = "and"
 
-    choice: List[object] = field(
+    choice: List[
+        Union[
+            "And",
+            Or,
+            Not,
+            str,
+            ProgramUrlConstraintType,
+            HasImageConstraintType,
+            HasLocationConstraintType,
+            HasPredictionConstraintType,
+            ScheduleEventType,
+            HasPortalConstraintType,
+            HasPortalRestrictionConstraintType,
+            HasGeoRestrictionConstraintType,
+            GeoRestrictionConstraintType,
+            HasAgeRatingConstraintType,
+            HasContentRatingConstraintType,
+        ]
+    ] = field(
         default_factory=list,
         metadata={
             "type": "Elements",
@@ -566,7 +622,7 @@ class And:
                     "namespace": "urn:vpro:api:constraint:media:2013",
                 },
             ),
-        }
+        },
     )
 
 
@@ -576,7 +632,25 @@ class Filter:
         name = "filter"
         namespace = "urn:vpro:api:constraint:media:2013"
 
-    choice: Optional[object] = field(
+    choice: Optional[
+        Union[
+            And,
+            Or,
+            Not,
+            str,
+            ProgramUrlConstraintType,
+            HasImageConstraintType,
+            HasLocationConstraintType,
+            HasPredictionConstraintType,
+            ScheduleEventType,
+            HasPortalConstraintType,
+            HasPortalRestrictionConstraintType,
+            HasGeoRestrictionConstraintType,
+            GeoRestrictionConstraintType,
+            HasAgeRatingConstraintType,
+            HasContentRatingConstraintType,
+        ]
+    ] = field(
         default=None,
         metadata={
             "type": "Elements",
@@ -686,5 +760,5 @@ class Filter:
                     "type": str,
                 },
             ),
-        }
+        },
     )

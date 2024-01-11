@@ -16,14 +16,14 @@ class Names:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     givenName: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -37,21 +37,21 @@ class NewPersonType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     familyName: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -87,42 +87,42 @@ class ClassificationType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -136,42 +136,42 @@ class GenreFilmMuseumType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -185,42 +185,42 @@ class GenreType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -234,42 +234,42 @@ class GeographicNameType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -283,42 +283,42 @@ class MakerType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -332,42 +332,42 @@ class NameType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -381,21 +381,21 @@ class NewConceptType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     objectType: Optional[Scheme] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -416,63 +416,63 @@ class PersonType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     givenName: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     familyName: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     knownAs: List[Names] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -486,42 +486,42 @@ class TopicType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 
@@ -535,42 +535,42 @@ class TopicbandgType:
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     scopeNote: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     redirectedFrom: Optional[str] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     id: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     status: Optional[Status] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "urn:vpro:gtaa:2017",
-        }
+        },
     )
 
 

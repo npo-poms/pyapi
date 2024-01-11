@@ -1,5 +1,5 @@
 from dataclasses import dataclass, field
-from typing import List, Optional, Type
+from typing import List, Optional, Type, Union
 
 __NAMESPACE__ = "urn:vpro:api:constraint:page:2013"
 
@@ -9,7 +9,7 @@ class Not:
     class Meta:
         name = "not"
 
-    choice: Optional[object] = field(
+    choice: Optional[Union["And", "Or", "Not", str]] = field(
         default=None,
         metadata={
             "type": "Elements",
@@ -55,7 +55,7 @@ class Not:
                     "namespace": "urn:vpro:api:constraint:page:2013",
                 },
             ),
-        }
+        },
     )
 
 
@@ -64,7 +64,7 @@ class Or:
     class Meta:
         name = "or"
 
-    choice: List[object] = field(
+    choice: List[Union["And", "Or", Not, str]] = field(
         default_factory=list,
         metadata={
             "type": "Elements",
@@ -110,7 +110,7 @@ class Or:
                     "namespace": "urn:vpro:api:constraint:page:2013",
                 },
             ),
-        }
+        },
     )
 
 
@@ -119,7 +119,7 @@ class And:
     class Meta:
         name = "and"
 
-    choice: List[object] = field(
+    choice: List[Union["And", Or, Not, str]] = field(
         default_factory=list,
         metadata={
             "type": "Elements",
@@ -165,7 +165,7 @@ class And:
                     "namespace": "urn:vpro:api:constraint:page:2013",
                 },
             ),
-        }
+        },
     )
 
 
@@ -175,7 +175,7 @@ class Filter:
         name = "filter"
         namespace = "urn:vpro:api:constraint:page:2013"
 
-    choice: Optional[object] = field(
+    choice: Optional[Union[And, Or, Not, str]] = field(
         default=None,
         metadata={
             "type": "Elements",
@@ -213,5 +213,5 @@ class Filter:
                     "type": str,
                 },
             ),
-        }
+        },
     )

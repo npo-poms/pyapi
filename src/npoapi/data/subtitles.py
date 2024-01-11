@@ -28,19 +28,19 @@ class SubtitlesContentType:
         metadata={
             "required": True,
             "format": "base64",
-        }
+        },
     )
     format: Optional[SubtitlesFormatEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     charset: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
@@ -55,64 +55,64 @@ class SubtitlesType:
             "type": "Element",
             "namespace": "urn:vpro:media:subtitles:2009",
             "required": True,
-        }
+        },
     )
     mid: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "required": True,
-        }
+        },
     )
     offset: Optional[XmlDuration] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     creationDate: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     lastModified: Optional[XmlDateTime] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     typeValue: Optional[SubtitlesTypeEnum] = field(
         default=None,
         metadata={
             "name": "type",
             "type": "Attribute",
-        }
+        },
     )
     lang: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
             "namespace": "http://www.w3.org/XML/1998/namespace",
-        }
+        },
     )
     owner: Optional[OwnerTypeEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     workflow: Optional[SubtitlesWorkflowEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
     cueCount: Optional[int] = field(
         default=None,
         metadata={
             "type": "Attribute",
-        }
+        },
     )
 
 
