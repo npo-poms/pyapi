@@ -1,3 +1,7 @@
 = How to make a release
 
 Tagging is enough?
+
+ git tag 7.10.0
+ git push origin --tags
+
