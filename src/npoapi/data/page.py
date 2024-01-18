@@ -46,6 +46,12 @@ class LinkTypeEnum(Enum):
     TOP_STORY = "TOP_STORY"
 
 
+class PageIdMatch(Enum):
+    URL = "URL"
+    CRID = "CRID"
+    BOTH = "BOTH"
+
+
 class PageTypeEnum(Enum):
     ARTICLE = "ARTICLE"
     SPECIAL = "SPECIAL"

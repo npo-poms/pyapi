@@ -1,8 +1,9 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-from xsdata.models.datatype import XmlDateTime
+from xsdata.models.datatype import XmlDateTime, XmlDuration
 from npoapi.data.page import (
     LinkTypeEnum,
+    PageIdMatch,
     PageTypeEnum,
     PageWorkflow,
     SectionType,
@@ -83,6 +84,89 @@ class RelationUpdateType:
         },
     )
     uriRef: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+
+
+@dataclass(slots=True)
+class SaveResult:
+    class Meta:
+        name = "saveResult"
+        namespace = "urn:vpro:pages:update:2013"
+
+    replaces: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+        },
+    )
+    message: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+        },
+    )
+    success: Optional[bool] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        },
+    )
+    creationDate: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+
+
+@dataclass(slots=True)
+class DeleteResult1:
+    class Meta:
+        name = "deleteResult"
+
+    value: str = field(
+        default="",
+        metadata={
+            "required": True,
+        },
+    )
+    count: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+    notallowedCount: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+    alreadyDeletedCount: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+    success: Optional[bool] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        },
+    )
+    duration: Optional[XmlDuration] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+    match: Optional[PageIdMatch] = field(
         default=None,
         metadata={
             "type": "Attribute",
@@ -210,9 +294,37 @@ class PortalUpdateType:
 
 
 @dataclass(slots=True)
+class SaveResultList:
+    class Meta:
+        name = "saveResultList"
+
+    saveResult: List[SaveResult] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:pages:update:2013",
+        },
+    )
+
+
+@dataclass(slots=True)
+class Deleteresult(DeleteResult1):
+    class Meta:
+        name = "deleteresult"
+        namespace = "urn:vpro:pages:update:2013"
+
+
+@dataclass(slots=True)
 class Image(ImageUpdateType):
     class Meta:
         name = "image"
+        namespace = "urn:vpro:pages:update:2013"
+
+
+@dataclass(slots=True)
+class SaveResults(SaveResultList):
+    class Meta:
+        name = "saveResults"
         namespace = "urn:vpro:pages:update:2013"
 
 

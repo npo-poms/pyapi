@@ -468,6 +468,14 @@ class Error(ErrorType):
 
 @dataclass(slots=True)
 class ExtendedMatcherType:
+    """
+    :ivar value:
+    :ivar fuzziness:
+    :ivar matchType:
+    :ivar caseSensitive:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
+    """
+
     class Meta:
         name = "extendedMatcherType"
 
@@ -756,7 +764,7 @@ class SimpleMatcherType:
     :ivar semantic: Whether the search must happen via the semantic vectorization. This is beta feature, which
         may not be enabled.
     :ivar matchType:
-    :ivar match:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
     """
 
     class Meta:
@@ -883,6 +891,14 @@ class TextMatcherType:
 
 @dataclass(slots=True)
 class TitleSearchType:
+    """
+    :ivar value:
+    :ivar owner:
+    :ivar typeValue:
+    :ivar matchType:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
+    """
+
     class Meta:
         name = "titleSearchType"
 
@@ -1435,6 +1451,14 @@ class MediaFacetsResultType:
 
 @dataclass(slots=True)
 class MediaRelationSearchType:
+    """
+    :ivar types:
+    :ivar broadcasters:
+    :ivar values:
+    :ivar uriRefs:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
+    """
+
     class Meta:
         name = "mediaRelationSearchType"
 
@@ -1483,6 +1507,12 @@ class MediaResult(MediaResultType):
 
 @dataclass(slots=True)
 class MemberRefSearchType:
+    """
+    :ivar mediaIds:
+    :ivar types:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
+    """
+
     class Meta:
         name = "memberRefSearchType"
 
@@ -1589,6 +1619,14 @@ class PageFacetsResultType:
 
 @dataclass(slots=True)
 class PageRelationSearchType:
+    """
+    :ivar types:
+    :ivar broadcasters:
+    :ivar values:
+    :ivar uriRefs:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
+    """
+
     class Meta:
         name = "pageRelationSearchType"
 
@@ -1630,6 +1668,14 @@ class PageRelationSearchType:
 
 @dataclass(slots=True)
 class SubtitlesSearchType:
+    """
+    :ivar text:
+    :ivar mids:
+    :ivar types:
+    :ivar languages:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
+    """
+
     class Meta:
         name = "subtitlesSearchType"
 
@@ -1678,6 +1724,11 @@ class SuggestResult(SuggestResultType):
 
 @dataclass(slots=True)
 class TermSearchType:
+    """
+    :ivar ids:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
+    """
+
     class Meta:
         name = "termSearchType"
 
@@ -1822,7 +1873,7 @@ class MediaSearchType:
     :ivar text:
     :ivar mediaIds: The MID must match one of the mediaIds
     :ivar types: The media type must match one of these.
-    :ivar avTypes:
+    :ivar avTypes: To filter on av type (AUDIO/VIDEO)
     :ivar sortDates:
     :ivar publishDates:
     :ivar creationDates:
@@ -1841,7 +1892,7 @@ class MediaSearchType:
     :ivar contentRatings:
     :ivar titles:
     :ivar geoLocations:
-    :ivar match:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
     """
 
     class Meta:
@@ -2021,6 +2072,25 @@ class PageSearchResult(PageSearchResultType):
 
 @dataclass(slots=True)
 class PagesSearchType:
+    """
+    :ivar text:
+    :ivar broadcasters:
+    :ivar types:
+    :ivar portals:
+    :ivar sections:
+    :ivar genres:
+    :ivar tags:
+    :ivar keywords:
+    :ivar sortDates:
+    :ivar lastModifiedDates:
+    :ivar creationDates:
+    :ivar publishDates:
+    :ivar relations:
+    :ivar links:
+    :ivar referrals:
+    :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
+    """
+
     class Meta:
         name = "pagesSearchType"
 

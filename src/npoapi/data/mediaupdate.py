@@ -395,6 +395,13 @@ class UploadResponseType:
             "namespace": "urn:vpro:media:update:2009",
         },
     )
+    version: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        },
+    )
     statusCode: Optional[int] = field(
         default=None,
         metadata={
