@@ -183,7 +183,6 @@ class Tests(unittest.TestCase):
 <prediction xmlns:update="urn:vpro:media:update:2009">INTERNETVOD</prediction>
             """, prediction)
 
-
     def test_media_form(self):
         form = MediaForm()
         form.searches = MediaSearchType()
@@ -193,3 +192,12 @@ class Tests(unittest.TestCase):
            <?xml version="1.0" encoding="UTF-8"?>
 <api:mediaForm xmlns:update="urn:vpro:media:update:2009" xmlns:pageupdate="urn:vpro:pages:update:2013" xmlns:media="urn:vpro:media:2009" xmlns:pages="urn:vpro:pages:2013" xmlns:api="urn:vpro:api:2013"><api:searches><api:types>BROADCAST</api:types></api:searches></api:mediaForm>
             """, form)
+
+    def test_upload_response(self):
+        example = """
+        <uploadResponse xmlns="urn:vpro:media:update:2009" xmlns:media="urn:vpro:media:2009" xmlns:shared="urn:vpro:shared:2009" statusCode="302" mid="WO_NTR_13058977"><version>2:https://sourcing-service.acc.metadata.bijnpo.nl/</version></uploadResponse>
+        """
+        parsed = poms.from_string(example)
+
+
+
