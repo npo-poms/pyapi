@@ -1,6 +1,6 @@
 FROM mihxil/npo-pyapi:latest
 
-RUN   apk add --no-cache git make bash gnuplot && \
+RUN   apk add --no-cache git make bash gnuplot rsync && \
       pip3 install chevron
 # chevron is mustache engine, used by python/vpro \
 
