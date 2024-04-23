@@ -3,7 +3,6 @@
   Simple client to get the changes feed from the NPO Frontend API
 """
 import json
-import logging
 import os
 import time
 from datetime import datetime
@@ -17,6 +16,7 @@ from npoapi import Media
 class FollowChanges:
     def __init__(self):
         self.client = Media().command_line_client("Get changes feed from the NPO Frontend API", exclude_arguments={"accept"})
+        self.logger = self.client.logger
         self.client.add_argument('profile', type=str, nargs='?', help='Profile')
         self.client.add_argument("-s", "--since", type=str, default=None, help="From what time/mid to stream, or a file containing it. It defaults to a file called since.<env>. Empty string: now, no store.")
         self.client.add_argument("--sleep", type=int, default=5, help="sleep (in seconds) between calls")
@@ -34,7 +34,7 @@ class FollowChanges:
         self.since_file = None
         if since is None:
             since = "./since." + self.client.actualenv
-            self.client.logger.info("No since given, using %s" % os.path.abspath(since))
+            self.logger.info("No since given, using %s" % os.path.abspath(since))
         if since.startswith(".") or os.path.exists(since):
             self.since_file = since
             # default
@@ -44,7 +44,7 @@ class FollowChanges:
 
         if self.since_file and os.path.exists(self.since_file):
             self.since = json.loads(open(self.since_file, "r").read().strip())
-            self.client.logger.info("Using since %s from %s" % (self.since, self.since_file))
+            self.logger.info("Using since %s from %s" % (self.since, self.since_file))
         else:
             self.since = {
             }
@@ -59,7 +59,7 @@ class FollowChanges:
             self.change_to_string_function = " self.client.actualenv + ':' + timestamp_to_string(change.get('publishDate')) + ':' + change.get('id', '') + ':' + title(change) + ':' + reasons(change)"
         else:
             self.change_to_string_function = self.args.change_to_string
-        self.client.logger.info("Using to string: %s" % self.change_to_string_function)
+        self.logger.info("Using to string: %s" % self.change_to_string_function)
 
     def change_to_string(self, change):
         if self.args.change_to_string:
@@ -70,14 +70,15 @@ class FollowChanges:
             def reasons(change):
                 ar = change.get('reasons', [])
                 if len(ar) == 0:
-                    self.client.debug("No reasons in %s" % change)
+                    self.logger.debug("No reasons in %s" % change)
                     return "<no reasons>"
                 return ",".join(list(map(lambda r:  r['value'], ar)))
             return str(eval(self.change_to_string_function))
         else:
             return json.dumps(change)
 
-    def title(self, change):
+    @staticmethod
+    def title(change):
         """
         helpful in change_to_string
         """
@@ -94,7 +95,8 @@ class FollowChanges:
         else:
             return "<no media>"
 
-    def modi(self, change):
+    @staticmethod
+    def modi(change):
         tail = change.get("tail", False)
         if tail:
             return "TAIL"
@@ -103,7 +105,8 @@ class FollowChanges:
             return "DELETE"
         media = change.get('media')
 
-    def timestamp_to_string(self, timestamp):
+    @staticmethod
+    def timestamp_to_string(timestamp):
         return datetime.fromtimestamp(timestamp/1000).isoformat(timespec='milliseconds') if not timestamp is None else ""
 
     def set_since(self, timestamp, mid):
@@ -134,6 +137,8 @@ class FollowChanges:
                 stdout.write(self.change_to_string(change) + "\n")
 
     def one_call(self):
+
+        self.logger.debug("%s One_calling for %s/%s/%s" % (datetime.now().strftime('%Y-%m-%dT%H:%M:%SZ'), self.since['timestamp'], datetime.fromtimestamp(self.since['timestamp'] / 1000).strftime('%Y-%m-%dT%H:%M:%SZ'), self.since['mid']))
         response = self.client.changes_raw(
             profile=self.args.profile,
             since=self.since['timestamp'],
@@ -144,13 +149,13 @@ class FollowChanges:
             stream=True)
 
         if response is None:
-            self.client.logger.debug("No response")
+            self.logger.debug("No response")
             return
         if response.status == 503:
-            self.client.logger.debug("503")
+            self.logger.debug("503")
             return
         if response.status != 200:
-            self.client.logger.error("Error %d" % response.status)
+            self.logger.error("Error %d" % response.status)
             return
         data = json_stream.load(response)
         changes = data['changes']
@@ -162,7 +167,7 @@ class FollowChanges:
             new_since = c.get('publishDate')
             self.set_since(new_since, c.get('id', None))
             if not new_since:
-                logging.error("No publishDate in %s" % c)
+                self.logger.error("No publishDate in %s" % c)
                 break
             is_tail = c.get('tail', False)
             if not is_tail or self.args.tail:
@@ -179,23 +184,23 @@ class FollowChanges:
         response.close()
 
     def follow_changes(self):
-        self.client.logger.info("Watching %s " % (self.client.url))
+        self.logger.info("Watching %s " % (self.client.url))
         while True:
             try:
-                self.client.logger.debug("since: %s,%s (%s)" % (self.since, self.since['timestamp'], self.timestamp_to_string(self.since['timestamp'])))
+                self.logger.debug("since: %s,%s (%s)" % (self.since, self.since['timestamp'], self.timestamp_to_string(self.since['timestamp'])))
                 if self.args.raw:
                     self.one_call_raw()
                 else:
                     self.one_call()
                 time.sleep(self.args.sleep)
             except KeyboardInterrupt:
-                self.client.logger.info("interrupted")
+                self.logger.info("interrupted")
                 break
             except OSError as e:
-                self.client.logger.error("OSError %s" % str(e))
+                self.logger.error("OSError %s" % str(e))
                 break
             except Exception as e:
-                self.client.logger.warn("Exception %s %s" % (str(type(e)), str(e)))
+                self.logger.warn("Exception %s %s" % (str(type(e)), str(e)))
 
         self.client.exit()
 
