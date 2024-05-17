@@ -340,14 +340,14 @@ class ChannelEnum(Enum):
     :cvar OU24: PO Out TV.
     :cvar RAD1: NPO Radio 1.
     :cvar RAD2: NPO Radio 2.
-    :cvar R2_SJ:
+    :cvar SENJ:
     :cvar RAD3: NPO 3FM.
-    :cvar R3_KX:
+    :cvar KXFM:
     :cvar R3_AL:
     :cvar RAD4: NPO Radio 4.
     :cvar R4_CO:
     :cvar RAD5: NPO Radio 5.
-    :cvar R5_ST:
+    :cvar STNL:
     :cvar RAD6: NPO Radio 6.
     :cvar REGR: Regional radio combi-channel.
     :cvar RFRY: Omrop Fryslân radio.
@@ -386,6 +386,7 @@ class ChannelEnum(Enum):
     :cvar FUNJ: FunX Reggae
     :cvar FUNS: FunX SlowJamz
     :cvar FUNF: FunX Fissa
+    :cvar FUNO: FunX Afro
     :cvar CLAS: Classic FM.
     :cvar BEL1: VRT/Radio 1.
     :cvar BEL2: VRT/Radio 2.
@@ -422,6 +423,7 @@ class ChannelEnum(Enum):
     :cvar ALJI: Al Jazeera English
     :cvar SPID: Spike Nederland
     :cvar PRMT: Paramount Nederland
+    :cvar BLND: NPO BLend
     :cvar XXXX: Test channel. This channel only exist for the sake of testing.
     :cvar XXXY: Second test channel. This channel only exist for the sake of testing.
     """
@@ -649,14 +651,14 @@ class ChannelEnum(Enum):
     OU24 = "OU24"
     RAD1 = "RAD1"
     RAD2 = "RAD2"
-    R2_SJ = "R2SJ"
+    SENJ = "SENJ"
     RAD3 = "RAD3"
-    R3_KX = "R3KX"
+    KXFM = "KXFM"
     R3_AL = "R3AL"
     RAD4 = "RAD4"
     R4_CO = "R4CO"
     RAD5 = "RAD5"
-    R5_ST = "R5ST"
+    STNL = "STNL"
     RAD6 = "RAD6"
     REGR = "REGR"
     RFRY = "RFRY"
@@ -695,6 +697,7 @@ class ChannelEnum(Enum):
     FUNJ = "FUNJ"
     FUNS = "FUNS"
     FUNF = "FUNF"
+    FUNO = "FUNO"
     CLAS = "CLAS"
     BEL1 = "BEL1"
     BEL2 = "BEL2"
@@ -731,6 +734,7 @@ class ChannelEnum(Enum):
     ALJI = "ALJI"
     SPID = "SPID"
     PRMT = "PRMT"
+    BLND = "BLND"
     XXXX = "XXXX"
     XXXY = "XXXY"
 

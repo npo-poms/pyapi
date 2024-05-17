@@ -15,7 +15,7 @@ dependencies = [
     "pytz==2024.1",
     "pyxb==1.2.6", #deprecated
     "requests==2.31.0",
-    "xsdata[cli]==24.5",
+    "xsdata[cli]==24.2", # TODO upgrading results in Error: Circular Dependencies Found
     "isoduration==20.11.0",
     "lxml==5.2.2",
     "json-stream==2.3.2",

@@ -67,9 +67,11 @@ class Media(NpoApi):
                 sinceLong = since
 
 
+        publishedSince = (sinceDate + (("," + str(since_mid)) if since_mid else "")) if sinceDate else None;
+        self.logger.debug("publishedSince: (%s, %s)" % ( publishedSince, sinceLong))
         params = { "profile": profile, "order": order, "max": limit,
                    "since": sinceLong,
-                   "publishedSince": (sinceDate + (("," + str(since_mid)) if since_mid else "")) if sinceDate else None,
+                   "publishedSince": publishedSince,
                    "properties": properties,
                    "deletes": deletes,
                    "tail": tail,

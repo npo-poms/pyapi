@@ -319,6 +319,7 @@ from npoapi.data.page import (
     SectionType,
 )
 from npoapi.data.pageupdate import (
+    DeleteResult,
     EmbedUpdateType,
     Image as PageupdateImage,
     ImageLocationType as PageupdateImageLocationType,
@@ -688,6 +689,7 @@ __all__ = [
     "ReferralType",
     "PageRelationType",
     "SectionType",
+    "DeleteResult",
     "EmbedUpdateType",
     "PageupdateImage",
     "PageupdateImageLocationType",

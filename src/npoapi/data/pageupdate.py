@@ -125,9 +125,10 @@ class SaveResult:
 
 
 @dataclass(slots=True)
-class DeleteResult1:
+class DeleteResult:
     class Meta:
         name = "deleteResult"
+        namespace = "urn:vpro:pages:update:2013"
 
     value: str = field(
         default="",
@@ -305,13 +306,6 @@ class SaveResultList:
             "namespace": "urn:vpro:pages:update:2013",
         },
     )
-
-
-@dataclass(slots=True)
-class Deleteresult(DeleteResult1):
-    class Meta:
-        name = "deleteresult"
-        namespace = "urn:vpro:pages:update:2013"
 
 
 @dataclass(slots=True)

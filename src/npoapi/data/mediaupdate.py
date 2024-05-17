@@ -237,17 +237,25 @@ class MemberUpdateType:
             "type": "Attribute",
         },
     )
+    id: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
 
 
 class MoveActionTypeType(Enum):
     """
     :cvar REFERENCE: 'from' and 'to' refer to mediaobjects in the list by reference (e.g. mid).
-    :cvar NUMBER: Would refer to the number in the memberref object (presently unsupported)
+    :cvar NUMBER: Would refer to the number in the memberref object
+    :cvar REF_ID: Refers to the id of the memberref object
     :cvar INDEX: 'from' and 'to' refer to the index (offset 0) of the mediaobject in the list.
     """
 
     REFERENCE = "REFERENCE"
     NUMBER = "NUMBER"
+    REF_ID = "REF_ID"
     INDEX = "INDEX"
 
 

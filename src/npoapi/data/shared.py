@@ -71,6 +71,7 @@ class SubtitlesWorkflowEnum(Enum):
     FOR_REPUBLICATION = "FOR_REPUBLICATION"
     PUBLISHED = "PUBLISHED"
     PUBLISH_ERROR = "PUBLISH_ERROR"
+    MISSING = "MISSING"
 
 
 class WorkflowEnumType(Enum):
@@ -88,6 +89,7 @@ class WorkflowEnumType(Enum):
     :cvar MERGED:
     :cvar IGNORE: This means that the object is ignored for workflow changes. This is mainly usefull during
         testing.
+    :cvar TEMPORARY:
     """
 
     FOR_PUBLICATION = "FOR PUBLICATION"
@@ -99,6 +101,7 @@ class WorkflowEnumType(Enum):
     DELETED = "DELETED"
     MERGED = "MERGED"
     IGNORE = "IGNORE"
+    TEMPORARY = "TEMPORARY"
 
 
 @dataclass(slots=True)

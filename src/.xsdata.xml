@@ -31,7 +31,10 @@
     <Substitution type="package" search="^urn:vpro:gtaa:2017$" replace="thesaurus"/>
     <Substitution type="package" search="^urn:vpro:media:search:2012$" replace="media_search"/>
     <Substitution type="package" search="^urn:vpro:api:profile:2013$" replace="profile"/>
-    
+
+
+    <Substitution type="package" search="^http://www.w3.org/XML/1998/namespace$" replace="xml"/>
+
     <!--
     <Substitution type="class" search="^data$" replace="npoapi.data.poms"/>
     <Substitution type="class"   search="AndType$" replace="AndTYPE"/>

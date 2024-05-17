@@ -162,6 +162,7 @@ class NpoApi(NpoApiBase):
         if effective_accept is not None:
             req.add_header("Accept", effective_accept)
         self.logger.debug("headers: %s" % str(req.headers))
+        self.logger.debug("url: %s" % url)
         return self.get_response(req, url, ignore_not_found=ignore_not_found, timeout=timeout)
 
     def __str__(self) -> str:
