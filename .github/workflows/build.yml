@@ -46,7 +46,7 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Cache Docker layers
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: /tmp/.buildx-cache
           key: ${{ runner.os }}-buildx-${{ github.sha }}
@@ -70,7 +70,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Build and push flask
         id: docker_build_flask
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: mihxil/npo-pyapi-flask:latest
@@ -79,7 +79,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Build and push make
         id: docker_build_make
-        uses: docker/build-push-action@v3
+        uses: docker/build-push-action@v5
         with:
           push: true
           tags: mihxil/npo-pyapi-make:latest
