@@ -67,7 +67,6 @@ def mediabackend():
             mid = xml
             xml = None
 
-
     if args.search:
         print(client.find(args.xml[0], writeable=args.writable))
     else:
@@ -82,6 +81,12 @@ def mediabackend():
             if args.delete or args.search:
                 client.exit("cannot delete or search parkpost")
             print(client.parkpost(xml))
+        elif xml and not type(xml) == str and xml.childNodes[0].nodeName == "image":
+            if args.delete or args.search:
+                client.exit("cannot search image")
+            if not mid:
+                client.exit("mid is required for image")
+            print(client.add_image(mid, xml))
         else:
             if xml:
                 update = xml

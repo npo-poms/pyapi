@@ -427,7 +427,9 @@ class NpoApiBase:
             return 0
         return self.code // 100
 
-    def exit(self):
+    def exit(self, message:str = None):
+        if message:
+            self.logger.error(message)
         sys.exit(self.exit_code())
 
     def pretty_xml(self, string: str) -> str:
