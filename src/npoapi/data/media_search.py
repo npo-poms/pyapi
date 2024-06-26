@@ -1,7 +1,9 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
+
 from xsdata.models.datatype import XmlDateTime
+
 from npoapi.data.media import (
     AvTypeEnum,
     ChannelEnum,
@@ -182,6 +184,38 @@ class IntegerRangeType:
 
 
 @dataclass(slots=True)
+class MediaFormTypeTitle:
+    class Meta:
+        global_type = False
+
+    value: str = field(
+        default="",
+        metadata={
+            "required": True,
+        },
+    )
+    typeValue: Optional[TextualTypeEnum] = field(
+        default=None,
+        metadata={
+            "name": "type",
+            "type": "Attribute",
+        },
+    )
+    owner: Optional[OwnerTypeEnum] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+    tokenized: bool = field(
+        default=False,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+
+
+@dataclass(slots=True)
 class MediaPagerType:
     class Meta:
         name = "mediaPagerType"
@@ -341,7 +375,7 @@ class MediaFormType:
             "namespace": "urn:vpro:media:search:2012",
         },
     )
-    title: List["MediaFormType.Title"] = field(
+    title: List[MediaFormTypeTitle] = field(
         default_factory=list,
         metadata={
             "type": "Element",
@@ -574,34 +608,6 @@ class MediaFormType:
         },
     )
 
-    @dataclass(slots=True)
-    class Title:
-        value: str = field(
-            default="",
-            metadata={
-                "required": True,
-            },
-        )
-        typeValue: Optional[TextualTypeEnum] = field(
-            default=None,
-            metadata={
-                "name": "type",
-                "type": "Attribute",
-            },
-        )
-        owner: Optional[OwnerTypeEnum] = field(
-            default=None,
-            metadata={
-                "type": "Attribute",
-            },
-        )
-        tokenized: bool = field(
-            default=False,
-            metadata={
-                "type": "Attribute",
-            },
-        )
-
 
 @dataclass(slots=True)
 class MediaForm(MediaFormType):
@@ -754,6 +760,13 @@ class MediaListItem(PublishableListItem):
         },
     )
     numberOfLocations: Optional[int] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        },
+    )
+    numberOfPublishedLocations: Optional[int] = field(
         default=None,
         metadata={
             "type": "Element",

@@ -1,6 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
+
 from xsdata.models.datatype import XmlDateTime, XmlDuration
 
 __NAMESPACE__ = "urn:vpro:shared:2009"
@@ -65,11 +66,11 @@ class SubtitlesTypeEnum(Enum):
 class SubtitlesWorkflowEnum(Enum):
     IGNORE = "IGNORE"
     REVOKED = "REVOKED"
-    FOR_DELETION = "FOR_DELETION"
     DELETED = "DELETED"
+    FOR_DELETION = "FOR_DELETION"
+    PUBLISHED = "PUBLISHED"
     FOR_PUBLICATION = "FOR_PUBLICATION"
     FOR_REPUBLICATION = "FOR_REPUBLICATION"
-    PUBLISHED = "PUBLISHED"
     PUBLISH_ERROR = "PUBLISH_ERROR"
     MISSING = "MISSING"
 

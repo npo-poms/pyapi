@@ -12,9 +12,10 @@ from npoapi.base import NpoApiBase
 
 class NpoApi(NpoApiBase):
     """
-   Client API for NPO Frontend Api
+    Client API for NPO Frontend Api
 
-   """
+    """
+
     __author__ = "Michiel Meeuwissen"
 
     EPILOG = """
@@ -22,11 +23,19 @@ class NpoApi(NpoApiBase):
     Credentials are read from a config file. If such a file does not exist it will offer to create one.
     """
 
-    def __init__(self, key: str = None, secret: str = None, env: str = None, origin: str = None,
-                 debug: bool = False, accept: str = None, interactive: bool = True):
+    def __init__(
+        self,
+        key: str = None,
+        secret: str = None,
+        env: str = None,
+        origin: str = None,
+        debug: bool = False,
+        accept: str = None,
+        interactive: bool = True,
+    ):
         """
-      Instantiates a client to the NPO Frontend API
-      """
+        Instantiates a client to the NPO Frontend API
+        """
         super().__init__(env=env, debug=debug, accept=accept, interactive=interactive)
         self.key, self.secret, self.origin = key, secret, origin
 
@@ -53,7 +62,6 @@ class NpoApi(NpoApiBase):
             self.url = e
         return self
 
-
     def info(self) -> str:
         return self.key + "@" + self.url
 
@@ -72,8 +80,9 @@ class NpoApi(NpoApiBase):
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         self.logger.debug("message: " + message)
         encoded = base64.b64encode(
-        hmac.new(self.secret.encode('utf-8'), msg=message.encode('utf-8'), digestmod=hashlib.sha256).digest())
-        return "NPO " + self.key + ":" + encoded.decode('utf-8'), now
+            hmac.new(self.secret.encode("utf-8"), msg=message.encode("utf-8"), digestmod=hashlib.sha256).digest()
+        )
+        return "NPO " + self.key + ":" + encoded.decode("utf-8"), now
 
     def _get_url(self, path, params=None) -> [str, str]:
         if not params:
@@ -121,28 +130,58 @@ class NpoApi(NpoApiBase):
 
         return None, None
 
-    def request_or_stream(self, path: str, params=None, accept=None, data=None, content_type: str = None, timeout=None,
-                          ignore_not_found=False, stream: bool = False):
+    def request_or_stream(
+        self,
+        path: str,
+        params=None,
+        accept=None,
+        data=None,
+        content_type: str = None,
+        timeout=None,
+        ignore_not_found=False,
+        stream: bool = False,
+    ):
         if stream:
-            return self.stream(path=path, params=params, accept=accept, data=data, content_type=content_type,
-                               timeout=timeout, ignore_not_found=ignore_not_found)
+            return self.stream(
+                path=path,
+                params=params,
+                accept=accept,
+                data=data,
+                content_type=content_type,
+                timeout=timeout,
+                ignore_not_found=ignore_not_found,
+            )
         else:
-            return self.request(path=path, params=params, accept=accept, data=data, content_type=content_type,
-                                ignore_not_found=ignore_not_found)
+            return self.request(
+                path=path,
+                params=params,
+                accept=accept,
+                data=data,
+                content_type=content_type,
+                ignore_not_found=ignore_not_found,
+            )
 
-    def request(self, path, params=None, accept=None, data=None, content_type: str = None, ignore_not_found=False) -> \
-            Optional[str]:
+    def request(
+        self, path, params=None, accept=None, data=None, content_type: str = None, ignore_not_found=False
+    ) -> Optional[str]:
         """Executes a request and return the result as a string, or None if not found"""
         response = self.stream(path, params, accept, data, content_type, ignore_not_found=ignore_not_found)
         if response:
             self.logger.debug(response.headers)
-            return response.read().decode('utf-8')
+            return response.read().decode("utf-8")
         else:
             return None
 
-    def stream(self, path: str, params=None, accept=None, data=None, content_type: str = None, timeout=None,
-               ignore_not_found=False) -> Optional[http.client.HTTPResponse]:
-
+    def stream(
+        self,
+        path: str,
+        params=None,
+        accept=None,
+        data=None,
+        content_type: str = None,
+        timeout=None,
+        ignore_not_found=False,
+    ) -> Optional[http.client.HTTPResponse]:
         data, content_type = self.data_to_bytes(data, content_type)
         if data is not None:
             data_as_string = data.decode("utf-8")

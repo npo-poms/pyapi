@@ -12,12 +12,13 @@ from typing_extensions import deprecated, override
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from npoapi.base import NpoApiBase, NS_MAP
+from npoapi.base import NS_MAP, NpoApiBase
 from npoapi.xml import mediaupdate
 
 
 class BasicBackend(NpoApiBase):
     """Base class for backend apis. These use basic authentication. Normally communicate via XML."""
+
     __author__ = "Michiel Meeuwissen"
 
     def __init__(self, description=None, env=None, email: str = None, debug=False, accept=None):
@@ -53,12 +54,19 @@ class BasicBackend(NpoApiBase):
         self.email = email
 
     def get_errors(self):
-        return self.email or self.settings.get('errors') or self.settings.get('email')
+        return self.email or self.settings.get("errors") or self.settings.get("email")
 
     @override
-    def command_line_client(self, description=None, read_environment=True, create_config_file=True, exclude_arguments=None):
+    def command_line_client(
+        self, description=None, read_environment=True, create_config_file=True, exclude_arguments=None
+    ):
         client = super().command_line_client(description, read_environment, create_config_file, exclude_arguments)
-        client.add_argument('--errors', type=str, default=None, help="""Email address to send asynchronous errors to, or url to post to""")
+        client.add_argument(
+            "--errors",
+            type=str,
+            default=None,
+            help="""Email address to send asynchronous errors to, or url to post to""",
+        )
         return client
 
     @override
@@ -93,15 +101,15 @@ class BasicBackend(NpoApiBase):
         self.logger.debug("Logging in " + user)
         return self._generate_basic_authorization(user, password)
 
-
     def _generate_basic_authorization(self, username, password):
         password_manager = urllib.request.HTTPPasswordMgrWithDefaultRealm()
-        if  self.url is None:
+        if self.url is None:
             raise Exception("No url configured for " + str(self))
         password_manager.add_password(None, self.url, username, password)
         urllib.request.install_opener(
-            urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager)))
-        base64string = base64.encodebytes(('%s:%s' % (username, password)).encode()).decode()[:-1]
+            urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager))
+        )
+        base64string = base64.encodebytes(("%s:%s" % (username, password)).encode()).decode()[:-1]
         return "Basic %s" % base64string
 
     def _creds(self):
@@ -120,24 +128,29 @@ class BasicBackend(NpoApiBase):
             raise Exception("Cant post without xml")
         return self.post_bytes_to(path, self.xml_to_bytes(xml), accept=accept, **kwargs)
 
-    def post_bytes_to(self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs) -> Tuple[Optional[str], Optional[str]]:
+    def post_bytes_to(
+        self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs
+    ) -> Tuple[Optional[str], Optional[str]]:
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
-        req = urllib.request.Request(url, data=bytes, method='POST')
+        req = urllib.request.Request(url, data=bytes, method="POST")
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request(req, url, accept=accept, content_type=content_type, content_length=content_length)
 
-
-    def post_bytes_to_response(self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs) -> Tuple[Optional[str], Optional[str]]:
+    def post_bytes_to_response(
+        self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs
+    ) -> Tuple[Optional[str], Optional[str]]:
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
-        req = urllib.request.Request(url, data=bytes, method='POST')
+        req = urllib.request.Request(url, data=bytes, method="POST")
         self.logger.debug("Posting " + str(bytes) + " to " + url)
         return self._request_response(req, url, accept=accept, content_type=content_type, content_length=content_length)
 
-    def get_from(self, path:str, accept="application/xml", ignore_not_found=False, **kwargs) -> Tuple[Optional[str], Optional[str]]:
+    def get_from(
+        self, path: str, accept="application/xml", ignore_not_found=False, **kwargs
+    ) -> Tuple[Optional[str], Optional[str]]:
         self._creds()
         _url = self.append_params(self.url + path, include_errors=False, **kwargs)
         req = urllib.request.Request(_url)
@@ -156,7 +169,7 @@ class BasicBackend(NpoApiBase):
         """Gets XML (as a byte array) from a URL. So this sets the accept header."""
         return self._get(url, accept="application/xml")
 
-    def _get(self, url:str, accept:str = None) -> Optional[bytes]:
+    def _get(self, url: str, accept: str = None) -> Optional[bytes]:
         """Gets response (as a byte array) from a URL"""
         self._creds()
         req = urllib.request.Request(url)
@@ -169,29 +182,58 @@ class BasicBackend(NpoApiBase):
         else:
             return None
 
-    def _request(self, req, url, accept=None, needs_authentication=True, authorization=None, ignore_not_found=False, content_type="application/xml", content_length = None) -> Tuple[Optional[str], Optional[str]]:
+    def _request(
+        self,
+        req,
+        url,
+        accept=None,
+        needs_authentication=True,
+        authorization=None,
+        ignore_not_found=False,
+        content_type="application/xml",
+        content_length=None,
+    ) -> Tuple[Optional[str], Optional[str]]:
         try:
-            response = self._request_response(req, url, ignore_not_found=ignore_not_found, needs_authentication=needs_authentication, authorization=authorization, accept=accept, content_type=content_type, content_length=content_length)
+            response = self._request_response(
+                req,
+                url,
+                ignore_not_found=ignore_not_found,
+                needs_authentication=needs_authentication,
+                authorization=authorization,
+                accept=accept,
+                content_type=content_type,
+                content_length=content_length,
+            )
             if response:
                 result = response.read().decode()
-                warnings = response.headers.get_all('x-npo-validation-warning')
+                warnings = response.headers.get_all("x-npo-validation-warning")
                 if warnings:
                     for w in warnings:
                         self.logger.warning("%s", str(w))
-                errors = response.headers.get_all('x-npo-validation-error')
+                errors = response.headers.get_all("x-npo-validation-error")
                 if errors:
                     for e in errors:
                         self.logger.error("%s", str(e))
                 self.logger.debug("Found: %s", result)
 
-                return result, response.headers.get('content-type')
+                return result, response.headers.get("content-type")
             else:
                 return None, None
         except urllib.request.HTTPError as e:
             logging.error(e.read().decode())
             return None, None
 
-    def _request_response(self, req, url, accept=None, needs_authentication=True, authorization=None, ignore_not_found=False, content_type="application/xml", content_length = None) ->  http.client.HTTPResponse:
+    def _request_response(
+        self,
+        req,
+        url,
+        accept=None,
+        needs_authentication=True,
+        authorization=None,
+        ignore_not_found=False,
+        content_type="application/xml",
+        content_length=None,
+    ) -> http.client.HTTPResponse:
         if needs_authentication:
             if authorization:
                 req.add_header("Authorization", authorization)
@@ -239,17 +281,18 @@ class BasicBackend(NpoApiBase):
         "xsi:- xml are not working out of the box.."
         t = type(update)
         if t == mediaupdate.programUpdateType:
-            return bytes(update.toxml("utf-8", element_name='program'))
+            return bytes(update.toxml("utf-8", element_name="program"))
         elif t == mediaupdate.groupUpdateType:
-            return bytes(update.toxml("utf-8", element_name='group'))
+            return bytes(update.toxml("utf-8", element_name="group"))
         elif t == mediaupdate.segmentUpdateType:
-            return bytes(update.toxml("utf-8", element_name='segment'))
+            return bytes(update.toxml("utf-8", element_name="segment"))
         else:
             return bytes(update.toxml("utf-8"))
 
     def xml_to_bytes(self, xml) -> bytes:
         """Accepts xml in several formats, and returns it as a byte array, ready for posting"""
         import xml.etree.ElementTree as ET
+
         import pyxb
 
         t = type(xml)
@@ -257,27 +300,25 @@ class BasicBackend(NpoApiBase):
             xml, content_type = self.data_to_bytes(xml)
             return xml
         elif dataclasses.is_dataclass(xml):
-            serializer = XmlSerializer(config=SerializerConfig(pretty_print = False))
+            serializer = XmlSerializer(config=SerializerConfig(pretty_print=False))
             content_type = "application/xml"
             return serializer.render(xml, ns_map=NS_MAP).encode("utf-8")
         elif t == minidom.Element:
             # xml.setAttribute("xmlns", "urn:vpro:media:update:2009")
             # xml.setAttribute("xmlns:xsi",
             #    "http://www.w3.org/2001/XMLSchema-instance")
-            return xml.toxml('utf-8')
+            return xml.toxml("utf-8")
         elif t == minidom.Document:
-            return xml.toxml('utf-8')
+            return xml.toxml("utf-8")
         elif t == ET.Element:
-            return ET.tostring(xml, encoding='utf-8')
+            return ET.tostring(xml, encoding="utf-8")
         elif isinstance(xml, pyxb.binding.basis.complexTypeDefinition):
             return self.toxml(xml)
         elif hasattr(xml, "toDOM"):
-            return xml.toDOM().toxml('utf-8')
+            return xml.toDOM().toxml("utf-8")
         else:
             raise Exception("unrecognized type " + str(t))
 
     @override
     def __str__(self) -> str:
         return "client for " + self.url
-
-

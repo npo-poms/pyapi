@@ -5,19 +5,22 @@
 # Namespace AbsentNamespace0
 
 from __future__ import unicode_literals
+
+import io
+import sys
+
 import pyxb
 import pyxb.binding
 import pyxb.binding.saxer
-import io
-import pyxb.utils.utility
 import pyxb.utils.domutils
-import sys
 import pyxb.utils.six as _six
+import pyxb.utils.utility
+
 # Unique identifier for bindings created at the same time
-_GenerationUID = pyxb.utils.utility.UniqueIdentifier('urn:uuid:fa5187de-5153-11ed-9cc8-3e22fb45f01a')
+_GenerationUID = pyxb.utils.utility.UniqueIdentifier("urn:uuid:fa5187de-5153-11ed-9cc8-3e22fb45f01a")
 
 # Version of PyXB used to generate the bindings
-_PyXBVersion = '1.2.6'
+_PyXBVersion = "1.2.6"
 # Generated bindings are not compatible across PyXB versions
 if pyxb.__version__ != _PyXBVersion:
     raise pyxb.PyXBVersionError(_PyXBVersion)
@@ -31,9 +34,10 @@ import pyxb.binding.datatypes
 
 # NOTE: All namespace declarations are reserved within the binding
 Namespace = pyxb.namespace.CreateAbsentNamespace()
-Namespace.configureCategories(['typeBinding', 'elementBinding'])
+Namespace.configureCategories(["typeBinding", "elementBinding"])
 
-def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
+
+def CreateFromDocument(xml_text, default_namespace=None, location_base=None):
     """Parse the given XML and use the document element to create a
     Python instance.
 
@@ -66,7 +70,8 @@ def CreateFromDocument (xml_text, default_namespace=None, location_base=None):
     instance = handler.rootObject()
     return instance
 
-def CreateFromDOM (node, default_namespace=None):
+
+def CreateFromDOM(node, default_namespace=None):
     """Create a Python instance from the given DOM node.
     The node tag must correspond to an element declaration in this module.
 
@@ -77,72 +82,95 @@ def CreateFromDOM (node, default_namespace=None):
 
 
 # Atomic simple type: [anonymous]
-class STD_ANON (pyxb.binding.datatypes.string):
-
+class STD_ANON(pyxb.binding.datatypes.string):
     """An atomic simple type."""
 
     _ExpandedName = None
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/absentnamespace.xsd', 12, 6)
+    _XSDLocation = pyxb.utils.utility.Location("https://poms-test.omroep.nl/schema/absentnamespace.xsd", 12, 6)
     _Documentation = None
+
+
 STD_ANON._CF_pattern = pyxb.binding.facets.CF_pattern()
-STD_ANON._CF_pattern.addPattern(pattern='[0-9]+(\\.[0-9]+(\\.[0-9]+)?)?')
+STD_ANON._CF_pattern.addPattern(pattern="[0-9]+(\\.[0-9]+(\\.[0-9]+)?)?")
 STD_ANON._InitializeFacetMap(STD_ANON._CF_pattern)
 _module_typeBindings.STD_ANON = STD_ANON
 
+
 # Complex type collectionType with content type ELEMENT_ONLY
-class collectionType (pyxb.binding.basis.complexTypeDefinition):
+class collectionType(pyxb.binding.basis.complexTypeDefinition):
     """Complex type collectionType with content type ELEMENT_ONLY"""
+
     _TypeDefinition = None
     _ContentTypeTag = pyxb.binding.basis.complexTypeDefinition._CT_ELEMENT_ONLY
     _Abstract = False
-    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, 'collectionType')
-    _XSDLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/absentnamespace.xsd', 7, 2)
+    _ExpandedName = pyxb.namespace.ExpandedName(Namespace, "collectionType")
+    _XSDLocation = pyxb.utils.utility.Location("https://poms-test.omroep.nl/schema/absentnamespace.xsd", 7, 2)
     _ElementMap = {}
     _AttributeMap = {}
     # Base type is pyxb.binding.datatypes.anyType
-    
+
     # Attribute version uses Python identifier version
-    __version = pyxb.binding.content.AttributeUse(pyxb.namespace.ExpandedName(None, 'version'), 'version', '__AbsentNamespace0_collectionType_version', _module_typeBindings.STD_ANON)
-    __version._DeclarationLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/absentnamespace.xsd', 11, 4)
-    __version._UseLocation = pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/absentnamespace.xsd', 11, 4)
-    
+    __version = pyxb.binding.content.AttributeUse(
+        pyxb.namespace.ExpandedName(None, "version"),
+        "version",
+        "__AbsentNamespace0_collectionType_version",
+        _module_typeBindings.STD_ANON,
+    )
+    __version._DeclarationLocation = pyxb.utils.utility.Location(
+        "https://poms-test.omroep.nl/schema/absentnamespace.xsd", 11, 4
+    )
+    __version._UseLocation = pyxb.utils.utility.Location(
+        "https://poms-test.omroep.nl/schema/absentnamespace.xsd", 11, 4
+    )
+
     version = property(__version.value, __version.set, None, None)
 
     _HasWildcardElement = True
-    _ElementMap.update({
-        
-    })
-    _AttributeMap.update({
-        __version.name() : __version
-    })
+    _ElementMap.update({})
+    _AttributeMap.update({__version.name(): __version})
+
+
 _module_typeBindings.collectionType = collectionType
-Namespace.addCategoryObject('typeBinding', 'collectionType', collectionType)
+Namespace.addCategoryObject("typeBinding", "collectionType", collectionType)
 
 
-collection = pyxb.binding.basis.element(pyxb.namespace.ExpandedName(Namespace, 'collection'), collectionType, location=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/absentnamespace.xsd', 5, 2))
-Namespace.addCategoryObject('elementBinding', collection.name().localName(), collection)
+collection = pyxb.binding.basis.element(
+    pyxb.namespace.ExpandedName(Namespace, "collection"),
+    collectionType,
+    location=pyxb.utils.utility.Location("https://poms-test.omroep.nl/schema/absentnamespace.xsd", 5, 2),
+)
+Namespace.addCategoryObject("elementBinding", collection.name().localName(), collection)
 
 
-
-def _BuildAutomaton ():
+def _BuildAutomaton():
     # Remove this helper function from the namespace after it is invoked
     global _BuildAutomaton
     del _BuildAutomaton
     import pyxb.utils.fac as fac
 
     counters = set()
-    cc_0 = fac.CounterCondition(min=0, max=None, metadata=pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/absentnamespace.xsd', 9, 6))
+    cc_0 = fac.CounterCondition(
+        min=0,
+        max=None,
+        metadata=pyxb.utils.utility.Location("https://poms-test.omroep.nl/schema/absentnamespace.xsd", 9, 6),
+    )
     counters.add(cc_0)
     states = []
     final_update = set()
     final_update.add(fac.UpdateInstruction(cc_0, False))
-    symbol = pyxb.binding.content.WildcardUse(pyxb.binding.content.Wildcard(process_contents=pyxb.binding.content.Wildcard.PC_lax, namespace_constraint=(pyxb.binding.content.Wildcard.NC_not, None)), pyxb.utils.utility.Location('https://poms-test.omroep.nl/schema/absentnamespace.xsd', 9, 6))
+    symbol = pyxb.binding.content.WildcardUse(
+        pyxb.binding.content.Wildcard(
+            process_contents=pyxb.binding.content.Wildcard.PC_lax,
+            namespace_constraint=(pyxb.binding.content.Wildcard.NC_not, None),
+        ),
+        pyxb.utils.utility.Location("https://poms-test.omroep.nl/schema/absentnamespace.xsd", 9, 6),
+    )
     st_0 = fac.State(symbol, is_initial=True, final_update=final_update, is_unordered_catenation=False)
     states.append(st_0)
     transitions = []
-    transitions.append(fac.Transition(st_0, [
-        fac.UpdateInstruction(cc_0, True) ]))
+    transitions.append(fac.Transition(st_0, [fac.UpdateInstruction(cc_0, True)]))
     st_0._set_transitionSet(transitions)
     return fac.Automaton(states, counters, True, containing_state=None)
-collectionType._Automaton = _BuildAutomaton()
 
+
+collectionType._Automaton = _BuildAutomaton()

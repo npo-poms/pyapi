@@ -1,30 +1,35 @@
 import codecs
+import logging
 import os
+import time
 import urllib.parse
 from datetime import datetime
-from typing import Optional, Union, Dict
+from typing import Dict, Optional, Union
 from xml.dom import minidom
 
 import lxml
 from typing_extensions import override
-
-from npoapi import data
 from xsdata.models.datatype import XmlDateTime
 
-from npoapi.xml.mediaupdate import mediaUpdateType
-from npoapi.xml.media import baseMediaType, streamingStatus
-
+from npoapi import data
 from npoapi.base import DEFAULT_BINDING
 from npoapi.basic_backend import BasicBackend
-from npoapi.data import MediaUpdateType, BaseMediaType, StreamingStatus, LocationUpdateType, PredictionUpdateType, \
-    Prediction
+from npoapi.data import (
+    BaseMediaType,
+    LocationUpdateType,
+    MediaUpdateType,
+    Prediction,
+    PredictionUpdateType,
+    StreamingStatus,
+)
 from npoapi.xml import media, mediaupdate, poms
-import logging
-import time
+from npoapi.xml.media import baseMediaType, streamingStatus
+from npoapi.xml.mediaupdate import mediaUpdateType
 
 
 class MediaBackend(BasicBackend):
     """Client for NPO Backend API"""
+
     __author__ = "Michiel Meeuwissen"
 
     def __init__(self, env: str = None, email: str = None, debug: bool = False, accept: str = None):
@@ -50,34 +55,50 @@ class MediaBackend(BasicBackend):
 
     def get(self, mid: str, ignore_not_found=False, accept="application/xml") -> str:
         """Returns XML or json -representation of a mediaobject (as a string)"""
-        return self.get_from("media/media/" + urllib.parse.quote(mid, safe=''), ignore_not_found=ignore_not_found,
-                             accept=accept)[0]
+        return self.get_from(
+            "media/media/" + urllib.parse.quote(mid, safe=""), ignore_not_found=ignore_not_found, accept=accept
+        )[0]
 
     def get_full(self, mid: str, ignore_not_found=False, accept="application/xml") -> str:
         """Returns XML-representation of a mediaobject (as a string)"""
-        return \
-        self.get_from("media/media/" + urllib.parse.quote(mid, safe='') + "/full", ignore_not_found=ignore_not_found,
-                      accept=accept)[0]
+        return self.get_from(
+            "media/media/" + urllib.parse.quote(mid, safe="") + "/full",
+            ignore_not_found=ignore_not_found,
+            accept=accept,
+        )[0]
 
-    def get_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> Union[
-        mediaUpdateType, MediaUpdateType]:
+    def get_object(
+        self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING
+    ) -> Union[mediaUpdateType, MediaUpdateType]:
         """Returns xsdata/pyxb-representation of a mediaobject"""
         return self.to_object(self.get(mid, ignore_not_found), validate=False, binding=binding)
 
-    def get_full_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> Union[
-        baseMediaType, BaseMediaType]:
+    def get_full_object(
+        self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING
+    ) -> Union[baseMediaType, BaseMediaType]:
         """Returns xsdata/pyxb-representation of a mediaobject"""
         return self.to_object(self.get_full(mid, ignore_not_found), validate=False, binding=binding)
 
     def exists(self, mid: str):
-        return self.get_from("media/exists/" + urllib.parse.quote(mid, safe=''), accept='')[0] == "true"
+        return self.get_from("media/exists/" + urllib.parse.quote(mid, safe=""), accept="")[0] == "true"
 
     def streaming_status(self, mid: str, binding=DEFAULT_BINDING) -> Union[streamingStatus, StreamingStatus]:
-        return self.to_object(self.get_from("media/streamingstatus/" + urllib.parse.quote(mid, safe=''))[0],
-                              binding=binding)
+        return self.to_object(
+            self.get_from("media/streamingstatus/" + urllib.parse.quote(mid, safe=""))[0], binding=binding
+        )
 
-    def post(self, update, lookupcrid=True, raw=False, steal_crids="IF_DELETED", validate_input=False,
-             client_validate=True, sub=None, mid=None, binding=DEFAULT_BINDING) -> Optional[str]:
+    def post(
+        self,
+        update,
+        lookupcrid=True,
+        raw=False,
+        steal_crids="IF_DELETED",
+        validate_input=False,
+        client_validate=True,
+        sub=None,
+        mid=None,
+        binding=DEFAULT_BINDING,
+    ) -> Optional[str]:
         if not raw:
             update = self.to_object(update, validate=client_validate, binding=binding)
         target = "media/media/"
@@ -86,8 +107,15 @@ class MediaBackend(BasicBackend):
         if sub is not None and len(sub) > 0:
             target = target + urllib.parse.quote(sub, safe="") + "/"
 
-        return self.post_to(target, update, accept="text/plain", errors=self.get_errors(), lookupcrid=lookupcrid,
-                            stealcrids=steal_crids, validateInput=str(validate_input).lower())[0]
+        return self.post_to(
+            target,
+            update,
+            accept="text/plain",
+            errors=self.get_errors(),
+            lookupcrid=lookupcrid,
+            stealcrids=steal_crids,
+            validateInput=str(validate_input).lower(),
+        )[0]
 
     def post_prediction(self, mid, update: Prediction) -> Optional[str]:
         target = "media/media/%s/predictions/%s" % (mid, update.value)
@@ -96,7 +124,7 @@ class MediaBackend(BasicBackend):
 
     def delete(self, mid: str) -> Optional[str]:
         """"""
-        return self.delete_from("media/media/" + urllib.parse.quote(mid, safe=''))[0]
+        return self.delete_from("media/media/" + urllib.parse.quote(mid, safe=""))[0]
 
     def _parkpost_authentication(self):
         if not (self.parkpost_authorization):
@@ -108,12 +136,14 @@ class MediaBackend(BasicBackend):
         req = urllib.request.Request(url, data=self.xml_to_bytes(xml))
         return self._request(req, url, accept="application/xml", authorization=self.parkpost_authorization)[0]
 
-    def find(self, form, writable=False, raw=False, validate_input=False, client_validate=True,
-             binding=DEFAULT_BINDING) -> Optional[str]:
+    def find(
+        self, form, writable=False, raw=False, validate_input=False, client_validate=True, binding=DEFAULT_BINDING
+    ) -> Optional[str]:
         if not raw:
             form = self.to_object(form, validate=client_validate, binding=binding)
-        return self.post_to("media/find", form, accept="application/xml", writable=writable,
-                            validateInput=str(validate_input).lower())[0]
+        return self.post_to(
+            "media/find", form, accept="application/xml", writable=writable, validateInput=str(validate_input).lower()
+        )[0]
 
     def subtitles(self, mid: str, language=None, type="CAPTION") -> Optional[str]:
         path = mid
@@ -143,9 +173,20 @@ class MediaBackend(BasicBackend):
         return self.post_to(path, memberOf, accept="application/xml")[0]
 
     # method to implement both members and episodes calls.
-    def members_or_episodes(self, mid: str, what: str, limit: int = None, batch: int = 20, log_progress=False,
-                            log_indent="", full=False, follow_merges=True, deletes=False, raw=False,
-                            accept="application/xml") -> Optional[Union[list, str]]:
+    def members_or_episodes(
+        self,
+        mid: str,
+        what: str,
+        limit: int = None,
+        batch: int = 20,
+        log_progress=False,
+        log_indent="",
+        full=False,
+        follow_merges=True,
+        deletes=False,
+        raw=False,
+        accept="application/xml",
+    ) -> Optional[Union[list, str]]:
         """Returns a list of minidom objects"""
         self._creds()
         self.logger.log(logging.INFO if log_progress else logging.DEBUG, "loading %s of %s", what, mid)
@@ -155,9 +196,19 @@ class MediaBackend(BasicBackend):
         sub = "group" if what == "episodes" else "media"
         w = what + "/full" if full else what
         while True:
-
-            url = (self.url + 'media/' + sub + '/' + urllib.parse.quote(mid, safe='') + "/" + w + "?max=" + str(b) +
-                   "&offset=" + str(offset))
+            url = (
+                self.url
+                + "media/"
+                + sub
+                + "/"
+                + urllib.parse.quote(mid, safe="")
+                + "/"
+                + w
+                + "?max="
+                + str(b)
+                + "&offset="
+                + str(offset)
+            )
             if deletes:
                 url = url + "&deletes=true"
             if not follow_merges:
@@ -173,18 +224,33 @@ class MediaBackend(BasicBackend):
                     return bytes.decode("utf-8")
                 else:
                     xml = minidom.parseString(bytes)
-                    items = xml.getElementsByTagNameNS('*', 'item')
+                    items = xml.getElementsByTagNameNS("*", "item")
                     # result.extend(map(lambda i: poms.CreateFromDOM(i, default_namespace=mediaupdate.Namespace), items))
                     result.extend(items)
                     total = xml.childNodes[0].getAttribute("totalCount")
                     if len(items) == 0 or (limit and len(result) >= limit):
                         break
                     if len(items) != len(result):
-                        self.logger.log(logging.INFO if log_progress else logging.DEBUG, "%s%s of %s: %s/%s (+%s)",
-                                        log_indent, what, mid, len(result), total, len(items))
+                        self.logger.log(
+                            logging.INFO if log_progress else logging.DEBUG,
+                            "%s%s of %s: %s/%s (+%s)",
+                            log_indent,
+                            what,
+                            mid,
+                            len(result),
+                            total,
+                            len(items),
+                        )
                     else:
-                        self.logger.log(logging.INFO if log_progress else logging.DEBUG, "%s%s of %s: %s/%s",
-                                        log_indent, what, mid, len(result), total)
+                        self.logger.log(
+                            logging.INFO if log_progress else logging.DEBUG,
+                            "%s%s of %s: %s/%s",
+                            log_indent,
+                            what,
+                            mid,
+                            len(result),
+                            total,
+                        )
                     offset += b
                     # print xml.childNodes[0].toxml('utf-8')
                     self.logger.debug(str(len(result)) + "/" + total + (("/" + str(limit)) if limit else ""))
@@ -194,10 +260,19 @@ class MediaBackend(BasicBackend):
 
         return result
 
-    def post_location(self, mid: str, programUrl, duration: str = None, bitrate: int = None, height: int = None,
-                      width: int = None, aspectRatio: str = None,
-                      format: str = None,
-                      publishStart=None, publishStop=None) -> str:
+    def post_location(
+        self,
+        mid: str,
+        programUrl,
+        duration: str = None,
+        bitrate: int = None,
+        height: int = None,
+        width: int = None,
+        aspectRatio: str = None,
+        format: str = None,
+        publishStart=None,
+        publishStop=None,
+    ) -> str:
         if os.path.isfile(programUrl):
             self.logger.debug(programUrl + " seems to be a local file")
             with codecs.open(programUrl, "r", "utf-8") as myfile:
@@ -206,11 +281,16 @@ class MediaBackend(BasicBackend):
             if not format:
                 format = self.guess_format(programUrl)
 
-            xml = ("<location xmlns='urn:vpro:media:update:2009'" + self.date_attr("publishStart",
-                                                                                   publishStart) + self.date_attr(
-                "publishStop", publishStop) + ">" +
-                   "  <programUrl>" + programUrl + "</programUrl>" +
-                   "   <avAttributes>")
+            xml = (
+                "<location xmlns='urn:vpro:media:update:2009'"
+                + self.date_attr("publishStart", publishStart)
+                + self.date_attr("publishStop", publishStop)
+                + ">"
+                + "  <programUrl>"
+                + programUrl
+                + "</programUrl>"
+                + "   <avAttributes>"
+            )
             if bitrate:
                 xml += "<bitrate>" + str(bitrate) + "</bitrate>"
             if format:
@@ -248,16 +328,23 @@ class MediaBackend(BasicBackend):
     def add_location(self, mid: str, location) -> str:
         return self.post_to("media/media/" + mid + "/location", location, accept="text/plain")[0]
 
-    def set_location(self, mid: str, location: Union[str, int], publishStop: Union[str, datetime] = None,
-                     publishStart: Union[str, datetime] = None, programUrl: str = None, only_if_exists: bool = False) -> \
-    Optional[str]:
+    def set_location(
+        self,
+        mid: str,
+        location: Union[str, int],
+        publishStop: Union[str, datetime] = None,
+        publishStart: Union[str, datetime] = None,
+        programUrl: str = None,
+        only_if_exists: bool = False,
+    ) -> Optional[str]:
         locations = data.poms.from_bytes(self.get_locations(mid))
         location_object = None
         for l in locations.otherElement:
             if type(location) == int or (type(location) == str and location.isdigit()):
                 # given location is given as digit
-                if (l.urn is not None and str(l.urn).endswith(':' + str(location))) and (
-                    programUrl is None or str(l.programUrl) == programUrl):
+                if (l.urn is not None and str(l.urn).endswith(":" + str(location))) and (
+                    programUrl is None or str(l.programUrl) == programUrl
+                ):
                     location_object = l
                     break
             elif str(l.urn).startswith("urn:vpro:media:location:"):
@@ -311,10 +398,10 @@ class MediaBackend(BasicBackend):
     def get_sub(self, mid: str, sub: str, deletes=False, follow_merges=True, accept=None) -> bytes:
         self._creds()
         url = self.url + "media/media/" + urllib.parse.quote(mid, safe="") + "/" + sub
-        sep = '?'
+        sep = "?"
         if deletes:
             url = url + sep + "deletes=true"
-            sep = '&'
+            sep = "&"
         if not follow_merges:
             url = url + sep + "followMerges=false"
         return self._get(url, accept=accept)
@@ -334,12 +421,11 @@ class MediaBackend(BasicBackend):
         return self.upload(mid, file, **kwargs)
 
     def upload(self, mid: str, file: str, content_type: None, **kwargs):
-
         parseable_response = True
         post_fix = ""
-        encryption = kwargs.get('encryption', None)
-        priority = kwargs.get('priority', None)
-        transcode = kwargs.get('transcode', True)
+        encryption = kwargs.get("encryption", None)
+        priority = kwargs.get("priority", None)
+        transcode = kwargs.get("transcode", True)
         if content_type is None:
             if file.endswith(".mp3"):
                 content_type = "audio/mp3"
@@ -350,7 +436,9 @@ class MediaBackend(BasicBackend):
         if content_type.startswith("video/"):
             if transcode:
                 post_fix = "/%s/%s" % (
-                "NONE" if encryption is None else encryption, "NORMAL" if priority is None else priority)
+                    "NONE" if encryption is None else encryption,
+                    "NORMAL" if priority is None else priority,
+                )
                 parseable_response = False
         if content_type.startswith("audio/"):
             if encryption is not None or priority is not None:
@@ -361,8 +449,9 @@ class MediaBackend(BasicBackend):
         path = "media/upload/%s%s" % (urllib.parse.quote(mid, safe=""), post_fix)
 
         with open(file, "rb") as f:
-            response = self.post_bytes_to_response(path, f, content_type=content_type,
-                                                   content_length=os.stat(file).st_size, accept="", **kwargs)
+            response = self.post_bytes_to_response(
+                path, f, content_type=content_type, content_length=os.stat(file).st_size, accept="", **kwargs
+            )
             self.logger.info("Response: %s" % str(response))
             if response is None:
                 self.logger.error("No response")
@@ -372,6 +461,7 @@ class MediaBackend(BasicBackend):
                 if parseable_response:
                     try:
                         from npoapi.data import poms
+
                         return poms.from_string(result)
                     except Exception as e:
                         self.logger.error("Error parsing for %s '%s': %s" % (mid, result, e))

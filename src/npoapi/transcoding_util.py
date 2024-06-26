@@ -1,15 +1,16 @@
-
-import re
 import logging
+import os
+import re
 import subprocess
 import urllib
-import os
 from fractions import Fraction
+
 from npoapi import MediaBackendUtil
 
 
 class TranscodingUtil(object):
     """A common use case for using the NPO backend api is trancoding 'locations'. This provides some utilities for doing that."""
+
     FFMEG = "ffmpeg"
     EXIFTOOL = "exiftool"
 
@@ -34,7 +35,7 @@ class TranscodingUtil(object):
 
     @staticmethod
     def exiftool_aspectratio(info: dict):
-        string = info.get('Image Size', None)
+        string = info.get("Image Size", None)
         if not string:
             return None
         else:
@@ -46,7 +47,7 @@ class TranscodingUtil(object):
     @staticmethod
     def exiftool_duration(info: dict):
         """Returns the duration reported by exif in ms"""
-        string = info.get('Media Duration', None)
+        string = info.get("Media Duration", None)
         if not string:
             return None
         else:
@@ -54,8 +55,7 @@ class TranscodingUtil(object):
             if m:
                 return int(float(m.group(1)) * 1000)
             a = string.split(":")
-            return 1000 * (3600 * int(a[0]) + 60 * int(a[1]) +  int(a[2]))
-
+            return 1000 * (3600 * int(a[0]) + 60 * int(a[1]) + int(a[2]))
 
     @staticmethod
     def exiftool_parsebitrate(string: str):
@@ -74,7 +74,6 @@ class TranscodingUtil(object):
                     TranscodingUtil.logger.warn("Unrecognized bitrate " + string)
                     return None
 
-
     @staticmethod
     def exiftool_bitrate(info: dict):
         avgbitrate = info.get("Avg Bitrate", None)
@@ -86,8 +85,6 @@ class TranscodingUtil(object):
             result = TranscodingUtil.exiftool_parsebitrate(audiobitrate)
         return result
 
-
-
     @staticmethod
     def system_call(command):
         TranscodingUtil.logger.info("Calling %s", command)
@@ -97,15 +94,21 @@ class TranscodingUtil(object):
 
     @staticmethod
     def transcode(programUrl, tempFile):
-        command = [TranscodingUtil.FFMEG,
-                   "-y", "-loglevel", "warning",
-                   "-i", programUrl,
-                   "-profile:v", "main",
-                   tempFile]
+        command = [
+            TranscodingUtil.FFMEG,
+            "-y",
+            "-loglevel",
+            "warning",
+            "-i",
+            programUrl,
+            "-profile:v",
+            "main",
+            tempFile,
+        ]
         TranscodingUtil.system_call(command)
 
     @staticmethod
-    def ffmpeg_images(sourcefile, dest_dir, offsets=['00:01:00.000', '00:02:00.000', '00:03:00.000']):
+    def ffmpeg_images(sourcefile, dest_dir, offsets=["00:01:00.000", "00:02:00.000", "00:03:00.000"]):
         """
         Generates a number of stills (files).
         """
@@ -117,14 +120,14 @@ class TranscodingUtil(object):
             logging.info("offset " + offset)
             command = [TranscodingUtil.FFMEG, "-loglevel", "warning", "-i", sourcefile]
             image_file_name = os.path.join(dest_dir, "still." + str(seq) + ".jpg")
-            command.extend(["-ss", offset,  "-vframes",  str(1),  image_file_name])
+            command.extend(["-ss", offset, "-vframes", str(1), image_file_name])
             TranscodingUtil.system_call(command)
             result.append([offset, image_file_name])
             seq += 1
         return result
 
     @staticmethod
-    def format_offset(offset_in_ms:int):
+    def format_offset(offset_in_ms: int):
         return "%02d:%02d:%02d.%03d" % MediaBackendUtil.parse(offset_in_ms)
 
     @staticmethod
@@ -139,5 +142,3 @@ class TranscodingUtil(object):
                 return False
             else:
                 raise
-
-

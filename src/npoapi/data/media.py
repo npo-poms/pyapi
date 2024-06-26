@@ -1,7 +1,9 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional, Union
+
 from xsdata.models.datatype import XmlDate, XmlDateTime, XmlDuration
+
 from npoapi.data.shared import (
     Image,
     OwnerTypeEnum,
@@ -2446,6 +2448,9 @@ class BaseMediaType:
     :ivar lastModified:
     :ivar workflow:
     :ivar mergedTo:
+    :ivar adoptQualityFromPlus: This attribute is used to indicate whether a program/segment is available in HD
+        quality for internet VOD. For groups this indicates the default value for its members/episodes. This is
+        an experimental feature which is/will be used in 2024 for the player.
     """
 
     class Meta:
@@ -2785,6 +2790,12 @@ class BaseMediaType:
             "pattern": r"[ \.a-zA-Z0-9_-]+",
         },
     )
+    adoptQualityFromPlus: Optional[bool] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
 
 
 @dataclass(slots=True)
@@ -2826,12 +2837,6 @@ class GroupType(BaseMediaType):
             "name": "type",
             "type": "Attribute",
             "required": True,
-        },
-    )
-    defaultElement: Optional[int] = field(
-        default=None,
-        metadata={
-            "type": "Attribute",
         },
     )
 

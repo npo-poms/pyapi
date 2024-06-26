@@ -1,14 +1,12 @@
+import json
 from typing import Optional
 
 from typing_extensions import override
 
 from npoapi.basic_backend import BasicBackend
 
-import json
-
 
 class PagesBackend(BasicBackend):
-
     __author__ = "Michiel Meeuwissen"
 
     def __init__(self, env=None, email: str = None, debug=False, accept=None):
@@ -46,7 +44,7 @@ class PagesBackend(BasicBackend):
         result, type = self.delete_from("api/pages/updates", url=url, batch=batch, include_errors=False)
         if result is None:
             return None
-        elif type == 'application/json':
+        elif type == "application/json":
             return json.loads(result)
         else:
             return result
@@ -58,21 +56,22 @@ class PagesBackend(BasicBackend):
         return ["pages_user", "user"]
 
     def post_person(self, new_person) -> str:
-        import jwt
         import datetime
+
+        import jwt
+
         new_person.jws = jwt.encode(
-            {'subject': 'GTAAPerson',
-            "usr": "",
-            "iat": datetime.datetime.now(),
-            "iss": self.get_setting("thesaurus_user", "Your Thesaurus user")
+            {
+                "subject": "GTAAPerson",
+                "usr": "",
+                "iat": datetime.datetime.now(),
+                "iss": self.get_setting("thesaurus_user", "Your Thesaurus user"),
             },
             self.get_setting("thesaurus_secret", "Your Thesaurus secret"),
-            algorithm='HS256'
+            algorithm="HS256",
         ).decode("utf-8")
         return self.post_to("api/thesaurus/person", new_person)[0]
 
     @override
     def __str__(self) -> str:
         return super().__str__() + " (pages)"
-
-

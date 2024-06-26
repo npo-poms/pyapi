@@ -1,28 +1,29 @@
 import codecs
 import dataclasses
 import json
-import os
 import logging
+import os
 import re
 import sys
 from typing import Final, Optional
 
 import pyxb
-from npoapi.data.poms import NS_MAP
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
 from npoapi.base import DEFAULT_BINDING, Binding
+from npoapi.data.poms import NS_MAP
 
 logger: Final = logging.getLogger("Npo.Utils")
-pattern: Final = re.compile('[a-z0-9]{2,}', re.IGNORECASE)
+pattern: Final = re.compile("[a-z0-9]{2,}", re.IGNORECASE)
 
 MIDS = ["WO_VPRO_025057", "WO_NOS_2321514 (not from vpro)", "WO_VPRO_025700 (has locations)", "WO_VPRO_4911154"]
 
 
 MID_SHORTHANDS: Final = ", ".join(map(lambda e: "M%d: %s" % e, enumerate(MIDS)))
-MID_HELP : Final  = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS
+MID_HELP: Final = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS
 MID_SHORTHAND_PATTERN: Final = re.compile("^M[0-9]+$")
+
 
 def resolve_mid(mid: str) -> str:
     if MID_SHORTHAND_PATTERN.match(mid):
@@ -33,6 +34,7 @@ def resolve_mid(mid: str) -> str:
             raise Exception("No shorthand found %s. Available are %s" % (mid, MID_SHORTHANDS))
     else:
         return mid
+
 
 def looks_like_form(form: str):
     """
@@ -59,7 +61,7 @@ def looks_like_form(form: str):
     return False
 
 
-def to_object(data:str, validate=False, binding=DEFAULT_BINDING, clazz=None) -> object:
+def to_object(data: str, validate=False, binding=DEFAULT_BINDING, clazz=None) -> object:
     """Converts a string to a pyxb or dataclasses object and optionally validates it"""
     if data is None:
         return None
@@ -69,6 +71,7 @@ def to_object(data:str, validate=False, binding=DEFAULT_BINDING, clazz=None) -> 
             result = data
         else:
             from npoapi.xml import poms
+
             bytes, contenttype = data_to_bytes(data)
             result = poms.CreateFromDocument(bytes)
 
@@ -80,6 +83,7 @@ def to_object(data:str, validate=False, binding=DEFAULT_BINDING, clazz=None) -> 
             result = data
         else:
             from npoapi.data import poms
+
             bytes, contenttype = data_to_bytes(data)
             result = poms.from_bytes(bytes, clazz)
         if validate:
@@ -87,18 +91,20 @@ def to_object(data:str, validate=False, binding=DEFAULT_BINDING, clazz=None) -> 
         return result
 
 
-def data_to_bytes(data, content_type:str = None, clazz=None) -> [bytearray, str]:
+def data_to_bytes(data, content_type: str = None, clazz=None) -> [bytearray, str]:
     """
     Given some object representing API data returns it as a bytearray and a content type.
     Recognized are pyxb bindings, a file name, or else a string.
     """
     if data:
-        import pyxb
         import xml.dom.minidom
+
+        import pyxb
+
         if data is None:
             logger.warning("Data is none!")
         elif dataclasses.is_dataclass(data):
-            serializer = XmlSerializer(config=SerializerConfig(pretty_print = False))
+            serializer = XmlSerializer(config=SerializerConfig(pretty_print=False))
             content_type = "application/xml"
             data = serializer.render(data, ns_map=NS_MAP).encode("utf-8")
         elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
@@ -117,8 +123,8 @@ def data_to_bytes(data, content_type:str = None, clazz=None) -> [bytearray, str]
                     content_type = "application/xml"
 
             logger.debug("" + data + " is file, reading it in as " + content_type)
-            with codecs.open(data, 'r', 'utf-8') as myfile:
-                data = myfile.read().encode('utf-8')
+            with codecs.open(data, "r", "utf-8") as myfile:
+                data = myfile.read().encode("utf-8")
                 logger.debug("Found data " + data.decode("utf-8"))
         elif isinstance(data, str):
             if data == "-":
@@ -134,11 +140,10 @@ def data_to_bytes(data, content_type:str = None, clazz=None) -> [bytearray, str]
             data = json.dumps(data).encode("utf-8")
             content_type = "application/json"
 
-
     return data, content_type
 
 
-def isfile(string:str) -> bool:
+def isfile(string: str) -> bool:
     try:
         return os.path.isfile(string)
     except:
