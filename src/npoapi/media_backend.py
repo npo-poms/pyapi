@@ -325,6 +325,12 @@ class MediaBackend(BasicBackend):
     def add_image(self, mid: str, image) -> str:
         return self.post_to("media/media/" + mid + "/image", image, accept="text/plain")[0]
 
+    def itemize(self, mid: str, itemize) -> str:
+        iobject = self.to_object(itemize)
+        if mid is None:
+            mid = iobject.mid
+        return self.post_to("media/media/" + mid + "/itemize", iobject, accept="application/xml")[0]
+
     def add_location(self, mid: str, location) -> str:
         return self.post_to("media/media/" + mid + "/location", location, accept="text/plain")[0]
 
@@ -397,7 +403,8 @@ class MediaBackend(BasicBackend):
 
     def get_sub(self, mid: str, sub: str, deletes=False, follow_merges=True, accept=None) -> bytes:
         self._creds()
-        url = self.url + "media/media/" + urllib.parse.quote(mid, safe="") + "/" + sub
+        effective_sub = "" if sub is None or sub == "" else "/" + sub
+        url = self.url + "media/media/" + urllib.parse.quote(mid, safe="") + effective_sub
         sep = "?"
         if deletes:
             url = url + sep + "deletes=true"

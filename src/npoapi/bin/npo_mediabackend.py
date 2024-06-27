@@ -61,8 +61,8 @@ def mediabackend():
         choices=Binding.__members__,
         default=DEFAULT_BINDING.name,
         help="""
-                        binding to use when unmarshalling to objects (when using --process)
-                        """,
+            binding to use when unmarshalling to objects (when using --process)
+            """,
     )
 
     args = client.parse_args()
@@ -103,6 +103,11 @@ def mediabackend():
             if not mid:
                 client.exit("mid is required for image")
             print(client.add_image(mid, xml))
+        elif xml and not type(xml) == str and xml.childNodes[0].nodeName == "itemize":
+            if args.delete or args.search:
+                client.exit("cannot search image")
+            print(client.itemize(mid, xml))
+
         else:
             if xml:
                 update = xml

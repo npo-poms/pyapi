@@ -370,7 +370,7 @@ class NpoApiBase:
                 self.code = 404
                 return None
             if type(ue.reason) is str:
-                self.logger.error("%s: %s: %s (%s)", url, summary, ue.reason, error_type)
+                self.logger.error("%s -> %d: %s: %s (%s)", url, ue.code, summary, ue.reason, error_type)
                 self.code = ue.code
             else:
                 self.logger.error("%s: %s: %s %s (%s)", url, ue.reason.errno, summary, ue.reason.strerror, error_type)
