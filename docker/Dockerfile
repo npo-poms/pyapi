@@ -1,4 +1,4 @@
-FROM alpine:3.18
+FROM alpine:3.20
 
 LABEL org.opencontainers.image.description="A alpine image containing python 3 with the pyapi library installed"
 
