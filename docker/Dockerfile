@@ -1,5 +1,7 @@
 FROM alpine:3.18
 
+LABEL org.opencontainers.image.description="A alpine image containing python 3 with the pyapi library installed"
+
 RUN apk add --no-cache --upgrade --virtual .build-deps gcc build-base python3-dev cargo libffi-dev openssl-dev   && \
     apk add --no-cache git python3 py3-pip gcc tzdata ffmpeg mediainfo && \
     pip3 install cffi && \
