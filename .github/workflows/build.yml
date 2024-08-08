@@ -9,6 +9,10 @@ on:
   workflow_dispatch:
 
 
+
+env:
+  IMAGE_NAME: ${{ github.repository }}
+
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -38,6 +42,11 @@ jobs:
   docker:
     needs: test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      attestations: write
+      id-token: write
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -57,9 +66,15 @@ jobs:
         with:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+      - name: Login to Github packages
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build and push
         id: docker_build
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: mihxil/npo-pyapi:latest
@@ -68,9 +83,26 @@ jobs:
           file: docker/Dockerfile
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ env.IMAGE_NAME }}
+      - name: Build and push to github package
+        id: docker_build_gh
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          context: .
+          platforms: linux/amd64,linux/arm64
+          file: docker/Dockerfile
+          cache-from: type=local,src=/tmp/.buildx-cache
+          cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Build and push flask
         id: docker_build_flask
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: mihxil/npo-pyapi-flask:latest
@@ -79,7 +111,7 @@ jobs:
           cache-to: type=local,dest=/tmp/.buildx-cache-new
       - name: Build and push make
         id: docker_build_make
-        uses: docker/build-push-action@v5
+        uses: docker/build-push-action@v6
         with:
           push: true
           tags: mihxil/npo-pyapi-make:latest
@@ -97,3 +129,6 @@ jobs:
         run: |
           rm -rf /tmp/.buildx-cache
           mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+
+
+
