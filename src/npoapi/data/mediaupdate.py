@@ -1,9 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional, Union
-
 from xsdata.models.datatype import XmlDate, XmlDateTime, XmlDuration
-
 from npoapi.data.media import (
     AgeRatingType,
     AspectRatioEnum,
@@ -17,6 +15,7 @@ from npoapi.data.media import (
     GeoRoleType,
     GroupTypeEnum,
     IntentionEnum,
+    LanguageUsageEnum,
     MediaTypeEnum,
     PlatformTypeEnum,
     ProgramTypeEnum,
@@ -377,20 +376,6 @@ class TranscodeStatusEnum(Enum):
     TIMED_OUT = "TIMED_OUT"
     TERMINATED = "TERMINATED"
     PAUSED = "PAUSED"
-
-
-@dataclass(slots=True)
-class TranscodeStatusTypeBroadcasters:
-    class Meta:
-        global_type = False
-
-    broadcaster: List[str] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
 
 
 @dataclass(slots=True)
@@ -768,6 +753,25 @@ class ItemizeResponseType:
 
 
 @dataclass(slots=True)
+class LanguageType:
+    class Meta:
+        name = "languageType"
+
+    value: str = field(
+        default="",
+        metadata={
+            "required": True,
+        },
+    )
+    usage: Optional[LanguageUsageEnum] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+
+
+@dataclass(slots=True)
 class ListType:
     class Meta:
         name = "list"
@@ -817,34 +821,6 @@ class Liveitemize(LiveItemize1):
     class Meta:
         name = "liveitemize"
         namespace = "urn:vpro:media:update:2009"
-
-
-@dataclass(slots=True)
-class MediaUpdateTypeIntentions:
-    class Meta:
-        global_type = False
-
-    intention: List[IntentionEnum] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
-
-
-@dataclass(slots=True)
-class MediaUpdateTypeTargetGroups:
-    class Meta:
-        global_type = False
-
-    targetGroup: List[TargetGroupEnum] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
 
 
 @dataclass(slots=True)
@@ -1110,7 +1086,7 @@ class TranscodeStatusType:
             "namespace": "urn:vpro:media:update:2009",
         },
     )
-    broadcasters: Optional[TranscodeStatusTypeBroadcasters] = field(
+    broadcasters: Optional["TranscodeStatusType.Broadcasters"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1129,6 +1105,16 @@ class TranscodeStatusType:
             "type": "Attribute",
         },
     )
+
+    @dataclass(slots=True)
+    class Broadcasters:
+        broadcaster: List[str] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
 
 
 @dataclass(slots=True)
@@ -1333,20 +1319,6 @@ class ItemizeResponse(ItemizeResponseType):
 
 
 @dataclass(slots=True)
-class MediaUpdateTypeImages:
-    class Meta:
-        global_type = False
-
-    image: List[ImageUpdateType] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
-
-
-@dataclass(slots=True)
 class MidAndType(MidAndTypeType):
     class Meta:
         name = "midAndType"
@@ -1368,31 +1340,87 @@ class Prediction(PredictionUpdateType):
 
 
 @dataclass(slots=True)
-class ScheduleEventUpdateTypeDescriptions:
+class ScheduleEventUpdateType:
     class Meta:
-        global_type = False
+        name = "scheduleEventUpdateType"
 
-    description: List[DescriptionUpdateType] = field(
-        default_factory=list,
+    start: Optional[XmlDateTime] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        },
+    )
+    guideDay: Optional[XmlDate] = field(
+        default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         },
     )
-
-
-@dataclass(slots=True)
-class ScheduleEventUpdateTypeTitles:
-    class Meta:
-        global_type = False
-
-    title: List[TitleUpdateType] = field(
-        default_factory=list,
+    duration: Optional[XmlDuration] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+            "required": True,
+        },
+    )
+    repeat: Optional[RepeatType] = field(
+        default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         },
     )
+    titles: Optional["ScheduleEventUpdateType.Titles"] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        },
+    )
+    descriptions: Optional["ScheduleEventUpdateType.Descriptions"] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        },
+    )
+    channel: Optional[ChannelEnum] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+            "required": True,
+        },
+    )
+    net: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+
+    @dataclass(slots=True)
+    class Titles:
+        title: List[TitleUpdateType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
+
+    @dataclass(slots=True)
+    class Descriptions:
+        description: List[DescriptionUpdateType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
 
 
 @dataclass(slots=True)
@@ -1482,102 +1510,10 @@ class LocationUpdateType:
 
 
 @dataclass(slots=True)
-class ScheduleEventUpdateType:
-    class Meta:
-        name = "scheduleEventUpdateType"
-
-    start: Optional[XmlDateTime] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-            "required": True,
-        },
-    )
-    guideDay: Optional[XmlDate] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
-    duration: Optional[XmlDuration] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-            "required": True,
-        },
-    )
-    repeat: Optional[RepeatType] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
-    titles: Optional[ScheduleEventUpdateTypeTitles] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
-    descriptions: Optional[ScheduleEventUpdateTypeDescriptions] = field(
-        default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
-    channel: Optional[ChannelEnum] = field(
-        default=None,
-        metadata={
-            "type": "Attribute",
-            "required": True,
-        },
-    )
-    net: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Attribute",
-        },
-    )
-
-
-@dataclass(slots=True)
 class Location(LocationUpdateType):
     class Meta:
         name = "location"
         namespace = "urn:vpro:media:update:2009"
-
-
-@dataclass(slots=True)
-class MediaUpdateTypeLocations:
-    class Meta:
-        global_type = False
-
-    location: List[LocationUpdateType] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
-
-
-@dataclass(slots=True)
-class MediaUpdateTypeScheduleEvents:
-    class Meta:
-        global_type = False
-
-    scheduleEvent: List[ScheduleEventUpdateType] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
 
 
 @dataclass(slots=True)
@@ -1706,7 +1642,7 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         },
     )
-    language: List[str] = field(
+    language: List[LanguageType] = field(
         default_factory=list,
         metadata={
             "type": "Element",
@@ -1721,14 +1657,14 @@ class MediaUpdateType:
             "pattern": r"3(\.[0-9]+)+",
         },
     )
-    intentions: Optional[MediaUpdateTypeIntentions] = field(
+    intentions: Optional["MediaUpdateType.Intentions"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         },
     )
-    targetGroups: Optional[MediaUpdateTypeTargetGroups] = field(
+    targetGroups: Optional["MediaUpdateType.TargetGroups"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1833,14 +1769,14 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         },
     )
-    locations: Optional[MediaUpdateTypeLocations] = field(
+    locations: Optional["MediaUpdateType.Locations"] = field(
         default=None,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:media:update:2009",
         },
     )
-    scheduleEvents: Optional[MediaUpdateTypeScheduleEvents] = field(
+    scheduleEvents: Optional["MediaUpdateType.ScheduleEvents"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1854,7 +1790,7 @@ class MediaUpdateType:
             "namespace": "urn:vpro:media:update:2009",
         },
     )
-    images: Optional[MediaUpdateTypeImages] = field(
+    images: Optional["MediaUpdateType.Images"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -1928,6 +1864,56 @@ class MediaUpdateType:
         },
     )
 
+    @dataclass(slots=True)
+    class Intentions:
+        intention: List[IntentionEnum] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
+
+    @dataclass(slots=True)
+    class TargetGroups:
+        targetGroup: List[TargetGroupEnum] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
+
+    @dataclass(slots=True)
+    class Locations:
+        location: List[LocationUpdateType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
+
+    @dataclass(slots=True)
+    class ScheduleEvents:
+        scheduleEvent: List[ScheduleEventUpdateType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
+
+    @dataclass(slots=True)
+    class Images:
+        image: List[ImageUpdateType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
+
 
 @dataclass(slots=True)
 class GroupUpdateType(MediaUpdateType):
@@ -1997,20 +1983,6 @@ class Segment(SegmentUpdateType):
 
 
 @dataclass(slots=True)
-class ProgramUpdateTypeSegments:
-    class Meta:
-        global_type = False
-
-    segment: List[Segment] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:media:update:2009",
-        },
-    )
-
-
-@dataclass(slots=True)
 class ProgramUpdateType(MediaUpdateType):
     """
     :ivar episodeOf: episodeOf works similar to memberOf. Important differences: only programs of type CLIP or
@@ -2037,7 +2009,7 @@ class ProgramUpdateType(MediaUpdateType):
             "namespace": "urn:vpro:media:update:2009",
         },
     )
-    segments: Optional[ProgramUpdateTypeSegments] = field(
+    segments: Optional["ProgramUpdateType.Segments"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -2052,6 +2024,16 @@ class ProgramUpdateType(MediaUpdateType):
             "required": True,
         },
     )
+
+    @dataclass(slots=True)
+    class Segments:
+        segment: List[Segment] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
 
 
 @dataclass(slots=True)

@@ -1,4 +1,6 @@
+
 .PHONY: docker docker-push
+.DEFAULT_GOAL:=xsdata
 POMS=https://poms-test.omroep.nl/
 #POMS=http://michiel.omroep.nl:8071/
 RS=https://rs-test.poms.omroep.nl/v1/
@@ -7,6 +9,8 @@ PAGESPUB=https://publish-test.pages.omroep.nl/
 #PAGESPUB=http://localhost:8069/
 
 XSDATA=xsdata generate
+
+
 
 
 # doesnt work any more in python > 3.10

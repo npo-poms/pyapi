@@ -7,7 +7,6 @@ import re
 import sys
 from typing import Final, Optional
 
-import pyxb
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
@@ -66,18 +65,7 @@ def to_object(data: str, validate=False, binding=DEFAULT_BINDING, clazz=None) ->
     if data is None:
         return None
     if binding == Binding.PYXB:
-        logger.warning("pyxb is deprecated in to_object")
-        if isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-            result = data
-        else:
-            from npoapi.xml import poms
-
-            bytes, contenttype = data_to_bytes(data)
-            result = poms.CreateFromDocument(bytes)
-
-        if validate:
-            result.validateBinding()
-        return result
+        raise "pyxb is dropped"
     else:
         if dataclasses.is_dataclass(data):
             result = data
@@ -99,18 +87,12 @@ def data_to_bytes(data, content_type: str = None, clazz=None) -> [bytearray, str
     if data:
         import xml.dom.minidom
 
-        import pyxb
-
         if data is None:
             logger.warning("Data is none!")
         elif dataclasses.is_dataclass(data):
             serializer = XmlSerializer(config=SerializerConfig(pretty_print=False))
             content_type = "application/xml"
             data = serializer.render(data, ns_map=NS_MAP).encode("utf-8")
-        elif isinstance(data, pyxb.binding.basis.complexTypeDefinition):
-            logger.warning("pyxb is deprecated!, but incoming object is pyxb object")
-            content_type = "application/xml"
-            data = data.toxml("utf-8")
         elif isinstance(data, xml.dom.minidom.Document):
             data = data.toxml(encoding="utf-8")
         elif isinstance(data, xml.dom.minidom.Element):

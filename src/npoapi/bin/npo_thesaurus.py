@@ -4,7 +4,7 @@ Simple client to post thesaurus updates to npo backend api.
 """
 
 from npoapi import PagesBackend
-from npoapi.xml import thesaurus
+from npoapi.data import NewPerson
 
 
 def thesaurus():
@@ -23,10 +23,10 @@ def thesaurus():
     if data:
         update = client.to_object_or_none(data)
     else:
-        import pyxb
-
-        update = thesaurus.newPersonRequest()
-        update.person = pyxb.BIND()
+        pass
+        # TODO
+        # update = NewPersonRequest()
+        ##update.person = NewPerson()
 
     if args.given_name:
         update.person.givenName = args.given_name

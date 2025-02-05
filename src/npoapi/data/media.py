@@ -1,9 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional, Union
-
 from xsdata.models.datatype import XmlDate, XmlDateTime, XmlDuration
-
 from npoapi.data.shared import (
     Image,
     OwnerTypeEnum,
@@ -426,6 +424,7 @@ class ChannelEnum(Enum):
     :cvar SPID: Spike Nederland
     :cvar PRMT: Paramount Nederland
     :cvar BLND: NPO BLend
+    :cvar NVOD: NPO Start
     :cvar XXXX: Test channel. This channel only exist for the sake of testing.
     :cvar XXXY: Second test channel. This channel only exist for the sake of testing.
     """
@@ -737,6 +736,7 @@ class ChannelEnum(Enum):
     SPID = "SPID"
     PRMT = "PRMT"
     BLND = "BLND"
+    NVOD = "NVOD"
     XXXX = "XXXX"
     XXXY = "XXXY"
 
@@ -821,7 +821,7 @@ class GeoRestrictionEnum(Enum):
     :cvar NLALL: New in 5.6. Nederland plus BES gemeentes plus Curacao, St. Maarten en Aruba
     :cvar EU: New in 5.6. EU (incl. BES gemeentes, Curacao, St. Maarten en Aruba)
     :cvar EUROPE: New in 5.6. Europa in breedste zin van het woord
-    :cvar UNIVERSE: New in 7.7. Explicitly no geo-restriction
+    :cvar WR: New in 7.7. Explicitly no geo-restriction. Was renamed from UNIVERSE in 8.3
     """
 
     NL = "NL"
@@ -830,7 +830,7 @@ class GeoRestrictionEnum(Enum):
     NLALL = "NLALL"
     EU = "EU"
     EUROPE = "EUROPE"
-    UNIVERSE = "UNIVERSE"
+    WR = "WR"
 
 
 class GeoRoleType(Enum):
@@ -872,24 +872,11 @@ class IntentionEnum(Enum):
     ACTIVATING = "ACTIVATING"
 
 
-@dataclass(slots=True)
-class LanguageType:
-    class Meta:
-        name = "languageType"
-
-    value: str = field(
-        default="",
-        metadata={
-            "required": True,
-        },
-    )
-    code: Optional[str] = field(
-        default=None,
-        metadata={
-            "type": "Attribute",
-            "pattern": r"(\w){2,4}",
-        },
-    )
+class LanguageUsageEnum(Enum):
+    AUDIODESCRIPTION = "AUDIODESCRIPTION"
+    DUBBED = "DUBBED"
+    SUPPLEMENTAL = "SUPPLEMENTAL"
+    SIGNING = "SIGNING"
 
 
 class LocationTypeEnum(Enum):
@@ -969,10 +956,21 @@ class OrganizationType:
 
 
 class PlatformTypeEnum(Enum):
+    """
+    :cvar INTERNETVOD: NPO Start
+    :cvar TVVOD: Distributeurs Nederland
+    :cvar TVVODHD: Distributeurs België
+    :cvar PLUSVOD: NPO Plus / NLZiet
+    :cvar NPOPLUSVOD: Unused?
+    :cvar TEST:
+    """
+
     INTERNETVOD = "INTERNETVOD"
     TVVOD = "TVVOD"
+    TVVODHD = "TVVODHD"
     PLUSVOD = "PLUSVOD"
     NPOPLUSVOD = "NPOPLUSVOD"
+    TEST = "TEST"
 
 
 @dataclass(slots=True)
@@ -1203,6 +1201,7 @@ class TargetGroupEnum(Enum):
 class TextualTypeEnum(Enum):
     MAIN = "MAIN"
     LONG = "LONG"
+    MEDIUM = "MEDIUM"
     SHORT = "SHORT"
     SUB = "SUB"
     KICKER = "KICKER"
@@ -1386,6 +1385,32 @@ class IntentionType:
         },
     )
     owner: Optional[OwnerTypeEnum] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+
+
+@dataclass(slots=True)
+class LanguageType:
+    class Meta:
+        name = "languageType"
+
+    value: str = field(
+        default="",
+        metadata={
+            "required": True,
+        },
+    )
+    code: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+            "pattern": r"(\w){2,4}(-\w{2}(-\w+)?)?",
+        },
+    )
+    usage: Optional[LanguageUsageEnum] = field(
         default=None,
         metadata={
             "type": "Attribute",

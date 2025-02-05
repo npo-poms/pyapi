@@ -15,16 +15,15 @@ from npoapi import data
 from npoapi.base import DEFAULT_BINDING
 from npoapi.basic_backend import BasicBackend
 from npoapi.data import (
+    AvFileFormatEnum,
     BaseMediaType,
     LocationUpdateType,
     MediaUpdateType,
+    MemberRef,
     Prediction,
     PredictionUpdateType,
     StreamingStatus,
 )
-from npoapi.xml import media, mediaupdate, poms
-from npoapi.xml.media import baseMediaType, streamingStatus
-from npoapi.xml.mediaupdate import mediaUpdateType
 
 
 class MediaBackend(BasicBackend):
@@ -67,22 +66,18 @@ class MediaBackend(BasicBackend):
             accept=accept,
         )[0]
 
-    def get_object(
-        self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING
-    ) -> Union[mediaUpdateType, MediaUpdateType]:
+    def get_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> Union[MediaUpdateType]:
         """Returns xsdata/pyxb-representation of a mediaobject"""
         return self.to_object(self.get(mid, ignore_not_found), validate=False, binding=binding)
 
-    def get_full_object(
-        self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING
-    ) -> Union[baseMediaType, BaseMediaType]:
+    def get_full_object(self, mid: str, ignore_not_found=False, binding=DEFAULT_BINDING) -> Union[BaseMediaType]:
         """Returns xsdata/pyxb-representation of a mediaobject"""
         return self.to_object(self.get_full(mid, ignore_not_found), validate=False, binding=binding)
 
     def exists(self, mid: str):
         return self.get_from("media/exists/" + urllib.parse.quote(mid, safe=""), accept="")[0] == "true"
 
-    def streaming_status(self, mid: str, binding=DEFAULT_BINDING) -> Union[streamingStatus, StreamingStatus]:
+    def streaming_status(self, mid: str, binding=DEFAULT_BINDING) -> Union[StreamingStatus]:
         return self.to_object(
             self.get_from("media/streamingstatus/" + urllib.parse.quote(mid, safe=""))[0], binding=binding
         )
@@ -166,7 +161,7 @@ class MediaBackend(BasicBackend):
         return self.delete_from(path)[0]
 
     def add_member(self, mid, owner_mid, position=None, highlighted=False) -> Optional[str]:
-        memberOf = mediaupdate.memberRef(owner_mid)
+        memberOf = MemberRef(owner_mid)
         memberOf.position = position
         memberOf.highlighted = highlighted
         path = "media/media/" + urllib.parse.quote(mid, safe="") + "/memberOf/"
@@ -416,11 +411,11 @@ class MediaBackend(BasicBackend):
     @staticmethod
     def guess_format(url):
         if str(url).endswith(".mp4"):
-            return media.avFileFormatEnum.MP4
+            return AvFileFormatEnum.MP4
         elif str(url).endswith(".mp3"):
-            return media.avFileFormatEnum.MP3
+            return AvFileFormatEnum.MP3
         else:
-            return media.avFileFormatEnum.UNKNOWN
+            return AvFileFormatEnum.UNKNOWN
 
     def upload_audio(self, mid: str, file: str, **kwargs):
         if not (file.endswith(".mp3")):

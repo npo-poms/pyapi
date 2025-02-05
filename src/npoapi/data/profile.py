@@ -1,8 +1,6 @@
 from dataclasses import dataclass, field
 from typing import Optional, Union
-
 from xsdata.models.datatype import XmlDateTime
-
 from npoapi.data.api_constraint_media import Filter as MediaFilter
 from npoapi.data.api_constraint_page import Filter as PageFilter
 

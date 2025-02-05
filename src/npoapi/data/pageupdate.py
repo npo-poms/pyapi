@@ -1,8 +1,6 @@
 from dataclasses import dataclass, field
 from typing import List, Optional
-
 from xsdata.models.datatype import XmlDateTime, XmlDuration
-
 from npoapi.data.page import (
     LinkTypeEnum,
     PageIdMatch,
@@ -269,20 +267,6 @@ class LinkUpdateType:
 
 
 @dataclass(slots=True)
-class PageUpdateTypeEmbeds:
-    class Meta:
-        global_type = False
-
-    embed: List[EmbedUpdateType] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:pages:update:2013",
-        },
-    )
-
-
-@dataclass(slots=True)
 class PortalUpdateType:
     class Meta:
         name = "portalUpdateType"
@@ -359,20 +343,6 @@ class ParagraphUpdateType:
     )
     image: Optional[Image] = field(
         default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:pages:update:2013",
-        },
-    )
-
-
-@dataclass(slots=True)
-class PageUpdateTypeParagraphs:
-    class Meta:
-        global_type = False
-
-    paragraph: List[ParagraphUpdateType] = field(
-        default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:update:2013",
@@ -469,7 +439,7 @@ class PageUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         },
     )
-    paragraphs: Optional[PageUpdateTypeParagraphs] = field(
+    paragraphs: Optional["PageUpdateType.Paragraphs"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -497,7 +467,7 @@ class PageUpdateType:
             "namespace": "urn:vpro:pages:update:2013",
         },
     )
-    embeds: Optional[PageUpdateTypeEmbeds] = field(
+    embeds: Optional["PageUpdateType.Embeds"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -570,6 +540,26 @@ class PageUpdateType:
             "type": "Attribute",
         },
     )
+
+    @dataclass(slots=True)
+    class Paragraphs:
+        paragraph: List[ParagraphUpdateType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:pages:update:2013",
+            },
+        )
+
+    @dataclass(slots=True)
+    class Embeds:
+        embed: List[EmbedUpdateType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:pages:update:2013",
+            },
+        )
 
 
 @dataclass(slots=True)

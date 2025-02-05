@@ -1,9 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import Optional
-
 from xsdata.models.datatype import XmlDateTime, XmlDuration
-
 from npoapi.data.shared import (
     OwnerTypeEnum,
     SubtitlesTypeEnum,

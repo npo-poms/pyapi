@@ -10,7 +10,6 @@ import urllib.request
 from enum import Enum
 from typing import Dict, List, Optional, Union
 
-import pyxb
 from urllib3.exceptions import NameResolutionError
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
@@ -20,19 +19,7 @@ from npoapi.data.poms import NS_MAP
 
 
 def declare_namespaces():
-    import pyxb.utils.domutils
-
-    from npoapi.xml import api as xapi
-    from npoapi.xml import media, page, pageupdate, shared, thesaurus
-    from npoapi.xml import mediaupdate as xmediaupdate
-
-    pyxb.utils.domutils.BindingDOMSupport.SetDefaultNamespace(xmediaupdate.Namespace)
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(pageupdate.Namespace, "pu")
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(page.Namespace, "pages")
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(media.Namespace, "media")
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(shared.Namespace, "shared")
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(xapi.Namespace, "api")
-    pyxb.utils.domutils.BindingDOMSupport.DeclareNamespace(thesaurus.Namespace, "gtaa")
+    pass
 
 
 from importlib import reload

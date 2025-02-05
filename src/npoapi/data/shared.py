@@ -1,7 +1,6 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional
-
 from xsdata.models.datatype import XmlDateTime, XmlDuration
 
 __NAMESPACE__ = "urn:vpro:shared:2009"
@@ -28,6 +27,7 @@ class LicenseEnum(Enum):
     CC_BY_NC_SA = "CC_BY_NC_SA"
     CC_BY_NC_ND = "CC_BY_NC_ND"
     USA_GOV = "USA_GOV"
+    CC_MARK = "CC_MARK"
 
 
 class OwnerTypeEnum(Enum):

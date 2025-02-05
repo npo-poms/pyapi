@@ -1,9 +1,7 @@
 from dataclasses import dataclass, field
 from enum import Enum
 from typing import List, Optional, Union
-
 from xsdata.models.datatype import XmlDateTime
-
 from npoapi.data.media import (
     BroadcasterType,
     Group,
@@ -333,20 +331,6 @@ class ReferralType:
 
 
 @dataclass(slots=True)
-class PageTypeImages:
-    class Meta:
-        global_type = False
-
-    image: List[ImageType] = field(
-        default_factory=list,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:pages:2013",
-        },
-    )
-
-
-@dataclass(slots=True)
 class ParagraphType:
     class Meta:
         name = "paragraphType"
@@ -367,20 +351,6 @@ class ParagraphType:
     )
     image: Optional[ImageType] = field(
         default=None,
-        metadata={
-            "type": "Element",
-            "namespace": "urn:vpro:pages:2013",
-        },
-    )
-
-
-@dataclass(slots=True)
-class PageTypeParagraphs:
-    class Meta:
-        global_type = False
-
-    paragraph: List[ParagraphType] = field(
-        default_factory=list,
         metadata={
             "type": "Element",
             "namespace": "urn:vpro:pages:2013",
@@ -458,7 +428,7 @@ class PageType:
             "namespace": "urn:vpro:pages:2013",
         },
     )
-    paragraphs: Optional[PageTypeParagraphs] = field(
+    paragraphs: Optional["PageType.Paragraphs"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -500,7 +470,7 @@ class PageType:
             "namespace": "urn:vpro:pages:2013",
         },
     )
-    images: Optional[PageTypeImages] = field(
+    images: Optional["PageType.Images"] = field(
         default=None,
         metadata={
             "type": "Element",
@@ -577,6 +547,26 @@ class PageType:
             "type": "Attribute",
         },
     )
+
+    @dataclass(slots=True)
+    class Paragraphs:
+        paragraph: List[ParagraphType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:pages:2013",
+            },
+        )
+
+    @dataclass(slots=True)
+    class Images:
+        image: List[ImageType] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:pages:2013",
+            },
+        )
 
 
 @dataclass(slots=True)

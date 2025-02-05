@@ -8,7 +8,7 @@ from xml.dom.minidom import parseString
 
 from npoapi import MediaBackend
 from npoapi.base import DEFAULT_BINDING, Binding
-from npoapi.xml import media_search
+from npoapi.data import MediaSearchType
 
 
 def mediabackend():
@@ -115,7 +115,7 @@ def mediabackend():
                     update = client.to_object_or_none(xml, validate=args.client_validate, binding=binding)
                     exec(args.process)
                     client.logger.debug("Execed " + args.process)
-                if not (type(update) == str) and xml.childNodes[0].namespaceURI == media_search.Namespace.uri():
+                if not (type(update) == str) and xml.childNodes[0].namespaceURI == "urn:vpro:media:search:2012":
                     if args.delete:
                         client.exit("cannot delete with search")
                     print(
