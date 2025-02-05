@@ -49,7 +49,7 @@ pip install -e .[testing]
 
 === Docker
 
-If you don't feel like installing anything at all, but have a docker environment running (amd64), then I've https://hub.docker.com/repository/docker/mihxil/npo-pyapi[published] a docker image for you:
+If you don't feel like installing anything at all, but have a docker environment running (amd64, arm64), then I've https://hub.docker.com/repository/docker/mihxil/npo-pyapi[published] a docker image for you:
 
 [source, bash]
 ----
