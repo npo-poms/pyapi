@@ -109,7 +109,9 @@ class Media(NpoApi):
                 sinceDate = str(since).replace(" ", "T")
             elif type(since) == int:
                 sinceDate = str(since)
-            elif not force_oldstyle and (not since.isdigit() or int(since) > 946681200000):
+            elif type(since) == float:
+                sinceDate = str(int(since))
+            elif not force_oldstyle and type(since) == str and (not since.isdigit() or int(since) > 946681200000):
                 sinceDate = since
             else:
                 sinceLong = since
