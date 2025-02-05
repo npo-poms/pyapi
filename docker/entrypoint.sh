@@ -1,4 +1,5 @@
 #!/usr/bin/env sh
+. /pyapi/bin/activate
 # simple script to make the npo_ prefixes superflouous
 command=$1
 shift
