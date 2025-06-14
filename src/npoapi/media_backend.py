@@ -7,6 +7,9 @@ from datetime import datetime
 from typing import Dict, Optional, Union
 from xml.dom import minidom
 
+import magic
+
+
 import lxml
 from typing_extensions import override
 from xsdata.models.datatype import XmlDateTime
@@ -429,12 +432,18 @@ class MediaBackend(BasicBackend):
         priority = kwargs.get("priority", None)
         transcode = kwargs.get("transcode", True)
         if content_type is None:
-            if file.endswith(".mp3"):
-                content_type = "audio/mp3"
-            elif file.endswith(".mp4"):
-                content_type = "video/mp4"
-            else:
-                return "not supported " + file
+            try:
+                f = magic.Magic(mime=True, uncompress=True)
+                content_type = f.from_file(file)
+            except Exception as e:
+                self.logger.error("Error guessing content type for %s: %s" % (file, e))
+                if file.endswith(".mp3"):
+                    content_type = "audio/mp3"
+                elif file.endswith(".mp4"):
+                    content_type = "video/mp4"
+                else:
+                    return "not supported " + file
+            self.logger.info("Content type not given, guessing %s for %s" % (content_type, file))
         if content_type.startswith("video/"):
             if transcode:
                 post_fix = "/%s/%s" % (

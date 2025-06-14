@@ -18,6 +18,7 @@ dependencies = [
     "isoduration==20.11.0",
     "lxml==5.2.2",
     "json-stream==2.3.2",
+    "python-magic==0.4.27",
 ]
 requires-python = ">=3.10"
 readme = "README.txt"
