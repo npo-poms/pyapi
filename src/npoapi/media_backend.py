@@ -422,7 +422,7 @@ class MediaBackend(BasicBackend):
             return "not an mp3 " + file
         return self.upload(mid, file, **kwargs)
 
-    def upload(self, mid: str, file: str, content_type: None, **kwargs):
+    def upload(self, mid: str, file: str, content_type: str = None, **kwargs):
         parseable_response = True
         post_fix = ""
         encryption = kwargs.get("encryption", None)
