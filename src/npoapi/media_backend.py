@@ -7,6 +7,7 @@ from datetime import datetime
 from typing import Dict, Optional, Union
 from xml.dom import minidom
 
+import pylibmagic
 import magic
 
 
