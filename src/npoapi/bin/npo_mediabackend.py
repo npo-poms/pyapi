@@ -8,7 +8,6 @@ from xml.dom.minidom import parseString
 
 from npoapi import MediaBackend
 from npoapi.base import DEFAULT_BINDING, Binding
-from npoapi.data import MediaSearchType
 
 
 def mediabackend():
