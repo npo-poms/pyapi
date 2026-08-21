@@ -80,12 +80,29 @@ class MediaS3:
 
     def list_mids(self, fmt: str = "json"):
         """Yield all MIDs stored under media/<fmt>/ in the bucket, one page at a time."""
+        for mid, _content in self.list_objects(fmt=fmt, fetch_content=False):
+            yield mid
+
+    def list_objects(self, fmt: str = "json", fetch_content: bool = True):
+        """Yield (mid, content) tuples for all objects under media/<fmt>/.
+
+        When *fetch_content* is True (default) the raw string content of each
+        object is fetched and returned as the second element of the tuple.
+        When False, the second element is None, making this equivalent to
+        iterating keys only (as list_mids does).
+        """
         paginator = self._client.get_paginator("list_objects_v2")
         for page in paginator.paginate(Bucket=self.bucket, Prefix=f"media/{fmt}/"):
             for obj in page.get("Contents", []):
-                mid = obj["Key"].removeprefix(f"media/{fmt}/").removesuffix(f".{fmt}")
-                if mid:
-                    yield mid
+                key = obj["Key"]
+                mid = key.removeprefix(f"media/{fmt}/").removesuffix(f".{fmt}")
+                if not mid:
+                    continue
+                if fetch_content:
+                    content = self._get_raw(mid, fmt)
+                else:
+                    content = None
+                yield mid, content
 
     def get_object(self, mid: str, fmt: str = "xml", binding=None):
         """Return a deserialized media object (xsdata), or None if not found."""
