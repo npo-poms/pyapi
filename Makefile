@@ -13,9 +13,14 @@ XSDATA=xsdata generate
 
 
 
+help:     ## Show this help.
+	@sed -n 's/^##//p' $(MAKEFILE_LIST)
+	@grep -E '^[/%a-zA-Z._-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
+
+
 # doesnt work any more in python > 3.10
 # module 'collections' has no attribute 'MutableSequence'
-npoapi/xml/__init__.py: pyproject.toml
+npoapi/xml/__init__.py: pyproject.toml    ## pyxb support, not any more feasible since pyxb not supported
 	pyxbgen \
 	   --schema-location=$(POMS)schema/vproMedia.xsd --module media \
 	   --schema-location=$(POMS)schema/vproShared.xsd --module shared \
@@ -35,7 +40,7 @@ npoapi/xml/__init__.py: pyproject.toml
 
 .PHONY: xsdata
 
-xsdata: src/npoapi/data/__init__.py
+xsdata: src/npoapi/data/__init__.py   ## generated xsdata files
 src/npoapi/data/__init__.py: pyproject.toml Makefile src/.xsdata.xml
 	(cd src ; $(XSDATA) $(RS)schema/combined.xsd)
 	#hackery, but I think something's not right with the empty namespace
@@ -43,27 +48,26 @@ src/npoapi/data/__init__.py: pyproject.toml Makefile src/.xsdata.xml
 	echo "from npoapi.data.empty import (Collection,CollectionType)" >> src/npoapi/data/__init__.py
 	mv src/npoapi/data.py src/npoapi/data/empty.py
 
-docker:
+docker:   ## locally build docker image
 	docker build -t mihxil/npo-pyapi:latest  -f docker/Dockerfile .
 
-docker-make:
+docker-make:  ## locally build docker 'make' image
 	docker build -t mihxil/npo-pyapi-make:latest  docker/make
 
-docker-flask:
+docker-flask:  ## locally build docker flask image
 	docker build -t mihxil/npo-pyapi-flask:latest  flask
 
-docker-push:
+docker-push:  ## push image
 	docker push mihxil/npo-pyapi:latest
 
 docker-flask-push: docker-flask
 	docker image push mihxil/npo-pyapi-flask:latest
 
 
-clean:
+clean:  # clean target
 	rm -rf build
 
-
-clean.data: clean
+clean.data: clean  # also clean generated xsdata files
 	find npoapi/data -type f -not -name 'poms.py' -delete
 
 clean.xml: clean.model clean

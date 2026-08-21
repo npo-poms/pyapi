@@ -13,6 +13,7 @@ from npoapi.media_backend import MediaBackend
 from npoapi.media_backend_util import MediaBackendUtil
 from npoapi.transcoding_util import TranscodingUtil
 from npoapi.pages_backend import PagesBackend
+from npoapi.media_s3 import MediaS3
 from npoapi.base import Binding
 import npoapi.utils
 

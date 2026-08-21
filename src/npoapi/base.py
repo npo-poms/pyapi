@@ -65,6 +65,7 @@ class NpoApiBase:
         self.settings = {}
         self.response_headers = False
         self.write_count = 0
+        self.argument_parser = None
 
     @abc.abstractmethod
     def env(self, e):

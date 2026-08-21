@@ -1,5 +1,6 @@
 from .npo_check_credentials import *
 from .npo_media_changes import *
+from .npo_media_s3 import *
 from .npo_media_follow_changes import *
 from .npo_media_get import *
 from .npo_media_iterate import *
