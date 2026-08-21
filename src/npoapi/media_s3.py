@@ -1,12 +1,11 @@
 import logging
 import os
-from typing import Optional, Union
+from typing import Optional
 
 import boto3
 from botocore.exceptions import ClientError
 
-from npoapi.base import DEFAULT_BINDING, Binding, NpoApiBase
-from npoapi.data import BaseMediaType, MediaUpdateType
+from npoapi.base import NpoApiBase
 
 
 BUCKETS = {
@@ -79,15 +78,27 @@ class MediaS3:
         """Return the raw JSON or XML string for a media object, or None if not found."""
         return self._get_raw(mid, fmt)
 
-    def get_object(self, mid: str, fmt: str = "xml", binding=DEFAULT_BINDING) -> Optional[Union[MediaUpdateType, BaseMediaType]]:
+    def list_mids(self, fmt: str = "json"):
+        """Yield all MIDs stored under media/<fmt>/ in the bucket, one page at a time."""
+        paginator = self._client.get_paginator("list_objects_v2")
+        for page in paginator.paginate(Bucket=self.bucket, Prefix=f"media/{fmt}/"):
+            for obj in page.get("Contents", []):
+                mid = obj["Key"].removeprefix(f"media/{fmt}/").removesuffix(f".{fmt}")
+                if mid:
+                    yield mid
+
+    def get_object(self, mid: str, fmt: str = "xml", binding=None):
         """Return a deserialized media object (xsdata), or None if not found."""
+        from npoapi.base import DEFAULT_BINDING
         raw = self._get_raw(mid, fmt)
         if raw is None:
             return None
-        return _deserialize(raw, fmt, binding)
+        return _deserialize(raw, fmt, binding or DEFAULT_BINDING)
 
 
-def _deserialize(raw: str, fmt: str, binding: Binding):
+def _deserialize(raw: str, fmt: str, binding):
+    from npoapi.base import Binding
+    from npoapi.data import MediaUpdateType
     if binding == Binding.XSDATA:
         if fmt == "json":
             from xsdata.formats.dataclass.parsers import JsonParser
