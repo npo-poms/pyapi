@@ -20,7 +20,7 @@ def media_s3():
     parser.add_argument(
         "-e", "--env",
         type=str,
-        choices=["prod", "acc"],
+        choices=["prod", "acc", "test"],
         default="prod",
         help="Environment / bucket to use: prod=poms-prod-input, acc=poms-acc-input (default: prod)",
     )

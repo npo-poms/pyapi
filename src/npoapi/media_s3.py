@@ -13,6 +13,7 @@ from npoapi.base import NpoApiBase
 BUCKETS = {
     "prod": "poms-prd-input",
     "acc": "poms-acc-input",
+    "test": "poms-tst-input"
 }
 
 DateLike = Union[str, datetime.datetime, datetime.date]
