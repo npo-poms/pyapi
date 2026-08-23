@@ -18,34 +18,35 @@ def media_s3():
 
     client.add_argument("mid", type=str, nargs="*", help=MID_HELP)
     client.add_argument(
-        "-f", "--format",
+        "-f",
+        "--format",
         type=str,
         choices=["json", "xml"],
         default="json",
         help="Format to retrieve (default: json)",
     )
     client.add_argument(
-        "-l", "--list",
+        "-l",
+        "--list",
         action="store_true",
         help="List the MIDs in the bucket instead of getting objects by MID",
     )
     client.add_argument(
-        "-s", "--modified-since",
+        "-s",
+        "--modified-since",
         type=str,
         default=None,
         metavar="TIMESTAMP",
         help="Only consider objects modified after this ISO-8601 date or datetime "
-             "(e.g. 2026-08-01 or 2026-08-01T12:00:00+02:00). Naive values are UTC. "
-             "Combines with --list, or filters the given MIDs.",
+        "(e.g. 2026-08-01 or 2026-08-01T12:00:00+02:00). Naive values are UTC. "
+        "Combines with --list, or filters the given MIDs.",
     )
     args = client.parse_args()
 
     if args.list:
         if args.mid:
             client.argument_parser.error("--list takes no MID arguments")
-        for mid, obj in client.list_keys(
-            fmt=args.format, modified_since=args.modified_since
-        ):
+        for mid, obj in client.list_keys(fmt=args.format, modified_since=args.modified_since):
             print(f"{obj['LastModified'].isoformat()}\t{mid}")
         return
 

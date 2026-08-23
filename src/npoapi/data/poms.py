@@ -1,9 +1,8 @@
 # This file is NOT generated
 from datetime import datetime
-from typing import Dict, List, Optional, Type, Union
 
 from xsdata.formats.dataclass.models.generics import AnyElement
-from xsdata.formats.dataclass.parsers import UserXmlParser, XmlParser
+from xsdata.formats.dataclass.parsers import XmlParser
 from xsdata.formats.dataclass.parsers.bases import Parsed
 from xsdata.formats.dataclass.parsers.config import ParserConfig
 from xsdata.formats.dataclass.parsers.mixins import XmlNode
@@ -12,26 +11,10 @@ from xsdata.formats.dataclass.serializers.config import SerializerConfig
 from xsdata.models.datatype import XmlDateTime
 
 # imports are implicitly used by parser
-import npoapi
 from npoapi.data import api, media, mediaupdate, page, pageupdate
-from npoapi.data.api import MediaForm, PagesForm
-from npoapi.data.media import Group, LocationType, Program, Segment
-from npoapi.data.mediaupdate import (
-    Group as GroupUpdate,
-)
-from npoapi.data.mediaupdate import (
-    Image as ImageUpdate,
-)
 from npoapi.data.mediaupdate import (
     Location as LocationUpdate,
 )
-from npoapi.data.mediaupdate import (
-    Program as ProgramUpdate,
-)
-from npoapi.data.mediaupdate import (
-    Segment as SegmentUpdate,
-)
-from npoapi.data.pageupdate import Page as PageUpdate
 
 
 class MyParser(XmlParser):
@@ -40,12 +23,12 @@ class MyParser(XmlParser):
 
     def start(
         self,
-        clazz: Optional[Type],
-        queue: List[XmlNode],
-        objects: List[Parsed],
+        clazz: type | None,
+        queue: list[XmlNode],
+        objects: list[Parsed],
         qname: str,
-        attrs: Dict,
-        ns_map: Dict,
+        attrs: dict,
+        ns_map: dict,
     ):
         if qname == "{urn:vpro:media:update:2009}location":
             clazz = LocationUpdate
@@ -88,7 +71,7 @@ def from_string(source: str):
     return parser.from_string(source)
 
 
-def from_bytes(source: bytes, clazz: Optional[Type] = None):
+def from_bytes(source: bytes, clazz: type | None = None):
     return parser.from_bytes(source, clazz)
 
 
@@ -100,7 +83,7 @@ def children_from_any(source: AnyElement, qname: str):
     return list(filter(lambda a: a.qname == qname, source.children))
 
 
-def to_xml_data_time(input: Union[datetime, str, XmlDateTime]) -> Optional[XmlDateTime]:
+def to_xml_data_time(input: datetime | str | XmlDateTime) -> XmlDateTime | None:
     if type is None:
         return None
     if type(input) == XmlDateTime:

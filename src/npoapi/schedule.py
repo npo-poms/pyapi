@@ -1,12 +1,10 @@
-from typing import Optional
-
 from npoapi.npoapi import NpoApi
 
 
 class Schedule(NpoApi):
     def get_schedule_response(
         self, guideDay=None, channel=None, sort="asc", offset=0, limit=240, properties=None, accept=None
-    ) -> Optional[str]:
+    ) -> str | None:
         params = {"guideDay": guideDay, "sort": sort, "max": limit, "offset": offset, "properties": properties}
         if channel:
             return self.stream("/api/schedule/channel/" + channel, params=params, accept=accept)

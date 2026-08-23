@@ -3,7 +3,6 @@ import dataclasses
 import http
 import logging
 import urllib.request
-from typing import Optional, Tuple
 from xml.dom import minidom
 
 import pytz
@@ -107,8 +106,8 @@ class BasicBackend(NpoApiBase):
         urllib.request.install_opener(
             urllib.request.build_opener(urllib.request.HTTPBasicAuthHandler(password_manager))
         )
-        base64string = base64.encodebytes(("%s:%s" % (username, password)).encode()).decode()[:-1]
-        return "Basic %s" % base64string
+        base64string = base64.encodebytes((f"{username}:{password}").encode()).decode()[:-1]
+        return f"Basic {base64string}"
 
     def _creds(self):
         """Checks whether authentication information is present in self, and if not make sure it is."""
@@ -120,7 +119,7 @@ class BasicBackend(NpoApiBase):
     def _needs_login(self):
         return not self.authorizationHeader
 
-    def post_to(self, path, xml, accept=None, **kwargs) -> Tuple[Optional[str], Optional[str]]:
+    def post_to(self, path, xml, accept=None, **kwargs) -> tuple[str | None, str | None]:
         """Post to path on configured server. Add necessary authentication headers"""
         if xml is None:
             raise Exception("Cant post without xml")
@@ -128,7 +127,7 @@ class BasicBackend(NpoApiBase):
 
     def post_bytes_to(
         self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs
-    ) -> Tuple[Optional[str], Optional[str]]:
+    ) -> tuple[str | None, str | None]:
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
@@ -138,7 +137,7 @@ class BasicBackend(NpoApiBase):
 
     def post_bytes_to_response(
         self, path, bytes, accept=None, content_type="application/xml", content_length=None, **kwargs
-    ) -> Tuple[Optional[str], Optional[str]]:
+    ) -> tuple[str | None, str | None]:
         """Post to path on configured server. Add necessary authentication headers"""
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
@@ -148,14 +147,14 @@ class BasicBackend(NpoApiBase):
 
     def get_from(
         self, path: str, accept="application/xml", ignore_not_found=False, **kwargs
-    ) -> Tuple[Optional[str], Optional[str]]:
+    ) -> tuple[str | None, str | None]:
         self._creds()
         _url = self.append_params(self.url + path, include_errors=False, **kwargs)
         req = urllib.request.Request(_url)
         self.logger.debug("Getting from " + _url)
         return self._request(req, _url, accept=accept, ignore_not_found=ignore_not_found)
 
-    def delete_from(self, path: str, **kwargs) -> Tuple[Optional[str], Optional[str]]:
+    def delete_from(self, path: str, **kwargs) -> tuple[str | None, str | None]:
         self._creds()
         url = self.append_params(self.url + path, **kwargs)
         req = urllib.request.Request(url, method="DELETE")
@@ -163,11 +162,11 @@ class BasicBackend(NpoApiBase):
         return self._request(req, url)
 
     @deprecated("")
-    def _get_xml(self, url: str) -> Optional[bytes]:
+    def _get_xml(self, url: str) -> bytes | None:
         """Gets XML (as a byte array) from a URL. So this sets the accept header."""
         return self._get(url, accept="application/xml")
 
-    def _get(self, url: str, accept: str = None) -> Optional[bytes]:
+    def _get(self, url: str, accept: str = None) -> bytes | None:
         """Gets response (as a byte array) from a URL"""
         self._creds()
         req = urllib.request.Request(url)
@@ -190,7 +189,7 @@ class BasicBackend(NpoApiBase):
         ignore_not_found=False,
         content_type="application/xml",
         content_length=None,
-    ) -> Tuple[Optional[str], Optional[str]]:
+    ) -> tuple[str | None, str | None]:
         try:
             response = self._request_response(
                 req,
@@ -249,7 +248,7 @@ class BasicBackend(NpoApiBase):
     def info(self):
         return self.url
 
-    def date_attr_value(self, datetime_att) -> Optional[str]:
+    def date_attr_value(self, datetime_att) -> str | None:
         if datetime_att:
             if type(datetime_att) == str:
                 return datetime_att

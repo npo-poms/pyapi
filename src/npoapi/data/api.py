@@ -469,6 +469,9 @@ class Error(ErrorType):
 @dataclass(slots=True)
 class ExtendedMatcherType:
     """
+
+    "
+
     :ivar value:
     :ivar fuzziness:
     :ivar matchType:
@@ -759,6 +762,9 @@ class SearchResultItem:
 @dataclass(slots=True)
 class SimpleMatcherType:
     """
+
+    "
+
     :ivar value:
     :ivar fuzziness:
     :ivar semantic: Whether the search must happen via the semantic vectorization. This is beta feature, which
@@ -892,6 +898,9 @@ class TextMatcherType:
 @dataclass(slots=True)
 class TitleSearchType:
     """
+
+    "
+
     :ivar value:
     :ivar owner:
     :ivar typeValue:
@@ -1452,6 +1461,9 @@ class MediaFacetsResultType:
 @dataclass(slots=True)
 class MediaRelationSearchType:
     """
+
+    "
+
     :ivar types:
     :ivar broadcasters:
     :ivar values:
@@ -1508,6 +1520,9 @@ class MediaResult(MediaResultType):
 @dataclass(slots=True)
 class MemberRefSearchType:
     """
+
+    "
+
     :ivar mediaIds:
     :ivar types:
     :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
@@ -1620,6 +1635,9 @@ class PageFacetsResultType:
 @dataclass(slots=True)
 class PageRelationSearchType:
     """
+
+    "
+
     :ivar types:
     :ivar broadcasters:
     :ivar values:
@@ -1669,6 +1687,9 @@ class PageRelationSearchType:
 @dataclass(slots=True)
 class SubtitlesSearchType:
     """
+
+    "
+
     :ivar text:
     :ivar mids:
     :ivar types:
@@ -1725,6 +1746,9 @@ class SuggestResult(SuggestResultType):
 @dataclass(slots=True)
 class TermSearchType:
     """
+
+    "
+
     :ivar ids:
     :ivar match: The match type. If not specified, the default is MUST. But it can also be SHOULD or NOT.
     """
@@ -1869,6 +1893,7 @@ class MediaSearchResultType(GenericMediaSearchResultType):
 class MediaSearchType:
     """
     Limits the search result to media with certain properties.
+    "
 
     :ivar text:
     :ivar mediaIds: The MID must match one of the mediaIds
@@ -2073,6 +2098,9 @@ class PageSearchResult(PageSearchResultType):
 @dataclass(slots=True)
 class PagesSearchType:
     """
+
+    "
+
     :ivar text:
     :ivar broadcasters:
     :ivar types:

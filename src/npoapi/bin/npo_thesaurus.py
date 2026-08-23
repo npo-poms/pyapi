@@ -4,7 +4,6 @@ Simple client to post thesaurus updates to npo backend api.
 """
 
 from npoapi import PagesBackend
-from npoapi.data import NewPerson
 
 
 def thesaurus():

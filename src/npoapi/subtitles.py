@@ -1,5 +1,4 @@
 import urllib.request
-from typing import Optional
 
 from npoapi.npoapi import NpoApi
 
@@ -23,7 +22,7 @@ class Subtitles(NpoApi):
     def accept_choices(self):
         return {"vtt": "text/vtt", "srt": "text/srt", "ebu": "application/ebu-stl", "tt888": "text/tt888"}
 
-    def get(self, mid, language, subtitle_type="CAPTION", ignore_not_found=True) -> Optional[str]:
+    def get(self, mid, language, subtitle_type="CAPTION", ignore_not_found=True) -> str | None:
         """Returns subtitles for giving mid, or None of not found"""
         return self.request(
             "/api/subtitles/"

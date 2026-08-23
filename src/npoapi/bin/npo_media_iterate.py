@@ -5,8 +5,8 @@ Simple client to search media in the  NPO Frontend API
 
 import os
 import sys
+from collections.abc import Callable
 from http.client import IncompleteRead
-from typing import Callable
 
 import json_stream
 
@@ -82,7 +82,7 @@ class MediaIterate:
         client.add_argument(
             "--progress",
             action="store_true",
-            help="If set, some progress indication will be written to stderr (a dot for every %s bytes)" % buffer_size,
+            help=f"If set, some progress indication will be written to stderr (a dot for every {buffer_size} bytes)",
         )
         client.add_argument("-p", "--properties", type=str, default=None, help="properties filtering")
         client.add_argument(
@@ -93,9 +93,8 @@ class MediaIterate:
         A lambda receiving a dict and a count. Should produce a string. E.g. lambda mo: mo.get('mid', '').
 
         A few magical values are supported:
-        %s
-          """
-            % ("\n".join(list(map(lambda item: item[0] + ":" + item[1], self.magical_values.items())))),
+        {}
+          """.format("\n".join(list(map(lambda item: item[0] + ":" + item[1], self.magical_values.items())))),
         )
 
         args = client.parse_args()

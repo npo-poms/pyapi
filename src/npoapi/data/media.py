@@ -13,6 +13,9 @@ __NAMESPACE__ = "urn:vpro:media:2009"
 
 class AgeRatingType(Enum):
     """
+
+    "
+
     :cvar VALUE_6: Suitable for people of age 6 and up.
     :cvar VALUE_9: Suitable for people of age 9 and up.
     :cvar VALUE_12: Suitable for people of age 12 and up.
@@ -117,6 +120,9 @@ class AvailableSubtitleType:
 
 class ChannelEnum(Enum):
     """
+
+    "
+
     :cvar NED1: NPO 1.
     :cvar NED2: NPO 2.
     :cvar NED3: NPO 3 &amp; Z@pp.
@@ -741,6 +747,14 @@ class ChannelEnum(Enum):
     XXXY = "XXXY"
 
 
+class ChapterType(Enum):
+    IDENT = "IDENT"
+    RECAP = "RECAP"
+    INTRO = "INTRO"
+    MAIN = "MAIN"
+    CREDITS = "CREDITS"
+
+
 class ColorType(Enum):
     COLOR = "COLOR"
     BLACK_AND_WHITE = "BLACK AND WHITE"
@@ -750,6 +764,9 @@ class ColorType(Enum):
 
 class ContentRatingType(Enum):
     """
+
+    "
+
     :cvar DISCRIMINATIE: Discrimination. Contains depictions, or material which may encourage, discrimination.
     :cvar GROF_TAALGEBRUIK: Coarse language.
     :cvar ANGST: Fear. May be frightening or scary for young children.
@@ -815,6 +832,9 @@ class GenreType:
 
 class GeoRestrictionEnum(Enum):
     """
+
+    "
+
     :cvar NL: Media only playable in the Netherlands.
     :cvar BENELUX: Media only playable in the Benelux (Belgium, Netherlands, Luxembourg). This is unused.
     :cvar NLBES: New in 5.6.  Nederland plus BES gemeentes
@@ -887,6 +907,9 @@ class LocationTypeEnum(Enum):
 
 class MediaTypeEnum(Enum):
     """
+
+    "
+
     :cvar MEDIA: The abstract type denoting every possible media type
     :cvar GROUP: The abstract type denoting every possible group type
     :cvar PROGRAM: The abstract type denoting every possible program type
@@ -957,6 +980,9 @@ class OrganizationType:
 
 class PlatformTypeEnum(Enum):
     """
+
+    "
+
     :cvar INTERNETVOD: NPO Start
     :cvar TVVOD: Distributeurs Nederland
     :cvar TVVODHD: Distributeurs België
@@ -1006,6 +1032,9 @@ class PortalRestrictionType:
 
 class PredictionStateEnum(Enum):
     """
+
+    "
+
     :cvar NOT_ANNOUNCED: This value is not exposed, it can be present in the database though. It means that for
         given platform no playability is or was present or predicted.
     :cvar ANNOUNCED: For given platform no playability is present, but it predicted though, because it was
@@ -1095,6 +1124,9 @@ class RepeatType:
 
 class RoleType(Enum):
     """
+
+    "
+
     :cvar DIRECTOR:
     :cvar CHIEF_EDITOR:
     :cvar EDITOR:
@@ -1121,6 +1153,7 @@ class RoleType(Enum):
     :cvar STAGING:
     :cvar STUNT:
     :cvar VISUAL_EFFECTS:
+    :cvar HOST:
     :cvar UNDEFINED:
     """
 
@@ -1150,11 +1183,22 @@ class RoleType(Enum):
     STAGING = "STAGING"
     STUNT = "STUNT"
     VISUAL_EFFECTS = "VISUAL_EFFECTS"
+    HOST = "HOST"
     UNDEFINED = "UNDEFINED"
 
 
 class ScheduleEventTypeEnum(Enum):
+    """
+
+    "
+
+    :cvar STRAND:
+    :cvar ON_DEMAND: This type is used for schedule events which are not broadcasted, but only available as VOD.
+        This is used for example for NPO Start. New since poms 8.13
+    """
+
     STRAND = "STRAND"
+    ON_DEMAND = "ON_DEMAND"
 
 
 class SegmentTypeEnum(Enum):
@@ -1189,13 +1233,16 @@ class TagType:
 
 
 class TargetGroupEnum(Enum):
+    EVERYONE = "EVERYONE"
     KIDS_6 = "KIDS_6"
+    KIDS_9 = "KIDS_9"
     KIDS_12 = "KIDS_12"
+    KIDS_14 = "KIDS_14"
+    KIDS_16 = "KIDS_16"
     YOUNG_ADULTS = "YOUNG_ADULTS"
     ADULTS = "ADULTS"
     ADULTS_WITH_KIDS_6 = "ADULTS_WITH_KIDS_6"
     ADULTS_WITH_KIDS_12 = "ADULTS_WITH_KIDS_12"
-    EVERYONE = "EVERYONE"
 
 
 class TextualTypeEnum(Enum):
@@ -1210,11 +1257,18 @@ class TextualTypeEnum(Enum):
     WORK = "WORK"
     LEXICO = "LEXICO"
     ABBREVIATION = "ABBREVIATION"
+    STYLED = "STYLED"
 
 
 class TwitterTypeType(Enum):
     ACCOUNT = "ACCOUNT"
     HASHTAG = "HASHTAG"
+    BSKY = "BSKY"
+    LINKEDIN = "LINKEDIN"
+    FACEBOOK = "FACEBOOK"
+    INSTAGRAM = "INSTAGRAM"
+    MASTODON = "MASTODON"
+    OTHER = "OTHER"
 
 
 @dataclass(slots=True)
@@ -1460,6 +1514,18 @@ class NameType:
 
 @dataclass(slots=True)
 class PersonType:
+    """
+
+    "
+
+    :ivar givenName:
+    :ivar familyName:
+    :ivar role:
+    :ivar gtaaUri:
+    :ivar gtaaStatus:
+    :ivar externalId: Contains the id of this person in some exernalt system.
+    """
+
     class Meta:
         name = "personType"
 
@@ -1493,6 +1559,12 @@ class PersonType:
         },
     )
     gtaaStatus: Optional[GtaaStatusType] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
+    externalId: Optional[str] = field(
         default=None,
         metadata={
             "type": "Attribute",
@@ -1784,6 +1856,9 @@ class TwitterType:
 @dataclass(slots=True)
 class VideoAttributesType:
     """
+
+    "
+
     :ivar color:
     :ivar videoCoding:
     :ivar aspectRatio:
@@ -1926,6 +2001,9 @@ class GeoLocationsType:
 @dataclass(slots=True)
 class MemberRefType:
     """
+
+    "
+
     :ivar episodeOf:
     :ivar memberOf:
     :ivar segmentOf:
@@ -2283,7 +2361,6 @@ class ScheduleEventType:
         default=None,
         metadata={
             "type": "Attribute",
-            "required": True,
         },
     )
     typeValue: Optional[ScheduleEventTypeEnum] = field(
@@ -2399,6 +2476,12 @@ class ScheduleType:
             "type": "Attribute",
         },
     )
+    source: Optional[str] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
 
 
 @dataclass(slots=True)
@@ -2406,6 +2489,7 @@ class BaseMediaType:
     """This is the abstract base entity for programs, groups and segments.
 
     Actually these objects are very similar and share most properties.
+    "
 
     :ivar crid: A crid (content reference identifier) is a reference to an entity in another system. E.g. a crid
         like crid://broadcast.radiobox2/335793 refers to a broadcast with id 335793 in Radiobox. A crid must be a
@@ -2886,6 +2970,12 @@ class SegmentType(BaseMediaType):
             "required": True,
         },
     )
+    chapterType: Optional[ChapterType] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
     midRef: Optional[str] = field(
         default=None,
         metadata={
@@ -2900,7 +2990,6 @@ class SegmentType(BaseMediaType):
         default=None,
         metadata={
             "type": "Attribute",
-            "required": True,
         },
     )
     typeValue: Optional[SegmentTypeEnum] = field(
@@ -2969,6 +3058,9 @@ class GroupTableType:
 @dataclass(slots=True)
 class ProgramType(BaseMediaType):
     """
+
+    "
+
     :ivar scheduleEvents:
     :ivar episodeOf: A program (only if its type is 'BROADCAST') can be an episode of a group of type 'SERIES' or
         'SEASON'.
@@ -3040,6 +3132,9 @@ class ProgramTableType:
 @dataclass(slots=True)
 class MediaTableType:
     """
+
+    "
+
     :ivar programTable: A table with all program objects in this container
     :ivar groupTable: A table with all group objects in this container
     :ivar locationTable:

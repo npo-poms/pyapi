@@ -2,7 +2,6 @@ import datetime
 import http
 import os
 import urllib.request
-from typing import Union
 
 import ijson
 
@@ -12,7 +11,7 @@ from npoapi.npoapi import NpoApi
 class Media(NpoApi):
     def get(
         self, mid, sub="", sort=None, accept=None, properties=None, limit=None, offset=None, profile=None, stream=False
-    ) -> Union[None, http.client.HTTPResponse, str]:
+    ) -> None | http.client.HTTPResponse | str:
         if isinstance(properties, list):
             properties = ",".join(properties)
 
@@ -70,7 +69,7 @@ class Media(NpoApi):
 
     def changes(
         self, profile=None, limit=10, since=None, properties=None, deletes="ID_ONLY", tail=None
-    ) -> Union[None, ijson.items]:
+    ) -> None | ijson.items:
         return ijson.items(
             self.changes_raw(
                 stream=True,
@@ -90,14 +89,14 @@ class Media(NpoApi):
         order="ASC",
         stream=False,
         limit=None,
-        since: Union[str, int, datetime.datetime] = None,
+        since: str | int | datetime.datetime = None,
         since_mid=None,
         force_oldstyle=False,
         properties=None,
         deletes="ID_ONLY",
         tail=None,
         reason_filter="",
-    ) -> Union[None, http.client.HTTPResponse, str]:
+    ) -> None | http.client.HTTPResponse | str:
         if isinstance(properties, list):
             properties = ",".join(properties)
         sinceLong = None
@@ -117,7 +116,7 @@ class Media(NpoApi):
                 sinceLong = since
 
         publishedSince = (sinceDate + (("," + str(since_mid)) if since_mid else "")) if sinceDate else None
-        self.logger.debug("publishedSince: (%s, %s)" % (publishedSince, sinceLong))
+        self.logger.debug(f"publishedSince: ({publishedSince}, {sinceLong})")
         params = {
             "profile": profile,
             "order": order,
@@ -139,7 +138,7 @@ class Media(NpoApi):
 
     def iterate_raw(
         self, form=None, profile=None, stream=True, limit=1000, timeout=None, properties=None
-    ) -> Union[None, http.client.HTTPResponse, str]:
+    ) -> None | http.client.HTTPResponse | str:
         if not form:
             form = "{}"
         if isinstance(properties, list):

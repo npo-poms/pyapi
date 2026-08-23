@@ -1,6 +1,5 @@
 import logging
 import os
-from typing import Optional, Tuple, Union
 from xml.dom import minidom
 
 import npoapi.utils
@@ -28,7 +27,7 @@ from npoapi.data.mediaupdate import (
 from npoapi.media_backend import MediaBackend
 
 
-class MediaBackendUtil(object):
+class MediaBackendUtil:
     """
     Utilities for dealing with 'update' objects required by the NPO Backend API
     """
@@ -37,17 +36,17 @@ class MediaBackendUtil(object):
     logger = logging.getLogger("MediaBackendUtil")
 
     @staticmethod
-    def main_title(object: MediaUpdateType, new_value: str = None) -> Union[str, TitleUpdateType, None]:
+    def main_title(object: MediaUpdateType, new_value: str = None) -> str | TitleUpdateType | None:
         """Gets/sets main title"""
         return MediaBackendUtil.title(object, TextualTypeEnum.MAIN, new_value)
 
     @staticmethod
-    def main_description(object: MediaUpdateType, new_value: str = None) -> Union[str, DescriptionUpdateType, None]:
+    def main_description(object: MediaUpdateType, new_value: str = None) -> str | DescriptionUpdateType | None:
         """Gets/set main description"""
         return MediaBackendUtil.description(object, TextualTypeEnum.MAIN, new_value)
 
     @staticmethod
-    def title(object: MediaUpdateType, textual_type, new_value: str = None) -> Union[str, TitleUpdateType, None]:
+    def title(object: MediaUpdateType, textual_type, new_value: str = None) -> str | TitleUpdateType | None:
         """Gets the title with certain textual type from media update type.
         Optionally, it can also be set
         """
@@ -75,7 +74,7 @@ class MediaBackendUtil(object):
             return title.value() if title else None
 
     @staticmethod
-    def description(object: MediaUpdateType, textual_type, new_value: str) -> Union[str, DescriptionUpdateType, None]:
+    def description(object: MediaUpdateType, textual_type, new_value: str) -> str | DescriptionUpdateType | None:
         """Gets the description with certain textual type from media update type.
         Optionally, it can also be set
         """
@@ -159,7 +158,7 @@ class MediaBackendUtil(object):
         return location
 
     @staticmethod
-    def get_location(object: MediaUpdateType, programUrl: str) -> Optional[LocationUpdateType]:
+    def get_location(object: MediaUpdateType, programUrl: str) -> LocationUpdateType | None:
         if not object.locations:
             return None
         for loc in object.locations.location:
@@ -177,7 +176,7 @@ class MediaBackendUtil(object):
             return MediaBackendUtil.add_location(object, programUrl, **kwargs)
 
     @staticmethod
-    def create_image_from_file(image, **kwargs) -> Optional[ImageUpdateType]:
+    def create_image_from_file(image, **kwargs) -> ImageUpdateType | None:
         if os.path.isfile(image):
             with open(image, "rb") as image_file:
                 image_object = ImageUpdateType()
@@ -359,7 +358,7 @@ class MediaBackendUtil(object):
         return target
 
     @staticmethod
-    def segments_as_members(program: Union[str, minidom.Document]) -> list:
+    def segments_as_members(program: str | minidom.Document) -> list:
         if type(program) == str:
             program = minidom.parseString(program)
         segments = program.getElementsByTagName("segment")
@@ -378,7 +377,7 @@ class MediaBackendUtil(object):
         return list(map(segment_to_item, segments))
 
     @staticmethod
-    def iterate_objects(members: Union[str, minidom.Document], binding=DEFAULT_BINDING) -> map:
+    def iterate_objects(members: str | minidom.Document, binding=DEFAULT_BINDING) -> map:
         if type(members) == str:
             members = minidom.parseString(members)
         if type(members) == minidom.Document:
@@ -404,7 +403,7 @@ class MediaBackendUtil(object):
         return MediaBackend.toxml(update)
 
     @staticmethod
-    def parse(duration_in_ms: int) -> Tuple[int, int, int, int]:
+    def parse(duration_in_ms: int) -> tuple[int, int, int, int]:
         """Converts millis to hours, minutes, seconds, millis"""
         millis = duration_in_ms % 1000
         seconds = duration_in_ms // 1000
@@ -435,7 +434,7 @@ class MediaBackendUtil(object):
 
     @staticmethod
     def mediatype(
-        update: Union[SegmentUpdateType, GroupUpdateType, ProgramUpdateType],
+        update: SegmentUpdateType | GroupUpdateType | ProgramUpdateType,
     ) -> str:
         if type(update) == SegmentUpdateType:
             return "SEGMENT"

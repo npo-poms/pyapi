@@ -8,7 +8,7 @@ from fractions import Fraction
 from npoapi import MediaBackendUtil
 
 
-class TranscodingUtil(object):
+class TranscodingUtil:
     """A common use case for using the NPO backend api is trancoding 'locations'. This provides some utilities for doing that."""
 
     FFMEG = "ffmpeg"

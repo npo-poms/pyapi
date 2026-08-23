@@ -5,7 +5,7 @@ import logging
 import os
 import re
 import sys
-from typing import Final, Optional
+from typing import Final
 
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
@@ -20,7 +20,7 @@ MIDS = ["WO_VPRO_025057", "WO_NOS_2321514 (not from vpro)", "WO_VPRO_025700 (has
 
 
 MID_SHORTHANDS: Final = ", ".join(map(lambda e: "M%d: %s" % e, enumerate(MIDS)))
-MID_HELP: Final = """The mid of the object to get. You can use the following shorthands %s""" % MID_SHORTHANDS
+MID_HELP: Final = f"""The mid of the object to get. You can use the following shorthands {MID_SHORTHANDS}"""
 MID_SHORTHAND_PATTERN: Final = re.compile("^M[0-9]+$")
 
 
@@ -30,7 +30,7 @@ def resolve_mid(mid: str) -> str:
         if index < len(MIDS):
             return MIDS[index].split(" ", 2)[0]
         else:
-            raise Exception("No shorthand found %s. Available are %s" % (mid, MID_SHORTHANDS))
+            raise Exception(f"No shorthand found {mid}. Available are {MID_SHORTHANDS}")
     else:
         return mid
 
@@ -45,10 +45,10 @@ def looks_like_form(form: str):
         logger.debug("Detected a string that look like either json or xml")
         return True
     if os.path.isfile(form):
-        logger.debug("Detected existing file %s" % form)
+        logger.debug(f"Detected existing file {form}")
         return True
     if form.endswith(".json") or form.endswith(".xml"):
-        logger.warning("Form %s looks like a file name, but it is not a file." % form)
+        logger.warning(f"Form {form} looks like a file name, but it is not a file.")
         return True
     if form == "-":
         logger.debug("Detected explicit stdin")

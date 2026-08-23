@@ -26,7 +26,7 @@ def schedule_search():
     form = args.form[0]
 
     if not os.path.isfile(form) and not form.startswith("{") and not form.startswith("<"):
-        form = '{"searches": {"text": %s}}' % json.dumps(form)
+        form = f'{{"searches": {{"text": {json.dumps(form)}}}}}'
 
     print(
         client.search(

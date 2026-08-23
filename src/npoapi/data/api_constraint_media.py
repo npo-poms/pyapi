@@ -114,6 +114,7 @@ class HasPredictionConstraintType:
 class ScheduleEventType:
     """
     Documentation for schedule event date.
+    "
 
     :ivar date: A timestamp spec. This is parsed by the natty parser. Try out with
         http://natty.joestelmach.com/try.jsp

@@ -1,5 +1,4 @@
 import http
-from typing import Union
 
 import ijson
 
@@ -32,7 +31,7 @@ class Pages(NpoApi):
             params={"sort": sort, "offset": offset, "max": limit, "profile": profile, "properties": properties},
         )
 
-    def iterate(self, form="{}", profile=None, limit=None) -> Union[None, ijson.items]:
+    def iterate(self, form="{}", profile=None, limit=None) -> None | ijson.items:
         """
         Returns a stream of ijson objects
         """
@@ -44,7 +43,7 @@ class Pages(NpoApi):
 
     def iterate_raw(
         self, form="{}", profile=None, limit=1000, stream=True, timeout=None, properties=None
-    ) -> Union[None, http.client.HTTPResponse, str]:
+    ) -> None | http.client.HTTPResponse | str:
         if not form:
             form = "{}"
         if isinstance(properties, list):

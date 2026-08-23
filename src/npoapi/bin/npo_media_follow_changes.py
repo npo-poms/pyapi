@@ -60,7 +60,7 @@ class FollowChanges:
         self.since_file = None
         if since is None:
             since = "./since." + self.client.actualenv
-            self.logger.info("No since given, using %s" % os.path.abspath(since))
+            self.logger.info(f"No since given, using {os.path.abspath(since)}")
         if since.startswith(".") or os.path.exists(since):
             self.since_file = since
             # default
@@ -69,8 +69,8 @@ class FollowChanges:
             since = str(int(datetime.now().timestamp() * 1000))
 
         if self.since_file and os.path.exists(self.since_file):
-            self.since = json.loads(open(self.since_file, "r").read().strip())
-            self.logger.info("Using since %s from %s" % (self.since, self.since_file))
+            self.since = json.loads(open(self.since_file).read().strip())
+            self.logger.info(f"Using since {self.since} from {self.since_file}")
         else:
             self.since = {}
             if since.isdigit():
@@ -85,7 +85,7 @@ class FollowChanges:
             self.change_to_string_function = " self.client.actualenv + ':' + timestamp_to_string(change.get('publishDate')) + ':' + change.get('id', '') + ':' + title(change) + ':' + reasons(change)"
         else:
             self.change_to_string_function = self.args.change_to_string
-        self.logger.info("Using to string: %s" % self.change_to_string_function)
+        self.logger.info(f"Using to string: {self.change_to_string_function}")
 
     def change_to_string(self, change):
         if self.args.change_to_string:
@@ -99,7 +99,7 @@ class FollowChanges:
             def reasons(change):
                 ar = change.get("reasons", [])
                 if len(ar) == 0:
-                    self.logger.debug("No reasons in %s" % change)
+                    self.logger.debug(f"No reasons in {change}")
                     return "<no reasons>"
                 return ",".join(list(map(lambda r: r["value"], ar)))
 
@@ -171,8 +171,7 @@ class FollowChanges:
 
     def one_call(self):
         self.logger.debug(
-            "%s One_calling for %s/%s/%s"
-            % (
+            "{} One_calling for {}/{}/{}".format(
                 datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ"),
                 self.since["timestamp"],
                 datetime.fromtimestamp(self.since["timestamp"] / 1000).strftime("%Y-%m-%dT%H:%M:%SZ"),
@@ -211,14 +210,13 @@ class FollowChanges:
                 if self.tail_offset.total_seconds() > 0:
                     prev_since = new_since
                     new_since -= int(self.tail_offset.total_seconds() * 1000)
-                    self.logger.debug("Offsetting since %s -> %s" % (prev_since, new_since))
+                    self.logger.debug(f"Offsetting since {prev_since} -> {new_since}")
             self.logger.debug(
-                "Setting since to %s (%s), (%s ms before now)"
-                % (new_since, str(is_tail), int(datetime.now().timestamp() * 1000 - new_since))
+                f"Setting since to {new_since} ({str(is_tail)}), ({int(datetime.now().timestamp() * 1000 - new_since)} ms before now)"
             )
             self.set_since(new_since, c.get("id", None))
             if not new_since:
-                self.logger.error("No publishDate in %s" % c)
+                self.logger.error(f"No publishDate in {c}")
                 break
 
             if not is_tail or self.args.tail:
@@ -229,18 +227,19 @@ class FollowChanges:
         if new_since is None:
             raise Exception("No tail received?")
         if self.check_grow and new_since < self.since["timestamp"]:
-            raise Exception("Since doesn't grow (%s < %s)" % (new_since, self.since))
+            raise Exception(f"Since doesn't grow ({new_since} < {self.since})")
         self.check_grow = True
         changes.read_all()
         response.close()
 
     def follow_changes(self):
-        self.logger.info("Watching %s " % (self.client.url))
+        self.logger.info(f"Watching {self.client.url} ")
         while True:
             try:
                 self.logger.debug(
-                    "since: %s,%s (%s)"
-                    % (self.since, self.since["timestamp"], self.timestamp_to_string(self.since["timestamp"]))
+                    "since: {},{} ({})".format(
+                        self.since, self.since["timestamp"], self.timestamp_to_string(self.since["timestamp"])
+                    )
                 )
                 if self.args.raw:
                     self.one_call_raw()
@@ -251,10 +250,10 @@ class FollowChanges:
                 self.logger.info("interrupted")
                 break
             except OSError as e:
-                self.logger.error("OSError %s" % str(e))
+                self.logger.error(f"OSError {str(e)}")
                 break
             except Exception as e:
-                self.logger.warn("Exception %s %s" % (str(type(e)), str(e)))
+                self.logger.warn(f"Exception {str(type(e))} {str(e)}")
 
         self.client.exit()
 

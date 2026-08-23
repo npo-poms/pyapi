@@ -353,6 +353,9 @@ class ParagraphUpdateType:
 @dataclass(slots=True)
 class PageUpdateType:
     """
+
+    "
+
     :ivar crid:
     :ivar alternativeUrl:
     :ivar broadcaster:

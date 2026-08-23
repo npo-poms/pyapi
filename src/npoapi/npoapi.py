@@ -5,7 +5,6 @@ import http
 import json
 import urllib.request
 from email import utils
-from typing import Optional
 
 from npoapi.base import NpoApiBase
 
@@ -75,7 +74,7 @@ class NpoApi(NpoApiBase):
             if self.secret is None:
                 self.secret = self.get_setting("secret", "Your NPO api secret", interactive, write_silent=True)
             if self.write_count > prev_write_count:
-                self.logger.info("Wrote config file %s" % self.get_config_file())
+                self.logger.info(f"Wrote config file {self.get_config_file()}")
 
         message = "origin:" + self.origin + ",x-npo-date:" + now + ",uri:/v1" + uri
         self.logger.debug("message: " + message)
@@ -163,7 +162,7 @@ class NpoApi(NpoApiBase):
 
     def request(
         self, path, params=None, accept=None, data=None, content_type: str = None, ignore_not_found=False
-    ) -> Optional[str]:
+    ) -> str | None:
         """Executes a request and return the result as a string, or None if not found"""
         response = self.stream(path, params, accept, data, content_type, ignore_not_found=ignore_not_found)
         if response:
@@ -181,7 +180,7 @@ class NpoApi(NpoApiBase):
         content_type: str = None,
         timeout=None,
         ignore_not_found=False,
-    ) -> Optional[http.client.HTTPResponse]:
+    ) -> http.client.HTTPResponse | None:
         data, content_type = self.data_to_bytes(data, content_type)
         if data is not None:
             data_as_string = data.decode("utf-8")
@@ -200,8 +199,8 @@ class NpoApi(NpoApiBase):
         effective_accept = accept if accept else self._accept
         if effective_accept is not None:
             req.add_header("Accept", effective_accept)
-        self.logger.debug("headers: %s" % str(req.headers))
-        self.logger.debug("url: %s" % url)
+        self.logger.debug(f"headers: {str(req.headers)}")
+        self.logger.debug(f"url: {url}")
         return self.get_response(req, url, ignore_not_found=ignore_not_found, timeout=timeout)
 
     def __str__(self) -> str:

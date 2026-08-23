@@ -8,6 +8,7 @@ from npoapi.data.media import (
     AvFileFormatEnum,
     AvTypeEnum,
     ChannelEnum,
+    ChapterType,
     ColorType,
     ContentRatingType,
     Encryption,
@@ -102,6 +103,9 @@ class ImageDataType:
 @dataclass(slots=True)
 class ImageLocationType:
     """
+
+    "
+
     :ivar mimeType: Sometimes it may be usefull to explicitely specify the mimetype of the given location. (E.g.
         if there are no or no correct http content type headers).
     :ivar url:
@@ -248,6 +252,9 @@ class MemberUpdateType:
 
 class MoveActionTypeType(Enum):
     """
+
+    "
+
     :cvar REFERENCE: 'from' and 'to' refer to mediaobjects in the list by reference (e.g. mid).
     :cvar NUMBER: Would refer to the number in the memberref object
     :cvar REF_ID: Refers to the id of the memberref object
@@ -367,6 +374,13 @@ class TopicUpdateType:
             "required": True,
         },
     )
+
+
+class TranscodeService(Enum):
+    NEP = "NEP"
+    SRCS_AUDIO = "SRCS_AUDIO"
+    SRCS_VIDEO = "SRCS_VIDEO"
+    CDN = "CDN"
 
 
 class TranscodeStatusEnum(Enum):
@@ -538,6 +552,9 @@ class GeoRestrictionUpdateType:
 @dataclass(slots=True)
 class ImageUpdateType:
     """
+
+    "
+
     :ivar title:
     :ivar description:
     :ivar source: The source of the image. This is only metadata. It must be URL from where the image was
@@ -1093,6 +1110,13 @@ class TranscodeStatusType:
             "namespace": "urn:vpro:media:update:2009",
         },
     )
+    crids: Optional["TranscodeStatusType.Crids"] = field(
+        default=None,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:update:2009",
+        },
+    )
     mid: Optional[str] = field(
         default=None,
         metadata={
@@ -1105,10 +1129,26 @@ class TranscodeStatusType:
             "type": "Attribute",
         },
     )
+    transcodeService: Optional[TranscodeService] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
 
     @dataclass(slots=True)
     class Broadcasters:
         broadcaster: List[str] = field(
+            default_factory=list,
+            metadata={
+                "type": "Element",
+                "namespace": "urn:vpro:media:update:2009",
+            },
+        )
+
+    @dataclass(slots=True)
+    class Crids:
+        crids: List[str] = field(
             default_factory=list,
             metadata={
                 "type": "Element",
@@ -1440,6 +1480,9 @@ class TranscodeStatus(TranscodeStatusType):
 @dataclass(slots=True)
 class LocationUpdateType:
     """
+
+    "
+
     :ivar programUrl:
     :ivar avAttributes:
     :ivar offset:
@@ -1519,6 +1562,9 @@ class Location(LocationUpdateType):
 @dataclass(slots=True)
 class MediaUpdateType:
     """
+
+    "
+
     :ivar crid:
     :ivar broadcaster:
     :ivar portal:
@@ -1860,7 +1906,7 @@ class MediaUpdateType:
         default=None,
         metadata={
             "type": "Attribute",
-            "pattern": r"[0-9]+(\.[0-9]+(\.[0-9]+)?)?",
+            "pattern": r"[0-9]+(\.[0-9]+)+",
         },
     )
 
@@ -1953,6 +1999,12 @@ class SegmentUpdateType(MediaUpdateType):
             "required": True,
         },
     )
+    chapterType: Optional[ChapterType] = field(
+        default=None,
+        metadata={
+            "type": "Attribute",
+        },
+    )
     midRef: Optional[str] = field(
         default=None,
         metadata={
@@ -1985,6 +2037,9 @@ class Segment(SegmentUpdateType):
 @dataclass(slots=True)
 class ProgramUpdateType(MediaUpdateType):
     """
+
+    "
+
     :ivar episodeOf: episodeOf works similar to memberOf. Important differences: only programs of type CLIP or
         BROADCAST can be an episode of a group and the group can only be of type SERIES or SEASON.
     :ivar segments: Optional list of program segments. A segment is a part of a program that can be visually

@@ -1,28 +1,19 @@
 import abc
 import codecs
 import copy
-import dataclasses
 import http
 import logging
 import os
 import sys
 import urllib.request
 from enum import Enum
-from typing import Dict, List, Optional, Union
-
-from urllib3.exceptions import NameResolutionError
-from xsdata.formats.dataclass.serializers import XmlSerializer
-from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
 import npoapi
-from npoapi.data.poms import NS_MAP
 
 
 def declare_namespaces():
     pass
 
-
-from importlib import reload
 
 declare_namespaces()
 
@@ -129,7 +120,7 @@ class NpoApiBase:
             self._read_settings_from_properties(properties)
 
         if not config_file and create_config_file:
-            print("No configuration file (%s) found. " % ",".join(config_files))
+            print("No configuration file ({}) found. ".format(",".join(config_files)))
 
         if self.logger.isEnabledFor(logging.DEBUG):
             settings_for_log = copy.copy(self.settings)
@@ -156,7 +147,7 @@ class NpoApiBase:
         return self.settings[name]
 
     @staticmethod
-    def get_configfiles(config_dir=None, default_config_dirs=True) -> List[str]:
+    def get_configfiles(config_dir=None, default_config_dirs=True) -> list[str]:
         current_script_dir = os.path.dirname(sys.argv[0])
         config_files = []
         if default_config_dirs:
@@ -196,16 +187,16 @@ class NpoApiBase:
                     if len(key.split(".")) == 2:
                         f.write(key + "=" + self.settings[key] + "\n")
             if not write_silent:
-                self.logger.info("Wrote %s" % str(config_file))
+                self.logger.info(f"Wrote {str(config_file)}")
             self.write_count += 1
         else:
             config_files = self.get_configfiles(config_dir=config_dir)
-            self.logger.warning("Configuration could not be saved since no file of %s is writable" % str(config_files))
+            self.logger.warning(f"Configuration could not be saved since no file of {str(config_files)} is writable")
 
-    def _read_properties_file(self, config_file, properties=None) -> Dict[str, str]:
+    def _read_properties_file(self, config_file, properties=None) -> dict[str, str]:
         if properties is None:
             properties = {}
-        with open(config_file, "r") as f:
+        with open(config_file) as f:
             for line in f:
                 l = line.strip()
                 if l and not l.startswith("#"):
@@ -256,7 +247,7 @@ class NpoApiBase:
     def add_argument(self, *args, **kwargs):
         self.argument_parser.add_argument(*args, **kwargs)
 
-    def accept_choices(self) -> Dict[str, str]:
+    def accept_choices(self) -> dict[str, str]:
         return {"json": "application/json", "xml": "application/xml"}
 
     def common_arguments(self, description=None, exclude_arguments=None):
@@ -321,32 +312,32 @@ class NpoApiBase:
 
     def get_response(
         self, req, url: str, ignore_not_found: bool = False, timeout: int = None
-    ) -> Optional[http.client.HTTPResponse]:
+    ) -> http.client.HTTPResponse | None:
         """Error handling around urllib.request.urlopen
 
         :param ignore_not_found Whether status 404 should be logged as an error
         :param timeout Timeout in seconds
 
         """
-        summary = "%s %s" % (req.method if hasattr(req, "method") else "'GET'" if not req.data else "'POST'", url)
+        summary = "{} {}".format(req.method if hasattr(req, "method") else "'GET'" if not req.data else "'POST'", url)
         try:
             self.logger.debug("Executing %s", summary)
             response = urllib.request.urlopen(req, timeout=timeout)
             self.code = response.getcode()
             self.logger.debug("headers: " + str(response.headers))
             if self.response_headers:
-                self.logger.info("selector: %s " % (req.selector))
+                self.logger.info(f"selector: {req.selector} ")
                 for h, v in response.getheaders():
                     lowerh = h.lower()
                     if lowerh.startswith("x-npo-warning"):
-                        self.logger.warning("%s: %s" % (h, v))
+                        self.logger.warning(f"{h}: {v}")
                     elif lowerh.startswith("x-npo-"):
-                        self.logger.info("%s: %s" % (h, v))
+                        self.logger.info(f"{h}: {v}")
             else:
                 for h, v in response.getheaders():
                     lowerh = h.lower()
                     if lowerh.startswith("x-npo-warning"):
-                        self.logger.warning("%s" % (v))
+                        self.logger.warning(f"{v}")
             self.logger.debug("response code: " + str(response.getcode()))
             self.logger.debug("response headers: " + str(response.getheaders()))
             return response
@@ -374,7 +365,7 @@ class NpoApiBase:
     def data_to_bytes(self, data, content_type: str = None) -> [bytearray, str]:
         return npoapi.utils.data_to_bytes(data, content_type)
 
-    def write_response(self, response: http.client.HTTPResponse, buffer_size=1024, capture=False) -> Union[None, str]:
+    def write_response(self, response: http.client.HTTPResponse, buffer_size=1024, capture=False) -> None | str:
         buffer = response.read(buffer_size)
         count = 0
         if capture:
@@ -410,11 +401,11 @@ class NpoApiBase:
             self.logger.debug("" + data + " is not a file")
         return data
 
-    def to_object(self, data: str, validate=False, binding=DEFAULT_BINDING) -> Union[object]:
+    def to_object(self, data: str, validate=False, binding=DEFAULT_BINDING) -> object:
         try:
             return npoapi.utils.to_object(data, validate, binding)
         except Exception as e:
-            self.logger.info("Couldn't transform to object %s" % data)
+            self.logger.info(f"Couldn't transform to object {data}")
             self.logger.error(str(e))
             return None
 

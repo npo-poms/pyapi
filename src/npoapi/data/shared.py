@@ -31,6 +31,27 @@ class LicenseEnum(Enum):
 
 
 class OwnerTypeEnum(Enum):
+    """
+
+    "
+
+    :cvar BROADCASTER:
+    :cvar NEBO:
+    :cvar NPO:
+    :cvar MIS:
+    :cvar CERES:
+    :cvar PLUTO:
+    :cvar PROJECTM:
+    :cvar WHATS_ON:
+    :cvar IMMIX:
+    :cvar AUTHORITY:
+    :cvar RADIOBOX:
+    :cvar BEELDENGELUID:
+    :cvar TEMPORARY:
+    :cvar INHERITED: The value is inherited from the parent object. E.g. the target group of a broadcast is
+        inherited from the series/season if it doesn't itself have target group. Since 8.10.
+    """
+
     BROADCASTER = "BROADCASTER"
     NEBO = "NEBO"
     NPO = "NPO"
@@ -44,12 +65,14 @@ class OwnerTypeEnum(Enum):
     RADIOBOX = "RADIOBOX"
     BEELDENGELUID = "BEELDENGELUID"
     TEMPORARY = "TEMPORARY"
+    INHERITED = "INHERITED"
 
 
 class SubtitlesTypeEnum(Enum):
     """The type of a subtitles object.
 
     TODO these descriptions are provisional?
+    "
 
     :cvar CAPTION: The subtitles represent a textual version of what is spoken or wat is happening. They are
         expected to be in the same language as the video itself. Teletekst 888 subtitles are captions.
@@ -79,6 +102,7 @@ class WorkflowEnumType(Enum):
     """These are the possible values of several 'workflow' fields.
 
     These serve administrative purposes only. In the Frontent API you should only encounter 'PUBLISHED'.
+    "
 
     :cvar FOR_PUBLICATION:
     :cvar FOR_REPUBLICATION:
@@ -108,6 +132,9 @@ class WorkflowEnumType(Enum):
 @dataclass(slots=True)
 class ImageType:
     """
+
+    "
+
     :ivar title:
     :ivar description:
     :ivar imageUri:

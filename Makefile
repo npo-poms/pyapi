@@ -8,7 +8,8 @@ RS=https://rs-test.poms.omroep.nl/v1/
 PAGESPUB=https://publish-test.pages.omroep.nl/
 #PAGESPUB=http://localhost:8069/
 
-XSDATA=xsdata generate
+VENV_BIN=$(shell pwd)/venv/bin
+XSDATA=PATH="$(VENV_BIN):$$PATH" $(VENV_BIN)/xsdata generate
 
 
 

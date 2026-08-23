@@ -1,6 +1,6 @@
 import datetime
 import os
-from typing import Optional, Union
+from typing import Union
 
 import boto3
 import botocore
@@ -8,17 +8,12 @@ from botocore.exceptions import ClientError
 
 from npoapi.base import NpoApiBase
 
-
-BUCKETS = {
-    "prod": "poms-prd-input",
-    "acc": "poms-acc-input",
-    "test": "poms-tst-input"
-}
+BUCKETS = {"prod": "poms-prd-input", "acc": "poms-acc-input", "test": "poms-tst-input"}
 
 DateLike = Union[str, datetime.datetime, datetime.date]
 
 
-def _as_utc(value: Optional[DateLike]) -> Optional[datetime.datetime]:
+def _as_utc(value: DateLike | None) -> datetime.datetime | None:
     """Coerce an ISO-8601 string, date or datetime into an aware UTC datetime.
 
     S3 reports LastModified as a timezone-aware datetime, so naive input is
@@ -47,9 +42,9 @@ class MediaS3(NpoApiBase):
     def __init__(
         self,
         env: str = "prod",
-        access_key: Optional[str] = None,
-        secret_access_key: Optional[str] = None,
-        region: Optional[str] = None,
+        access_key: str | None = None,
+        secret_access_key: str | None = None,
+        region: str | None = None,
         max_pool_connections: int = 25,
         debug: bool = False,
         interactive: bool = True,
@@ -75,6 +70,7 @@ class MediaS3(NpoApiBase):
 
     def _get_client(self):
         if self._client is None:
+
             def resolve(arg, key):
                 return arg or os.environ.get(key) or self.settings.get(key)
 
@@ -83,7 +79,7 @@ class MediaS3(NpoApiBase):
                 aws_access_key_id=resolve(self._access_key, "S3_ACCESS_KEY"),
                 aws_secret_access_key=resolve(self._secret_access_key, "S3_SECRET_ACCESS_KEY"),
                 region_name=resolve(self._region, "S3_REGION"),
-                config=botocore.client.Config(max_pool_connections=self._max_pool_connections)
+                config=botocore.client.Config(max_pool_connections=self._max_pool_connections),
             )
         return self._client
 
@@ -91,8 +87,8 @@ class MediaS3(NpoApiBase):
         self,
         mid: str,
         fmt: str = "json",
-        modified_since: Optional[DateLike] = None,
-    ) -> Optional[str]:
+        modified_since: DateLike | None = None,
+    ) -> str | None:
         key = f"media/{fmt}/{mid}.{fmt}"
         kwargs = {"Bucket": self.bucket, "Key": key}
         since = _as_utc(modified_since)
@@ -112,8 +108,8 @@ class MediaS3(NpoApiBase):
         self,
         mid: str,
         fmt: str = "json",
-        modified_since: Optional[DateLike] = None,
-    ) -> Optional[str]:
+        modified_since: DateLike | None = None,
+    ) -> str | None:
         """Return the raw JSON or XML string for a media object.
 
         Returns None if the object does not exist, or — when *modified_since*
@@ -124,8 +120,8 @@ class MediaS3(NpoApiBase):
     def list_keys(
         self,
         fmt: str = "json",
-        modified_since: Optional[DateLike] = None,
-        modified_before: Optional[DateLike] = None,
+        modified_since: DateLike | None = None,
+        modified_before: DateLike | None = None,
     ):
         """Yield (mid, s3_object) for every object under media/<fmt>/.
 
@@ -158,21 +154,19 @@ class MediaS3(NpoApiBase):
     def list_mids(
         self,
         fmt: str = "json",
-        modified_since: Optional[DateLike] = None,
-        modified_before: Optional[DateLike] = None,
+        modified_since: DateLike | None = None,
+        modified_before: DateLike | None = None,
     ):
         """Yield all MIDs stored under media/<fmt>/ in the bucket, one page at a time."""
-        for mid, _obj in self.list_keys(
-            fmt=fmt, modified_since=modified_since, modified_before=modified_before
-        ):
+        for mid, _obj in self.list_keys(fmt=fmt, modified_since=modified_since, modified_before=modified_before):
             yield mid
 
     def list_objects(
         self,
         fmt: str = "json",
         fetch_content: bool = True,
-        modified_since: Optional[DateLike] = None,
-        modified_before: Optional[DateLike] = None,
+        modified_since: DateLike | None = None,
+        modified_before: DateLike | None = None,
     ):
         """Yield (mid, content) tuples for all objects under media/<fmt>/.
 
@@ -184,9 +178,7 @@ class MediaS3(NpoApiBase):
         The timestamp filter is applied to the listing entry, before the
         content is fetched, so filtered-out objects cost no GET request.
         """
-        for mid, _obj in self.list_keys(
-            fmt=fmt, modified_since=modified_since, modified_before=modified_before
-        ):
+        for mid, _obj in self.list_keys(fmt=fmt, modified_since=modified_since, modified_before=modified_before):
             yield mid, (self._get_raw(mid, fmt) if fetch_content else None)
 
     def get_object(
@@ -194,11 +186,12 @@ class MediaS3(NpoApiBase):
         mid: str,
         fmt: str = "xml",
         binding=None,
-        modified_since: Optional[DateLike] = None,
+        modified_since: DateLike | None = None,
     ):
         """Return a deserialized media object (xsdata), or None if not found
         (or not modified after *modified_since*)."""
         from npoapi.base import DEFAULT_BINDING
+
         raw = self._get_raw(mid, fmt, modified_since=modified_since)
         if raw is None:
             return None
@@ -208,11 +201,14 @@ class MediaS3(NpoApiBase):
 def _deserialize(raw: str, fmt: str, binding):
     from npoapi.base import Binding
     from npoapi.data import MediaUpdateType
+
     if binding == Binding.XSDATA:
         if fmt == "json":
             from xsdata.formats.dataclass.parsers import JsonParser
+
             return JsonParser().from_string(raw, MediaUpdateType)
         else:
             from xsdata.formats.dataclass.parsers import XmlParser
+
             return XmlParser().from_string(raw, MediaUpdateType)
     raise ValueError(f"Unsupported binding: {binding}")

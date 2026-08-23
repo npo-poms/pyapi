@@ -6,6 +6,4 @@ __version__ = version("npoapi")
 import collections
 
 if not (hasattr(collections, "MutableSequence")):
-    from collections.abc import MutableSequence
-
     collections.MutableSequence = collections.abc.MutableSequence

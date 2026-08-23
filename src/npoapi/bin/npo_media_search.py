@@ -40,7 +40,7 @@ def media_frontendsearch():
     form = args.form[0]
 
     if not looks_like_form(form):
-        form = '{"searches": {"text": {"value": %s, "fuzziness": "%s" }}}' % (
+        form = '{{"searches": {{"text": {{"value": {}, "fuzziness": "{}" }}}}}}'.format(
             json.dumps(form),
             "AUTO" if args.fuzzy else "",
         )

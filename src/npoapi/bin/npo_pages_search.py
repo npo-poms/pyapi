@@ -34,9 +34,9 @@ def pages_search():
     form = args.form[0]
     if not looks_like_form(form):
         if args.mids:
-            form = '{"mediaForm": { "searches": {"mediaIds": %s}}}' % (json.dumps(form.split(",")))
+            form = '{{"mediaForm": {{ "searches": {{"mediaIds": {}}}}}}}'.format(json.dumps(form.split(",")))
         else:
-            form = '{"searches": {"text": %s}}' % json.dumps(form)
+            form = f'{{"searches": {{"text": {json.dumps(form)}}}}}'
 
     print(
         client.search(

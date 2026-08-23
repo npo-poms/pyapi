@@ -1,5 +1,4 @@
 import json
-from typing import Optional
 
 from typing_extensions import override
 
@@ -40,7 +39,7 @@ class PagesBackend(BasicBackend):
     def post(self, update) -> str:
         return self.post_to("api/pages/updates", update, accept="text/plain", include_errors=False)[0]
 
-    def delete(self, url, batch: bool = False) -> Optional[dict]:
+    def delete(self, url, batch: bool = False) -> dict | None:
         result, type = self.delete_from("api/pages/updates", url=url, batch=batch, include_errors=False)
         if result is None:
             return None

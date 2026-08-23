@@ -259,9 +259,13 @@ class ImageListItem(PublishableListItem):
 @dataclass(slots=True)
 class MediaFormType:
     """
+
+    "
+
     :ivar pager:
     :ivar broadcaster:
     :ivar portal:
+    :ivar thirdParty:
     :ivar organization:
     :ivar text:
     :ivar title:
@@ -320,6 +324,13 @@ class MediaFormType:
         },
     )
     portal: List[str] = field(
+        default_factory=list,
+        metadata={
+            "type": "Element",
+            "namespace": "urn:vpro:media:search:2012",
+        },
+    )
+    thirdParty: List[str] = field(
         default_factory=list,
         metadata={
             "type": "Element",
