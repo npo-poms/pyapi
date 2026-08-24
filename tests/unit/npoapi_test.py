@@ -12,7 +12,7 @@ DEBUG=False
 
 class Tests(unittest.TestCase):
     def test_authentication(self):
-        client = NpoApi(origin="http://www.vpro.nl") \
+        client = NpoApi(origin="https://www.vpro.nl") \
             .login(key="a", secret="b")
         self.assertEqual("NPO a:CtHYR9a+nr17OIn5rYml6a+A9ujqe0IywWqr93/DAOk=",
                          client.authenticate(uri="/media", now="Fri, 30 Oct 2015 08:43:31 -0000")[0])

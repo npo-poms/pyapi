@@ -1,6 +1,6 @@
 import datetime
 import os
-from typing import Union
+from typing import Callable, Union
 
 import boto3
 import botocore
@@ -122,6 +122,8 @@ class MediaS3(NpoApiBase):
         fmt: str = "json",
         modified_since: DateLike | None = None,
         modified_before: DateLike | None = None,
+        on_yield: Callable | None = None,
+        on_skip: Callable | None = None,
     ):
         """Yield (mid, s3_object) for every object under media/<fmt>/.
 
@@ -134,6 +136,9 @@ class MediaS3(NpoApiBase):
         *modified_before* (exclusive) are applied here, client-side. The number
         of LIST requests is therefore unaffected by the filter — only the
         objects yielded are.
+
+        :param on_yield: optional ``(mid, obj) -> None`` called for each object that is yielded.
+        :param on_skip:  optional ``(mid, obj) -> None`` called for each object that is filtered out.
         """
         since = _as_utc(modified_since)
         before = _as_utc(modified_before)
@@ -145,10 +150,14 @@ class MediaS3(NpoApiBase):
                 if not mid:
                     continue
                 last_modified = obj["LastModified"]
-                if since is not None and last_modified <= since:
+                if (since is not None and last_modified <= since) or (
+                    before is not None and last_modified >= before
+                ):
+                    if on_skip is not None:
+                        on_skip(mid, obj)
                     continue
-                if before is not None and last_modified >= before:
-                    continue
+                if on_yield is not None:
+                    on_yield(mid, obj)
                 yield mid, obj
 
     def list_mids(
@@ -156,9 +165,21 @@ class MediaS3(NpoApiBase):
         fmt: str = "json",
         modified_since: DateLike | None = None,
         modified_before: DateLike | None = None,
+        on_yield: Callable | None = None,
+        on_skip: Callable | None = None,
     ):
-        """Yield all MIDs stored under media/<fmt>/ in the bucket, one page at a time."""
-        for mid, _obj in self.list_keys(fmt=fmt, modified_since=modified_since, modified_before=modified_before):
+        """Yield all MIDs stored under media/<fmt>/ in the bucket, one page at a time.
+
+        :param on_yield: optional ``(mid, obj) -> None`` called for each MID that is yielded.
+        :param on_skip:  optional ``(mid, obj) -> None`` called for each MID that is filtered out.
+        """
+        for mid, _obj in self.list_keys(
+            fmt=fmt,
+            modified_since=modified_since,
+            modified_before=modified_before,
+            on_yield=on_yield,
+            on_skip=on_skip,
+        ):
             yield mid
 
     def list_objects(
