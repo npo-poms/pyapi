@@ -122,8 +122,7 @@ class MediaS3(NpoApiBase):
         fmt: str = "json",
         modified_since: DateLike | None = None,
         modified_before: DateLike | None = None,
-        on_yield: Callable | None = None,
-        on_skip: Callable | None = None,
+        on_hit: Callable | None = None
     ):
         """Yield (mid, s3_object) for every object under media/<fmt>/.
 
@@ -137,8 +136,7 @@ class MediaS3(NpoApiBase):
         of LIST requests is therefore unaffected by the filter — only the
         objects yielded are.
 
-        :param on_yield: optional ``(mid, obj) -> None`` called for each object that is yielded.
-        :param on_skip:  optional ``(mid, obj) -> None`` called for each object that is filtered out.
+        :param on_hit: optional ``(mid, obj, yield) -> None`` called for each object that is found.
         """
         since = _as_utc(modified_since)
         before = _as_utc(modified_before)
@@ -153,11 +151,11 @@ class MediaS3(NpoApiBase):
                 if (since is not None and last_modified <= since) or (
                     before is not None and last_modified >= before
                 ):
-                    if on_skip is not None:
-                        on_skip(mid, obj)
+                    if on_hit is not None:
+                        on_hit(mid, obj, False)
                     continue
-                if on_yield is not None:
-                    on_yield(mid, obj)
+                if on_hit is not None:
+                    on_hit(mid, obj, True)
                 yield mid, obj
 
     def list_mids(
@@ -165,20 +163,17 @@ class MediaS3(NpoApiBase):
         fmt: str = "json",
         modified_since: DateLike | None = None,
         modified_before: DateLike | None = None,
-        on_yield: Callable | None = None,
-        on_skip: Callable | None = None,
+        on_hit: Callable | None = None,
     ):
         """Yield all MIDs stored under media/<fmt>/ in the bucket, one page at a time.
 
-        :param on_yield: optional ``(mid, obj) -> None`` called for each MID that is yielded.
-        :param on_skip:  optional ``(mid, obj) -> None`` called for each MID that is filtered out.
+        :param on_hit: optional ``(mid, obj, yield) -> None`` called for each object that is found.
         """
         for mid, _obj in self.list_keys(
             fmt=fmt,
             modified_since=modified_since,
             modified_before=modified_before,
-            on_yield=on_yield,
-            on_skip=on_skip,
+            on_hit=on_hit,
         ):
             yield mid
 
@@ -188,6 +183,7 @@ class MediaS3(NpoApiBase):
         fetch_content: bool = True,
         modified_since: DateLike | None = None,
         modified_before: DateLike | None = None,
+        on_hit: Callable | None = None
     ):
         """Yield (mid, content) tuples for all objects under media/<fmt>/.
 
@@ -199,7 +195,9 @@ class MediaS3(NpoApiBase):
         The timestamp filter is applied to the listing entry, before the
         content is fetched, so filtered-out objects cost no GET request.
         """
-        for mid, _obj in self.list_keys(fmt=fmt, modified_since=modified_since, modified_before=modified_before):
+        for mid, _obj in self.list_keys(fmt=fmt, modified_since=modified_since,
+                                        modified_before=modified_before,
+                                        on_hit=on_hit):
             yield mid, (self._get_raw(mid, fmt) if fetch_content else None)
 
     def get_object(

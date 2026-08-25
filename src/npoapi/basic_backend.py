@@ -10,7 +10,8 @@ from typing_extensions import deprecated, override
 from xsdata.formats.dataclass.serializers import XmlSerializer
 from xsdata.formats.dataclass.serializers.config import SerializerConfig
 
-from npoapi.base import NS_MAP, NpoApiBase
+from npoapi.base import NpoApiBase
+from npoapi.data.poms import NS_MAP
 
 
 class BasicBackend(NpoApiBase):
