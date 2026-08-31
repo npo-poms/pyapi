@@ -73,7 +73,7 @@ def mediabackend():
 
     def is_prediction(update):
         if type(update) == str:
-            return re.match("(<\?xml.*?>\s*)?<prediction\s", update)
+            return re.match("(<\\?xml.*?>\\s*)?<prediction\\s", update)
         else:
             return update.childNodes[0].nodeName == "prediction"
 
