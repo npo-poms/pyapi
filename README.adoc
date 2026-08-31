@@ -47,6 +47,22 @@ To run tests also its dependencies must be installed
 pip install -e .[testing]
 ----
 
+Or of course, perhaps nicer nowadays (using https://docs.astral.sh/uv/[uv]):
+[source, bash]
+----
+michiel@L824:/tmp$ uv venv
+Using CPython 3.14.7
+Creating virtual environment at: .venv
+Activate with: source .venv/bin/activate
+(tmp) michiel@L824:/tmp$ source .venv/bin/activate
+(tmp) michiel@L824:/tmp$ uv pip --quiet install git+https://github.com/npo-poms/pyapi.git@main
+(tmp) michiel@L824:/tmp$ npo_media_get
+usage: npo_media_get [-h] [-v] [-a {json,xml}] [-e {prod,test,acc,localhost}] [-u URL] [-c] [-d] [-H] [-s {desc,asc}] [-M] [-p PROPERTIES] [-m MAX]
+                     [-o OFFSET] [-P PROFILE]
+                     mid [{descendants,members,episodes,related,}]
+npo_media_get: error: the following arguments are required: mid
+----
+
 === Docker
 
 If you don't feel like installing anything at all, but have a docker environment running (amd64, arm64), then I've https://hub.docker.com/repository/docker/mihxil/npo-pyapi[published] a docker image for you:
