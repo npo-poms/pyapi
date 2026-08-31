@@ -55,7 +55,7 @@ Using CPython 3.14.7
 Creating virtual environment at: .venv
 Activate with: source .venv/bin/activate
 (tmp) michiel@L824:/tmp$ source .venv/bin/activate
-(tmp) michiel@L824:/tmp$ uv pip --quiet install git+https://github.com/npo-poms/pyapi.git@main
+(tmp) michiel@L824:/tmp$ uv pip --quiet install git+https://github.com/npo-poms/pyapi.git@8.15.0
 (tmp) michiel@L824:/tmp$ npo_media_get
 usage: npo_media_get [-h] [-v] [-a {json,xml}] [-e {prod,test,acc,localhost}] [-u URL] [-c] [-d] [-H] [-s {desc,asc}] [-M] [-p PROPERTIES] [-m MAX]
                      [-o OFFSET] [-P PROFILE]

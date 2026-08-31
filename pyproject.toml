@@ -23,7 +23,7 @@ dependencies = [
     "boto3==1.43.78"
 ]
 requires-python = ">=3.12"
-readme = {file = "README.adoc", content-type = "text/asciidoc"}
+readme = {file = "README.adoc", content-type = "text/plain"}
 license = {text = "MIT"}
 
 [project.optional-dependencies]
