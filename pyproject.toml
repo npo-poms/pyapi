@@ -11,16 +11,16 @@ authors = [
 dependencies = [
     "ijson==3.5.1",
     "jwt==1.4.0",
-    "python-dateutil==2.8.2",
-    "pytz==2026.3",
-    "requests[socks]==2.33.0",
+    "python-dateutil==2.9.0.post0",
+    "pytz==2026.3.post1",
+    "requests[socks]==2.34.2",
     "xsdata[cli]==26.2",
     "isoduration==20.11.0",
     "lxml==6.1.2",
     "json-stream==2.5.1",
     "python-magic==0.4.27",
     "pylibmagic==0.5.0",
-    "boto3==1.43.78"
+    "boto3==1.43.79"
 ]
 requires-python = ">=3.12"
 readme = {file = "README.adoc", content-type = "text/plain"}
@@ -58,6 +58,8 @@ npo_check_credentials="npoapi.bin:check_credentials"
 npo_mediabackend_get="npoapi.bin:mediabackend_get"
 npo_mediabackend="npoapi.bin:mediabackend"
 npo_mediabackend_upload="npoapi.bin:mediabackend_upload"
+npo_mediabackend_itemize="npoapi.bin:mediabackend_itemize"
+
 npo_pagesbackend="npoapi.bin:pagesbackend"
 npo_thesaurus="npoapi.bin:thesaurus"
 npo_subtitles="npoapi.bin:subtitles"

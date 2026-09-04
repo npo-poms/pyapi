@@ -8,6 +8,7 @@ from .npo_media_search import *
 from .npo_mediabackend import *
 from .npo_mediabackend_get import *
 from .npo_mediabackend_upload import *
+from .npo_mediabackend_itemize import *
 from .npo_pages_get import *
 from .npo_pages_iterate import *
 from .npo_pages_list import *
